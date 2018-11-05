@@ -39,7 +39,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db('DATABASE_URL', default='postgres:///osc_bge'),
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'osc_bge',
+        'USER': 'root',
+        'PASSWORD': 'gkswlgk1',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+    }
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
@@ -68,9 +75,15 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'rest_framework',
+    "django_countries",
 ]
 LOCAL_APPS = [
     'osc_bge.users.apps.UsersAppConfig',
+    'osc_bge.student.apps.StudentConfig',
+    'osc_bge.school.apps.SchoolConfig',
+    'osc_bge.report.apps.ReportConfig',
+    'osc_bge.agent.apps.AgentConfig',
+    'osc_bge.bge.apps.BgeConfig',
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
