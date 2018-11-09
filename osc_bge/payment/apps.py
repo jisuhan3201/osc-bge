@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class PaymentConfig(AppConfig):
-    name = 'payment'
+    name = 'osc_bge.payment'

@@ -1,0 +1,27 @@
+{% load static %}
+<div class="TopMenuSet">
+  {% if request.path == '/pncstar/main/' or request.path == '/pncstar/process/' %}
+	<div class="LeftOnMenu" id="MToggle" OnClick="MenuOpen();"><img src="{% static 'img/m_menu.png' %}"/></div>
+  {% else %}
+  <div class="LeftOffMenu" ><img src="{% static 'img/m_menu.png' %}"/></div>
+  {% endif %}
+	<div class="Logo"><img src="{% static 'img/m_logo.png' %}"/></div>
+	<div class="Menu">
+		<!-- Agent Branch Manager Start-->
+		<a href="agent">Agent Statistics</a>
+		<!-- Agent Branch Manager End-->
+		<a href="counsel">Counseling</a>
+		<a href="prospective">Prospective Students</a>
+		<a href="process">Application Process</a>
+		<a href="current">Current Students</a>
+		<a href="resources">Resources</a>
+	</div>
+	<div OnClick="document.location.href='../mypage/';" class="Info" >
+		<div class="FaceOn" style="background-image:url({% static 'imgsrc/person01.jpg' %});">&nbsp;</div>
+		<div class="NameSet">
+			<li class="Name">David Kang(counselor)</li>
+			<li class="Rank">Meten(Agent) / Beijing(Branch)</li>
+		</div>
+	</div>
+	<div class="Logout" OnClick="document.location.href='../';"><img src="{% static 'img/ico_logout.png' %}"/></div>
+</div><!-- TopMenuSet -->

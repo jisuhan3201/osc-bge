@@ -1,0 +1,92 @@
+@import url( "http://fonts.googleapis.com/css?family=Open+Sans" );
+
+*{
+-webkit-text-size-adjust: none;
+-moz-text-size-adjust: none,
+-webkit-text-size-adjust: none;
+-ms-text-size-adjust: none;
+font-size-adjust: none;
+
+  /* font-family: Noto Sans KR, sans-serif; */
+	font-family: "Open Sans", "Nanum Gothic", sans-serif;
+	margin:0;
+	padding:0;
+	letter-spacing:-0.02em;
+}
+
+header,footer,article,section,hgroup,nav,figure{
+	/* Giving a display value to the HTML5 rendered elements: */
+	display:block;
+}
+html {height:100%;}
+body {overflow-x:hidden; overflow-y:auto;width:100%;height:100%;hidden-webkit-text-size-adjust:100%;}
+div, ul, ol, li {list-style:none outside;display:block;margin:0px;padding:0px;}
+/*ul {clear:both;}*/
+input {
+    background: -webkit-gradient(linear, left top, left bottombottom, from(#bcbcbe), to(#ffffff));
+    background: -moz-linear-gradient(top,  #bcbcbe,  #ffffff);
+}
+
+.cdiv {clear:both !important;margin:0px;padding:0px;width:0px;height:0px;}
+
+img {
+  border: 0;
+  vertical-align: middle;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  -ms-box-sizing: content-box;
+  box-sizing: content-box;
+  -ms-interpolation-mode: bicubic;
+}
+a { outline:0;text-decoration:none;}
+input[type="checkbox"] {
+    display:none;
+}
+label {margin-right:10px;cursor:pointer;}
+input[type="checkbox"] + span {
+    display:inline-block;
+    width:16px;
+    height:16px;
+    margin:-2px 3px 0 0px;
+    vertical-align:middle;
+    background:url('../img/mod_check.png') left top no-repeat;
+    background-size:32px 16px;
+    cursor:pointer;
+}
+input[type="checkbox"]:checked + span {
+    width:16px;
+    height:16px;
+    background:url('../img/mod_check.png') -16px top no-repeat;
+    background-size:32px 16px;
+}
+input:focus {
+  outline: none;
+}
+input:focus {
+  select: none;
+}
+textarea:focus {
+  outline: none;
+}
+button:focus {
+  outline: none;
+}
+input[type="radio"] {
+    display:none;
+}
+input[type="radio"] + span {
+    display:inline-block;
+    width:16px;
+    height:16px;
+    margin:-2px 3px 0 0px;
+    vertical-align:middle;
+    background:url('../img/mod_radio.png') left top no-repeat;
+    background-size:32px 16px;
+    cursor:pointer;
+}
+input[type="radio"]:checked + span {
+    width:16px;
+    height:16px;
+    background:url('../img/mod_radio.png') -16px top no-repeat;
+    background-size:32px 16px;
+}

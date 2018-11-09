@@ -15,7 +15,6 @@ class User(AbstractUser):
         ('agency', 'AGENCY'),
         ('other', 'Other'),
     )
-    name = models.CharField(_("Name of User"), blank=True, max_length=255)
     country = models.CharField(max_length=255, null=True)
     state = models.CharField(max_length=255, null=True)
     address = models.CharField(max_length=255, null=True)
@@ -23,7 +22,7 @@ class User(AbstractUser):
     group = models.CharField(max_length=255, choices=GROUP_CHOICES, null=True)
 
     def __str__(self):
-        return "{}".format(self.name)
+        return "{}".format(self.username)
 
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})
@@ -83,7 +82,7 @@ class AgencyAdminUser(models.Model):
 class AgencyBranchAdminUser(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    agench_branch = models.ForeignKey(agent_models.AgencyBranch, on_delete=models.SET_NULL, null=True)
+    agency_branch = models.ForeignKey(agent_models.AgencyBranch, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return "{} - {}".format(self.agency_branch, self.user)
@@ -96,7 +95,7 @@ class Counseler(models.Model):
     agency_branch = models.ForeignKey(AgencyBranchAdminUser, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return "{} - {}".format(self.user)
+        return "{} - {}".format(self.user, self.coordinator)
 
 
 class Host(models.Model):
@@ -115,19 +114,19 @@ class Host(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     coordinator = models.ForeignKey(BgeBranchCoordinator, on_delete=models.SET_NULL, null=True)
     active_status = models.CharField(max_length=255, choices=ACTIVE_STATUS, null=True)
-    phone = models.CharField(null=True, max_length=255)
-    status = models.CharField(null=True, max_length=255)
-    school = models.CharField(null=True, max_length=255)
-    job = models.CharField(null=True, max_length=255)
-    employer = models.CharField(null=True, max_length=255)
+    phone = models.CharField(null=True, max_length=255, blank=True)
+    status = models.CharField(null=True, max_length=255, blank=True)
+    school = models.CharField(null=True, max_length=255, blank=True)
+    job = models.CharField(null=True, max_length=255, blank=True)
+    employer = models.CharField(null=True, max_length=255, blank=True)
     is_married = models.BooleanField()
-    children = models.IntegerField(null=True)
+    children = models.IntegerField(null=True, blank=True)
     pet = models.BooleanField()
-    plan = models.TextField(null=True)
-    gender_hope = models.CharField(null=True, choices=GENDER_CHOICES, max_length=255)
-    student_available = models.IntegerField(null=True)
-    start_date = models.DateField(null=True)
-    filename = models.FileField(upload_to="host", null=True)
+    plan = models.TextField(null=True, blank=True)
+    gender_hope = models.CharField(null=True, choices=GENDER_CHOICES, max_length=255, blank=True)
+    student_available = models.IntegerField(null=True, blank=True)
+    start_date = models.DateField(null=True, blank=True)
+    filename = models.FileField(upload_to="host", null=True, blank=True)
     is_deleted = models.BooleanField()
 
     def __str__(self):

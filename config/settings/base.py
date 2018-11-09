@@ -76,14 +76,15 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount',
     'rest_framework',
     "django_countries",
+    'django_seed',
 ]
 LOCAL_APPS = [
     'osc_bge.users.apps.UsersAppConfig',
     'osc_bge.student.apps.StudentConfig',
     'osc_bge.school.apps.SchoolConfig',
-    'osc_bge.report.apps.ReportConfig',
     'osc_bge.agent.apps.AgentConfig',
     'osc_bge.bge.apps.BgeConfig',
+    'osc_bge.form.apps.FormConfig',
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

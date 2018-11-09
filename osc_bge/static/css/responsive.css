@@ -1,0 +1,264 @@
+@media screen and (max-width: 1024px){
+.USD_ContentsWidth {position:relative;margin:0px 20px;}
+.USD_ContentsMaxWidth {margin:0px auto;width:100%;max-width:1024px;}
+
+/* BLOCK */
+
+/* TOP */
+#menu-container {height: 110px;}
+.USD_MainVisualCover {height:760px;}
+.USD_MainVisual {height:760px;}
+.USD_MainSearch {top:150px;}
+.USD_MapAPI {height:560px;}
+.USD_MapSpace {height:560px;}
+
+
+
+/* Contents */
+
+.USD_ListArrowLeft {left:-15px;}
+.USD_ListArrowRight {right:-15px;}
+
+.USD_SubNavigation01 {height:150px;}
+.USD_SubNavigation01 .USD_D1Menu {margin-top:30px;font-size:1.2em;}
+.USD_SubNavigation01 .UDS_PageTitle .USD_Title {font-size:2.4em;}
+.USD_SubNavigation01 .UDS_PageTitle .USD_Script {float:none;margin:3px 5px;padding:0px;border:0px;}
+
+.USD_TailNavigation .USD_Ico {display:none;}
+.USD_TailNavigation .UDS_PageTitle .USD_Title {line-height:1.2em;font-size:1.8em;}
+.USD_TailNavigation .UDS_PageTitle .USD_Script {clear:both;float:none;margin:3px 0px;padding:0px;border:0px;}
+.USD_TailSearchForm {margin-top:5px;}
+
+
+.USD_ViewStatusRecruiting {padding:10px 0px 0px 20px;
+width:160px;height:70px;line-height:1em;}
+.USD_ViewStatusRecruiting .USD_Eng {font-size:0.85em;font-weight:800;letter-spacing:-0.03em;}
+.USD_ViewStatusRecruiting .USD_Kor {font-size:0.75em;font-weight:100;}
+
+.USD_ViewStatusOn {padding:10px 0px 0px 20px;
+width:160px;height:70px;line-height:1em;}
+.USD_ViewStatusOn .USD_Eng {font-size:0.85em;font-weight:800;}
+.USD_ViewStatusOn .USD_Kor {font-size:0.75em;font-weight:100;}
+
+.USD_ViewStatusWait {padding:10px 0px 0px 20px;
+width:160px;height:70px;line-height:1em;}
+.USD_ViewStatusWait .USD_Eng {font-size:0.85em;font-weight:800;}
+.USD_ViewStatusWait .USD_Kor {font-size:0.75em;font-weight:100;}
+
+.USD_ViewStatusOff {padding:10px 0px 0px 20px;
+width:160px;height:70px;line-height:1em;}
+.USD_ViewStatusOff .USD_Eng {font-size:0.85em;font-weight:800;}
+.USD_ViewStatusOff .USD_Kor {font-size:0.75em;font-weight:100;}
+
+
+.USD_OverviewSection .USD_InfoSet {float:none;margin:80px 0px 20px 0px;width:100%;text-align:center;}
+.USD_OverviewSection .USD_InfoSet .USD_Title {font-size:1.6em;}
+.USD_OverviewSection .USD_InfoSet .USD_Keyword {font-size:0.85em;}
+
+.USD_OverviewSection .USD_InfoSet .USD_Detail {padding:10px 0px;}
+.USD_OverviewSection .USD_InfoSet .USD_Detail > div {margin:2px;padding:6px 12px;}
+.USD_OverviewSection .USD_InfoSet .USD_HostSet {margin:40px 0px 20px 0px;}
+.USD_OverviewSection .USD_InfoSet .USD_ViewNavigation {text-align:center;}
+.USD_OverviewSection .USD_InfoSet .USD_ViewNavigation div {margin:0px 5px;}
+
+.USD_PicSet {position:relative;margin:30px 10px 80px 10px;padding:0px;top:0px;right:0px;text-align:center;}
+.USD_PicSet .USD_MainPicture {width:140px;height:90px;}
+.USD_PicSet .USD_ThumbPictureSet > div {display:inline-block;vertical-align:middle;margin:0px;}
+
+
+
+
+
+
+/* BOTTOM */
+
+.USD_BottomInfoSet .USD_BottomMenuSet {float:left;}
+.USD_BottomInfoSet .USD_BottomMenu {margin-left:0px;margin-right:20px;}
+
+}
+
+
+
+@media screen and (max-width:780px){
+.USD_ContentsWidth {position:relative;margin:0px 20px;}
+.USD_ContentsMaxWidth {margin:0px auto;width:100%;max-width:720px;}
+
+/* BLOCK */
+
+/* TOP */
+#menu-container {height: 110px;}
+.USD_MainVisualCover {height:720px;}
+.USD_MainVisual {height:720px;}
+.USD_MapAPI {height:480px;}
+.USD_MapSpace {height:480px;}
+
+/* Contents */
+
+.USD_PaymentLine {padding:20px 40px;text-align:center;}
+.USD_PaymentLine > div {margin:0px 10px;}
+.USD_PaymentLine .USD_Price {font-size:1.4em;letter-spacing:-0.03em;}
+.USD_PaymentLine .USD_ButtonSet a {font-size:0.85em;}
+.USD_CommentInputLine .USD_FormInputQ input {width:460px;}
+
+.USD_TailIcon {margin-top:3px;}
+
+/* BOTTOM */
+
+
+}
+
+
+
+
+
+@media screen and (max-width: 620px){
+
+.USD_ContentsWidth {position:relative;margin:0px auto;width:320px;}
+.USD_ContentsMaxWidth {margin:0px auto;width:320px;}
+
+
+
+.USD_PopDefaultBox {margin:10px auto;padding:10px;width:270px;}
+
+
+
+/* TOP */
+
+#menu-container {height:60px;}
+.USD_LogoSet {top:10px;left:10px;}
+.USD_Logo img {margin-right:2px;width:110px;}
+
+.USD_SNS {float:left;margin-top:6px;}
+.USD_MobileMenu {position:absolute;top:10px;right:10px;}
+.USD_MobileMenu img {width:38px;}
+
+
+
+/* Main */
+
+.USD_MainVisualCover {height:480px;}
+.USD_MainVisual {height:480px;}
+.USD_MainSearch {top:100px;margin-left:-150px;width:300px;}
+.USD_SearchLogo {width:280px;}
+.USD_Slogan {margin-bottom:30px;font-size:1.2em;}
+.USD_SearchForm {width:296px;height:36px;}
+.USD_MainInputSearchText {padding-left:10px;width:250px;height:32px;font-size:0.85em;}
+.USD_SearchButton {top:-2px;right:-1px;width:46px;height:36px;line-height:36px;}
+.USD_SearchButton span {display:none;}
+.USD_SearchButton img {margin-top:-6px;margin-left:10px;width:24px;}
+.USD_MainKeyWord {padding:14px 0px 30px 0px;width:300px;font-size:0.75em;
+overflow:hidden;white-space:nowrap; text-overflow:ellipsis;}
+.USD_InfoBox {padding:10px 0px 10px 0px;border-radius:3px;}
+.USD_Count {font-size:1em;}
+
+
+
+.USD_Section {padding:40px 0px;}
+.USD_SectionBG {padding:40px 0px;}
+.USD_SectionTitleSet {margin-left:10px;}
+
+
+.USD_ListArrowLeft {left:-20px;}
+.USD_ListArrowRight {right:-20px;}
+.USD_ScrollCover {height:380px;overflow:hidden;}
+.USD_BlockSet {padding:5px 0px;}
+.USD_ProductBlock01 {margin:10px;padding:10px 10px 20px 10px;width:278px;
+text-align:center;background:#FFF;border:1px solid #EFEFEF;cursor:pointer;}
+
+.USD_MiniSection {border-top:1px solid #EFEFEF;padding:60px 0px;background:#FFF;}
+.USD_MiniSectionTitleSet01 {margin-bottom:10px;}
+.USD_RequestFormSet .USD_RequesText {width:150px;}
+
+
+.USD_MapAPI {height:480px;}
+.USD_MapSpace {height:480px;}
+
+.USD_LocationInfo {margin-left:-150px;padding:10px;width:280px;bottom:0px;}
+.USD_LocationInfo .USD_Info span {display:block;font-size:0em;line-height:0em;}
+
+
+
+/* CONTENTS */
+.USD_TailIcon {position:absolute;top:35px;right:20px;height:32px;}
+
+
+.USD_OrderButtonSet {padding:30px 10px;}
+.USD_OrderButtonSet .USD_FormButton input {padding:5px 15px;}
+.USD_OrderButtonSet .USD_FormSubmitButton input {padding:5px 15px;font-size:0.85em;}
+
+
+.USD_BlockSet03 > .USD_Block01 {display:block;width:300px;padding-bottom:10px;}
+.USD_Block01 .USD_Icon01 {width:150px;height:150px;}
+.USD_Block01 .USD_Icon01 img {margin-top:38px;}
+
+
+.USD_SubNavigation01 {padding:0px 30px;height:130px;;overflow:hidden;}
+.USD_SubNavigation01 .USD_D1Menu {display:none;overflow:hidden;}
+.USD_SubNavigation01 .UDS_PageTitle {float:none;overflow:hidden;}
+.USD_SubNavigation01 .UDS_PageTitle > div {float:none;display:block;}
+.USD_SubNavigation01 .UDS_PageTitle .USD_Title {margin-top:20px;font-size:1.4em;line-height:1.0em;letter-spacing:-0.03em;}
+.USD_SubNavigation01 .UDS_PageTitle .USD_Script {margin-left:0px;font-size:0.85em;line-height:1.2em;}
+
+
+.USD_TailSearchForm {margin-top:5px;width:296px;height:36px;}
+.USD_SubSearchForm {margin-top:5px;width:296px;height:36px;}
+.USD_SubInputSearchText {padding-left:10px;width:280px;height:36px;font-size:0.85em;}
+.USD_SubSearchButton {top:-2px;right:-1px;width:46px;height:36px;line-height:36px;}
+.USD_SubSearchButton span {display:none;}
+.USD_SubSearchButton img {margin-top:-6px;margin-left:10px;width:24px;}
+
+
+.USD_LIstNewBlockSet {padding:20px 0px;height:350px;text-align:center;overflow:hidden;}
+
+.USD_SectionTitleSet .USD_TitleOption {float:left;margin-top:20px;}
+.USD_SectionTitleSet .USD_TitleOption > div {margin:7px 1px;padding:5px;font-size:0.75em;
+font-weight:100;}
+.USD_OverviewSection .USD_InfoSet .USD_HostSet .USD_Script {font-size:0.75em;}
+.USD_OverviewSection .USD_InfoSet .USD_ViewNavigation div {
+margin:2px;padding:3px 5px 3px 5px;font-size:0.75em;border-radius:3px;}
+
+.USD_PicSet .USD_MainPicture {width:280px;height:190px;}
+.USD_PicSet .USD_ThumbPictureSet > div {margin:1px;width:92px;height:50px;}
+.USD_PaymentLine {padding:10px}
+
+.USD_ViewSectionVideo iframe {margin:0px auto;width:100%;max-width:300px;height:180px;}
+
+.USD_BoardSection {overflow-x:scroll;}
+.USD_BoardSection table {width:560px;}
+.USD_CommentInputLine .USD_FormInput input {width:268px;}
+.USD_CommentInputLine .USD_FormInputQ input {width:268px;}
+.USD_TailNavigation .USD_Script a {display:inline-block;}
+
+
+.USD_PaymentLine .USD_ButtonSet {;line-height:2.0em;}
+.USD_PaymentLine .USD_ButtonSet a {display:inline-block;margin:2px;padding:5px 15px;}
+
+
+
+.USD_MyPointInfoBox {margin:20px auto;width:288px;padding:10px;}
+.USD_LeftContents {float:none;}
+.USD_RightContents {float:none;}
+.USD_MyPointInfoBox > li {text-align:center;}
+.USD_PageContentSet {margin:0px auto;padding:10px;width:290px;}
+
+
+
+
+/* BOTTOM */
+.USD_BottomMenuLine {display:none;}
+.USD_BottomInfoSet {padding:50px 10px;}
+.USD_BottomInfoSet .USD_BottomLogoSet {float:none;text-align:center;overflow:hidden;}
+
+
+.USD_BottomInfoSet .USD_Bottomlogo {width:110px;margin-right:10px;}
+.USD_BottomInfoSet .USD_BottomSNS {margin:10px 2px 0px 2px;}
+.USD_BottomInfoSet .USD_BottomHQ {margin:7px 2px 0px 2px;}
+.USD_BottomInfoSet .USD_BottomHQ img {width:120px;}
+
+.USD_BottomInfoSet .USD_BottomMenuSet {float:none;text-align:center;margin-top:20px;}
+.USD_BottomInfoSet .USD_BottomMenuSet > div {display:inline-block;float:none;}
+.USD_BottomInfoSet .USD_BottomMenu {margin:5px;
+font-size:0.75em;line-height:1.4em;}
+
+.USD_BottomInfoSet .USD_Address span {display:block;margin:0px;line-height:0em;font-size:0em;}
+}
