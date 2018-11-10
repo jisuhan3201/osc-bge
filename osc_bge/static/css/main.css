@@ -476,6 +476,13 @@ background:#084360;border-radius:3px;overflow:hidden;cursor:pointer;}
 .SubmitButtonLine .Close {background:#AAA;}
 .SubmitButtonLine div {background:#145677;}
 
+.SubmitButtonLine {text-align:center;}
+.SubmitButtonLine button {display:inline-block;margin:20px 0px;padding:0px 40px;height:32px;
+font-size:14px;font-weight:600;color:#FFF;line-height:32px;text-align:center;
+background:#084360;border-radius:3px;overflow:hidden;cursor:pointer;}
+.SubmitButtonLine .Close {background:#AAA;}
+.SubmitButtonLine button {background:#145677;}
+
 
 .ChoiceSet {margin:10px 0px;width:100%;text-align:center;}
 .ChoiceSet .TitleIcon {display:inline-block;vertical-align:middle;

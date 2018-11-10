@@ -14,3 +14,18 @@
   {% endblock %}
 </body>
 </html>
+<script>
+function MenuOpen() {
+	obj = document.getElementById('LeftF');
+
+	if (obj.style.margin == "0px 0px 0px -229px") {
+		document.getElementById('LeftF').style.margin='0px 0px 0px 0px';
+		document.getElementById('MToggle').style.transform='rotate(90deg)';
+		document.getElementById('MainF').style.width='calc(100% - 355px)';
+	} else {
+		document.getElementById('LeftF').style.margin='0px 0px 0px -229px';
+		document.getElementById('MToggle').style.transform='rotate(0deg)';
+		document.getElementById('MainF').style.width='calc(100% - 126px)';
+	}
+}
+</script>

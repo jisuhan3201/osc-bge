@@ -12,8 +12,8 @@ class UserAdmin(auth_admin.UserAdmin):
 
     form = UserChangeForm
     add_form = UserCreationForm
-    fieldsets = (("User", {"fields": ("username",)}),) + auth_admin.UserAdmin.fieldsets
-    list_display = ["username", "is_superuser", "group"]
+    fieldsets = (("User", {"fields": ("username", "image")}),) + auth_admin.UserAdmin.fieldsets
+    list_display = ["username", "is_superuser", "group", "image"]
     search_fields = ["username"]
 
 @admin.register(models.BgeAdminUser)

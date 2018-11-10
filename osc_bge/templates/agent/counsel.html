@@ -1,1 +1,709 @@
-counsel!!!
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="ContentsFrame">
+	<a href="register" target="_BLANK"><div class="CIButton">Customer Register</div></a>
+
+
+	<div class="LeftFrame" id="LeftF">
+		<div class="SectionTitle">Counseling</div>
+		<div class="LeftTab" id="LeftTab01">
+			<div class="TabTitle">
+				<div OnClick="TabOpen('LeftTab01');PageOpen('SchoolTab');" class="On">Secondary</div>
+				<div OnClick="TabOpen('LeftTab02');PageOpen('CollegeTab');">College</div>
+			</div><!-- TabTitle -->
+			<div class="TabConternts" id="InnerTab0101">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA OnMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					<li><a href="../school/" target="_BLANK">Saint John’s High School</a></li>
+					<li><a href="../school/" target="_BLANK">Saint Bernadette School</a></li>
+					<li><a href="../school/" target="_BLANK">Holy Name Catholic High School</a></li>
+					<li><a href="../school/" target="_BLANK">Lowell Catholic High School</a></li>
+					<li><a href="../school/" target="_BLANK">Saint Mary’s Schools of Worcester</a></li>
+					<li><a href="../school/" target="_BLANK">Whitinsville Christian High School</a></li>
+					<li><a href="../school/" target="_BLANK">Archbishop Williams High School</a></li>
+					<li><a href="../school/" target="_BLANK">Arlington Catholic High School</a></li>
+					<li><a href="../school/" target="_BLANK">Boston Trinity Academy</a></li>
+					<li><a href="../school/" target="_BLANK">Bradford Christian Academy</a></li>
+					<li><a href="../school/" target="_BLANK">Holy Family Academy</a></li>
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0101 -->
+
+			<div class="TabConternts" id="InnerTab0102">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT OnCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					<li><a href="../school/" target="_BLANK">Marian High School</a></li>
+					<li><a href="../school/" target="_BLANK">Pioneer Valley Christian Academy</a></li>
+					<li><a href="../school/" target="_BLANK">Saint Bernard Central High School</a></li>
+					<li><a href="../school/" target="_BLANK">St. John’s Preparatory School</a></li>
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0102 -->
+
+			<div class="TabConternts" id="InnerTab0103">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ OnNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					<li><a href="../school/" target="_BLANK">St. Joseph School</a></li>
+					<li><a href="../school/" target="_BLANK">Saint Joseph Preparatory High School</a></li>
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0103 -->
+
+			<div class="TabConternts" id="InnerTab0104">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA OnFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					<li><a href="../school/" target="_BLANK">Saint Peter-Marian High School</a></li>
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0104 -->
+
+			<div class="TabConternts" id="InnerTab0105">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC OnDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					<li><a href="../school/" target="_BLANK">The Newman School</a></li>
+					<li><a href="../school/" target="_BLANK">Trivium School</a></li>
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0105 -->
+
+			<div class="TabConternts" id="InnerTab0106">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA OnCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					<li><a href="../school/" target="_BLANK">Marian High School</a></li>
+					<li><a href="../school/" target="_BLANK">Pioneer Valley Christian Academy</a></li>
+					<li><a href="../school/" target="_BLANK">Saint Bernard Central High School</a></li>
+					<li><a href="../school/" target="_BLANK">St. John’s Preparatory School</a></li>
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0106 -->
+
+			<div class="TabConternts" id="InnerTab0107">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL OnFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					<li><a href="../school/" target="_BLANK">St. Joseph School</a></li>
+					<li><a href="../school/" target="_BLANK">Saint Joseph Preparatory High School</a></li>
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0107 -->
+
+			<div class="TabConternts" id="InnerTab0108">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX OnTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					<li><a href="../school/" target="_BLANK">Saint Peter-Marian High School</a></li>
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0108 -->
+
+			<div class="TabConternts" id="InnerTab0109">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC OnETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					<li><a href="../school/" target="_BLANK">The Newman School</a></li>
+					<li><a href="../school/" target="_BLANK">Trivium School</a></li>
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0109 -->
+		</div><!-- LeftTab ID:LeftTab01 -->
+
+		<div class="LeftTab" id="LeftTab02">
+			<div class="TabTitle">
+				<div OnClick="TabOpen('LeftTab01');PageOpen('SchoolTab');">Secondary</div>
+				<div OnClick="TabOpen('LeftTab02');PageOpen('CollegeTab');" class="On">College</div>
+			</div><!-- TabTitle -->
+			<div class="TabConternts" id="InnerTab0201">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen02('InnerTab0201');" class="AreaColorNE OnNE" title="Northeast">NE</div>
+					<div OnClick="InnerTabOpen02('InnerTab0202');" class="AreaColorSE" title="Southeast">SE</div>
+					<div OnClick="InnerTabOpen02('InnerTab0203');" class="AreaColorMW" title="Middlewest">MW</div>
+					<div OnClick="InnerTabOpen02('InnerTab0204');" class="AreaColorW" title="West">W</div>
+				</div><!-- InnerTab -->
+				<div class="USAMap"><img src="../img/usa.png" /></div>
+				<div class="InnerTabContents">
+					<li><a href="../college/" target="_BLANK">Saint John’s College</a></li>
+					<li><a href="../college/" target="_BLANK">Saint Bernadette College</a></li>
+					<li><a href="../college/" target="_BLANK">Holy Name Catholic College</a></li>
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0101 -->
+
+			<div class="TabConternts" id="InnerTab0202">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen02('InnerTab0201');" class="AreaColorNE" title="Northeast">NE</div>
+					<div OnClick="InnerTabOpen02('InnerTab0202');" class="AreaColorSE OnSE" title="Southeast">SE</div>
+					<div OnClick="InnerTabOpen02('InnerTab0203');" class="AreaColorMW" title="Middlewest">MW</div>
+					<div OnClick="InnerTabOpen02('InnerTab0204');" class="AreaColorW" title="West">W</div>
+				</div><!-- InnerTab -->
+				<div class="USAMap"><img src="../img/usa.png" /></div>
+				<div class="InnerTabContents">
+					<li><a href="../college/" target="_BLANK">Lowell Catholic College</a></li>
+					<li><a href="../college/" target="_BLANK">Saint Mary’s College of Worcester</a></li>
+					<li><a href="../college/" target="_BLANK">Whitinsville Christian College</a></li>
+					<li><a href="../college/" target="_BLANK">Archbishop Williams College</a></li>
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0102 -->
+
+			<div class="TabConternts" id="InnerTab0203">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen02('InnerTab0201');" class="AreaColorNE" title="Northeast">NE</div>
+					<div OnClick="InnerTabOpen02('InnerTab0202');" class="AreaColorSE" title="Southeast">SE</div>
+					<div OnClick="InnerTabOpen02('InnerTab0203');" class="AreaColorMW OnMW" title="Middlewest">MW</div>
+					<div OnClick="InnerTabOpen02('InnerTab0204');" class="AreaColorW" title="West">W</div>
+				</div><!-- InnerTab -->
+				<div class="USAMap"><img src="../img/usa.png" /></div>
+				<div class="InnerTabContents">
+					<li><a href="../college/" target="_BLANK">Arlington Catholic College</a></li>
+					<li><a href="../college/" target="_BLANK">Boston Trinity College</a></li>
+					<li><a href="../college/" target="_BLANK">Bradford Christian College</a></li>
+					<li><a href="../college/" target="_BLANK">Holy Family College</a></li>
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0103 -->
+
+			<div class="TabConternts" id="InnerTab0204">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen02('InnerTab0201');" class="AreaColorNE" title="Northeast">NE</div>
+					<div OnClick="InnerTabOpen02('InnerTab0202');" class="AreaColorSE" title="Southeast">SE</div>
+					<div OnClick="InnerTabOpen02('InnerTab0203');" class="AreaColorMW" title="Middlewest">MW</div>
+					<div OnClick="InnerTabOpen02('InnerTab0204');" class="AreaColorW OnW" title="West">W</div>
+				</div><!-- InnerTab -->
+				<div class="USAMap"><img src="../img/usa.png" /></div>
+				<div class="InnerTabContents">
+					<li><a href="../college/" target="_BLANK">Arlington Catholic College</a></li>
+					<li><a href="../college/" target="_BLANK">Boston Trinity College</a></li>
+					<li><a href="../college/" target="_BLANK">Bradford Christian College</a></li>
+					<li><a href="../college/" target="_BLANK">Holy Family College</a></li>
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0104 -->
+		</div><!-- LeftTab ID:LeftTab02 -->
+
+
+
+
+	</div><!-- LeftFrame -->
+
+	<style>
+
+	#CollegeTab,
+
+	#LeftTab02,
+	#InnerTab0102, #InnerTab0103, #InnerTab0104, #InnerTab0105, #InnerTab0106, #InnerTab0107, #InnerTab0108, #InnerTab0109,
+	#InnerTab0202, #InnerTab0203, #InnerTab0204, #InnerTab0205, #InnerTab0206, #InnerTab0207, #InnerTab0208, #InnerTab0209 {display:none;}
+	</style>
+
+
+
+	<script>
+
+
+
+
+	function TabOpen(TabName) {
+	document.getElementById('LeftTab01').style.display='none';
+	document.getElementById('LeftTab02').style.display='none';
+
+	document.getElementById(TabName).style.display='block';
+	}
+
+	function PageOpen(PageName) {
+	document.getElementById('CollegeTab').style.display='none';
+	document.getElementById('SchoolTab').style.display='none';
+
+	document.getElementById(PageName).style.display='block';
+	}
+
+
+
+	function InnerTabOpen01(TabName) {
+	document.getElementById('InnerTab0101').style.display='none';
+	document.getElementById('InnerTab0102').style.display='none';
+	document.getElementById('InnerTab0103').style.display='none';
+	document.getElementById('InnerTab0104').style.display='none';
+	document.getElementById('InnerTab0105').style.display='none';
+	document.getElementById('InnerTab0106').style.display='none';
+	document.getElementById('InnerTab0107').style.display='none';
+	document.getElementById('InnerTab0108').style.display='none';
+	document.getElementById('InnerTab0109').style.display='none';
+
+	document.getElementById(TabName).style.display='block';
+	}
+
+
+	function InnerTabOpen02(TabName) {
+	document.getElementById('InnerTab0201').style.display='none';
+	document.getElementById('InnerTab0202').style.display='none';
+	document.getElementById('InnerTab0203').style.display='none';
+	document.getElementById('InnerTab0204').style.display='none';
+
+	document.getElementById(TabName).style.display='block';
+	}
+
+
+	</script>
+
+
+
+
+	<div class="MainFrame" id="MainF">
+		<div id="CollegeTab">
+
+		<div class="MTitle">College search</div>
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="130">
+					<col>
+					<col width="85">
+					<col>
+				</colgroup>
+				<tr>
+					<th>College type : </th>
+					<td>
+						<label><input type="checkbox" checked /><span></span>Public College</label>
+						<label><input type="checkbox" /><span></span>Private College</label>
+					</td>
+					<th>Term : </th>
+					<td>
+						<label><input type="checkbox" /><span></span>Fall</label>
+						<label><input type="checkbox" /><span></span>Spring</label>
+					</td>
+				</tr>
+				<tr>
+					<th>Tofel Requirement : </th>
+					<td colspan="3">
+						<label><input type="checkbox" /><span></span>None</label>
+						<label><input type="checkbox" /><span></span>55 or Less</label>
+						<label><input type="checkbox" /><span></span>70 or Less</label>
+						<label><input type="checkbox" /><span></span>80 or Less</label>
+						<label><input type="checkbox" /><span></span>99 or Less</label>
+						<label><input type="checkbox" /><span></span>100 or Over</label>
+					</td>
+				</tr>
+				<tr>
+					<th>Location : </th>
+					<td>
+						<label><input type="checkbox" /><span></span>Northeast</label>
+						<label><input type="checkbox" /><span></span>Southeast</label>
+						<label><input type="checkbox" /><span></span>Midwest</label>
+						<label><input type="checkbox" /><span></span>West</label>
+					</td>
+					<th>Transfer : </th>
+					<td>
+						<label><input type="checkbox" /><span></span>Transfer student</label>
+					</td>
+				</tr>
+				<tr>
+					<th>National Universities  : </th>
+					<td colspan="3">
+						<label><input type="checkbox" /><span></span>Good Engineering school </label>
+						<label><input type="checkbox" /><span></span>Good Business school </label>
+						<label><input type="checkbox" /><span></span>Good Art school </label>
+						<label><input type="checkbox" /><span></span>Good Science school</label>
+					</td>
+				</tr>
+				<tr>
+					<th> </th>
+					<td colspan="3">
+						<label><input type="checkbox" /><span></span>Liberal Arts Colleges </label>
+						<label><input type="checkbox" /><span></span>Local colleges </label>
+						<label><input type="checkbox" /><span></span>Pathway Universities</label>
+					</td>
+				</tr>
+			</table>
+			<div class="SchoolButton">Search</div>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+
+		<div class="MTitle">Search Result</div>
+			<div class="ListSearch Aright">
+				<div>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script>
+       jQuery.fn.filterByText = function(textbox, selectSingleMatch) {
+        return this.each(function() {
+            var select = this;
+            var options = [];
+            $(select).find('option').each(function() {
+                options.push({value: $(this).val(), text: $(this).text()});
+            });
+            $(select).data('options', options);
+            $(textbox).bind('change keyup', function() {
+                var options = $(select).empty().data('options');
+                var search = $(this).val().trim();
+                var regex = new RegExp(search,"gi");
+
+                $.each(options, function(i) {
+                    var option = options[i];
+                    if(option.text.match(regex) !== null) {
+                        $(select).append(
+                           $('<option>').text(option.text).val(option.value)
+                        );
+                    }
+                });
+                if (selectSingleMatch === true && $(select).children().length === 1) {
+                    $(select).children().get(0).selected = true;
+                }
+            });
+        });
+    };
+
+    $(function() {
+        $('#college_name').filterByText($('#college_textbox'), false);
+      $("select option").click(function(){
+        alert(1);
+      });
+    });
+</script>
+
+				Search by College Name :
+               <input id="college_textbox" type="text" class="SearchInput" style="width:300px;" />
+				<select class="SearchSelect" id="college_name">
+
+				<option>Saint John’s College</option>
+				<option>Saint Bernadette College</option>
+				<option>Holy Name Catholic College</option>
+				<option>Lowell Catholic College</option>
+				<option>Saint Mary’s College of Worcester</option>
+				<option>Whitinsville Christian College</option>
+				<option>Archbishop Williams College</option>
+				<option>Arlington Catholic College</option>
+				<option>Boston Trinity College</option>
+				<option>Bradford Christian College</option>
+				<option>Holy Family College</option>
+				</select>
+				</div>
+			</div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>College Name</th>
+					<th>Website</th>
+					<th>Location</th>
+					<th>Ranking</th>
+					<th>Requirements</th>
+					<th>Comments</th>
+				</tr>
+				<tr>
+					<td class="Relationship"><a href="../college/" target="_BLANK">Saint John’s College</a></td>
+					<td class="Relationship">saintjohns.ac</td>
+					<td class="Relationship">Shrewsbury, MA</td>
+					<td class="Relationship">12</td>
+					<td class="Relationship">-</td>
+					<td class="Relationship">-</td>
+				</tr>
+				<tr>
+					<td><a href="../college/" target="_BLANK">Saint John’s College</a></td>
+					<td>saintjohns.ac</td>
+					<td>Shrewsbury, MA</td>
+					<td>12</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td><a href="../college/" target="_BLANK">Saint John’s College</a></td>
+					<td>saintjohns.ac</td>
+					<td>Shrewsbury, MA</td>
+					<td>12</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td><a href="../college/" target="_BLANK">Saint John’s College</a></td>
+					<td>saintjohns.ac</td>
+					<td>Shrewsbury, MA</td>
+					<td>12</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+		</div><!-- ID:CollegeTab -->
+
+
+
+
+		<div id="SchoolTab">
+
+		<div class="MTitle">School search</div>
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="130">
+					<col>
+					<col width="85">
+					<col>
+				</colgroup>
+				<tr>
+					<th>School type : </th>
+					<td colspan="3">
+						<label><input type="checkbox" checked /><span></span>Day School</label>
+						<label><input type="checkbox" /><span></span>Boarding School</label>
+						<label><input type="checkbox" /><span></span>Co-ed</label>
+						<label><input type="checkbox" /><span></span>Boy</label>
+						<label><input type="checkbox" /><span></span>Girl</label>
+					</td>
+				</tr>
+				<tr>
+					<th>Grade : </th>
+					<td>
+						<label><input type="checkbox" /><span></span>7</label>
+						<label><input type="checkbox" /><span></span>8</label>
+						<label><input type="checkbox" /><span></span>9</label>
+						<label><input type="checkbox" /><span></span>10</label>
+						<label><input type="checkbox" /><span></span>11</label>
+						<label><input type="checkbox" /><span></span>12</label>
+					</td>
+					<th>Term : </th>
+					<td>
+						<label><input type="checkbox" /><span></span>Fall</label>
+						<label><input type="checkbox" /><span></span>Spring</label>
+					</td>
+				</tr>
+				<tr>
+					<th>Toefl Requirement : </th>
+					<td colspan="3">
+						<label><input type="checkbox" /><span></span>None</label>
+						<label><input type="checkbox" /><span></span>55 or Less</label>
+						<label><input type="checkbox" /><span></span>70 or Less</label>
+						<label><input type="checkbox" /><span></span>80 or Less</label>
+						<label><input type="checkbox" /><span></span>99 or Less</label>
+						<label><input type="checkbox" /><span></span>100 or Over</label>
+					</td>
+				</tr>
+				<tr>
+					<th>Location : </th>
+					<td>
+						<label><input type="checkbox" /><span></span>MA</label>
+						<label><input type="checkbox" /><span></span>CT</label>
+						<label><input type="checkbox" /><span></span>NJ</label>
+						<label><input type="checkbox" /><span></span>PA</label>
+						<label><input type="checkbox" /><span></span>DC</label>
+						<label><input type="checkbox" /><span></span>CA</label>
+						<label><input type="checkbox" /><span></span>FL</label>
+						<label><input type="checkbox" /><span></span>TX</label>
+						<label><input type="checkbox" /><span></span>Others</label>
+					</td>
+					<th>Transfer : </th>
+					<td>
+						<label><input type="checkbox" /><span></span>Transfer student</label>
+					</td>
+				</tr>
+				<tr>
+					<th>School Size : </th>
+					<td>
+						<label><input type="checkbox" /><span></span>Small ~299</label>
+						<label><input type="checkbox" /><span></span>Medium 300~700</label>
+						<label><input type="checkbox" /><span></span>Large 700~</label>
+					</td>
+					<th>Program fee : </th>
+					<td>
+						<label><input type="checkbox" /><span></span>$35,000 or Less</label>
+						<label><input type="checkbox" /><span></span>$45,000 or Less</label>
+						<label><input type="checkbox" /><span></span>$60,000 or Less</label>
+						<label><input type="checkbox" /><span></span>$60,000 or Over</label>
+					</td>
+				</tr>
+			</table>
+			<div class="SchoolButton">Search</div>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+
+		<div class="MTitle">Search Result</div>
+			<div class="ListSearch Aright">
+				<div>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script>
+       jQuery.fn.filterByText = function(textbox, selectSingleMatch) {
+        return this.each(function() {
+            var select = this;
+            var options = [];
+            $(select).find('option').each(function() {
+                options.push({value: $(this).val(), text: $(this).text()});
+            });
+            $(select).data('options', options);
+            $(textbox).bind('change keyup', function() {
+                var options = $(select).empty().data('options');
+                var search = $(this).val().trim();
+                var regex = new RegExp(search,"gi");
+
+                $.each(options, function(i) {
+                    var option = options[i];
+                    if(option.text.match(regex) !== null) {
+                        $(select).append(
+                           $('<option>').text(option.text).val(option.value)
+                        );
+                    }
+                });
+                if (selectSingleMatch === true && $(select).children().length === 1) {
+                    $(select).children().get(0).selected = true;
+                }
+            });
+        });
+    };
+
+    $(function() {
+        $('#school_name').filterByText($('#school_textbox'), false);
+      $("select option").click(function(){
+        alert(1);
+      });
+    });
+</script>
+
+				Search by School Name :
+               <input id="school_textbox" type="text" class="SearchInput" style="width:300px;" />
+				<select class="SearchSelect" id="school_name">
+					<option>Select School..</option>
+					<option>Saint John’s High School</option>
+					<option>Saint Bernadette School</option>
+					<option>Holy Name Catholic High School</option>
+					<option>Lowell Catholic High School</option>
+					<option>Saint Mary’s Schools of Worcester</option>
+					<option>Whitinsville Christian High School</option>
+					<option>Archbishop Williams High School</option>
+					<option>Arlington Catholic High School</option>
+					<option>Boston Trinity Academy</option>
+					<option>Bradford Christian Academy</option>
+					<option>Holy Family Academy</option>
+				</select>
+				</div>
+			</div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>School Name</th>
+					<th>Website</th>
+					<th>Location</th>
+					<th>Ranking</th>
+					<th>Toefl Requirements</th>
+					<th>Comments</th>
+				</tr>
+				<tr>
+					<td class="Relationship"><a href="../school/" target="_BLANK">Saint John’s High School</a></td>
+					<td class="Relationship">saintjohns.ac</td>
+					<td class="Relationship">Shrewsbury, MA</td>
+					<td class="Relationship">12</td>
+					<td class="Relationship">-</td>
+					<td class="Relationship">-</td>
+				</tr>
+				<tr>
+					<td class="Relationship"><a href="../school/" target="_BLANK">Saint John’s High School</a></td>
+					<td class="Relationship">saintjohns.ac</td>
+					<td class="Relationship">Shrewsbury, MA</td>
+					<td class="Relationship">12</td>
+					<td class="Relationship">-</td>
+					<td class="Relationship">-</td>
+				</tr>
+				<tr>
+					<td><a href="../school/" target="_BLANK">Saint John’s High School</a></td>
+					<td>saintjohns.ac</td>
+					<td>Shrewsbury, MA</td>
+					<td>12</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td><a href="../school/" target="_BLANK">Saint John’s High School</a></td>
+					<td>saintjohns.ac</td>
+					<td>Shrewsbury, MA</td>
+					<td>12</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+	</div><!-- ID:SchoolTab -->
+
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+{% endblock %}

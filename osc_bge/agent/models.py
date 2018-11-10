@@ -33,4 +33,4 @@ class AgencyBranch(TimeStampedModel):
     students = models.IntegerField(null=True)
 
     def __str__(self):
-        return "{} - {}".format(self.agency, self.name)
+        return "{}".format(self.name)

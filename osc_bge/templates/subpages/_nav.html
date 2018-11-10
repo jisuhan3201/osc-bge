@@ -17,10 +17,10 @@
 		<a href="resources">Resources</a>
 	</div>
 	<div OnClick="document.location.href='../mypage/';" class="Info" >
-		<div class="FaceOn" style="background-image:url({% static 'imgsrc/person01.jpg' %});">&nbsp;</div>
-		<div class="NameSet">
-			<li class="Name">David Kang(counselor)</li>
-			<li class="Rank">Meten(Agent) / Beijing(Branch)</li>
+		<div class="FaceOn" style="background-image:url('/media/{{ user.image }}');">&nbsp;</div>
+    <div class="NameSet">
+			<li class="Name">{{ user.first_name }} {{ user.last_name }}(counselor)</li>
+			<li class="Rank">{{ user.counseler.agency.agency.name }} / {{ user.counseler.agency_branch.agency_branch.name }}</li>
 		</div>
 	</div>
 	<div class="Logout" OnClick="document.location.href='../';"><img src="{% static 'img/ico_logout.png' %}"/></div>

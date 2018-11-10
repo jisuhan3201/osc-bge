@@ -1,9 +1,42 @@
+import datetime
+import os
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.core.files.storage import FileSystemStorage
+from django.conf import settings
 from osc_bge.agent import models as agent_models
 from osc_bge.bge import models as bge_models
+
+
+def set_filename_format(now, instance, filename):
+    """ file format setting e.g)
+    {username}-{date}-{microsecond}{extension}
+    username-2016-07-12-158859.png """
+
+    return "{username}-{date}-{microsecond}{extension}".format(
+        username=instance.username,
+        date=str(now.date()),
+        microsecond=now.microsecond,
+        extension=os.path.splitext(filename)[1],
+        )
+
+def user_directory_path(instance, filename):
+    """
+    image upload directory setting e.g)
+    images/{year}/{month}/{day}/{username}/{filename}
+    images/2016/7/12/username/username-2016-07-12-158859.png
+    """
+    now = datetime.datetime.now()
+    path = "images/{year}/{month}/{day}/{username}/{filename}".format(
+        year=now.year,
+        month=now.month,
+        day=now.day,
+        username=instance.username,
+        filename=set_filename_format(now, instance, filename),
+    )
+    return path
 
 
 class User(AbstractUser):
@@ -20,6 +53,7 @@ class User(AbstractUser):
     address = models.CharField(max_length=255, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
     group = models.CharField(max_length=255, choices=GROUP_CHOICES, null=True)
+    image = models.ImageField(upload_to=user_directory_path, null=True)
 
     def __str__(self):
         return "{}".format(self.username)
@@ -89,7 +123,7 @@ class AgencyBranchAdminUser(models.Model):
 
 class Counseler(models.Model):
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name="counseler")
     coordinator = models.ForeignKey(BgeBranchCoordinator, on_delete=models.SET_NULL, null=True)
     agency = models.ForeignKey(AgencyAdminUser, on_delete=models.SET_NULL, null=True)
     agency_branch = models.ForeignKey(AgencyBranchAdminUser, on_delete=models.SET_NULL, null=True)
