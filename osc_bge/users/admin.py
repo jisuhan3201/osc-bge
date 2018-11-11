@@ -91,11 +91,3 @@ class HostAdmin(admin.ModelAdmin):
         "filename",
         "is_deleted",
     )
-
-@admin.register(models.Parent)
-class ParentAdmin(admin.ModelAdmin):
-
-    list_display = (
-        "user",
-        "is_deleted",
-    )

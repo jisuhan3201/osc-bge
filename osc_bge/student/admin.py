@@ -2,6 +2,16 @@ from django.contrib import admin
 from . import models
 
 # Register your models here.
+@admin.register(models.ParentInfo)
+class ParentInfoAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "name",
+        "phone",
+        "email",
+        "wechat",
+    )
+
 @admin.register(models.Student)
 class StudentAdmin(admin.ModelAdmin):
 
@@ -12,18 +22,14 @@ class StudentAdmin(admin.ModelAdmin):
         "counseler",
         "school",
         "host",
-        "parent",
+        "parent_info",
         "name",
         "gender",
         "birthday",
-        "country",
         "image",
         "phone",
         "email",
         "wechat",
-        "skype",
-        "major",
-        "grade",
         "status",
     )
 
@@ -32,13 +38,13 @@ class StudentHistoryAdmin(admin.ModelAdmin):
 
     list_display = (
         "student",
-        "school",
-        "is_school_active",
-        "ibt",
+        "current_grade",
+        "current_school",
+        "apply_grade",
+        "eng_level",
+        "toefl",
+        "toefljr",
         "gpa",
         "sat",
-        "abroad_year",
-        "past_eng",
-        "past_gpa",
-        "is_deleted",
+        "address"
     )

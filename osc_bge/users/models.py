@@ -165,12 +165,3 @@ class Host(models.Model):
 
     def __str__(self):
         return "{}".format(self.user)
-
-
-class Parent(models.Model):
-
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    is_deleted = models.BooleanField()
-
-    def __str__(self):
-        return "{}".format(self.user)

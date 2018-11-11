@@ -6,7 +6,11 @@
 	<div class="RegLogo"><img src="{% static 'img/m_logo.png' %}"/></div>
 	<div class="RegMenu">Customer Register</div>
 	<div class="Info">
-		<div class="FaceOn" style="background-image:url('/media/{{ user.image }}');">&nbsp;</div>
+		{% if user.image %}
+			<div class="FaceOn" style="background-image:url('/media/{{ user.image }}');">&nbsp;</div>
+		{% else %}
+			<div class="FaceOn" style="background-image:url('{% static 'img/no_user.png' %}');">&nbsp;</div>
+		{% endif %}
 		<div class="NameSet">
 			<li class="Name">{{ user.first_name }} {{ user.last_name }}(counselor)</li>
 			<li class="Rank">{{ user.counseler.agency.agency.name }} / {{ user.counseler.agency_branch.agency_branch.name }}</li>
@@ -36,11 +40,11 @@
 						<th>Agent-Branch / Counselor : </th>
 						<td>{{ user.counseler.agency.agency.name }}-{{ user.counseler.agency_branch.agency_branch.name }} / {{ user.first_name }}</td>
 						<th>Date of Counseling : </th>
-						<td><input type="text" name="date" value="{% now 'Y-m-d' %}" disabled></td>
+						<td><input type="text" name="date" value="{% now 'Y-m-d' %}" readonly required></td>
 					</tr>
 					<tr>
 						<th>Student Name : </th>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" required/></td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="name" required/></td>
 						<th>Gender : </th>
 						<td>
 							<label><input type="radio" name="gender" value="male" required checked/><span></span>M</label>
@@ -57,7 +61,7 @@
 								name="birth"
 								onfocus="this.placeholder=''"
 								onblur="this.placeholder='YYYY-MM-DD'"
-								pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"
+								pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
 								required
 							/>
 						</td>
@@ -76,7 +80,12 @@
 					</tr>
 					<tr>
 						<th>Expected departure : </th>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="departure" required/></td>
+						<td class="InnerInputTD">
+							<input
+								type="text" class="TableInnerInput" size="32" name="departure" placeholder="YYYY-MM-DD"
+								pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+								required/>
+						</td>
 						<th>Country : </th>
 						<td>
 							<label><input type="radio" name="country" value="us" required checked/><span></span>US</label>
@@ -119,13 +128,13 @@
 						<th>Toefl : </th>
 						<td class="InnerInputTD">
 							<label>
-								<input type="radio" name="toefl" value="yes"
+								<input type="radio" name="toefl"
 									onclick="
 										document.getElementById('toeflscore').removeAttribute('disabled');"
 								/><span></span>Yes
-								<input id="toeflscore" type="text" class="TableInnerInput" size="3" name="toeflscore" disabled/>
+								<input id="toeflscore" type="text" class="TableInnerInput" size="3" name="toefl" disabled/>
 							</label>
-							<label><input type="radio" name="toefl" value="no"/><span></span>No</label>
+							<label><input type="radio" name="toefl" value=""/><span></span>No</label>
 						</td>
 						<td class="InnerInputTD">GPA <input type="text" class="TableInnerInput" size="3" name="gpa"/></td>
 						<td class="InnerInputTD">SAT <input type="text" class="TableInnerInput" size="3" name="sat"/></td>
@@ -134,10 +143,10 @@
 						<th>Toefl jr : </th>
 						<td class="InnerInputTD">
 							<label>
-								<input type="radio" name="toefljr" value="yes"
+								<input type="radio" name="toefljr"
 									onclick="document.getElementById('toefljrscore').removeAttribute('disabled');"
-								/><span></span>Yes <input id="toefljrscore" type="text" class="TableInnerInput" size="3" disabled/></label>
-							<label><input type="radio" name="toefljr" value="no"/><span></span>No</label>
+								/><span></span>Yes <input id="toefljrscore" type="text" class="TableInnerInput" size="3" name="toefljr" disabled/></label>
+							<label><input type="radio" name="toefljr" value=""/><span></span>No</label>
 						</td>
 						<th>English level : </th>
 						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="englevel"/></td>
@@ -150,13 +159,13 @@
 					</tr>
 					<tr>
 						<th>Parent Name : </th>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="parent"/></td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="parentname"/></td>
 						<th>Grade applying for : </th>
 						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="gradeapply"/></td>
 					</tr>
 					<tr>
 						<th>Parent WeChat : </th>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="wechat"/></td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="parentwechat"/></td>
 						<th>Parent Cell : </th>
 						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="parentcell"/></td>
 					</tr>
@@ -190,24 +199,24 @@
 						<tr>
 							<th>1차 : </th>
 							<td class="InnerInputTD">
-								<input type="text" class="TableInnerInput" style="width:calc(100% - 40px);"
-									name="contact1th" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"
+								<input type="text" class="TableInnerInput" style="width:calc(100% - 40px);" name="contact1th"
+									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
 									placeholder="YYYY-MM-DD" onfocus="this.placeholder=''" onblur="this.placeholder='YYYY-MM-DD'"/>
 							</td>
 						</tr>
 						<tr>
 							<th>2차 : </th>
 							<td class="InnerInputTD">
-								<input type="text" class="TableInnerInput" style="width:calc(100% - 40px);"
-									name="contact2th" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"
+								<input type="text" class="TableInnerInput" style="width:calc(100% - 40px);" name="contact2th"
+									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
 									placeholder="YYYY-MM-DD" onfocus="this.placeholder=''" onblur="this.placeholder='YYYY-MM-DD'"/>
 							</td>
 						</tr>
 						<tr>
 							<th>3차 : </th>
 							<td class="InnerInputTD">
-								<input type="text" class="TableInnerInput" style="width:calc(100% - 40px);"
-									name="contact3th" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"
+								<input type="text" class="TableInnerInput" style="width:calc(100% - 40px);" name="contact3th"
+									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
 									placeholder="YYYY-MM-DD" onfocus="this.placeholder=''" onblur="this.placeholder='YYYY-MM-DD'"/>
 							</td>
 						</tr>
