@@ -4,7 +4,11 @@
 
 <div class="TopMenuSet">
 	<div class="RegLogo"><img src="{% static 'img/m_logo.png' %}"/></div>
+	{% if request.path|slice:":19" == '/agent/application/' %}
+	<div class="RegMenu">Application Register</div>
+	{% else %}
 	<div class="RegMenu">Customer Register</div>
+	{% endif %}
 	<div class="Info">
 		{% if user.image %}
 			<div class="FaceOn" style="background-image:url('/media/{{ user.image }}');">&nbsp;</div>
@@ -104,19 +108,28 @@
 								<label><input type="radio" name="program" value="k12" required checked/><span></span>K-12</label>
 								<label><input type="radio" name="program" value="college"/><span></span>College</label>
 								<label><input type="radio" name="program" value="camp"/><span></span>Camp</label>
+								<label><input type="radio" name="program" value="not_specified"/><span></span>Not Specified</label>
 								{% elif counsel.program_interested == 'college' %}
 								<label><input type="radio" name="program" value="k12" required/><span></span>K-12</label>
 								<label><input type="radio" name="program" value="college" checked/><span></span>College</label>
 								<label><input type="radio" name="program" value="camp"/><span></span>Camp</label>
-								{% else %}
+								<label><input type="radio" name="program" value="not_specified"/><span></span>Not Specified</label>
+								{% elif counsel.program_interested == 'not_specified' %}
 								<label><input type="radio" name="program" value="k12" required/><span></span>K-12</label>
 								<label><input type="radio" name="program" value="college"/><span></span>College</label>
 								<label><input type="radio" name="program" value="camp" checked/><span></span>Camp</label>
+								<label><input type="radio" name="program" value="not_specified"/><span></span>Not Specified</label>
+								{% else %}
+								<label><input type="radio" name="program" value="k12" required/><span></span>K-12</label>
+								<label><input type="radio" name="program" value="college"/><span></span>College</label>
+								<label><input type="radio" name="program" value="camp"/><span></span>Camp</label>
+								<label><input type="radio" name="program" value="not_specified" checked/><span></span>Not Specified</label>
 								{% endif %}
 							{% else %}
-							<label><input type="radio" name="program" value="k12" required checked/><span></span>K-12</label>
+							<label><input type="radio" name="program" value="k12" required/><span></span>K-12</label>
 							<label><input type="radio" name="program" value="college"/><span></span>College</label>
 							<label><input type="radio" name="program" value="camp"/><span></span>Camp</label>
+							<label><input type="radio" name="program" value="not_specified" checked/><span></span>Not Specified</label>
 							{% endif %}
 						</td>
 					</tr>
@@ -452,9 +465,13 @@
 			<div class="cdiv"></div>
 			<div class="EndPart"></div>
 
+			{% if request.path|slice:":19" == '/agent/application/' %}
+				{% include "subpages/application.html" %}
+			{% endif %}
+
 			<div class="SubmitButtonLine">
-				<button class="Close" onclick="javascript:if(confirm('Are You Sure?')){self.close()};">CLOSE</button>
 				<button class="Submit" type="submit">SAVE</button>
+				<button class="Close" onclick="javascript:if(confirm('Are You Sure?')){self.close()};">CLOSE</button>
 			</div>
 		</form>
 		<!-- form field end -->

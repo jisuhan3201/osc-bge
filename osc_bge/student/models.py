@@ -30,6 +30,11 @@ class Student(TimeStampedModel):
         ('female', 'Female'),
     )
 
+    STATUS_CHOICES = (
+        ('unregistered', 'Unregistered'),
+        ('registered', 'Registered'),
+    )
+
     coordinator = models.ForeignKey(user_models.BgeBranchCoordinator, on_delete=models.SET_NULL, null=True)
     agency_admin = models.ForeignKey(user_models.AgencyAdminUser, on_delete=models.SET_NULL, null=True)
     agency_branch_admin = models.ForeignKey(user_models.AgencyBranchAdminUser, on_delete=models.SET_NULL, null=True)
@@ -44,7 +49,7 @@ class Student(TimeStampedModel):
     phone = models.CharField(null=True, max_length=140, blank=True)
     email = models.EmailField(null=True, blank=True)
     wechat = models.CharField(null=True, max_length=140, blank=True)
-    status = models.CharField(null=True, max_length=80, blank=True)
+    status = models.CharField(null=True, max_length=80, blank=True, default='unregistered', choices=STATUS_CHOICES)
 
     def __str__(self):
         return "{}".format(self.name)
