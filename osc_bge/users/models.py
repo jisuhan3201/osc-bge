@@ -53,7 +53,7 @@ class User(AbstractUser):
     address = models.CharField(max_length=255, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
     group = models.CharField(max_length=255, choices=GROUP_CHOICES, null=True)
-    image = models.ImageField(upload_to=user_directory_path, null=True)
+    image = models.ImageField(upload_to=user_directory_path, null=True, blank=True)
 
     def __str__(self):
         return "{}".format(self.username)

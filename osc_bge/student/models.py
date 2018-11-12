@@ -52,15 +52,15 @@ class Student(TimeStampedModel):
 
 class StudentHistory(TimeStampedModel):
 
-    student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True)
+    student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True, related_name='student_history')
     current_grade = models.CharField(max_length=80, null=True, blank=True)
     current_school = models.CharField(max_length=140, null=True, blank=True)
     apply_grade = models.CharField(null=True, max_length=80, blank=True)
     eng_level = models.CharField(max_length=140, null=True, blank=True)
     toefl = models.CharField(max_length=80, null=True, blank=True)
     toefljr = models.CharField(max_length=80, null=True, blank=True)
-    gpa = models.IntegerField(null=True, blank=True)
-    sat = models.IntegerField(null=True, blank=True)
+    gpa = models.CharField(max_length=80, null=True, blank=True)
+    sat = models.CharField(max_length=80, null=True, blank=True)
     address = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):

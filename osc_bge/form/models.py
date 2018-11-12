@@ -60,12 +60,15 @@ class Counsel(TimeStampedModel):
     expected_departure = models.DateField(null=True, blank=True)
     client_class = models.CharField(max_length=80, null=True, blank=True)
     detail = models.TextField(null=True)
-    contact_first = models.DateField(null=True, blank=True)
-    contact_second = models.DateField(null=True, blank=True)
-    contact_third = models.DateField(null=True, blank=True)
+    contact_first = models.CharField(max_length=140, null=True, blank=True)
+    contact_second = models.CharField(max_length=140, null=True, blank=True)
+    contact_third = models.CharField(max_length=140, null=True, blank=True)
 
     def __str__(self):
         return "{}".format(self.id)
+
+    class Meta:
+        ordering = ['-created_at']
 
 
 class HomeStay(TimeStampedModel):

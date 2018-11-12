@@ -40,20 +40,51 @@
 						<th>Agent-Branch / Counselor : </th>
 						<td>{{ user.counseler.agency.agency.name }}-{{ user.counseler.agency_branch.agency_branch.name }} / {{ user.first_name }}</td>
 						<th>Date of Counseling : </th>
+						{% if counsel %}
+						<td><input type="text" name="date" value="{{ counsel.counseling_date|date:'Y-m-d' }}" readonly required></td>
+						{% else %}
 						<td><input type="text" name="date" value="{% now 'Y-m-d' %}" readonly required></td>
+						{% endif %}
 					</tr>
 					<tr>
 						<th>Student Name : </th>
+						{% if counsel %}
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="name" value="{{counsel.student}}" required/></td>
+						{% else %}
 						<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="name" required/></td>
+						{% endif %}
 						<th>Gender : </th>
 						<td>
+							{% if counsel %}
+								{% if counsel.student.gender == 'male'%}
+									<label><input type="radio" name="gender" value="male" required checked/><span></span>M</label>
+									<label><input type="radio" name="gender" value="female"/><span></span>F</label>
+								{% else %}
+									<label><input type="radio" name="gender" value="male" required/><span></span>M</label>
+									<label><input type="radio" name="gender" value="female" checked/><span></span>F</label>
+								{% endif %}
+							{% else %}
 							<label><input type="radio" name="gender" value="male" required checked/><span></span>M</label>
 							<label><input type="radio" name="gender" value="female"/><span></span>F</label>
+							{% endif %}
 						</td>
 					</tr>
 					<tr>
 						<th>Date of Birth : </th>
 						<td class="InnerInputTD">
+							{% if counsel %}
+							<input
+								type="text"
+								class="TableInnerInput"
+								placeholder="YYYY-MM-DD"
+								name="birth"
+								onfocus="this.placeholder=''"
+								onblur="this.placeholder='YYYY-MM-DD'"
+								pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+								value="{{counsel.student.birthday|date:'Y-m-d'}}"
+								required
+							/>
+							{% else %}
 							<input
 								type="text"
 								class="TableInnerInput"
@@ -64,49 +95,142 @@
 								pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
 								required
 							/>
+							{% endif %}
 						</td>
 						<th>Program Interested : </th>
 						<td>
+							{% if counsel %}
+								{% if counsel.program_interested == 'k12'%}
+								<label><input type="radio" name="program" value="k12" required checked/><span></span>K-12</label>
+								<label><input type="radio" name="program" value="college"/><span></span>College</label>
+								<label><input type="radio" name="program" value="camp"/><span></span>Camp</label>
+								{% elif counsel.program_interested == 'college' %}
+								<label><input type="radio" name="program" value="k12" required/><span></span>K-12</label>
+								<label><input type="radio" name="program" value="college" checked/><span></span>College</label>
+								<label><input type="radio" name="program" value="camp"/><span></span>Camp</label>
+								{% else %}
+								<label><input type="radio" name="program" value="k12" required/><span></span>K-12</label>
+								<label><input type="radio" name="program" value="college"/><span></span>College</label>
+								<label><input type="radio" name="program" value="camp" checked/><span></span>Camp</label>
+								{% endif %}
+							{% else %}
 							<label><input type="radio" name="program" value="k12" required checked/><span></span>K-12</label>
 							<label><input type="radio" name="program" value="college"/><span></span>College</label>
 							<label><input type="radio" name="program" value="camp"/><span></span>Camp</label>
+							{% endif %}
 						</td>
 					</tr>
 					<tr>
 						<th>Wechat ID : </th>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="wechat" required/></td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="wechat" value="{{counsel.student.wechat}}"required/></td>
 						<th>Cell Phone : </th>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="phone" required/></td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="phone" value="{{counsel.student.phone}}"required/></td>
 					</tr>
 					<tr>
 						<th>Expected departure : </th>
 						<td class="InnerInputTD">
+							{% if counsel %}
+							<input
+								type="text" class="TableInnerInput" size="32" name="departure" placeholder="YYYY-MM-DD"
+								value="{{counsel.expected_departure|date:'Y-m-d'}}"
+								pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+								required/>
+							{% else %}
 							<input
 								type="text" class="TableInnerInput" size="32" name="departure" placeholder="YYYY-MM-DD"
 								pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
 								required/>
+							{% endif %}
 						</td>
 						<th>Country : </th>
 						<td>
+							{% if counsel %}
+								{% if counsel.desire_country == 'us' %}
+								<label><input type="radio" name="country" value="us" required checked/><span></span>US</label>
+								<label><input type="radio" name="country" value="ca"/><span></span>CA</label>
+								<label><input type="radio" name="country" value="uk"/><span></span>UK</label>
+								<label><input type="radio" name="country" value="au"/><span></span>AU</label>
+								<label><input type="radio" name="country" value="nz"/><span></span>NZ</label>
+								{% elif counsel.desire_country == 'ca' %}
+								<label><input type="radio" name="country" value="us" required/><span></span>US</label>
+								<label><input type="radio" name="country" value="ca" checked/><span></span>CA</label>
+								<label><input type="radio" name="country" value="uk"/><span></span>UK</label>
+								<label><input type="radio" name="country" value="au"/><span></span>AU</label>
+								<label><input type="radio" name="country" value="nz"/><span></span>NZ</label>
+								{% elif counsel.desire_country == 'uk' %}
+								<label><input type="radio" name="country" value="us" required/><span></span>US</label>
+								<label><input type="radio" name="country" value="ca"/><span></span>CA</label>
+								<label><input type="radio" name="country" value="uk" checked/><span></span>UK</label>
+								<label><input type="radio" name="country" value="au"/><span></span>AU</label>
+								<label><input type="radio" name="country" value="nz"/><span></span>NZ</label>
+								{% elif counsel.desire_country == 'au' %}
+								<label><input type="radio" name="country" value="us" required/><span></span>US</label>
+								<label><input type="radio" name="country" value="ca"/><span></span>CA</label>
+								<label><input type="radio" name="country" value="uk"/><span></span>UK</label>
+								<label><input type="radio" name="country" value="au" checked/><span></span>AU</label>
+								<label><input type="radio" name="country" value="nz"/><span></span>NZ</label>
+								{% else %}
+								<label><input type="radio" name="country" value="us" required/><span></span>US</label>
+								<label><input type="radio" name="country" value="ca"/><span></span>CA</label>
+								<label><input type="radio" name="country" value="uk"/><span></span>UK</label>
+								<label><input type="radio" name="country" value="au"/><span></span>AU</label>
+								<label><input type="radio" name="country" value="nz" checked/><span></span>NZ</label>
+								{% endif %}
+							{% else %}
 							<label><input type="radio" name="country" value="us" required checked/><span></span>US</label>
 							<label><input type="radio" name="country" value="ca"/><span></span>CA</label>
 							<label><input type="radio" name="country" value="uk"/><span></span>UK</label>
 							<label><input type="radio" name="country" value="au"/><span></span>AU</label>
 							<label><input type="radio" name="country" value="nz"/><span></span>NZ</label>
+							{% endif %}
 						</td>
 					</tr>
 					<tr>
 						<th>Possibility : </th>
 						<td>
+							{% if counsel %}
+								{% if counsel.possibility == 'a' %}
+								<label><input type="radio" name="possibility" value="a" required checked/><span></span>A</label>
+								<label><input type="radio" name="possibility" value="b"/><span></span>B</label>
+								<label><input type="radio" name="possibility" value="c"/><span></span>C</label>
+								<label><input type="radio" name="possibility" value="t"/><span></span>T</label>
+								{% elif counsel.possibility == 'b' %}
+								<label><input type="radio" name="possibility" value="a" required/><span></span>A</label>
+								<label><input type="radio" name="possibility" value="b" checked/><span></span>B</label>
+								<label><input type="radio" name="possibility" value="c"/><span></span>C</label>
+								<label><input type="radio" name="possibility" value="t"/><span></span>T</label>
+								{% elif counsel.possibility == 'c' %}
+								<label><input type="radio" name="possibility" value="a" required/><span></span>A</label>
+								<label><input type="radio" name="possibility" value="b"/><span></span>B</label>
+								<label><input type="radio" name="possibility" value="c" checked/><span></span>C</label>
+								<label><input type="radio" name="possibility" value="t"/><span></span>T</label>
+								{% else %}
+								<label><input type="radio" name="possibility" value="a" required/><span></span>A</label>
+								<label><input type="radio" name="possibility" value="b"/><span></span>B</label>
+								<label><input type="radio" name="possibility" value="c"/><span></span>C</label>
+								<label><input type="radio" name="possibility" value="t" checked/><span></span>T</label>
+								{% endif %}
+							{% else %}
 							<label><input type="radio" name="possibility" value="a" required checked/><span></span>A</label>
 							<label><input type="radio" name="possibility" value="b"/><span></span>B</label>
 							<label><input type="radio" name="possibility" value="c"/><span></span>C</label>
 							<label><input type="radio" name="possibility" value="t"/><span></span>T</label>
+							{% endif %}
 						</td>
 						<th>Class : </th>
 						<td>
+							{% if counsel %}
+								{% if counsel.client_class == 'vip' %}
+								<label><input type="radio" name="class" value="vip" checked/><span></span>VIP</label>
+								<label><input type="radio" name="class" value="regular" required/><span></span>Regular</label>
+								{% else %}
+								<label><input type="radio" name="class" value="vip"/><span></span>VIP</label>
+								<label><input type="radio" name="class" value="regular" required checked/><span></span>Regular</label>
+								{% endif %}
+							{% else %}
 							<label><input type="radio" name="class" value="vip"/><span></span>VIP</label>
 							<label><input type="radio" name="class" value="regular" required checked/><span></span>Regular</label>
+							{% endif %}
 						</td>
 					</tr>
 				</table>
@@ -127,6 +251,35 @@
 					<tr>
 						<th>Toefl : </th>
 						<td class="InnerInputTD">
+							{% if student_history %}
+								{% if student_history.toefl %}
+								<label>
+									<input type="radio" name="toefl"
+										onclick="
+											document.getElementById('toeflscore').removeAttribute('disabled');"
+										checked
+									/><span></span>Yes
+									<input id="toeflscore" type="text" class="TableInnerInput" size="3" name="toefl"
+									value='{{student_history.toefl}}'disabled/>
+								</label>
+								<label>
+									<input type="radio" name="toefl" value=""
+									onclick="document.getElementById('toeflscore').value=''"/><span></span>No
+								</label>
+								{% else %}
+								<label>
+									<input type="radio" name="toefl"
+										onclick="
+											document.getElementById('toeflscore').removeAttribute('disabled');"
+									/><span></span>Yes
+									<input id="toeflscore" type="text" class="TableInnerInput" size="3" name="toefl" disabled/>
+								</label>
+								<label>
+									<input type="radio" name="toefl" value=""
+									onclick="document.getElementById('toeflscore').value=''" checked/><span></span>No
+								</label>
+								{% endif %}
+							{% else %}
 							<label>
 								<input type="radio" name="toefl"
 									onclick="
@@ -134,46 +287,121 @@
 								/><span></span>Yes
 								<input id="toeflscore" type="text" class="TableInnerInput" size="3" name="toefl" disabled/>
 							</label>
-							<label><input type="radio" name="toefl" value=""/><span></span>No</label>
+							<label>
+								<input type="radio" name="toefl" value=""
+								onclick="document.getElementById('toeflscore').value=''"/><span></span>No
+							</label>
+							{% endif %}
 						</td>
-						<td class="InnerInputTD">GPA <input type="text" class="TableInnerInput" size="3" name="gpa"/></td>
-						<td class="InnerInputTD">SAT <input type="text" class="TableInnerInput" size="3" name="sat"/></td>
+						{% if student_history.gpa %}
+							<td class="InnerInputTD">GPA <input type="text" class="TableInnerInput" size="3" name="gpa" value="{{student_history.gpa}}"/></td>
+						{% else %}
+							<td class="InnerInputTD">GPA <input type="text" class="TableInnerInput" size="3" name="gpa"/></td>
+						{% endif %}
+						{% if student_history.sat %}
+							<td class="InnerInputTD">SAT <input type="text" class="TableInnerInput" size="3" name="sat" value="{{student_history.sat}}"/></td>
+						{% else %}
+							<td class="InnerInputTD">SAT <input type="text" class="TableInnerInput" size="3" name="sat"/></td>
+						{% endif %}
 					</tr>
 					<tr>
 						<th>Toefl jr : </th>
 						<td class="InnerInputTD">
+							{% if student_history %}
+								{% if student_history.toefljr %}
+								<label>
+									<input type="radio" name="toefljr" checked
+										onclick="document.getElementById('toefljrscore').removeAttribute('disabled');"
+									/><span></span>Yes <input id="toefljrscore" type="text" class="TableInnerInput" size="3" name="toefljr" value="{{student_history.toefljr}}"/></label>
+								<label>
+									<input type="radio" name="toefljr" value=""
+									onclick="document.getElementById('toefljrscore').value=''"/><span></span>No
+								</label>
+								{% else %}
+								<label>
+									<input type="radio" name="toefljr"
+										onclick="document.getElementById('toefljrscore').removeAttribute('disabled');"
+									/><span></span>Yes <input id="toefljrscore" type="text" class="TableInnerInput" size="3" name="toefljr" disabled/></label>
+								<label>
+									<input type="radio" name="toefljr" value="" checked
+									onclick="document.getElementById('toefljrscore').value=''"/><span></span>No
+								</label>
+								{% endif %}
+							{% else %}
 							<label>
 								<input type="radio" name="toefljr"
 									onclick="document.getElementById('toefljrscore').removeAttribute('disabled');"
-								/><span></span>Yes <input id="toefljrscore" type="text" class="TableInnerInput" size="3" name="toefljr" disabled/></label>
-							<label><input type="radio" name="toefljr" value=""/><span></span>No</label>
+								/><span></span>Yes <input id="toefljrscore" type="text" class="TableInnerInput" size="3" name="toefljr" disabled/>
+							</label>
+							<label>
+								<input type="radio" name="toefljr" value=""
+								onclick="document.getElementById('toefljrscore').value=''"/><span></span>No
+							</label>
+							{% endif %}
 						</td>
 						<th>English level : </th>
+						{% if student_history.eng_level %}
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="englevel" value='{{ student_history.eng_level }}'/></td>
+						{% else %}
 						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="englevel"/></td>
+						{% endif %}
 					</tr>
 					<tr>
 						<th>Current School : </th>
+						{% if student_history.current_school %}
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="currentschool" value="{{ student_history.current_school }}"/></td>
+						{% else %}
 						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="currentschool"/></td>
+						{% endif %}
 						<th>Current Grade : </th>
+						{% if student_history.current_grade %}
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="currentgrade" value="{{student_history.current_grade}}"/></td>
+						{% else %}
 						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="currentgrade"/></td>
+						{% endif %}
 					</tr>
 					<tr>
 						<th>Parent Name : </th>
+						{% if counsel.student.parent_info.name %}
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="parentname" value="{{counsel.student.parent_info.name}}"/></td>
+						{% else %}
 						<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="parentname"/></td>
+						{% endif %}
+
 						<th>Grade applying for : </th>
+						{% if student_history.apply_grade %}
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="gradeapply" value="{{student_history.apply_grade}}"/></td>
+						{% else %}
 						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="gradeapply"/></td>
+						{% endif %}
 					</tr>
 					<tr>
 						<th>Parent WeChat : </th>
+						{% if counsel.student.parent_info.wechat %}
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="parentwechat" value="{{counsel.student.parent_info.wechat}}"/></td>
+						{% else %}
 						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="parentwechat"/></td>
+						{% endif %}
 						<th>Parent Cell : </th>
+						{% if counsel.student.parent_info.phone %}
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="parentcell" value="{{counsel.student.parent_info.phone}}"/></td>
+						{% else %}
 						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="parentcell"/></td>
+						{% endif %}
 					</tr>
 					<tr>
 						<th>Parent Email : </th>
+						{% if counsel.student.parent_info.email %}
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="parentemail" value="{{counsel.student.parent_info.email}}"/></td>
+						{% else %}
 						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="parentemail"/></td>
+						{% endif %}
 						<th>Address  : </th>
+						{% if student_history.address %}
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="address" value="{{student_history.address}}"/></td>
+						{% else %}
 						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="address"/></td>
+						{% endif %}
 					</tr>
 				</table>
 			</div><!-- InfoTable -->
@@ -184,7 +412,11 @@
 			<div class="BOX02">
 				<div class="MTitle">Details of Counseling</div>
 				<div class="TextAreaForm">
+				{% if counsel %}
+				<textarea name="detail">{{counsel.detail}}</textarea>
+				{% else %}
 				<textarea name="detail"></textarea>
+				{% endif %}
 			</div><!-- TextAreaForm -->
 			</div><!-- BOX02 -->
 
@@ -199,25 +431,19 @@
 						<tr>
 							<th>1차 : </th>
 							<td class="InnerInputTD">
-								<input type="text" class="TableInnerInput" style="width:calc(100% - 40px);" name="contact1th"
-									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-									placeholder="YYYY-MM-DD" onfocus="this.placeholder=''" onblur="this.placeholder='YYYY-MM-DD'"/>
+								<input type="text" class="TableInnerInput" style="width:calc(100% - 40px);" name="contact1th" value="{{counsel.contact_first}}"/>
 							</td>
 						</tr>
 						<tr>
 							<th>2차 : </th>
 							<td class="InnerInputTD">
-								<input type="text" class="TableInnerInput" style="width:calc(100% - 40px);" name="contact2th"
-									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-									placeholder="YYYY-MM-DD" onfocus="this.placeholder=''" onblur="this.placeholder='YYYY-MM-DD'"/>
+								<input type="text" class="TableInnerInput" style="width:calc(100% - 40px);" name="contact2th" value="{{counsel.contact_second}}"/>
 							</td>
 						</tr>
 						<tr>
 							<th>3차 : </th>
 							<td class="InnerInputTD">
-								<input type="text" class="TableInnerInput" style="width:calc(100% - 40px);" name="contact3th"
-									pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-									placeholder="YYYY-MM-DD" onfocus="this.placeholder=''" onblur="this.placeholder='YYYY-MM-DD'"/>
+								<input type="text" class="TableInnerInput" style="width:calc(100% - 40px);" name="contact3th" value="{{counsel.contact_third}}"/>
 							</td>
 						</tr>
 					</table>
