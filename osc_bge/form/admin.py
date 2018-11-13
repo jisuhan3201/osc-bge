@@ -94,9 +94,8 @@ class MonthlyReportAdmin(admin.ModelAdmin):
 class FormalityAdmin(admin.ModelAdmin):
 
     list_display = (
-        "student",
-        "memo",
-        "counsel_at",
+        "id",
+        "counsel",
         "payment_complete",
         "apply_at",
         "canceled_at",
@@ -121,8 +120,11 @@ class FormalityAdmin(admin.ModelAdmin):
 class SchoolFormalityAdmin(admin.ModelAdmin):
 
     list_display = (
+        "id",
         "school",
         "formality",
+        "class_start_at",
+        "course",
         "form_apply_fee",
         "entrance_grade",
         "entrance_fee",

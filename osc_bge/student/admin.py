@@ -29,6 +29,7 @@ class StudentAdmin(admin.ModelAdmin):
         "image",
         "phone",
         "email",
+        "skype",
         "wechat",
         "status",
     )

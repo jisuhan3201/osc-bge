@@ -491,9 +491,15 @@ font-size:13px;font-weight:600;color:#FFF;text-align:center;
 background:#145677;border-radius:50%;}
 .ChoiceSet .Information {display:inline-block;vertical-align:middle;
 width:calc(100% - 160px);text-align:left;}
-.ChoiceSet .AddIcon {display:inline-block;vertical-align:middle;
+#ChoiceSet1 .Information {display:inline-block;vertical-align:middle;
+width:calc(100% - 160px);text-align:left; padding-right: 81px;}
+.ChoiceSet .DeleteIcon {display:inline-block;vertical-align:middle;
 margin-left:15px;}
-.ChoiceSet .AddIcon > div {margin:3px 0px;padding:4px 0px;width:60px;height:16px;line-height:16px;
+.ChoiceSet .DeleteIcon > div {margin:3px 0px;padding:4px 0px;width:60px;height:16px;line-height:16px;
+font-size:12px;font-weight:600;color:#666;text-align:center;
+background:#FFF;border-radius:3px;border:1px solid #DDD;cursor:pointer;}
+.AddIcon {display:flex;justify-content: center;align-items: center;}
+.AddIcon > div {display: inline-block;margin:3px 0px;padding:4px 0px;width:60px;height:16px;line-height:16px;
 font-size:12px;font-weight:600;color:#666;text-align:center;
 background:#FFF;border-radius:3px;border:1px solid #DDD;cursor:pointer;}
 

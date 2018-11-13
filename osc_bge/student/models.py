@@ -48,6 +48,7 @@ class Student(TimeStampedModel):
     image = models.ImageField(upload_to='images', blank=True)
     phone = models.CharField(null=True, max_length=140, blank=True)
     email = models.EmailField(null=True, blank=True)
+    skype = models.CharField(max_length=140, null=True, blank=True)
     wechat = models.CharField(null=True, max_length=140, blank=True)
     status = models.CharField(null=True, max_length=80, blank=True, default='unregistered', choices=STATUS_CHOICES)
 

@@ -1,0 +1,285 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="ContentsFrame">
+	<div class="LeftFrame" id="LeftF">
+		<div class="SectionTitle">Application Process</div>
+		<div class="LeftTab" id="LeftTab01">
+			<div class="TabTitle">
+				<div OnClick="TabOpen('LeftTab01');" class="On">In- progress</div>
+				<div OnClick="TabOpen('LeftTab02');">Completed</div>
+				<div OnClick="TabOpen('LeftTab03');">Canceled</div>
+			</div><!-- TabTitle -->
+			<div class="TabConternts">
+				<div class="InnerTabContents">
+					<li><a href="../process/student.php">Yuren</a></li>
+					<li><a href="../process/student.php">Tianyi</a></li>
+					<li><a href="../process/student.php">Jessica</a></li>
+					<li><a href="../process/student.php">Hyeongcheol</a></li>
+				</div><!-- InnerTabContents -->
+			</div>
+		</div><!-- LeftTab ID:LeftTab01 -->
+
+
+
+
+		<div class="LeftTab" id="LeftTab02">
+			<div class="TabTitle">
+				<div OnClick="TabOpen('LeftTab01');">In- progress</div>
+				<div OnClick="TabOpen('LeftTab02');" class="On">Completed</div>
+				<div OnClick="TabOpen('LeftTab03');">Canceled</div>
+			</div><!-- TabTitle -->
+			<div class="TabConternts">
+				<div class="InnerTabContents">
+					<li><a href="../process/student.php">Huashuo</a></li>
+					<li><a href="../process/student.php">Xinxiang</a></li>
+					<li><a href="../process/student.php">Eric</a></li>
+					<li><a href="../process/student.php">Jason</a></li>
+				</div><!-- InnerTabContents -->
+			</div>
+		</div><!-- LeftTab ID:LeftTab02 -->
+
+
+
+
+		<div class="LeftTab" id="LeftTab03">
+			<div class="TabTitle">
+				<div OnClick="TabOpen('LeftTab01');">In- progress</div>
+				<div OnClick="TabOpen('LeftTab02');">Completed</div>
+				<div OnClick="TabOpen('LeftTab03');" class="On">Canceled</div>
+			</div><!-- TabTitle -->
+			<div class="TabConternts">
+				<div class="InnerTabContents">
+					<li><a href="../process/student.php">Jun</a></li>
+					<li><a href="../process/student.php">Jae</a></li>
+					<li><a href="../process/student.php">Soomin</a></li>
+					<li><a href="../process/student.php">Christine</a></li>
+				</div><!-- InnerTabContents -->
+			</div>
+		</div><!-- LeftTab ID:LeftTab03 -->
+
+
+
+	</div><!-- LeftFrame -->
+
+	<style>
+	#LeftTab02, #LeftTab03 {display:none;}
+	</style>
+
+
+
+	<script>
+	function TabOpen(TabName) {
+	document.getElementById('LeftTab01').style.display='none';
+	document.getElementById('LeftTab02').style.display='none';
+	document.getElementById('LeftTab03').style.display='none';
+
+	document.getElementById(TabName).style.display='block';
+	}
+	</script>
+
+
+
+
+	<div class="MainFrame" id="MainF">
+
+		<div class="BOX03">
+			<div class="MTitle">Application not completed</div>
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col>
+						<col width="76">
+					</colgroup>
+					<tr>
+						<td><a href="../process/student.php">Yuren</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Tianyi</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Jessica</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Hyeongcheol</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Huashuo</a></td>
+						<th>2018-03-01</th>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+		</div><!-- BOX03:Application not completed -->
+
+		<div class="BOX03">
+			<div class="MTitle">Upcoming School-interview</div>
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col>
+						<col width="76">
+					</colgroup>
+					<tr>
+						<td><a href="../process/student.php">Yuren</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Tianyi</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Jessica</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Hyeongcheol</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Huashuo</a></td>
+						<th>2018-03-01</th>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+		</div><!-- BOX03:Upcoming School-interview -->
+
+		<div class="BOX03E">
+			<div class="MTitle">Pending admission decision</div>
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col>
+						<col width="76">
+					</colgroup>
+					<tr>
+						<td><a href="../process/student.php">Yuren</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Tianyi</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Jessica</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Hyeongcheol</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Huashuo</a></td>
+						<th>2018-03-01</th>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+		</div><!-- BOX03:Pending admission decision -->
+		<div class="cdiv"></div>
+		<div class="EndPart"></div>
+
+		<div class="BOX03">
+			<div class="MTitle">Pending to issue I-20</div>
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col>
+						<col width="76">
+					</colgroup>
+					<tr>
+						<td><a href="../process/student.php">Yuren</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Tianyi</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Jessica</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Hyeongcheol</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Huashuo</a></td>
+						<th>2018-03-01</th>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+		</div><!-- BOX03:Pending to issue I-20 -->
+
+		<div class="BOX03">
+			<div class="MTitle">Upcoming Visa-interview</div>
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col>
+						<col width="76">
+					</colgroup>
+					<tr>
+						<td><a href="../process/student.php">Yuren</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Tianyi</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Jessica</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Hyeongcheol</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Huashuo</a></td>
+						<th>2018-03-01</th>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+		</div><!-- BOX03:Upcoming Visa-interview -->
+
+		<div class="BOX03E">
+			<div class="MTitle">Departure schedule</div>
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col>
+						<col width="76">
+					</colgroup>
+					<tr>
+						<td><a href="../process/student.php">Yuren</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Tianyi</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Jessica</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Hyeongcheol</a></td>
+						<th>2018-03-01</th>
+					</tr>
+					<tr>
+						<td><a href="../process/student.php">Huashuo</a></td>
+						<th>2018-03-01</th>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+		</div><!-- BOX03:Departure schedule -->
+		<div class="cdiv"></div>
+		<div class="EndPart"></div>
+
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+{% endblock %}

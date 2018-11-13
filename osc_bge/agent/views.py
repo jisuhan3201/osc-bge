@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
 from django.db.models import Q
+from django.core import serializers
 from . import models
 from osc_bge.users import models as user_models
 from osc_bge.form import models as form_models
@@ -10,6 +11,7 @@ from osc_bge.student import models as student_models
 from osc_bge.school import models as school_models
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
+import json
 
 
 class CounselView(View):
@@ -92,6 +94,8 @@ class CustomerRegisterView(View):
             student.name = data.get('name')
             student.gender = data.get('gender')
             student.birthday = data.get('birth')
+            student.email = data.get('email')
+            student.skype = data.get("skype")
             student.wechat = data.get('wechat')
             student.phone = data.get('phone')
             student.save()
@@ -156,6 +160,8 @@ class CustomerRegisterView(View):
                 name=data.get('name'),
                 gender=data.get('gender'),
                 birthday=data.get('birth'),
+                email=data.get('email'),
+                skype=data.get('skype'),
                 wechat=data.get('wechat'),
                 phone=data.get('phone'),
             )
@@ -354,6 +360,8 @@ class ApplicationRegisterView(View):
             student.name = data.get('name')
             student.gender = data.get('gender')
             student.birthday = data.get('birth')
+            student.email = data.get('email')
+            student.skype = data.get('skype')
             student.wechat = data.get('wechat')
             student.phone = data.get('phone')
             student.save()
@@ -399,11 +407,79 @@ class ApplicationRegisterView(View):
                 )
                 student_history.save()
 
+            school_ids = []
+            class_start_days = []
+            courses = []
+            for i in range(1,11):
+                if data.get('app_school'+str(i)):
+                    school_ids.append(data.get('app_school'+str(i)))
+                    class_start_days.append(data.get('app_start'+str(i)))
+                    courses.append(data.get('app_course'+str(i)))
+                else:
+                    continue
+
+            if school_ids[0]:
+
+                student.status = 'registered'
+                student.save()
+
+                for school, class_start_day, course in zip(school_ids, class_start_days, courses):
+                    try:
+                        found_school = school_models.School.objects.get(pk=int(school))
+                    except school_models.School.DoesNotExist:
+                        return HttpResponse(status=404)
+
+                    formality = form_models.Formality(
+                        counsel=counsel,
+                        payment_complete=False,
+                    )
+                    formality.save()
+
+                    school_formality = form_models.SchoolFormality(
+                        formality=formality,
+                        school=found_school,
+                        class_start_at=class_start_day if class_start_day else None,
+                        course=course if course else None,
+                    )
+                    school_formality.save()
+
+
+            else:
+                return HttpResponse(status=400)
         else:
             return HttpResponse(status=400)
 
-        return redirect('/agent/application')
+        return redirect('/agent/process')
+
+
+class ProcessView(View):
+
+    def get(self, request):
+
+        return render(request, 'agent/process.html', {})
+
+
 
 
 def load_states(request):
-    pass
+
+    country = request.GET.get('country')
+    states = school_models.School.objects.filter(country=country).values('state').order_by('state').distinct()
+
+    state_list = []
+    for state in states:
+        state_list.append(state)
+
+    result = json.dumps({"data":state_list})
+
+    return HttpResponse(result, content_type="application/json")
+
+def load_schools(request):
+
+    state = request.GET.get('state')
+
+    schools = school_models.School.objects.filter(state__iexact=state).order_by('name')
+
+    data = serializers.serialize("json", schools)
+
+    return HttpResponse(data, content_type="application/json")

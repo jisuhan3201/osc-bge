@@ -1,4 +1,89 @@
-function showDiv(num){
-  document.getElementById('ChoiceSet' + num).style.display="block";
-  document.getElementById('showDiv' + num).style.display="transparent";
-}
+$("#showDivBtn2").click(function(){
+  $("#showDiv2").hide()
+  $("#ChoiceSet2").show()
+  $("#showDiv3").show()
+})
+$("#showDivBtn3").click(function(){
+  $("#showDiv3").hide()
+  $("#ChoiceSet3").show()
+  $("#showDiv4").show()
+})
+$("#showDivBtn4").click(function(){
+  $("#showDiv4").hide()
+  $("#ChoiceSet4").show()
+  $("#showDiv5").show()
+})
+$("#showDivBtn5").click(function(){
+  $("#showDiv5").hide()
+  $("#ChoiceSet5").show()
+  $("#showDiv6").show()
+})
+$("#showDivBtn6").click(function(){
+  $("#showDiv6").hide()
+  $("#ChoiceSet6").show()
+  $("#showDiv7").show()
+})
+$("#showDivBtn7").click(function(){
+  $("#showDiv7").hide()
+  $("#ChoiceSet7").show()
+  $("#showDiv8").show()
+})
+$("#showDivBtn8").click(function(){
+  $("#showDiv8").hide()
+  $("#ChoiceSet8").show()
+  $("#showDiv9").show()
+})
+$("#showDivBtn9").click(function(){
+  $("#showDiv9").hide()
+  $("#ChoiceSet9").show()
+  $("#showDiv10").show()
+})
+$("#showDivBtn10").click(function(){
+  $("#showDiv10").hide()
+  $("#ChoiceSet10").show()
+})
+
+$("#deleteDivBtn2").click(function(){
+  $("#ChoiceSet2").hide()
+  $("#showDiv3").hide()
+  $("#showDiv2").show()
+})
+$("#deleteDivBtn3").click(function(){
+  $("#ChoiceSet3").hide()
+  $("#showDiv4").hide()
+  $("#showDiv3").show()
+})
+$("#deleteDivBtn4").click(function(){
+  $("#ChoiceSet4").hide()
+  $("#showDiv5").hide()
+  $("#showDiv4").show()
+})
+$("#deleteDivBtn5").click(function(){
+  $("#ChoiceSet5").hide()
+  $("#showDiv6").hide()
+  $("#showDiv5").show()
+})
+$("#deleteDivBtn6").click(function(){
+  $("#ChoiceSet6").hide()
+  $("#showDiv7").hide()
+  $("#showDiv6").show()
+})
+$("#deleteDivBtn7").click(function(){
+  $("#ChoiceSet7").hide()
+  $("#showDiv8").hide()
+  $("#showDiv7").show()
+})
+$("#deleteDivBtn8").click(function(){
+  $("#ChoiceSet8").hide()
+  $("#showDiv9").hide()
+  $("#showDiv8").show()
+})
+$("#deleteDivBtn9").click(function(){
+  $("#ChoiceSet9").hide()
+  $("#showDiv10").hide()
+  $("#showDiv9").show()
+})
+$("#deleteDivBtn10").click(function(){
+  $("#ChoiceSet10").hide()
+  $("#showDiv10").show()
+})

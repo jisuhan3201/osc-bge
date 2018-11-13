@@ -114,7 +114,7 @@
 								<label><input type="radio" name="program" value="college" checked/><span></span>College</label>
 								<label><input type="radio" name="program" value="camp"/><span></span>Camp</label>
 								<label><input type="radio" name="program" value="not_specified"/><span></span>Not Specified</label>
-								{% elif counsel.program_interested == 'not_specified' %}
+								{% elif counsel.program_interested == 'camp' %}
 								<label><input type="radio" name="program" value="k12" required/><span></span>K-12</label>
 								<label><input type="radio" name="program" value="college"/><span></span>College</label>
 								<label><input type="radio" name="program" value="camp" checked/><span></span>Camp</label>
@@ -261,6 +261,20 @@
 						<col width="160">
 						<col>
 					</colgroup>
+					<tr>
+						<th>Student Email : </th>
+						{% if counsel.student.email %}
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="email" value="{{counsel.student.email}}"/></td>
+						{% else %}
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="email"/></td>
+						{% endif %}
+						<th>Skype ID : </th>
+						{% if counsel.student.skype %}
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="skype" value="{{counsel.student.skype}}"/></td>
+						{% else %}
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="skype"/></td>
+						{% endif %}
+					</tr>
 					<tr>
 						<th>Toefl : </th>
 						<td class="InnerInputTD">
