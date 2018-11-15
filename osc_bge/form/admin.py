@@ -123,6 +123,7 @@ class SchoolFormalityAdmin(admin.ModelAdmin):
         "id",
         "school",
         "formality",
+        "school_priority",
         "class_start_at",
         "course",
         "form_apply_fee",

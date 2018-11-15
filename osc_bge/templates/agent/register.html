@@ -276,6 +276,16 @@
 						{% endif %}
 					</tr>
 					<tr>
+						<th>Nationality : </th>
+						{% if counsel.student.nationality %}
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="nationality" value="{{counsel.student.nationality}}"/></td>
+						{% else %}
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="nationality"/></td>
+						{% endif %}
+						<th></th>
+						<td></td>
+					</tr>
+					<tr>
 						<th>Toefl : </th>
 						<td class="InnerInputTD">
 							{% if student_history %}

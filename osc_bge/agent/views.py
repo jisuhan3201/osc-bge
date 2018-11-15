@@ -96,6 +96,7 @@ class CustomerRegisterView(View):
             student.birthday = data.get('birth')
             student.email = data.get('email')
             student.skype = data.get("skype")
+            student.nationality = data.get("nationality")
             student.wechat = data.get('wechat')
             student.phone = data.get('phone')
             student.save()
@@ -162,6 +163,7 @@ class CustomerRegisterView(View):
                 birthday=data.get('birth'),
                 email=data.get('email'),
                 skype=data.get('skype'),
+                nationality=data.get('nationality'),
                 wechat=data.get('wechat'),
                 phone=data.get('phone'),
             )
@@ -308,13 +310,32 @@ class ApplicationRegisterView(View):
 
             countries = school_models.School.objects.values('country').order_by('country').distinct()
 
+
+            try:
+                found_formality = form_models.Formality.objects.get(counsel=found_counsel)
+                school_formalities = form_models.SchoolFormality.objects.filter(formality=found_formality).order_by('school_priority')
+                print(found_formality)
+                print(school_formalities)
+            except:
+                school_formalities = None
+
+            if school_formalities:
+                formality_range = range(0, len(school_formalities))
+                empty_range = range(len(school_formalities)+1, 11)
+            else:
+                formality_range = None
+                empty_range = range(2, 11)
+
             return render(
                 request,
                 'agent/register.html',
                 {
                     "counsel":found_counsel,
                     "student_history": student_history,
-                    "countries": countries
+                    "countries": countries,
+                    "formality_range": formality_range,
+                    "empty_range": empty_range,
+                    "school_formalities": school_formalities,
                 })
 
         else:
@@ -362,6 +383,7 @@ class ApplicationRegisterView(View):
             student.birthday = data.get('birth')
             student.email = data.get('email')
             student.skype = data.get('skype')
+            student.nationality = data.get('nationality')
             student.wechat = data.get('wechat')
             student.phone = data.get('phone')
             student.save()
@@ -419,15 +441,18 @@ class ApplicationRegisterView(View):
                     continue
 
             if school_ids[0]:
+                print(school_ids)
+                # Update SchoolFormality by exsisting Formality
+                try:
+                    formality = form_models.Formality.objects.get(counsel=counsel)
+                    school_formalities = form_models.SchoolFormality.objects.filter(formality=formality)
+                    school_formalities.delete()
 
-                student.status = 'registered'
-                student.save()
+                 #Create Formality and SchoolFormality
+                except form_models.Formality.DoesNotExist:
 
-                for school, class_start_day, course in zip(school_ids, class_start_days, courses):
-                    try:
-                        found_school = school_models.School.objects.get(pk=int(school))
-                    except school_models.School.DoesNotExist:
-                        return HttpResponse(status=404)
+                    student.status = 'registered'
+                    student.save()
 
                     formality = form_models.Formality(
                         counsel=counsel,
@@ -435,9 +460,17 @@ class ApplicationRegisterView(View):
                     )
                     formality.save()
 
+                for index, (school, class_start_day, course) in enumerate(zip(school_ids, class_start_days, courses)):
+
+                    try:
+                        found_school = school_models.School.objects.get(pk=int(school))
+                    except school_models.School.DoesNotExist:
+                        return HttpResponse(status=404)
+
                     school_formality = form_models.SchoolFormality(
                         formality=formality,
                         school=found_school,
+                        school_priority=int(index+1),
                         class_start_at=class_start_day if class_start_day else None,
                         course=course if course else None,
                     )
@@ -454,10 +487,68 @@ class ApplicationRegisterView(View):
 
 class ProcessView(View):
 
+    def get_counseler(self):
+
+        user = self.request.user
+        try:
+            found_counseler = user_models.Counseler.objects.get(user=user)
+        except user_models.Counseler.DoesNotExist:
+            return HttpResponse(status=401)
+        return found_counseler
+
     def get(self, request):
 
-        return render(request, 'agent/process.html', {})
+        found_counseler = self.get_counseler()
 
+        in_progress = form_models.Formality.objects.filter(
+            payment_complete=False).filter(
+            counsel__counseler=found_counseler).order_by("created_at")
+
+        return render(request, 'agent/process.html', {'in_progress':in_progress})
+
+
+class ProcessApplyView(View):
+
+    def get_counseler(self):
+
+        user = self.request.user
+        try:
+            found_counseler = user_models.Counseler.objects.get(user=user)
+        except user_models.Counseler.DoesNotExist:
+            return HttpResponse(status=401)
+        return found_counseler
+
+    def get(self, request, formality_id):
+
+        try:
+            found_formality = form_models.Formality.objects.get(pk=formality_id)
+        except form_models.Formality.DoesNotExist:
+            return HttpResponse(status=400)
+
+        found_counseler = self.get_counseler()
+
+        if not found_formality.counsel.counseler == found_counseler:
+            return HttpResponse(status=401)
+
+        in_progress = form_models.Formality.objects.filter(
+            payment_complete=False).filter(
+            counsel__counseler=found_counseler).order_by("created_at")
+
+        student_info = found_formality.counsel.student
+
+        return render(
+            request,
+            'agent/formality.html',
+            {
+                "found_formality":found_formality,
+                'in_progress':in_progress,
+                "student_info":student_info,
+            }
+        )
+
+
+    def post(self, request, formality_id):
+        pass
 
 
 

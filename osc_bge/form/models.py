@@ -124,7 +124,7 @@ class MonthlyReport(TimeStampedModel):
 
 class Formality(TimeStampedModel):
 
-    counsel = models.ForeignKey(Counsel, on_delete=models.SET_NULL, null=True)
+    counsel = models.OneToOneField(Counsel, on_delete=models.SET_NULL, null=True)
     payment_complete = models.NullBooleanField(blank=True)
     apply_at = models.DateTimeField(null=True, blank=True)
     canceled_at = models.DateTimeField(null=True, blank=True)
@@ -151,7 +151,8 @@ class Formality(TimeStampedModel):
 class SchoolFormality(TimeStampedModel):
 
     school = models.ForeignKey(school_models.School, on_delete=models.SET_NULL, null=True)
-    formality = models.ForeignKey(Formality, on_delete=models.SET_NULL, null=True)
+    formality = models.ForeignKey(Formality, on_delete=models.SET_NULL, null=True, related_name="school_formality")
+    school_priority = models.SmallIntegerField(null=True, blank=True)
     class_start_at = models.DateField(null=True, blank=True)
     course = models.CharField(max_length=80, null=True, blank=True)
     form_apply_fee = models.NullBooleanField(blank=True)

@@ -51,6 +51,7 @@ class Student(TimeStampedModel):
     skype = models.CharField(max_length=140, null=True, blank=True)
     wechat = models.CharField(null=True, max_length=140, blank=True)
     status = models.CharField(null=True, max_length=80, blank=True, default='unregistered', choices=STATUS_CHOICES)
+    nationality = models.CharField(max_length=80, null=True, blank=True)
 
     def __str__(self):
         return "{}".format(self.name)

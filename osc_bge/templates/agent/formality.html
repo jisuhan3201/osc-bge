@@ -1,0 +1,360 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="ContentsFrame">
+
+
+	<div class="LeftFrame" id="LeftF">
+		<div class="SectionTitle">Application Process</div>
+		<div class="LeftTab" id="LeftTab01">
+			<div class="TabTitle">
+				<div OnClick="TabOpen('LeftTab01');" class="On">In- progress</div>
+				<div OnClick="TabOpen('LeftTab02');">Completed</div>
+				<div OnClick="TabOpen('LeftTab03');">Canceled</div>
+			</div><!-- TabTitle -->
+			<div class="TabConternts">
+				<div class="InnerTabContents">
+          {% for formality in in_progress %}
+					<li><a href="process/{{formality.id}}/student">{{formality.counsel.student.name}}</a></li>
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div>
+		</div><!-- LeftTab ID:LeftTab01 -->
+
+
+
+
+		<div class="LeftTab" id="LeftTab02">
+			<div class="TabTitle">
+				<div OnClick="TabOpen('LeftTab01');">In- progress</div>
+				<div OnClick="TabOpen('LeftTab02');" class="On">Completed</div>
+				<div OnClick="TabOpen('LeftTab03');">Canceled</div>
+			</div><!-- TabTitle -->
+			<div class="TabConternts">
+				<div class="InnerTabContents">
+					<li><a href="../process/student.php">Huashuo</a></li>
+					<li><a href="../process/student.php">Xinxiang</a></li>
+					<li><a href="../process/student.php">Eric</a></li>
+					<li><a href="../process/student.php">Jason</a></li>
+				</div><!-- InnerTabContents -->
+			</div>
+		</div><!-- LeftTab ID:LeftTab02 -->
+
+
+
+
+		<div class="LeftTab" id="LeftTab03">
+			<div class="TabTitle">
+				<div OnClick="TabOpen('LeftTab01');">In- progress</div>
+				<div OnClick="TabOpen('LeftTab02');">Completed</div>
+				<div OnClick="TabOpen('LeftTab03');" class="On">Canceled</div>
+			</div><!-- TabTitle -->
+			<div class="TabConternts">
+				<div class="InnerTabContents">
+					<li><a href="../process/student.php">Jun</a></li>
+					<li><a href="../process/student.php">Jae</a></li>
+					<li><a href="../process/student.php">Soomin</a></li>
+					<li><a href="../process/student.php">Christine</a></li>
+				</div><!-- InnerTabContents -->
+			</div>
+		</div><!-- LeftTab ID:LeftTab03 -->
+
+
+
+	</div><!-- LeftFrame -->
+
+	<style>
+	#LeftTab02, #LeftTab03 {display:none;}
+	</style>
+
+
+
+	<script>
+	function TabOpen(TabName) {
+	document.getElementById('LeftTab01').style.display='none';
+	document.getElementById('LeftTab02').style.display='none';
+	document.getElementById('LeftTab03').style.display='none';
+
+	document.getElementById(TabName).style.display='block';
+	}
+	</script>
+
+
+
+
+	<div class="MainFrame" id="MainF">
+		<div class="MTitle">Student Information</div>
+		<div class="cdiv"></div>
+		<div class="InformationSet">
+      {% if user.image %}
+        <div class="Picture" style="background-image:url('/media/{{ user.image }}');">&nbsp;</div>
+      {% else %}
+        <div class="Picture" style="background-image:url('{% static 'img/no_user.png' %}');">&nbsp;</div>
+      {% endif %}
+			<div class="Information">
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<colgroup>
+							<col width="14%">
+							<col width="36%">
+							<col width="14%">
+							<col width="36%">
+						</colgroup>
+						<tr>
+							<th>Name : </th>
+							<td>{{ student_info.name }}</td>
+							<th>Enrollment date : </th>
+							<td>{{ found_formality.created_at }}</td>
+						</tr>
+						<tr>
+							<th>DOB : </th>
+							<td>{{ student_info.birthday }}</td>
+							<th>Mobile : </th>
+							<td>{{ student_info.phone}}</td>
+						</tr>
+						<tr>
+							<th>School : </th>
+							<td>{{ student_info.student_history.current_school }}</td>
+							<th>Email : </th>
+							<td>{{ student_info.email }}</td>
+						</tr>
+						<tr>
+							<th>Year : </th>
+							<td>{{ student_info.student_history.current_grade }}</td>
+							<th>Skype ID : </th>
+							<td>{{ student_info.skype }}</td>
+						</tr>
+						<tr>
+							<th>Nationality : </th>
+							<td>{{ student_info.nationality }}</td>
+							<th>Wechat ID : </th>
+							<td>{{ student_info.wechat }}</td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
+			</div><!-- Information -->
+
+
+
+			<div class="HButton" OnClick="document.getElementById('PopFileBox').style.display='block';">File Box</div>
+			<div class="Information">
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td>
+								<label OnClick="document.getElementById('PopRegistration').style.display='block';"><input type="checkbox" checked /><span></span>Registration</label>
+								<span class="DoneIcon">E</span><span class="AddComment">2018-02-01/ 2 Schools, processing fee $3,000 payment completed</span>
+							</td>
+							<td>
+								<label OnClick="document.getElementById('PopCancelRegistration').style.display='block';"><input type="checkbox" /><span></span>Cancel Registration</label>
+							</td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
+			</div><!-- Information -->
+		</div><!-- InformationSet -->
+		<div class="EndPart"></div>
+
+
+
+		<div class="MTitle" style="width:100%;">
+			<div class="MTitleButton">Edit Appication info</div>
+			Application information</div>
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="50%">
+				</colgroup>
+				<tr>
+					<td class="TitleColor" colspan="2">St. John’s High School – MA</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label OnClick="document.getElementById('PopEnrolmentApplication').style.display='block';"><input type="checkbox" checked /><span></span>Enrolment Application</label>
+						<span class="DoneIcon">E</span><span class="AddComment">2018-02-03 / Application fee $100 payment completed</span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label OnClick="document.getElementById('PopSchoolinterview').style.display='block';"><input type="checkbox" checked /><span></span>School interview scheduling</label>
+						<span class="DoneIcon">E</span><span class="AddComment">2018-02-15 / 20:00</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label OnClick="document.getElementById('PopAccepted').style.display='block';"><input type="checkbox" checked /><span></span>Accepted</label>
+						<span class="DoneIcon">E</span><span class="AddComment">2018-02-20</span>
+					</td>
+					<td>
+						<label OnClick="document.getElementById('PopCancelEnrolmen').style.display='block';"><input type="checkbox" /><span></span>Cancel enrolment</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label OnClick="document.getElementById('PopI20Request').style.display='block';"><input type="checkbox" checked /><span></span>I-20 request</label>
+						<span class="DoneIcon">E</span><span class="AddComment">2018-02-20</span>
+					</td>
+					<td>
+						<label OnClick="document.getElementById('PopI20Received').style.display='block';"><input type="checkbox" checked /><span></span>I-20 received</label>
+						<span class="DoneIcon">E</span><span class="AddComment">2018-03-01</span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label OnClick="document.getElementById('PopProgramFeePayment').style.display='block';"><input type="checkbox" checked /><span></span>Program fee payment</label>
+						<span class="DoneIcon">E</span><span class="AddComment">2018-02-24 / $58,000</span>
+					</td>
+				</tr>
+			</table>
+
+
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="50%">
+				</colgroup>
+				<tr>
+					<td class="TitleColor" colspan="2">St. John’s High School – MA</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label OnClick="document.getElementById('PopEnrolmentApplication').style.display='block';"><input type="checkbox" checked /><span></span>Enrolment Application</label>
+						<span class="DoneIcon">E</span><span class="AddComment">2018-02-03 / Application fee $100 payment completed</span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label OnClick="document.getElementById('PopSchoolinterview').style.display='block';"><input type="checkbox" checked /><span></span>School interview scheduling</label>
+						<span class="DoneIcon">E</span><span class="AddComment">2018-02-15 / 20:00</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label OnClick="document.getElementById('PopAccepted').style.display='block';"><input type="checkbox" checked /><span></span>Accepted</label>
+						<span class="DoneIcon">E</span><span class="AddComment">2018-02-20</span>
+					</td>
+					<td>
+						<label OnClick="document.getElementById('PopCancelEnrolmen').style.display='block';"><input type="checkbox" /><span></span>Cancel enrolment</label>
+						<span class="DoneIcon">E</span><span class="AddComment">2018-02-20</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label OnClick="document.getElementById('PopI20Request').style.display='block';"><input type="checkbox" /><span></span>I-20 request</label>
+					</td>
+					<td>
+						<label OnClick="document.getElementById('PopI20Received').style.display='block';"><input type="checkbox" /><span></span>I-20 received</label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label OnClick="document.getElementById('PopProgramFeePayment').style.display='block';"><input type="checkbox" /><span></span>Program fee payment</label>
+					</td>
+				</tr>
+			</table>
+
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+		<div class="MTitle">Visa</div>
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="50%">
+				</colgroup>
+				<tr>
+					<td colspan="2">
+						<label OnClick="document.getElementById('PopVisaInterviewScheduling').style.display='block';"><input type="checkbox" checked /><span></span>Visa interview scheduling</label>
+						<span class="DoneIcon">E</span><span class="AddComment">2018-03-06 / 15:00</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label OnClick="document.getElementById('PopVisaGranted').style.display='block';"><input type="checkbox" checked /><span></span>Visa granted </label>
+						<span class="DoneIcon">E</span><span class="AddComment">2018-03-06 / 15:00</span>
+					</td>
+					<td>
+						<label OnClick="document.getElementById('PopVisaRejected').style.display='block';"><input type="checkbox" /><span></span>Visa Rejected</label>
+					</td>
+				</tr>
+			</table>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+		<div class="MTitle">Flight / Airport pick-up</div>
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<td>
+						<label OnClick="document.getElementById('PopFlightTicketing').style.display='block';"><input type="checkbox" checked /><span></span>Flight ticketing</label>
+						<span class="DoneIcon">E</span><span class="AddComment">Dep. 2018-08-15 / 17:00 |  Arr. 2018-08-15 / 16:20</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label OnClick="document.getElementById('PopAirportPickupApplication').style.display='block';"><input type="checkbox" checked /><span></span>Airport Pick-up application</label>
+						<span class="DoneIcon">E</span><span class="AddComment">2018-08-10 | Member : 3</span>
+					</td>
+				</tr>
+			</table>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+		<div class="MTitle">Accommodation</div>
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="50%">
+				</colgroup>
+				<tr>
+					<td>
+						<label OnClick="document.getElementById('PopApplication').style.display='block';"><input type="checkbox" checked /><span></span>Application</label>
+						<span class="DoneIcon">E</span><span class="AddComment">2018-03-10</span>
+					</td>
+					<td>
+						<label OnClick="document.getElementById('PopHomeStayRecommendation').style.display='block';"><input type="checkbox" checked /><span></span>Home stay recommendation</label>
+						<span class="DoneIcon">E</span><span class="AddComment">2018-07-30</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label OnClick="document.getElementById('PopHostSelection').style.display='block';"><input type="checkbox" checked /><span></span>Host selection</label>
+						<span class="DoneIcon">E</span><span class="AddComment">2018-07-31</span>
+					</td>
+					<td>
+						<label OnClick="document.getElementById('PopParentsAccommodation').style.display='block';"><input type="checkbox" checked /><span></span>Parents accommodation</label>
+						<span class="DoneIcon">E</span><span class="AddComment">2018-07-31</span>
+					</td>
+				</tr>
+			</table>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+
+
+		<div class="MTitle">Departure</div>
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="50%">
+				</colgroup>
+				<tr>
+					<td>
+						<label OnClick="document.getElementById('PopPreDepartureOrientation').style.display='block';"><input type="checkbox" checked /><span></span>Pre-departure Orientation</label>
+						<span class="DoneIcon">E</span><span class="AddComment">2018-08-01</span>
+					</td>
+					<td>
+						<label OnClick="document.getElementById('PopDepartureConfirmed').style.display='block';"><input type="checkbox" checked /><span></span>Departure confirmed</label>
+					</td>
+				</tr>
+			</table>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+
+
+
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+{% endblock %}

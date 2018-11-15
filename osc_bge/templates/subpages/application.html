@@ -1,552 +1,243 @@
+{% load humanize index %}
 <div class="MTitle">Application Info</div>
 <div class="cdiv"></div>
 
-
-<div id="ChoiceSet1" class="ChoiceSet">
-  <div class="TitleIcon">1st<br />Choice</div>
-  <div class="Information">
-    <div class="InfoTable">
-      <table cellpadding="0" cellspacing="0" border="0">
-        <colgroup>
-          <col>
-          <col width="80">
-          <col width="120">
-          <col width="60">
-          <col width="140">
-        </colgroup>
-        <tr>
-          <td class="InnerInputTD" colspan="5">
-            <select id="CountryAjax1" class="TableInnerInput" name="app_country1">
-              <option value="">Country Select..</option>
-              {% for country in countries %}
-              <option value="{{ country.country }}">{{ country.country|upper }}</option>
-              {% endfor %}
-            </select>
-            <select id="StateAjax1" class="TableInnerInput" name="app_state1">
-              <option>State Select..</option>
-            </select>
-            <select id="SchoolAjax1" class="TableInnerInput" name="app_school1" required>
-              <option value="">School Select..</option>
-            </select>
-          </td>
-          <th>Start Date : </th>
-          <td class="InnerInputTD">
-            <input
-              type="text"
-              class="TableInnerInput"
-              size="10"
-              name="app_start1"
-              pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-              placeholder="YYYY-MM-DD"
-            />
-          </td>
-          <th>Course : </th>
-          <td class="InnerInputTD">
-            <input type="text" class="TableInnerInput" size="12" name="app_course1"/>
-          </td>
-        </tr>
-      </table>
-    </div><!-- InfoTable -->
-  </div><!-- Information -->
-</div><!-- ChoiceSet -->
-<div id="showDiv2" class="AddIcon">
-  <div id="showDivBtn2">Add</div>
-</div>
-
-
-<div id="ChoiceSet2" class="ChoiceSet" style="display:none;">
-  <div class="TitleIcon">2nd<br />Choice</div>
-  <div class="Information">
-    <div class="InfoTable">
-      <table cellpadding="0" cellspacing="0" border="0">
-        <colgroup>
-          <col>
-          <col width="80">
-          <col width="120">
-          <col width="60">
-          <col width="140">
-        </colgroup>
-        <tr>
-          <td class="InnerInputTD" colspan="5">
-            <select id="CountryAjax2" class="TableInnerInput" name="app_country2">
-              <option value="">Country Select..</option>
-              {% for country in countries %}
-              <option value="{{ country.country }}">{{ country.country|upper }}</option>
-              {% endfor %}
-            </select>
-            <select id="StateAjax2" class="TableInnerInput" name="app_state2">
-              <option>State Select..</option>
-            </select>
-            <select id="SchoolAjax2" class="TableInnerInput" name="app_school2">
-              <option value="">School Select..</option>
-            </select>
-          </td>
-          <th>Start Date : </th>
-          <td class="InnerInputTD">
-            <input
-              type="text"
-              class="TableInnerInput"
-              size="10"
-              name="app_start2"
-              pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-              placeholder="YYYY-MM-DD"
-            />
-          </td>
-          <th>Course : </th>
-          <td class="InnerInputTD">
-            <input type="text" class="TableInnerInput" size="12" name="app_course2"/>
-          </td>
-        </tr>
-      </table>
-    </div><!-- InfoTable -->
-  </div><!-- Information -->
-  <div class="DeleteIcon">
-    <div id="deleteDivBtn2">Delete</div>
+{% if school_formalities %}
+  {% for i in school_formalities %}
+  <div id="ChoiceSet{{forloop.counter}}" class="ChoiceSet">
+    <div class="TitleIcon">{{ forloop.counter|ordinal }}<br />Choice</div>
+    <div class="Information">
+      <div class="InfoTable">
+        <table cellpadding="0" cellspacing="0" border="0">
+          <colgroup>
+            <col>
+            <col width="80">
+            <col width="120">
+            <col width="60">
+            <col width="140">
+          </colgroup>
+          <tr>
+            <td class="InnerInputTD" colspan="5">
+              <select id="CountryAjax{{forloop.counter}}" class="TableInnerInput" name="app_country{{forloop.counter}}">
+                <option selected disabled>{{ i.school.country|upper}} Selected</option>
+                {% for country in countries %}
+                <option value="{{ country.country }}">{{ country.country|upper }}</option>
+                {% endfor %}
+              </select>
+              <select id="StateAjax{{forloop.counter}}" class="TableInnerInput" name="app_state{{forloop.counter}}">
+                <option selected disabled>{{ i.school.state|capfirst }} Selected</option>
+              </select>
+              <select id="SchoolAjax{{forloop.counter}}" class="TableInnerInput" name="app_school{{forloop.counter}}">
+                <option value="{{ i.school.id }}">{{ i.school.name }}</option>
+              </select>
+            </td>
+            <th>Start Date : </th>
+            <td class="InnerInputTD">
+              <input
+                type="text"
+                class="TableInnerInput"
+                size="10"
+                name="app_start{{forloop.counter}}"
+                pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+                placeholder="YYYY-MM-DD"
+                value="{{ i.class_start_at|date:"Y-m-d" }}"
+              />
+            </td>
+            <th>Course : </th>
+            <td class="InnerInputTD">
+              <input
+                type="text"
+                class="TableInnerInput"
+                size="12"
+                name="app_course{{forloop.counter}}"
+                value="{{ i.course }}"
+              />
+            </td>
+          </tr>
+        </table>
+      </div><!-- InfoTable -->
+    </div><!-- Information -->
+    {% if forloop.counter != 1 %}
+    <div class="DeleteIcon">
+      <div id="deleteDivBtn{{forloop.counter}}">Delete</div>
+    </div>
+    {% endif %}
+  </div><!-- ChoiceSet -->
+  {% if school_formalities|length == forloop.counter %}
+  <div id="showDiv{{forloop.counter|add:1}}" class="AddIcon">
+    <div id="showDivBtn{{forloop.counter|add:1}}">Add</div>
   </div>
-</div><!-- ChoiceSet -->
-<div id="showDiv3" class="AddIcon" style="display:none;">
-  <div id="showDivBtn3">Add</div>
-</div>
-
-
-<div id="ChoiceSet3" class="ChoiceSet" style="display:none;">
-  <div class="TitleIcon">3rd<br />Choice</div>
-  <div class="Information">
-    <div class="InfoTable">
-      <table cellpadding="0" cellspacing="0" border="0">
-        <colgroup>
-          <col>
-          <col width="80">
-          <col width="120">
-          <col width="60">
-          <col width="140">
-        </colgroup>
-        <tr>
-          <td class="InnerInputTD" colspan="5">
-            <select id="CountryAjax3" class="TableInnerInput" name="app_country3">
-              <option value="">Country Select..</option>
-              {% for country in countries %}
-              <option value="{{ country.country }}">{{ country.country|upper }}</option>
-              {% endfor %}
-            </select>
-            <select id="StateAjax3" class="TableInnerInput" name="app_state3">
-              <option>State Select..</option>
-            </select>
-            <select id="SchoolAjax3" class="TableInnerInput" name="app_school3">
-              <option value="">School Select..</option>
-            </select>
-          </td>
-          <th>Start Date : </th>
-          <td class="InnerInputTD">
-            <input
-              type="text"
-              class="TableInnerInput"
-              size="10"
-              name="app_start3"
-              pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-              placeholder="YYYY-MM-DD"
-            />
-          </td>
-          <th>Course : </th>
-          <td class="InnerInputTD">
-            <input type="text" class="TableInnerInput" size="12" name="app_course3"/>
-          </td>
-        </tr>
-      </table>
-    </div><!-- InfoTable -->
-  </div><!-- Information -->
-  <div class="DeleteIcon">
-    <div id="deleteDivBtn3">Delete</div>
+  {% else %}
+  <div id="showDiv{{forloop.counter|add:1}}" class="AddIcon" style="display:none;">
+    <div id="showDivBtn{{forloop.counter|add:1}}">Add</div>
   </div>
-</div><!-- ChoiceSet -->
-<div id="showDiv4" class="AddIcon" style="display:none;">
-  <div id="showDivBtn4">Add</div>
-</div>
+  {% endif %}
+  {% endfor %}
 
-
-<div id="ChoiceSet4" class="ChoiceSet" style="display:none;">
-  <div class="TitleIcon">4th<br />Choice</div>
-  <div class="Information">
-    <div class="InfoTable">
-      <table cellpadding="0" cellspacing="0" border="0">
-        <colgroup>
-          <col>
-          <col width="80">
-          <col width="120">
-          <col width="60">
-          <col width="140">
-        </colgroup>
-        <tr>
-          <td class="InnerInputTD" colspan="5">
-            <select id="CountryAjax4" class="TableInnerInput" name="app_country4">
-              <option value="">Country Select..</option>
-              {% for country in countries %}
-              <option value="{{ country.country }}">{{ country.country|upper }}</option>
-              {% endfor %}
-            </select>
-            <select id="StateAjax4" class="TableInnerInput" name="app_state4">
-              <option>State Select..</option>
-            </select>
-            <select id="SchoolAjax4" class="TableInnerInput" name="app_school4">
-              <option value="">School Select..</option>
-            </select>
-          </td>
-          <th>Start Date : </th>
-          <td class="InnerInputTD">
-            <input
-              type="text"
-              class="TableInnerInput"
-              size="10"
-              name="app_start4"
-              pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-              placeholder="YYYY-MM-DD"
-            />
-          </td>
-          <th>Course : </th>
-          <td class="InnerInputTD">
-            <input type="text" class="TableInnerInput" size="12" name="app_course4"/>
-          </td>
-        </tr>
-      </table>
-    </div><!-- InfoTable -->
-  </div><!-- Information -->
-  <div class="DeleteIcon">
-    <div id="deleteDivBtn4">Delete</div>
+  {% for i in empty_range %}
+  <div id="ChoiceSet{{i}}" class="ChoiceSet" style="display:none;">
+    <div class="TitleIcon">{{ i|ordinal }}<br />Choice</div>
+    <div class="Information">
+      <div class="InfoTable">
+        <table cellpadding="0" cellspacing="0" border="0">
+          <colgroup>
+            <col>
+            <col width="80">
+            <col width="120">
+            <col width="60">
+            <col width="140">
+          </colgroup>
+          <tr>
+            <td class="InnerInputTD" colspan="5">
+              <select id="CountryAjax{{i}}" class="TableInnerInput" name="app_country{{i}}">
+                <option value="">Country Select..</option>
+                {% for country in countries %}
+                <option value="{{ country.country }}">{{ country.country|upper }}</option>
+                {% endfor %}
+              </select>
+              <select id="StateAjax{{i}}" class="TableInnerInput" name="app_state{{i}}">
+                <option>State Select..</option>
+              </select>
+              <select id="SchoolAjax{{i}}" class="TableInnerInput" name="app_school{{i}}">
+                <option value="">School Select..</option>
+              </select>
+            </td>
+            <th>Start Date : </th>
+            <td class="InnerInputTD">
+              <input
+                type="text"
+                class="TableInnerInput"
+                size="10"
+                name="app_start{{i}}"
+                pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+                placeholder="YYYY-MM-DD"
+              />
+            </td>
+            <th>Course : </th>
+            <td class="InnerInputTD">
+              <input type="text" class="TableInnerInput" size="12" name="app_course{{i}}"/>
+            </td>
+          </tr>
+        </table>
+      </div><!-- InfoTable -->
+    </div><!-- Information -->
+    <div class="DeleteIcon">
+      <div id="deleteDivBtn{{i}}">Delete</div>
+    </div>
+  </div><!-- ChoiceSet -->
+  <div id="showDiv{{i|add:1}}" class="AddIcon" style="display:none;">
+    <div id="showDivBtn{{i|add:1}}">Add</div>
   </div>
-</div><!-- ChoiceSet -->
-<div id="showDiv5" class="AddIcon" style="display:none;">
-  <div id="showDivBtn5">Add</div>
-</div>
+  {% endfor %}
+{% else %}
 
-
-<div id="ChoiceSet5" class="ChoiceSet" style="display:none;">
-  <div class="TitleIcon">5th<br />Choice</div>
-  <div class="Information">
-    <div class="InfoTable">
-      <table cellpadding="0" cellspacing="0" border="0">
-        <colgroup>
-          <col>
-          <col width="80">
-          <col width="120">
-          <col width="60">
-          <col width="140">
-        </colgroup>
-        <tr>
-          <td class="InnerInputTD" colspan="5">
-            <select id="CountryAjax5" class="TableInnerInput" name="app_country5">
-              <option value="">Country Select..</option>
-              {% for country in countries %}
-              <option value="{{ country.country }}">{{ country.country|upper }}</option>
-              {% endfor %}
-            </select>
-            <select id="StateAjax5" class="TableInnerInput" name="app_state5">
-              <option>State Select..</option>
-            </select>
-            <select id="SchoolAjax5" class="TableInnerInput" name="app_school5">
-              <option value="">School Select..</option>
-            </select>
-          </td>
-          <th>Start Date : </th>
-          <td class="InnerInputTD">
-            <input
-              type="text"
-              class="TableInnerInput"
-              size="10"
-              name="app_start5"
-              pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-              placeholder="YYYY-MM-DD"
-            />
-          </td>
-          <th>Course : </th>
-          <td class="InnerInputTD">
-            <input type="text" class="TableInnerInput" size="12" name="app_course5"/>
-          </td>
-        </tr>
-      </table>
-    </div><!-- InfoTable -->
-  </div><!-- Information -->
-  <div class="DeleteIcon">
-    <div id="deleteDivBtn5">Delete</div>
+  <div id="ChoiceSet1" class="ChoiceSet">
+    <div class="TitleIcon">1st<br />Choice</div>
+    <div class="Information">
+      <div class="InfoTable">
+        <table cellpadding="0" cellspacing="0" border="0">
+          <colgroup>
+            <col>
+            <col width="80">
+            <col width="120">
+            <col width="60">
+            <col width="140">
+          </colgroup>
+          <tr>
+            <td class="InnerInputTD" colspan="5">
+              <select id="CountryAjax1" class="TableInnerInput" name="app_country1">
+                <option value="">Country Select..</option>
+                {% for country in countries %}
+                  <option value="{{ country.country }}">{{ country.country|upper }}</option>
+                {% endfor %}
+              </select>
+              <select id="StateAjax1" class="TableInnerInput" name="app_state1">
+                <option>State Select..</option>
+              </select>
+              <select id="SchoolAjax1" class="TableInnerInput" name="app_school1" required>
+                <option value="">School Select..</option>
+              </select>
+            </td>
+            <th>Start Date : </th>
+            <td class="InnerInputTD">
+              <input
+                type="text"
+                class="TableInnerInput"
+                size="10"
+                name="app_start1"
+                pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+                placeholder="YYYY-MM-DD"
+              />
+            </td>
+            <th>Course : </th>
+            <td class="InnerInputTD">
+              <input type="text" class="TableInnerInput" size="12" name="app_course1"/>
+            </td>
+          </tr>
+        </table>
+      </div><!-- InfoTable -->
+    </div><!-- Information -->
+  </div><!-- ChoiceSet -->
+  <div id="showDiv2" class="AddIcon">
+    <div id="showDivBtn2">Add</div>
   </div>
-</div><!-- ChoiceSet -->
-<div id="showDiv6" class="AddIcon" style="display:none;">
-  <div id="showDivBtn6">Add</div>
-</div>
 
-
-
-<div id="ChoiceSet6" class="ChoiceSet" style="display:none;">
-  <div class="TitleIcon">6th<br />Choice</div>
-  <div class="Information">
-    <div class="InfoTable">
-      <table cellpadding="0" cellspacing="0" border="0">
-        <colgroup>
-          <col>
-          <col width="80">
-          <col width="120">
-          <col width="60">
-          <col width="140">
-        </colgroup>
-        <tr>
-          <td class="InnerInputTD" colspan="5">
-            <select id="CountryAjax6" class="TableInnerInput" name="app_country6">
-              <option value="">Country Select..</option>
-              {% for country in countries %}
-              <option value="{{ country.country }}">{{ country.country|upper }}</option>
-              {% endfor %}
-            </select>
-            <select id="StateAjax6" class="TableInnerInput" name="app_state6">
-              <option>State Select..</option>
-            </select>
-            <select id="SchoolAjax6" class="TableInnerInput" name="app_school6">
-              <option value="">School Select..</option>
-            </select>
-          </td>
-          <th>Start Date : </th>
-          <td class="InnerInputTD">
-            <input
-              type="text"
-              class="TableInnerInput"
-              size="10"
-              name="app_start6"
-              pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-              placeholder="YYYY-MM-DD"
-            />
-          </td>
-          <th>Course : </th>
-          <td class="InnerInputTD">
-            <input type="text" class="TableInnerInput" size="12" name="app_course6"/>
-          </td>
-        </tr>
-      </table>
-    </div><!-- InfoTable -->
-  </div><!-- Information -->
-  <div class="DeleteIcon">
-    <div id="deleteDivBtn6">Delete</div>
+  {% for i in empty_range %}
+  <div id="ChoiceSet{{i}}" class="ChoiceSet" style="display:none;">
+    <div class="TitleIcon">{{ i|ordinal }}<br />Choice</div>
+    <div class="Information">
+      <div class="InfoTable">
+        <table cellpadding="0" cellspacing="0" border="0">
+          <colgroup>
+            <col>
+            <col width="80">
+            <col width="120">
+            <col width="60">
+            <col width="140">
+          </colgroup>
+          <tr>
+            <td class="InnerInputTD" colspan="5">
+              <select id="CountryAjax{{i}}" class="TableInnerInput" name="app_country{{i}}">
+                <option value="">Country Select..</option>
+                {% for country in countries %}
+                <option value="{{ country.country }}">{{ country.country|upper }}</option>
+                {% endfor %}
+              </select>
+              <select id="StateAjax{{i}}" class="TableInnerInput" name="app_state{{i}}">
+                <option>State Select..</option>
+              </select>
+              <select id="SchoolAjax{{i}}" class="TableInnerInput" name="app_school{{i}}">
+                <option value="">School Select..</option>
+              </select>
+            </td>
+            <th>Start Date : </th>
+            <td class="InnerInputTD">
+              <input
+                type="text"
+                class="TableInnerInput"
+                size="10"
+                name="app_start{{i}}"
+                pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+                placeholder="YYYY-MM-DD"
+              />
+            </td>
+            <th>Course : </th>
+            <td class="InnerInputTD">
+              <input type="text" class="TableInnerInput" size="12" name="app_course{{i}}"/>
+            </td>
+          </tr>
+        </table>
+      </div><!-- InfoTable -->
+    </div><!-- Information -->
+    <div class="DeleteIcon">
+      <div id="deleteDivBtn{{i}}">Delete</div>
+    </div>
+  </div><!-- ChoiceSet -->
+  <div id="showDiv{{i|add:1}}" class="AddIcon" style="display:none;">
+    <div id="showDivBtn{{i|add:1}}">Add</div>
   </div>
-</div><!-- ChoiceSet -->
-<div id="showDiv7" class="AddIcon" style="display:none;">
-  <div id="showDivBtn7">Add</div>
-</div>
+  {% endfor %}
 
-
-<div id="ChoiceSet7" class="ChoiceSet" style="display:none;">
-  <div class="TitleIcon">7th<br />Choice</div>
-  <div class="Information">
-    <div class="InfoTable">
-      <table cellpadding="0" cellspacing="0" border="0">
-        <colgroup>
-          <col>
-          <col width="80">
-          <col width="120">
-          <col width="60">
-          <col width="140">
-        </colgroup>
-        <tr>
-          <td class="InnerInputTD" colspan="5">
-            <select id="CountryAjax7" class="TableInnerInput" name="app_country7">
-              <option value="">Country Select..</option>
-              {% for country in countries %}
-              <option value="{{ country.country }}">{{ country.country|upper }}</option>
-              {% endfor %}
-            </select>
-            <select id="StateAjax7" class="TableInnerInput" name="app_state7">
-              <option>State Select..</option>
-            </select>
-            <select id="SchoolAjax7" class="TableInnerInput" name="app_school7">
-              <option value="">School Select..</option>
-            </select>
-          </td>
-          <th>Start Date : </th>
-          <td class="InnerInputTD">
-            <input
-              type="text"
-              class="TableInnerInput"
-              size="10"
-              name="app_start7"
-              pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-              placeholder="YYYY-MM-DD"
-            />
-          </td>
-          <th>Course : </th>
-          <td class="InnerInputTD">
-            <input type="text" class="TableInnerInput" size="12" name="app_course7"/>
-          </td>
-        </tr>
-      </table>
-    </div><!-- InfoTable -->
-  </div><!-- Information -->
-  <div class="DeleteIcon">
-    <div id="deleteDivBtn7">Delete</div>
-  </div>
-</div><!-- ChoiceSet -->
-<div id="showDiv8" class="AddIcon" style="display:none;">
-  <div id="showDivBtn8">Add</div>
-</div>
-
-
-
-<div id="ChoiceSet8" class="ChoiceSet" style="display:none;">
-  <div class="TitleIcon">8th<br />Choice</div>
-  <div class="Information">
-    <div class="InfoTable">
-      <table cellpadding="0" cellspacing="0" border="0">
-        <colgroup>
-          <col>
-          <col width="80">
-          <col width="120">
-          <col width="60">
-          <col width="140">
-        </colgroup>
-        <tr>
-          <td class="InnerInputTD" colspan="5">
-            <select id="CountryAjax8" class="TableInnerInput" name="app_country8">
-              <option value="">Country Select..</option>
-              {% for country in countries %}
-              <option value="{{ country.country }}">{{ country.country|upper }}</option>
-              {% endfor %}
-            </select>
-            <select id="StateAjax8" class="TableInnerInput" name="app_state8">
-              <option>State Select..</option>
-            </select>
-            <select id="SchoolAjax8" class="TableInnerInput" name="app_school8">
-              <option value="">School Select..</option>
-            </select>
-          </td>
-          <th>Start Date : </th>
-          <td class="InnerInputTD">
-            <input
-              type="text"
-              class="TableInnerInput"
-              size="10"
-              name="app_start8"
-              pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-              placeholder="YYYY-MM-DD"
-            />
-          </td>
-          <th>Course : </th>
-          <td class="InnerInputTD">
-            <input type="text" class="TableInnerInput" size="12" name="app_course8"/>
-          </td>
-        </tr>
-      </table>
-    </div><!-- InfoTable -->
-  </div><!-- Information -->
-  <div class="DeleteIcon">
-    <div id="deleteDivBtn8">Delete</div>
-  </div>
-</div><!-- ChoiceSet -->
-<div id="showDiv9" class="AddIcon" style="display:none;">
-  <div id="showDivBtn9">Add</div>
-</div>
-
-
-<div id="ChoiceSet9" class="ChoiceSet" style="display:none;">
-  <div class="TitleIcon">9th<br />Choice</div>
-  <div class="Information">
-    <div class="InfoTable">
-      <table cellpadding="0" cellspacing="0" border="0">
-        <colgroup>
-          <col>
-          <col width="80">
-          <col width="120">
-          <col width="60">
-          <col width="140">
-        </colgroup>
-        <tr>
-          <td class="InnerInputTD" colspan="5">
-            <select id="CountryAjax9" class="TableInnerInput" name="app_country9">
-              <option value="">Country Select..</option>
-              {% for country in countries %}
-              <option value="{{ country.country }}">{{ country.country|upper }}</option>
-              {% endfor %}
-            </select>
-            <select id="StateAjax9" class="TableInnerInput" name="app_state9">
-              <option>State Select..</option>
-            </select>
-            <select id="SchoolAjax9" class="TableInnerInput" name="app_school9">
-              <option value="">School Select..</option>
-            </select>
-          </td>
-          <th>Start Date : </th>
-          <td class="InnerInputTD">
-            <input
-              type="text"
-              class="TableInnerInput"
-              size="10"
-              name="app_start9"
-              pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-              placeholder="YYYY-MM-DD"
-            />
-          </td>
-          <th>Course : </th>
-          <td class="InnerInputTD">
-            <input type="text" class="TableInnerInput" size="12" name="app_course9"/>
-          </td>
-        </tr>
-      </table>
-    </div><!-- InfoTable -->
-  </div><!-- Information -->
-  <div class="DeleteIcon">
-    <div id="deleteDivBtn9">Delete</div>
-  </div>
-</div><!-- ChoiceSet -->
-<div id="showDiv10" class="AddIcon" style="display:none;">
-  <div id="showDivBtn10">Add</div>
-</div>
-
-
-
-<div id="ChoiceSet10" class="ChoiceSet" style="display:none;">
-  <div class="TitleIcon">10th<br />Choice</div>
-  <div class="Information">
-    <div class="InfoTable">
-      <table cellpadding="0" cellspacing="0" border="0">
-        <colgroup>
-          <col>
-          <col width="80">
-          <col width="120">
-          <col width="60">
-          <col width="140">
-        </colgroup>
-        <tr>
-          <td class="InnerInputTD" colspan="5">
-            <select id="CountryAjax10" class="TableInnerInput" name="app_country10">
-              <option value="">Country Select..</option>
-              {% for country in countries %}
-              <option value="{{ country.country }}">{{ country.country|upper }}</option>
-              {% endfor %}
-            </select>
-            <select id="StateAjax10" class="TableInnerInput" name="app_state10">
-              <option>State Select..</option>
-            </select>
-            <select id="SchoolAjax10" class="TableInnerInput" name="app_school10">
-              <option value="">School Select..</option>
-            </select>
-          </td>
-          <th>Start Date : </th>
-          <td class="InnerInputTD">
-            <input
-              type="text"
-              class="TableInnerInput"
-              size="10"
-              name="app_start10"
-              pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-              placeholder="YYYY-MM-DD"
-            />
-          </td>
-          <th>Course : </th>
-          <td class="InnerInputTD">
-            <input type="text" class="TableInnerInput" size="12" name="app_course10"/>
-          </td>
-        </tr>
-      </table>
-    </div><!-- InfoTable -->
-  </div><!-- Information -->
-  <div class="DeleteIcon">
-    <div id="deleteDivBtn10">Delete</div>
-  </div>
-</div><!-- ChoiceSet -->
-
+{% endif %}
 
 <div class="EndPart"></div>

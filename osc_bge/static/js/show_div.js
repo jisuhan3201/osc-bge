@@ -45,45 +45,54 @@ $("#showDivBtn10").click(function(){
 
 $("#deleteDivBtn2").click(function(){
   $("#ChoiceSet2").hide()
+  $("#ChoiceSet2").find('select').val([])
   $("#showDiv3").hide()
   $("#showDiv2").show()
 })
 $("#deleteDivBtn3").click(function(){
   $("#ChoiceSet3").hide()
+  $("#ChoiceSet3").find('select').val([])
   $("#showDiv4").hide()
   $("#showDiv3").show()
 })
 $("#deleteDivBtn4").click(function(){
   $("#ChoiceSet4").hide()
+  $("#ChoiceSet4").find('select').val([])
   $("#showDiv5").hide()
   $("#showDiv4").show()
 })
 $("#deleteDivBtn5").click(function(){
   $("#ChoiceSet5").hide()
+  $("#ChoiceSet5").find('select').val([])
   $("#showDiv6").hide()
   $("#showDiv5").show()
 })
 $("#deleteDivBtn6").click(function(){
   $("#ChoiceSet6").hide()
+  $("#ChoiceSet6").find('select').val([])
   $("#showDiv7").hide()
   $("#showDiv6").show()
 })
 $("#deleteDivBtn7").click(function(){
   $("#ChoiceSet7").hide()
+  $("#ChoiceSet7").find('select').val([])
   $("#showDiv8").hide()
   $("#showDiv7").show()
 })
 $("#deleteDivBtn8").click(function(){
   $("#ChoiceSet8").hide()
+  $("#ChoiceSet8").find('select').val([])
   $("#showDiv9").hide()
   $("#showDiv8").show()
 })
 $("#deleteDivBtn9").click(function(){
   $("#ChoiceSet9").hide()
+  $("#ChoiceSet9").find('select').val([])
   $("#showDiv10").hide()
   $("#showDiv9").show()
 })
 $("#deleteDivBtn10").click(function(){
   $("#ChoiceSet10").hide()
+  $("#ChoiceSet10").find('select').val([])
   $("#showDiv10").show()
 })
