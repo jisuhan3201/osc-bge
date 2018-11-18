@@ -10,7 +10,7 @@ font-size:12px;font-weight:350;color:#999;z-index:1000;cursor:pointer;}
 
 
 .PopCover .WidePopup {margin:150px auto;padding:20px;width:540px;
-background:#FFF;border-radius:3px;overflow:hidden;}
+background:#FFF;border-radius:3px;}
 .PopCover .WidePopup .TitleSet {position:relative;overflow:hidden;}
 .PopCover .WidePopup .TitleSet .Title {padding-bottom:10px;line-height:18px;font-size:18px;font-weight:350;color:#333;}
 .PopCover .WidePopup .TitleSet .Close {position:absolute;right:0px;width:16px;height:16px;line-height:16px;
@@ -33,14 +33,12 @@ background:#084360;border-radius:3px;overflow:hidden;cursor:pointer;}
 .PopButtonLine .Close {background:#AAA;}
 .PopButtonLine div {background:#145677;}
 
-
-
-
-
-
-
-
-
+.PopButtonLine {text-align:right;}
+.PopButtonLine button {display:inline-block;margin-top:20px;padding:0px 20px;height:28px;
+font-size:9px;font-weight:600;color:#FFF;line-height:28px;text-align:center;
+background:#084360;border-radius:3px;overflow:hidden;cursor:pointer;}
+.PopButtonLine .Close {background:#AAA;}
+.PopButtonLine button {background:#145677;}
 
 
 /* LOGIN */
@@ -524,13 +522,13 @@ background:#FF6600;border-radius:3px;cursor:pointer;}
 
 /* CALENDAR */
 
-.CalendarFloat {display:inline-block;vertical-align:top;width:240px;}
+.CalendarFloat {display:inline-block;vertical-align:top;width:280px;}
 .InfoFloat {display:inline-block;vertical-align:top;margin-left:5px;width:210px;}
 
 
 
 
-.CalendarSet {margin:0px auto;margin-top:5px;padding:5px;width:228px;text-align:center;border:1px solid #DDD;border-radius:3px;overflow:hidden;}
+.CalendarSet {margin:0px auto;margin-top:5px;padding:5px;width:280px;text-align:center;border:1px solid #DDD;border-radius:3px;}
 .CalendarSet .MonthSet {padding:20px 0px;background:#fba016;}
 .CalendarSet .MonthSet div {display:inline-block;vertical-align:middle;}
 .CalendarSet .MonthSet .LArrow img {width:24px;cursor:pointer;}

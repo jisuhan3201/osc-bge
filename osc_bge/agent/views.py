@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.views import View
 from django.db.models import Q
 from django.core import serializers
-from . import models
+from . import models, forms
 from osc_bge.users import models as user_models
 from osc_bge.form import models as form_models
 from osc_bge.student import models as student_models
@@ -12,6 +12,8 @@ from osc_bge.school import models as school_models
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 import json
+from decimal import Decimal
+from datetime import datetime
 
 
 class CounselView(View):
@@ -441,7 +443,7 @@ class ApplicationRegisterView(View):
                     continue
 
             if school_ids[0]:
-                print(school_ids)
+
                 # Update SchoolFormality by exsisting Formality
                 try:
                     formality = form_models.Formality.objects.get(counsel=counsel)
@@ -502,7 +504,7 @@ class ProcessView(View):
 
         in_progress = form_models.Formality.objects.filter(
             payment_complete=False).filter(
-            counsel__counseler=found_counseler).order_by("created_at")
+            counsel__counseler=found_counseler).order_by("-created_at")
 
         return render(request, 'agent/process.html', {'in_progress':in_progress})
 
@@ -532,23 +534,96 @@ class ProcessApplyView(View):
 
         in_progress = form_models.Formality.objects.filter(
             payment_complete=False).filter(
-            counsel__counseler=found_counseler).order_by("created_at")
+            counsel__counseler=found_counseler).order_by("-created_at")
 
         student_info = found_formality.counsel.student
+        student_history = student_info.student_history
+        school_formalities = form_models.SchoolFormality.objects.filter(formality=found_formality).order_by('school_priority')
+        formality_form = forms.FormalityForm
 
         return render(
             request,
             'agent/formality.html',
             {
                 "found_formality":found_formality,
-                'in_progress':in_progress,
+                "in_progress":in_progress,
                 "student_info":student_info,
+                "student_history":student_history,
+                "school_formalities":school_formalities,
+                "formality_form":formality_form
             }
         )
 
 
     def post(self, request, formality_id):
-        pass
+
+        try:
+            found_formality = form_models.Formality.objects.get(pk=formality_id)
+        except form_models.Formality.DoesNotExist:
+            return HttpResponse(status=400)
+
+        found_counseler = self.get_counseler()
+
+        if not found_formality.counsel.counseler == found_counseler:
+            return HttpResponse(status=401)
+
+        data = request.POST
+
+        if data:
+
+            if data.get('type') == 'registration':
+
+                school_ids = []
+                for k in data.keys():
+                    if 'school_id' in k:
+                        school_ids.append(data.get(k))
+
+                for school_id in school_ids:
+
+                    try:
+                        found_school_formality = form_models.SchoolFormality.objects.get(
+                            formality=found_formality, school__id=int(school_id))
+                    except form_models.SchoolFormality.DoesNotExist:
+                        return HttpResponse(status=404)
+
+                    if data.get('processing_fee_'+str(school_id)):
+                        processing_fee = Decimal(data.get('processing_fee_'+str(school_id)))
+                    else:
+                        processing_fee = None
+
+                    if data.get('processing_fee_done_'+str(school_id)) == 'on':
+                        processing_fee_done = True
+                    else:
+                        processing_fee_done = False
+
+                    found_school_formality.processing_fee = processing_fee
+                    found_school_formality.processing_fee_done = processing_fee_done
+                    found_school_formality.save()
+
+                school_formalities = form_models.SchoolFormality.objects.filter(formality=found_formality)
+                processing_fee_done_list = []
+                for school_formality in school_formalities:
+                    processing_fee_done_list.append(school_formality.processing_fee_done)
+
+                if all(processing_fee_done_list):
+                    found_formality.payment_complete=True
+                    found_formality.apply_at=datetime.now()
+                else:
+                    found_formality.payment_complete=False
+
+                found_formality.save()
+                data = json.dumps({
+                    "apply_at":str(found_formality.apply_at.strftime("%Y-%m-%d")),
+                    "school_count":found_formality.school_formality_count,
+                    "payment_complete_fee":str(found_formality.payment_complete_fee),
+                })
+                return HttpResponse(data, content_type="application/json")
+
+
+        else:
+            return HttpResponse(status=400)
+
+
 
 
 

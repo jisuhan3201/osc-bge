@@ -105,23 +105,23 @@
 							<th>Name : </th>
 							<td>{{ student_info.name }}</td>
 							<th>Enrollment date : </th>
-							<td>{{ found_formality.created_at }}</td>
+							<td>{{ found_formality.created_at|date:"Y-m-d" }}</td>
 						</tr>
 						<tr>
 							<th>DOB : </th>
-							<td>{{ student_info.birthday }}</td>
+							<td>{{ student_info.birthday|date:"Y-m-d" }}</td>
 							<th>Mobile : </th>
 							<td>{{ student_info.phone}}</td>
 						</tr>
 						<tr>
 							<th>School : </th>
-							<td>{{ student_info.student_history.current_school }}</td>
+							<td>{{ student_history.current_school }}</td>
 							<th>Email : </th>
 							<td>{{ student_info.email }}</td>
 						</tr>
 						<tr>
 							<th>Year : </th>
-							<td>{{ student_info.student_history.current_grade }}</td>
+							<td>{{ student_history.current_grade }}</td>
 							<th>Skype ID : </th>
 							<td>{{ student_info.skype }}</td>
 						</tr>
@@ -143,11 +143,25 @@
 					<table cellpadding="0" cellspacing="0" border="0">
 						<tr>
 							<td>
-								<label OnClick="document.getElementById('PopRegistration').style.display='block';"><input type="checkbox" checked /><span></span>Registration</label>
-								<span class="DoneIcon">E</span><span class="AddComment">2018-02-01/ 2 Schools, processing fee $3,000 payment completed</span>
+								{% if found_formality.payment_complete %}
+								<label id="Registration">
+                  <input type="checkbox" checked /><span></span>Registration
+                </label>
+								<span class="DoneIcon">E</span>
+								<span class="AddComment">
+									{{ found_formality.apply_at|date:"Y-m-d" }}/ {{found_formality.school_formality_count}} Schools, processing fee ${{found_formality.payment_complete_fee}} payment completed
+								</span>
+								{% else %}
+								<label id="Registration">
+                  <input type="checkbox"/><span></span>Registration
+                </label>
+								<span class="AddComment"></span>
+								{% endif %}
 							</td>
 							<td>
-								<label OnClick="document.getElementById('PopCancelRegistration').style.display='block';"><input type="checkbox" /><span></span>Cancel Registration</label>
+								<label OnClick="document.getElementById('PopCancelRegistration').style.display='block';">
+                  <input type="checkbox" /><span></span>Cancel Registration
+                </label>
 							</td>
 						</tr>
 					</table>
@@ -160,54 +174,65 @@
 
 		<div class="MTitle" style="width:100%;">
 			<div class="MTitleButton">Edit Appication info</div>
-			Application information</div>
+			Application information
+    </div>
 		<div class="InfoTable">
+      {% for school in school_formalities %}
 			<table cellpadding="0" cellspacing="0" border="0">
 				<colgroup>
 					<col width="50%">
 				</colgroup>
 				<tr>
-					<td class="TitleColor" colspan="2">St. John’s High School – MA</td>
+					<td class="TitleColor" colspan="2">{{ school.school.name }}</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<label OnClick="document.getElementById('PopEnrolmentApplication').style.display='block';"><input type="checkbox" checked /><span></span>Enrolment Application</label>
-						<span class="DoneIcon">E</span><span class="AddComment">2018-02-03 / Application fee $100 payment completed</span>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<label OnClick="document.getElementById('PopSchoolinterview').style.display='block';"><input type="checkbox" checked /><span></span>School interview scheduling</label>
-						<span class="DoneIcon">E</span><span class="AddComment">2018-02-15 / 20:00</span>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label OnClick="document.getElementById('PopAccepted').style.display='block';"><input type="checkbox" checked /><span></span>Accepted</label>
-						<span class="DoneIcon">E</span><span class="AddComment">2018-02-20</span>
-					</td>
-					<td>
-						<label OnClick="document.getElementById('PopCancelEnrolmen').style.display='block';"><input type="checkbox" /><span></span>Cancel enrolment</label>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label OnClick="document.getElementById('PopI20Request').style.display='block';"><input type="checkbox" checked /><span></span>I-20 request</label>
-						<span class="DoneIcon">E</span><span class="AddComment">2018-02-20</span>
-					</td>
-					<td>
-						<label OnClick="document.getElementById('PopI20Received').style.display='block';"><input type="checkbox" checked /><span></span>I-20 received</label>
-						<span class="DoneIcon">E</span><span class="AddComment">2018-03-01</span>
+						<label OnClick="document.getElementById('PopEnrolmentApplication').style.display='block';">
+              <input type="checkbox"/><span></span>
+              Enrolment Application
+            </label>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<label OnClick="document.getElementById('PopProgramFeePayment').style.display='block';"><input type="checkbox" checked /><span></span>Program fee payment</label>
-						<span class="DoneIcon">E</span><span class="AddComment">2018-02-24 / $58,000</span>
+						<label OnClick="document.getElementById('PopSchoolinterview').style.display='block';">
+              <input type="checkbox"/><span></span>School interview scheduling
+            </label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label OnClick="document.getElementById('PopAccepted').style.display='block';">
+              <input type="checkbox"/><span></span>Accepted
+            </label>
+					</td>
+					<td>
+						<label OnClick="document.getElementById('PopCancelEnrolmen').style.display='block';">
+              <input type="checkbox" /><span></span>Cancel enrolment
+            </label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label OnClick="document.getElementById('PopI20Request').style.display='block';">
+              <input type="checkbox"/><span></span>I-20 request
+            </label>
+					</td>
+					<td>
+						<label OnClick="document.getElementById('PopI20Received').style.display='block';">
+              <input type="checkbox"/><span></span>I-20 received
+            </label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label OnClick="document.getElementById('PopProgramFeePayment').style.display='block';">
+              <input type="checkbox"/><span></span>Program fee payment
+            </label>
 					</td>
 				</tr>
 			</table>
-
+      {% endfor %}
 
 			<table cellpadding="0" cellspacing="0" border="0">
 				<colgroup>
@@ -351,10 +376,9 @@
 		</div><!-- InfoTable -->
 		<div class="EndPart"></div>
 
-
-
-
-
 	</div><!-- MainFrame -->
 </div><!--  ContentsFrame-->
+
+{% include "subpages/_pop.html" %}
+
 {% endblock %}

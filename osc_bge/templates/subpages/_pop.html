@@ -1,0 +1,1816 @@
+{% load static bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{{ formality_form.media }}
+
+<style>
+#PopRegistration {display:none;}
+</style>
+<div class="PopCover" id="PopRegistration">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopRegistration').style.display='none';">X</div>
+			<div class="Title">Registration</div>
+		</div>
+		<div class="Contents">
+
+		<form class="RegistrationForm" method="post">
+			<input id="FormalityId" type="text" value="{{found_formality.id}}" hidden>
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="100">
+						<col>
+					</colgroup>
+					{% for school_formality in school_formalities %}
+					<input type="text" name="school_id_{{school_formality.school.id}}" value="{{school_formality.school.id}}" hidden>
+					<tr>
+						<td class="TitleColor" colspan="2">{{ school_formality.school.name }}</td>
+					</tr>
+					<tr>
+						<th>Processing Fee : </th>
+						<td class="InnerInputTD">
+							{% if school_formality.processing_fee %}
+							Payment amount $<input type="text" class="TableInnerInput" size="10" value="{{school_formality.processing_fee}}" name="processing_fee_{{school_formality.school.id}}"/>
+							{% else %}
+							Payment amount $<input type="text" class="TableInnerInput" size="10" name="processing_fee_{{school_formality.school.id}}"/>
+							{% endif %}
+							{% if school_formality.processing_fee_done %}
+							<label><input type="checkbox" name="processing_fee_done_{{school_formality.school.id}}" checked/><span></span>Payment completed</label>
+							{% else %}
+							<label><input type="checkbox" name="processing_fee_done_{{school_formality.school.id}}"/><span></span>Payment completed</label>
+							{% endif %}
+						</td>
+					</tr>
+					{% endfor %}
+				</table>
+			</div><!-- InfoTable -->
+
+			<div class="PopButtonLine">
+				<button class="Submit" type="submit">SAVE</button>
+			</div>
+		</form>
+
+		</div>
+	</div>
+</div>
+
+
+
+<style>
+#PopFileBox {display:none;}
+</style>
+<div class="PopCover" id="PopFileBox">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopFileBox').style.display='none';">X</div>
+			<div class="Title">File Box</div>
+		</div>
+		<div class="Contents">
+
+			<div class="ListTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="20">
+						<col>
+						<col width="140">
+					</colgroup>
+					<tr>
+						<th>No</th>
+						<th>Fiile Name</th>
+						<th>Management</th>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Copy of Passport" /></td>
+						<td>
+							<a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
+							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
+							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
+							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
+						</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="School transcripts (in English)" /></td>
+						<td>
+							<a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
+							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
+							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
+							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
+						</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Proof of English ability" /></td>
+						<td>
+              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
+							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
+							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
+							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
+						</td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Letters of recommendation" /></td>
+						<td>
+              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
+							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
+							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
+							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
+						</td>
+					</tr>
+					<tr>
+						<td>5</td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Essay" /></td>
+						<td>
+              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
+							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
+							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
+							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
+						</td>
+					</tr>
+					<tr>
+						<td>6</td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Acceptance Letter" /></td>
+						<td>
+              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
+							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
+							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
+							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
+						</td>
+					</tr>
+					<tr>
+						<td>7</td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="BGE Program application" /></td>
+						<td>
+              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
+							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
+							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
+							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
+						</td>
+					</tr>
+					<tr>
+						<td>8</td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="BGE program agreement" /></td>
+						<td>
+              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
+							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
+							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
+							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
+						</td>
+					</tr>
+					<tr>
+						<td>9</td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Proof of Deposit payment" /></td>
+						<td>
+              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
+							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
+							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
+							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
+						</td>
+					</tr>
+					<tr>
+						<td>10</td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Immunization, Medical treatment" /></td>
+						<td>
+              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
+							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
+							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
+							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
+						</td>
+					</tr>
+					<tr>
+						<td>11</td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Financial Support docs" /></td>
+						<td>
+              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
+							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
+							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
+							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
+						</td>
+					</tr>
+					<tr>
+						<td>12</td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Proof of Program fee payment" /></td>
+						<td>
+              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
+							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
+							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
+							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
+						</td>
+					</tr>
+					<tr>
+						<td>13</td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Flight e-ticket" /></td>
+						<td>
+              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
+							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
+							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
+							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
+						</td>
+					</tr>
+					<tr>
+						<td>14</td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Copy of F-1 visa" /></td>
+						<td>
+              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
+							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
+							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
+							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
+						</td>
+					</tr>
+					<tr>
+						<td>-</td>
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Input File Name" /></td>
+						<td>
+							<a class="Button" href="">Add New Document</a>
+						</td>
+					</tr>
+				</table>
+			</div><!-- ListTable -->
+
+
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopFileBox').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopFileBox').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<style>
+#PopEnrolmentApplication {display:none;}
+</style>
+<div class="PopCover" id="PopEnrolmentApplication">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopEnrolmentApplication').style.display='none';">X</div>
+			<div class="Title">Enrolment Application</div>
+		</div>
+		<div class="Contents">
+
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="135">
+						<col>
+					</colgroup>
+					<tr>
+						<th rowspan="5">Prepared Documents : </th>
+						<td>
+							<input type="checkbox" checked /><span></span>Copy of passport</label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox" checked /><span></span>School transcript (English translated)</label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox" checked /><span></span>TOEFL,SLEP, SSAT(if required), ELTIS</label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox" checked /><span></span>Letters of recommendation</label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox" checked /><span></span>Essay</label>
+						</td>
+					</tr>
+					<tr>
+						<th rowspan="2">Application fee : </th>
+						<td>
+							<label><input type="checkbox" checked /><span></span>Payment completed</label>
+						</td>
+					</tr>
+					<tr>
+						<td class="InnerInputTD">
+							Payment amount $<input type="text" class="TableInnerInput" size="10" value="" />
+						</td>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopEnrolmentApplication').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopEnrolmentApplication').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+<style>
+#PopSchoolinterview {display:none;}
+</style>
+<div class="PopCover" id="PopSchoolinterview">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopSchoolinterview').style.display='none';">X</div>
+			<div class="Title">School Interview</div>
+		</div>
+		<div class="Contents">
+
+			<div class="CalendarFloat">
+				<div class="CalendarSet">
+					<div class="MonthSet">
+						<div class="LArrow"><img src="../img/ico_larrow.png" /></div>
+						<div class="Month">July, <span>2018</span></div>
+						<div class="RArrow"><img src="../img/ico_rarrow.png" /></div>
+					</div><!-- MonthSet -->
+					<div class="DaySet">
+						<div class="WeekSet">
+							<div class="Red">S</div>
+							<div class="">M</div>
+							<div class="">T</div>
+							<div class="">W</div>
+							<div class="">T</div>
+							<div class="">F</div>
+							<div class="Blue">S</div>
+						</div><!-- WeekSet -->
+						<div class="Day">
+							<div class="Red">1</div>
+							<div class="">2</div>
+							<div class="">3</div>
+							<div class="ON">4</div>
+							<div class="">5</div>
+							<div class="">6</div>
+							<div class="Blue">7</div>
+							<div class="Red">8</div>
+							<div class="">9</div>
+							<div class="">10</div>
+							<div class="">11</div>
+							<div class="">12</div>
+							<div class="">13</div>
+							<div class="Blue">14</div>
+							<div class="Red">15</div>
+							<div class="">16</div>
+							<div class="">17</div>
+							<div class="">18</div>
+							<div class="">19</div>
+							<div class="">20</div>
+							<div class="Blue">21</div>
+							<div class="Red">22</div>
+							<div class="">23</div>
+							<div class="">24</div>
+							<div class="">25</div>
+							<div class="">26</div>
+							<div class="">27</div>
+							<div class="Blue">28</div>
+							<div class="Red">29</div>
+							<div class="">30</div>
+							<div class="">31</div>
+							<div class="OFF">1</div>
+							<div class="OFF">2</div>
+							<div class="OFF">3</div>
+							<div class="OFF">4</div>
+						</div><!-- Day -->
+					</div><!-- DaySet -->
+				</div><!-- CalendarSet -->
+			</div><!-- CalendarFloat -->
+
+
+			<div class="InfoFloat">
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td>Time :
+								<select class="TableInnerInput">
+									<option>AM</option>
+									<option>PM</option>
+								</select>
+								<input type="text" class="TableInnerInput" size="2" value="10" /> : <input type="text" class="TableInnerInput" size="2" value="45" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" checked /><span></span>Mock Interview</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="checkbox" checked /><span></span>Interview Complete</label>
+							</td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
+			</div><!-- InfoFloat -->
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopSchoolinterview').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopSchoolinterview').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<style>
+#PopAccepted {display:none;}
+</style>
+<div class="PopCover" id="PopAccepted">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopAccepted').style.display='none';">X</div>
+			<div class="Title">Accepted</div>
+		</div>
+		<div class="Contents">
+
+			<div class="CalendarFloat">
+				<div class="CalendarSet">
+					<div class="MonthSet">
+						<div class="LArrow"><img src="../img/ico_larrow.png" /></div>
+						<div class="Month">July, <span>2018</span></div>
+						<div class="RArrow"><img src="../img/ico_rarrow.png" /></div>
+					</div><!-- MonthSet -->
+					<div class="DaySet">
+						<div class="WeekSet">
+							<div class="Red">S</div>
+							<div class="">M</div>
+							<div class="">T</div>
+							<div class="">W</div>
+							<div class="">T</div>
+							<div class="">F</div>
+							<div class="Blue">S</div>
+						</div><!-- WeekSet -->
+						<div class="Day">
+							<div class="Red">1</div>
+							<div class="">2</div>
+							<div class="">3</div>
+							<div class="ON">4</div>
+							<div class="">5</div>
+							<div class="">6</div>
+							<div class="Blue">7</div>
+							<div class="Red">8</div>
+							<div class="">9</div>
+							<div class="">10</div>
+							<div class="">11</div>
+							<div class="">12</div>
+							<div class="">13</div>
+							<div class="Blue">14</div>
+							<div class="Red">15</div>
+							<div class="">16</div>
+							<div class="">17</div>
+							<div class="">18</div>
+							<div class="">19</div>
+							<div class="">20</div>
+							<div class="Blue">21</div>
+							<div class="Red">22</div>
+							<div class="">23</div>
+							<div class="">24</div>
+							<div class="">25</div>
+							<div class="">26</div>
+							<div class="">27</div>
+							<div class="Blue">28</div>
+							<div class="Red">29</div>
+							<div class="">30</div>
+							<div class="">31</div>
+							<div class="OFF">1</div>
+							<div class="OFF">2</div>
+							<div class="OFF">3</div>
+							<div class="OFF">4</div>
+						</div><!-- Day -->
+					</div><!-- DaySet -->
+				</div><!-- CalendarSet -->
+			</div><!-- CalendarFloat -->
+
+
+			<div class="InfoFloat">
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td>
+								<input type="checkbox" checked /><span></span>Acceptance letter</label>
+							</td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
+			</div><!-- InfoFloat -->
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopAccepted').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopAccepted').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<style>
+#PopCancelEnrolmen {display:none;}
+</style>
+<div class="PopCover" id="PopCancelEnrolmen">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopCancelEnrolmen').style.display='none';">X</div>
+			<div class="Title">Cancel Enrolmen</div>
+		</div>
+		<div class="Contents">
+
+			<div class="CalendarFloat">
+				<div class="CalendarSet">
+					<div class="MonthSet">
+						<div class="LArrow"><img src="{% static 'img/ico_larrow.png' %}" /></div>
+						<div class="Month">July, <span>2018</span></div>
+						<div class="RArrow"><img src="{% static 'img/ico_rarrow.png' %}" /></div>
+					</div><!-- MonthSet -->
+					<div class="DaySet">
+						<div class="WeekSet">
+							<div class="Red">S</div>
+							<div class="">M</div>
+							<div class="">T</div>
+							<div class="">W</div>
+							<div class="">T</div>
+							<div class="">F</div>
+							<div class="Blue">S</div>
+						</div><!-- WeekSet -->
+						<div class="Day">
+							<div class="Red">1</div>
+							<div class="">2</div>
+							<div class="">3</div>
+							<div class="ON">4</div>
+							<div class="">5</div>
+							<div class="">6</div>
+							<div class="Blue">7</div>
+							<div class="Red">8</div>
+							<div class="">9</div>
+							<div class="">10</div>
+							<div class="">11</div>
+							<div class="">12</div>
+							<div class="">13</div>
+							<div class="Blue">14</div>
+							<div class="Red">15</div>
+							<div class="">16</div>
+							<div class="">17</div>
+							<div class="">18</div>
+							<div class="">19</div>
+							<div class="">20</div>
+							<div class="Blue">21</div>
+							<div class="Red">22</div>
+							<div class="">23</div>
+							<div class="">24</div>
+							<div class="">25</div>
+							<div class="">26</div>
+							<div class="">27</div>
+							<div class="Blue">28</div>
+							<div class="Red">29</div>
+							<div class="">30</div>
+							<div class="">31</div>
+							<div class="OFF">1</div>
+							<div class="OFF">2</div>
+							<div class="OFF">3</div>
+							<div class="OFF">4</div>
+						</div><!-- Day -->
+					</div><!-- DaySet -->
+				</div><!-- CalendarSet -->
+			</div><!-- CalendarFloat -->
+
+
+			<div class="InfoFloat">
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td>Time :
+								<select class="TableInnerInput">
+									<option>AM</option>
+									<option>PM</option>
+								</select>
+								<input type="text" class="TableInnerInput" size="2" value="10" /> : <input type="text" class="TableInnerInput" size="2" value="45" />
+							</td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
+			</div><!-- InfoFloat -->
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopCancelEnrolmen').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopCancelEnrolmen').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+<style>
+#PopI20Request {display:none;}
+</style>
+<div class="PopCover" id="PopI20Request">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopI20Request').style.display='none';">X</div>
+			<div class="Title">I-20 Request</div>
+		</div>
+		<div class="Contents">
+
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="135">
+						<col>
+					</colgroup>
+					<tr>
+						<th rowspan="3">Program deposit : </th>
+						<td>
+							<input type="checkbox" checked /><span></span>Payment completed</label>
+						</td>
+					</tr>
+					<tr>
+						<td class="InnerInputTD">
+							Payment amount $ <input type="text" class="TableInnerInput" size="10" value="" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox" checked /><span></span>Payment receipt attached</label>
+						</td>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopI20Request').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopI20Request').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+<style>
+#PopI20Received {display:none;}
+</style>
+<div class="PopCover" id="PopI20Received">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopI20Received').style.display='none';">X</div>
+			<div class="Title">Cancel Enrolmen</div>
+		</div>
+		<div class="Contents">
+
+			<div class="CalendarFloat">
+				<div class="CalendarSet">
+					<div class="MonthSet">
+						<div class="LArrow"><img src="{% static 'img/ico_larrow.png' %}" /></div>
+						<div class="Month">July, <span>2018</span></div>
+						<div class="RArrow"><img src="{% static 'img/ico_rarrow.png' %}" /></div>
+					</div><!-- MonthSet -->
+					<div class="DaySet">
+						<div class="WeekSet">
+							<div class="Red">S</div>
+							<div class="">M</div>
+							<div class="">T</div>
+							<div class="">W</div>
+							<div class="">T</div>
+							<div class="">F</div>
+							<div class="Blue">S</div>
+						</div><!-- WeekSet -->
+						<div class="Day">
+							<div class="Red">1</div>
+							<div class="">2</div>
+							<div class="">3</div>
+							<div class="ON">4</div>
+							<div class="">5</div>
+							<div class="">6</div>
+							<div class="Blue">7</div>
+							<div class="Red">8</div>
+							<div class="">9</div>
+							<div class="">10</div>
+							<div class="">11</div>
+							<div class="">12</div>
+							<div class="">13</div>
+							<div class="Blue">14</div>
+							<div class="Red">15</div>
+							<div class="">16</div>
+							<div class="">17</div>
+							<div class="">18</div>
+							<div class="">19</div>
+							<div class="">20</div>
+							<div class="Blue">21</div>
+							<div class="Red">22</div>
+							<div class="">23</div>
+							<div class="">24</div>
+							<div class="">25</div>
+							<div class="">26</div>
+							<div class="">27</div>
+							<div class="Blue">28</div>
+							<div class="Red">29</div>
+							<div class="">30</div>
+							<div class="">31</div>
+							<div class="OFF">1</div>
+							<div class="OFF">2</div>
+							<div class="OFF">3</div>
+							<div class="OFF">4</div>
+						</div><!-- Day -->
+					</div><!-- DaySet -->
+				</div><!-- CalendarSet -->
+			</div><!-- CalendarFloat -->
+
+
+			<div class="InfoFloat">
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td>
+								<input type="checkbox" checked /><span></span>Copy of I-20</label>
+							</td>
+						</tr>
+						<tr>
+							<td class="InnerInputTD">
+								Tracking # <input type="text" class="TableInnerInput" size="13" value="" />
+							</td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
+			</div><!-- InfoFloat -->
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopI20Received').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopI20Received').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+<style>
+#PopProgramFeePayment {display:none;}
+</style>
+<div class="PopCover" id="PopProgramFeePayment">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopProgramFeePayment').style.display='none';">X</div>
+			<div class="Title">Program Fee Payment</div>
+		</div>
+		<div class="Contents">
+
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="135">
+						<col>
+					</colgroup>
+					<tr>
+						<th rowspan="4">Document prepared : </th>
+						<td>
+							<input type="checkbox" checked /><span></span>Copy of passport</label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox" checked /><span></span>BGE Program application</label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox" checked /><span></span>Immunization, Medical treatment</label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox" checked /><span></span>Financial Support docs</label>
+						</td>
+					</tr>
+					<tr>
+						<th rowspan="3">Program fee : </th>
+						<td>
+							<input type="checkbox" checked /><span></span>Payment completed</label>
+						</td>
+					</tr>
+					<tr>
+						<td class="InnerInputTD">
+							Payment amount $ <input type="text" class="TableInnerInput" size="10" value="" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox" checked /><span></span>Payment receipt attached</label>
+						</td>
+					</tr>
+					<tr>
+						<td class="TitleColor2" colspan="2">Program fee: $53,000 – Deposit paid: $5,000 =Amount $48,000</td>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopProgramFeePayment').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopProgramFeePayment').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+<style>
+#PopCancelRegistration {display:none;}
+</style>
+<div class="PopCover" id="PopCancelRegistration">
+	<div class="WidePopup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopCancelRegistration').style.display='none';">X</div>
+			<div class="Title">Cancel Registration</div>
+		</div>
+
+		<div class="Contents">
+			<form method="POST">
+			<div class="CalendarFloat">
+				<div class="CalendarSet">
+
+				{{ formality_form }}
+
+				</div>
+			</div>
+
+			<div class="InfoFloat">
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td>Reason for cancellation : <br />
+							<textarea class="TableInnerTextarea"></textarea>
+							</td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
+			</div><!-- InfoFloat -->
+
+			<div class="PopButtonLine">
+				<button class="Submit" type="submit">SAVE</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<style>
+#PopVisaInterviewScheduling {display:none;}
+</style>
+<div class="PopCover" id="PopVisaInterviewScheduling">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopVisaInterviewScheduling').style.display='none';">X</div>
+			<div class="Title">Visa Interview Schedule</div>
+		</div>
+		<div class="Contents">
+
+			<div class="CalendarFloat">
+				<div class="CalendarSet">
+					<div class="MonthSet">
+						<div class="LArrow"><img src="../img/ico_larrow.png" /></div>
+						<div class="Month">July, <span>2018</span></div>
+						<div class="RArrow"><img src="../img/ico_rarrow.png" /></div>
+					</div><!-- MonthSet -->
+					<div class="DaySet">
+						<div class="WeekSet">
+							<div class="Red">S</div>
+							<div class="">M</div>
+							<div class="">T</div>
+							<div class="">W</div>
+							<div class="">T</div>
+							<div class="">F</div>
+							<div class="Blue">S</div>
+						</div><!-- WeekSet -->
+						<div class="Day">
+							<div class="Red">1</div>
+							<div class="">2</div>
+							<div class="">3</div>
+							<div class="ON">4</div>
+							<div class="">5</div>
+							<div class="">6</div>
+							<div class="Blue">7</div>
+							<div class="Red">8</div>
+							<div class="">9</div>
+							<div class="">10</div>
+							<div class="">11</div>
+							<div class="">12</div>
+							<div class="">13</div>
+							<div class="Blue">14</div>
+							<div class="Red">15</div>
+							<div class="">16</div>
+							<div class="">17</div>
+							<div class="">18</div>
+							<div class="">19</div>
+							<div class="">20</div>
+							<div class="Blue">21</div>
+							<div class="Red">22</div>
+							<div class="">23</div>
+							<div class="">24</div>
+							<div class="">25</div>
+							<div class="">26</div>
+							<div class="">27</div>
+							<div class="Blue">28</div>
+							<div class="Red">29</div>
+							<div class="">30</div>
+							<div class="">31</div>
+							<div class="OFF">1</div>
+							<div class="OFF">2</div>
+							<div class="OFF">3</div>
+							<div class="OFF">4</div>
+						</div><!-- Day -->
+					</div><!-- DaySet -->
+				</div><!-- CalendarSet -->
+			</div><!-- CalendarFloat -->
+
+
+			<div class="InfoFloat">
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td>Time :
+								<select class="TableInnerInput">
+									<option>AM</option>
+									<option>PM</option>
+								</select>
+								<input type="text" class="TableInnerInput" size="2" value="10" /> : <input type="text" class="TableInnerInput" size="2" value="45" />
+							</td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
+			</div><!-- InfoFloat -->
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopVisaInterviewScheduling').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopVisaInterviewScheduling').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+<style>
+#PopVisaGranted {display:none;}
+</style>
+<div class="PopCover" id="PopVisaGranted">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopVisaGranted').style.display='none';">X</div>
+			<div class="Title">Visa Granted</div>
+		</div>
+		<div class="Contents">
+
+			<div class="CalendarFloat">
+				<div class="CalendarSet">
+					<div class="MonthSet">
+						<div class="LArrow"><img src="../img/ico_larrow.png" /></div>
+						<div class="Month">July, <span>2018</span></div>
+						<div class="RArrow"><img src="../img/ico_rarrow.png" /></div>
+					</div><!-- MonthSet -->
+					<div class="DaySet">
+						<div class="WeekSet">
+							<div class="Red">S</div>
+							<div class="">M</div>
+							<div class="">T</div>
+							<div class="">W</div>
+							<div class="">T</div>
+							<div class="">F</div>
+							<div class="Blue">S</div>
+						</div><!-- WeekSet -->
+						<div class="Day">
+							<div class="Red">1</div>
+							<div class="">2</div>
+							<div class="">3</div>
+							<div class="ON">4</div>
+							<div class="">5</div>
+							<div class="">6</div>
+							<div class="Blue">7</div>
+							<div class="Red">8</div>
+							<div class="">9</div>
+							<div class="">10</div>
+							<div class="">11</div>
+							<div class="">12</div>
+							<div class="">13</div>
+							<div class="Blue">14</div>
+							<div class="Red">15</div>
+							<div class="">16</div>
+							<div class="">17</div>
+							<div class="">18</div>
+							<div class="">19</div>
+							<div class="">20</div>
+							<div class="Blue">21</div>
+							<div class="Red">22</div>
+							<div class="">23</div>
+							<div class="">24</div>
+							<div class="">25</div>
+							<div class="">26</div>
+							<div class="">27</div>
+							<div class="Blue">28</div>
+							<div class="Red">29</div>
+							<div class="">30</div>
+							<div class="">31</div>
+							<div class="OFF">1</div>
+							<div class="OFF">2</div>
+							<div class="OFF">3</div>
+							<div class="OFF">4</div>
+						</div><!-- Day -->
+					</div><!-- DaySet -->
+				</div><!-- CalendarSet -->
+			</div><!-- CalendarFloat -->
+
+
+			<div class="InfoFloat">
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td>
+								<input type="checkbox" checked /><span></span>Visa copy received</label>
+							</td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
+			</div><!-- InfoFloat -->
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopVisaGranted').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopVisaGranted').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+<style>
+#PopVisaRejected {display:none;}
+</style>
+<div class="PopCover" id="PopVisaRejected">
+	<div class="SmallPopup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopVisaRejected').style.display='none';">X</div>
+			<div class="Title">Visa Interview Schedule</div>
+		</div>
+		<div class="Contents">
+
+				<div class="CalendarSet">
+					<div class="MonthSet">
+						<div class="LArrow"><img src="../img/ico_larrow.png" /></div>
+						<div class="Month">July, <span>2018</span></div>
+						<div class="RArrow"><img src="../img/ico_rarrow.png" /></div>
+					</div><!-- MonthSet -->
+					<div class="DaySet">
+						<div class="WeekSet">
+							<div class="Red">S</div>
+							<div class="">M</div>
+							<div class="">T</div>
+							<div class="">W</div>
+							<div class="">T</div>
+							<div class="">F</div>
+							<div class="Blue">S</div>
+						</div><!-- WeekSet -->
+						<div class="Day">
+							<div class="Red">1</div>
+							<div class="">2</div>
+							<div class="">3</div>
+							<div class="ON">4</div>
+							<div class="">5</div>
+							<div class="">6</div>
+							<div class="Blue">7</div>
+							<div class="Red">8</div>
+							<div class="">9</div>
+							<div class="">10</div>
+							<div class="">11</div>
+							<div class="">12</div>
+							<div class="">13</div>
+							<div class="Blue">14</div>
+							<div class="Red">15</div>
+							<div class="">16</div>
+							<div class="">17</div>
+							<div class="">18</div>
+							<div class="">19</div>
+							<div class="">20</div>
+							<div class="Blue">21</div>
+							<div class="Red">22</div>
+							<div class="">23</div>
+							<div class="">24</div>
+							<div class="">25</div>
+							<div class="">26</div>
+							<div class="">27</div>
+							<div class="Blue">28</div>
+							<div class="Red">29</div>
+							<div class="">30</div>
+							<div class="">31</div>
+							<div class="OFF">1</div>
+							<div class="OFF">2</div>
+							<div class="OFF">3</div>
+							<div class="OFF">4</div>
+						</div><!-- Day -->
+					</div><!-- DaySet -->
+				</div><!-- CalendarSet -->
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopVisaRejected').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopVisaRejected').style.display='none';">SAVE</div>
+			</div><!-- PopButtonLine -->
+
+		</div><!-- Contents -->
+	</div>
+</div>
+
+
+
+
+
+<style>
+#PopFlightTicketing {display:none;}
+</style>
+<div class="PopCover" id="PopFlightTicketing">
+	<div class="WidePopup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopFlightTicketing').style.display='none';">X</div>
+			<div class="Title">Visa Interview Schedule</div>
+		</div>
+		<div class="Contents">
+
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<td>
+							<input type="checkbox" checked /><span></span>e-ticket attached</label>
+						</td>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+			<div class="BOX02">
+				<div class="CalendarSet">
+					<div class="MonthSet">
+						<div class="LArrow"><img src="../img/ico_larrow.png" /></div>
+						<div class="Month">July, <span>2018</span></div>
+						<div class="RArrow"><img src="../img/ico_rarrow.png" /></div>
+					</div><!-- MonthSet -->
+					<div class="DaySet">
+						<div class="WeekSet">
+							<div class="Red">S</div>
+							<div class="">M</div>
+							<div class="">T</div>
+							<div class="">W</div>
+							<div class="">T</div>
+							<div class="">F</div>
+							<div class="Blue">S</div>
+						</div><!-- WeekSet -->
+						<div class="Day">
+							<div class="Red">1</div>
+							<div class="">2</div>
+							<div class="">3</div>
+							<div class="ON">4</div>
+							<div class="">5</div>
+							<div class="">6</div>
+							<div class="Blue">7</div>
+							<div class="Red">8</div>
+							<div class="">9</div>
+							<div class="">10</div>
+							<div class="">11</div>
+							<div class="">12</div>
+							<div class="">13</div>
+							<div class="Blue">14</div>
+							<div class="Red">15</div>
+							<div class="">16</div>
+							<div class="">17</div>
+							<div class="">18</div>
+							<div class="">19</div>
+							<div class="">20</div>
+							<div class="Blue">21</div>
+							<div class="Red">22</div>
+							<div class="">23</div>
+							<div class="">24</div>
+							<div class="">25</div>
+							<div class="">26</div>
+							<div class="">27</div>
+							<div class="Blue">28</div>
+							<div class="Red">29</div>
+							<div class="">30</div>
+							<div class="">31</div>
+							<div class="OFF">1</div>
+							<div class="OFF">2</div>
+							<div class="OFF">3</div>
+							<div class="OFF">4</div>
+						</div><!-- Day -->
+					</div><!-- DaySet -->
+				</div><!-- CalendarSet -->
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td style="text-align:right;">Departure Time :
+								<select class="TableInnerInput">
+									<option>AM</option>
+									<option>PM</option>
+								</select>
+								<input type="text" class="TableInnerInput" size="2" value="10" /> : <input type="text" class="TableInnerInput" size="2" value="45" />
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align:right;">
+								Airport : <input type="text" class="TableInnerInput" size="20" value="" />
+							</td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
+			</div><!-- BOX02 -->
+
+			<div class="BOX02E">
+				<div class="CalendarSet">
+					<div class="MonthSet">
+						<div class="LArrow"><img src="../img/ico_larrow.png" /></div>
+						<div class="Month">July, <span>2018</span></div>
+						<div class="RArrow"><img src="../img/ico_rarrow.png" /></div>
+					</div><!-- MonthSet -->
+					<div class="DaySet">
+						<div class="WeekSet">
+							<div class="Red">S</div>
+							<div class="">M</div>
+							<div class="">T</div>
+							<div class="">W</div>
+							<div class="">T</div>
+							<div class="">F</div>
+							<div class="Blue">S</div>
+						</div><!-- WeekSet -->
+						<div class="Day">
+							<div class="Red">1</div>
+							<div class="">2</div>
+							<div class="">3</div>
+							<div class="ON">4</div>
+							<div class="">5</div>
+							<div class="">6</div>
+							<div class="Blue">7</div>
+							<div class="Red">8</div>
+							<div class="">9</div>
+							<div class="">10</div>
+							<div class="">11</div>
+							<div class="">12</div>
+							<div class="">13</div>
+							<div class="Blue">14</div>
+							<div class="Red">15</div>
+							<div class="">16</div>
+							<div class="">17</div>
+							<div class="">18</div>
+							<div class="">19</div>
+							<div class="">20</div>
+							<div class="Blue">21</div>
+							<div class="Red">22</div>
+							<div class="">23</div>
+							<div class="">24</div>
+							<div class="">25</div>
+							<div class="">26</div>
+							<div class="">27</div>
+							<div class="Blue">28</div>
+							<div class="Red">29</div>
+							<div class="">30</div>
+							<div class="">31</div>
+							<div class="OFF">1</div>
+							<div class="OFF">2</div>
+							<div class="OFF">3</div>
+							<div class="OFF">4</div>
+						</div><!-- Day -->
+					</div><!-- DaySet -->
+				</div><!-- CalendarSet -->
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td style="text-align:right;">Arrival Time :
+								<select class="TableInnerInput">
+									<option>AM</option>
+									<option>PM</option>
+								</select>
+								<input type="text" class="TableInnerInput" size="2" value="10" /> : <input type="text" class="TableInnerInput" size="2" value="45" />
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align:right;">
+								Airport : <input type="text" class="TableInnerInput" size="20" value="" />
+							</td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
+			</div><!-- BOX02E -->
+
+
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopFlightTicketing').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopFlightTicketing').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+<style>
+#PopAirportPickupApplication {display:none;}
+</style>
+<div class="PopCover" id="PopAirportPickupApplication">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopAirportPickupApplication').style.display='none';">X</div>
+			<div class="Title">Airport Pick-up Application</div>
+		</div>
+		<div class="Contents">
+
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="150">
+						<col>
+					</colgroup>
+					<tr>
+						<th># of passenger : </th>
+						<td class="InnerInputTD">
+								<select class="TableInnerInput">
+									<option>3</option>
+									<option>2</option>
+									<option>1</option>
+								</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Airport pick-up Schedule : </th>
+						<td>
+							2018-08-15 / 16:20 <br />
+							BOS (Boston's Logan International Airport)
+						</td>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopAirportPickupApplication').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopAirportPickupApplication').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+<style>
+#PopApplication {display:none;}
+</style>
+<div class="PopCover" id="PopApplication">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopApplication').style.display='none';">X</div>
+			<div class="Title">Application</div>
+		</div>
+		<div class="Contents">
+
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="135">
+						<col>
+					</colgroup>
+					<tr>
+						<th rowspan="3">Home stay preferences : </th>
+						<td>
+							<input type="checkbox" checked /><span></span>With animals</label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox" checked /><span></span>With young children</label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox" checked /><span></span>With other students</label>
+						</td>
+					</tr>
+					<tr>
+						<td class="TitleColor" colspan="2">Other preferences</td>
+					</tr>
+					<tr>
+						<th colspan="2">(with any food allergy/ dietary requirements)<br />
+							<textarea class="TableInnerTextarea"></textarea>
+						</td>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopApplication').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopApplication').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+<style>
+#PopHomeStayRecommendation {display:none;}
+</style>
+<div class="PopCover" id="PopHomeStayRecommendation">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopHomeStayRecommendation').style.display='none';">X</div>
+			<div class="Title">Home Stay Recommendation</div>
+		</div>
+		<div class="Contents">
+
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col>
+						<col width="90">
+					</colgroup>
+					<tr>
+						<td class="TitleColor">HOST A</td>
+						<td class="TitleColor InnerInputTD">
+							<a href="" class="Button">Attachment</a>
+						</td>
+					</tr>
+					<tr>
+						<td><input type="text" class="TableInnerInput" size="56" value="" /></td>
+						<td class="InnerInputTD">
+							<a href="" class="Button">Comment</a>
+						</td>
+					</tr>
+					<tr>
+						<td class="TitleColor">HOST B</td>
+						<td class="TitleColor InnerInputTD">
+							<a href="" class="Button">Attachment</a>
+						</td>
+					</tr>
+					<tr>
+						<td><input type="text" class="TableInnerInput" size="56" value="" /></td>
+						<td class="InnerInputTD">
+							<a href="" class="Button">Comment</a>
+						</td>
+					</tr>
+					<tr>
+						<td class="TitleColor">HOST C</td>
+						<td class="TitleColor InnerInputTD">
+							<a href="" class="Button">Attachment</a>
+						</td>
+					</tr>
+					<tr>
+						<td><input type="text" class="TableInnerInput" size="56" value="" /></td>
+						<td class="InnerInputTD">
+							<a href="" class="Button">Comment</a>
+						</td>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopHomeStayRecommendation').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopHomeStayRecommendation').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+<style>
+#PopHostSelection {display:none;}
+</style>
+<div class="PopCover" id="PopHostSelection">
+	<div class="SmallPopup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopHostSelection').style.display='none';">X</div>
+			<div class="Title">Host Selection</div>
+		</div>
+		<div class="Contents">
+
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="135">
+						<col>
+					</colgroup>
+					<tr>
+						<td>
+							<input type="checkbox" checked /><span></span>A HOST</label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox" checked /><span></span>B HOST</label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox" checked /><span></span>C HOST</label>
+						</td>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopHostSelection').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopHostSelection').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+<style>
+#PopParentsAccommodation {display:none;}
+</style>
+<div class="PopCover" id="PopParentsAccommodation">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopParentsAccommodation').style.display='none';">X</div>
+			<div class="Title">Parents Accommodation</div>
+		</div>
+		<div class="Contents">
+
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="135">
+						<col>
+					</colgroup>
+					<tr>
+						<td class="TitleColor" colspan="2">Accommodation preferences</td>
+					</tr>
+					<tr>
+						<th># of guests : </th>
+						<td class="InnerInputTD">
+						<select class="TableInnerInput">
+							<option>2</option>
+						</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Length of sta : </th>
+						<td class="InnerInputTD">
+						<select class="TableInnerInput">
+							<option>3 nights</option>
+						</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="TitleColor" colspan="2">Other preferences</td>
+					</tr>
+					<tr>
+						<th colspan="2">ex) # of rooms, non-smoking, facilities, Hotel ratings<br />
+							<textarea class="TableInnerTextarea"></textarea>
+						</td>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopParentsAccommodation').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopParentsAccommodation').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+<style>
+#PopPreDepartureOrientation {display:none;}
+</style>
+<div class="PopCover" id="PopPreDepartureOrientation">
+	<div class="SmallPopup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopPreDepartureOrientation').style.display='none';">X</div>
+			<div class="Title">Pre-departure Orientation</div>
+		</div>
+		<div class="Contents">
+
+				<div class="CalendarSet">
+					<div class="MonthSet">
+						<div class="LArrow"><img src="../img/ico_larrow.png" /></div>
+						<div class="Month">July, <span>2018</span></div>
+						<div class="RArrow"><img src="../img/ico_rarrow.png" /></div>
+					</div><!-- MonthSet -->
+					<div class="DaySet">
+						<div class="WeekSet">
+							<div class="Red">S</div>
+							<div class="">M</div>
+							<div class="">T</div>
+							<div class="">W</div>
+							<div class="">T</div>
+							<div class="">F</div>
+							<div class="Blue">S</div>
+						</div><!-- WeekSet -->
+						<div class="Day">
+							<div class="Red">1</div>
+							<div class="">2</div>
+							<div class="">3</div>
+							<div class="ON">4</div>
+							<div class="">5</div>
+							<div class="">6</div>
+							<div class="Blue">7</div>
+							<div class="Red">8</div>
+							<div class="">9</div>
+							<div class="">10</div>
+							<div class="">11</div>
+							<div class="">12</div>
+							<div class="">13</div>
+							<div class="Blue">14</div>
+							<div class="Red">15</div>
+							<div class="">16</div>
+							<div class="">17</div>
+							<div class="">18</div>
+							<div class="">19</div>
+							<div class="">20</div>
+							<div class="Blue">21</div>
+							<div class="Red">22</div>
+							<div class="">23</div>
+							<div class="">24</div>
+							<div class="">25</div>
+							<div class="">26</div>
+							<div class="">27</div>
+							<div class="Blue">28</div>
+							<div class="Red">29</div>
+							<div class="">30</div>
+							<div class="">31</div>
+							<div class="OFF">1</div>
+							<div class="OFF">2</div>
+							<div class="OFF">3</div>
+							<div class="OFF">4</div>
+						</div><!-- Day -->
+					</div><!-- DaySet -->
+				</div><!-- CalendarSet -->
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopPreDepartureOrientation').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopPreDepartureOrientation').style.display='none';">SAVE</div>
+			</div><!-- PopButtonLine -->
+
+		</div><!-- Contents -->
+	</div>
+</div>
+
+
+
+
+
+
+<style>
+#PopDepartureConfirmed {display:none;}
+</style>
+<div class="PopCover" id="PopDepartureConfirmed">
+	<div class="SmallPopup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopDepartureConfirmed').style.display='none';">X</div>
+			<div class="Title">Departure Confirmed</div>
+		</div>
+		<div class="Contents">
+
+				<div class="CalendarSet">
+					<div class="MonthSet">
+						<div class="LArrow"><img src="../img/ico_larrow.png" /></div>
+						<div class="Month">July, <span>2018</span></div>
+						<div class="RArrow"><img src="../img/ico_rarrow.png" /></div>
+					</div><!-- MonthSet -->
+					<div class="DaySet">
+						<div class="WeekSet">
+							<div class="Red">S</div>
+							<div class="">M</div>
+							<div class="">T</div>
+							<div class="">W</div>
+							<div class="">T</div>
+							<div class="">F</div>
+							<div class="Blue">S</div>
+						</div><!-- WeekSet -->
+						<div class="Day">
+							<div class="Red">1</div>
+							<div class="">2</div>
+							<div class="">3</div>
+							<div class="ON">4</div>
+							<div class="">5</div>
+							<div class="">6</div>
+							<div class="Blue">7</div>
+							<div class="Red">8</div>
+							<div class="">9</div>
+							<div class="">10</div>
+							<div class="">11</div>
+							<div class="">12</div>
+							<div class="">13</div>
+							<div class="Blue">14</div>
+							<div class="Red">15</div>
+							<div class="">16</div>
+							<div class="">17</div>
+							<div class="">18</div>
+							<div class="">19</div>
+							<div class="">20</div>
+							<div class="Blue">21</div>
+							<div class="Red">22</div>
+							<div class="">23</div>
+							<div class="">24</div>
+							<div class="">25</div>
+							<div class="">26</div>
+							<div class="">27</div>
+							<div class="Blue">28</div>
+							<div class="Red">29</div>
+							<div class="">30</div>
+							<div class="">31</div>
+							<div class="OFF">1</div>
+							<div class="OFF">2</div>
+							<div class="OFF">3</div>
+							<div class="OFF">4</div>
+						</div><!-- Day -->
+					</div><!-- DaySet -->
+				</div><!-- CalendarSet -->
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopDepartureConfirmed').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopDepartureConfirmed').style.display='none';">SAVE</div>
+			</div><!-- PopButtonLine -->
+
+		</div><!-- Contents -->
+	</div>
+</div>

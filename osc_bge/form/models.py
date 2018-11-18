@@ -144,8 +144,25 @@ class Formality(TimeStampedModel):
     is_child = models.NullBooleanField(blank=True)
     is_allergy = models.NullBooleanField(blank=True)
 
+    @property
+    def school_formality_count(self):
+        result = self.school_formality.filter(processing_fee_done=True).count()
+        return result
+
+    @property
+    def payment_complete_fee(self):
+        fees = self.school_formality.filter(processing_fee_done=True)
+        result = 0
+        for i in fees:
+            if i.processing_fee:
+                result += i.processing_fee
+        return result
+
     def __str__(self):
         return "{}".format(self.id)
+
+    class Meta:
+        ordering = ['created_at']
 
 
 class SchoolFormality(TimeStampedModel):
@@ -155,6 +172,8 @@ class SchoolFormality(TimeStampedModel):
     school_priority = models.SmallIntegerField(null=True, blank=True)
     class_start_at = models.DateField(null=True, blank=True)
     course = models.CharField(max_length=80, null=True, blank=True)
+    processing_fee = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    processing_fee_done = models.NullBooleanField(blank=True)
     form_apply_fee = models.NullBooleanField(blank=True)
     entrance_grade = models.CharField(null=True, max_length=255)
     entrance_fee = models.IntegerField(null=True)

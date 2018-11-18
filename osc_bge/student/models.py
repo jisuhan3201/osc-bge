@@ -59,7 +59,7 @@ class Student(TimeStampedModel):
 
 class StudentHistory(TimeStampedModel):
 
-    student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True, related_name='student_history')
+    student = models.OneToOneField(Student, on_delete=models.SET_NULL, null=True, related_name='student_history')
     current_grade = models.CharField(max_length=80, null=True, blank=True)
     current_school = models.CharField(max_length=140, null=True, blank=True)
     apply_grade = models.CharField(null=True, max_length=80, blank=True)

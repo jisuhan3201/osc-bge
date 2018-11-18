@@ -35,6 +35,8 @@ django_coverage_plugin = "==1.6.0"
 mysqlclient = "*"
 django-countries = "*"
 django-seed = "*"
+django-bootstrap-datepicker-plus = "*"
+"django-bootstrap4" = "*"
 
 [requires]
 python_version = "3.6"

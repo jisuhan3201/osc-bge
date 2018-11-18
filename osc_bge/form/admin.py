@@ -126,6 +126,8 @@ class SchoolFormalityAdmin(admin.ModelAdmin):
         "school_priority",
         "class_start_at",
         "course",
+        "processing_fee",
+        "processing_fee_done",
         "form_apply_fee",
         "entrance_grade",
         "entrance_fee",

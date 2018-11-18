@@ -77,6 +77,8 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     "django_countries",
     'django_seed',
+    'bootstrap4',
+    'bootstrap_datepicker_plus',
 ]
 LOCAL_APPS = [
     'osc_bge.users.apps.UsersAppConfig',
@@ -245,3 +247,6 @@ SOCIALACCOUNT_ADAPTER = 'osc_bge.users.adapters.SocialAccountAdapter'
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
