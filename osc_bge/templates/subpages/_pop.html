@@ -56,6 +56,56 @@
 </div>
 
 
+<style>
+#PopCancelRegistration {display:none;}
+</style>
+<div class="PopCover" id="PopCancelRegistration">
+	<div class="WidePopup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopCancelRegistration').style.display='none';">X</div>
+			<div class="Title">Cancel Registration</div>
+		</div>
+
+		<div class="Contents">
+			<form class="CancelRegistrationForm" method="POST">
+				<input id="FormalityId" type="text" value="{{found_formality.id}}" hidden>
+				<div class="CalendarFloat">
+					<div class="CalendarSet">
+					{{ formality_form }}
+					</div>
+					{% if found_formality.canceled_at %}
+					<div class="InfoTable">
+						<span class="DoneIcon">E</span>
+						<span class="AddComment">Canceled at : {{found_formality.canceled_at|date:"Y-m-d"}}</span>
+					</div>
+					{% endif %}
+				</div>
+
+				<div class="InfoFloat">
+					<div class="InfoTable">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td>Reason for cancellation : <br />
+								{% if found_formality.cancel_reason %}
+								<textarea class="TableInnerTextarea" name="cancel_reason">{{found_formality.cancel_reason}}</textarea>
+								{% else %}
+								<textarea class="TableInnerTextarea" name="cancel_reason"></textarea>
+								{% endif %}
+								</td>
+							</tr>
+						</table>
+					</div><!-- InfoTable -->
+				</div><!-- InfoFloat -->
+
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
 
 <style>
 #PopFileBox {display:none;}
@@ -67,176 +117,60 @@
 			<div class="Title">File Box</div>
 		</div>
 		<div class="Contents">
-
+			<form class="FileForm" method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
 			<div class="ListTable">
-				<table cellpadding="0" cellspacing="0" border="0">
+				<table id="FileBoxTable" cellpadding="0" cellspacing="0" border="0">
 					<colgroup>
 						<col width="20">
 						<col>
-						<col width="140">
+						<col width="170">
 					</colgroup>
 					<tr>
 						<th>No</th>
 						<th>Fiile Name</th>
 						<th>Management</th>
 					</tr>
-					<tr>
-						<td>1</td>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Copy of Passport" /></td>
-						<td>
-							<a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
-							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
-							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
-							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
-						</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="School transcripts (in English)" /></td>
-						<td>
-							<a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
-							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
-							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
-							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
-						</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Proof of English ability" /></td>
-						<td>
-              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
-							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
-							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
-							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
-						</td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Letters of recommendation" /></td>
-						<td>
-              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
-							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
-							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
-							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
-						</td>
-					</tr>
-					<tr>
-						<td>5</td>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Essay" /></td>
-						<td>
-              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
-							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
-							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
-							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
-						</td>
-					</tr>
-					<tr>
-						<td>6</td>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Acceptance Letter" /></td>
-						<td>
-              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
-							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
-							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
-							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
-						</td>
-					</tr>
-					<tr>
-						<td>7</td>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="BGE Program application" /></td>
-						<td>
-              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
-							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
-							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
-							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
-						</td>
-					</tr>
-					<tr>
-						<td>8</td>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="BGE program agreement" /></td>
-						<td>
-              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
-							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
-							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
-							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
-						</td>
-					</tr>
-					<tr>
-						<td>9</td>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Proof of Deposit payment" /></td>
-						<td>
-              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
-							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
-							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
-							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
-						</td>
-					</tr>
-					<tr>
-						<td>10</td>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Immunization, Medical treatment" /></td>
-						<td>
-              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
-							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
-							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
-							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
-						</td>
-					</tr>
-					<tr>
-						<td>11</td>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Financial Support docs" /></td>
-						<td>
-              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
-							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
-							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
-							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
-						</td>
-					</tr>
-					<tr>
-						<td>12</td>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Proof of Program fee payment" /></td>
-						<td>
-              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
-							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
-							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
-							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
-						</td>
-					</tr>
-					<tr>
-						<td>13</td>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Flight e-ticket" /></td>
-						<td>
-              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
-							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
-							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
-							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
-						</td>
-					</tr>
-					<tr>
-						<td>14</td>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Copy of F-1 visa" /></td>
-						<td>
-              <a class="IcoButton" href="" title="View"><img src="{% static 'img/ico_view.png' %}" /></a>
-							<a class="IcoButton" href="" title="Download"><img src="{% static 'img/ico_download.png' %}" /></a>
-							<a class="IcoButton" href="" title="Modify"><img src="{% static 'img/ico_modify.png' %}" /></a>
-							<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
-						</td>
-					</tr>
-					<tr>
-						<td>-</td>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 22px);" value="Input File Name" /></td>
-						<td>
-							<a class="Button" href="">Add New Document</a>
-						</td>
-					</tr>
+						<input id="FormalityId" type="text" name="formality" value="{{found_formality.id}}" hidden>
+						<input type="text" name="type" value="file_upload" hidden>
+						{% for data in formset_init %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td class="InnerInputTD">
+								<input type="text" class="TableInnerInput" style="width:100%;" name="init_data_{{data.id}}" value="{{data.name}}" disabled/>
+							</td>
+							<td>
+								<a class="IcoButton" href="/media/{{data.file_source}}" title="Download" download><img src="{% static 'img/ico_download.png' %}" /></a>
+								<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
+							</td>
+						</tr>
+						{% endfor %}
+						{{ file_formset.management_form }}
+						{% for form in file_formset %}
+						<tr class="form-tr">
+							<td>-</td>
+							<td class="InnerInputTD">
+								{{ form.name }}
+								<span id="id_form-0-span" class="SmallComment"></span>
+							</td>
+							<td>
+								{{ form.file_source }}
+								{{ form.file_source.errors }}
+								{{ form.file_source.label_tag}}
+								<button class="IcoButton AddFileButton add-form-row">+</button>
+								<!-- <button class="DeleteButton"><img src="{% static 'img/ico_delete.png' %}" /></button> -->
+							</td>
+						</tr>
+						{% endfor %}
 				</table>
 			</div><!-- ListTable -->
 
 
 
 			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopFileBox').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopFileBox').style.display='none';">SAVE</div>
+				<button class="Submit" type="submit">SAVE</button>
 			</div>
-
+			</form>
 		</div>
 	</div>
 </div>
@@ -839,53 +773,6 @@
 		</div>
 	</div>
 </div>
-
-
-
-
-
-
-
-<style>
-#PopCancelRegistration {display:none;}
-</style>
-<div class="PopCover" id="PopCancelRegistration">
-	<div class="WidePopup">
-		<div class="TitleSet">
-			<div class="Close" OnClick="document.getElementById('PopCancelRegistration').style.display='none';">X</div>
-			<div class="Title">Cancel Registration</div>
-		</div>
-
-		<div class="Contents">
-			<form method="POST">
-			<div class="CalendarFloat">
-				<div class="CalendarSet">
-
-				{{ formality_form }}
-
-				</div>
-			</div>
-
-			<div class="InfoFloat">
-				<div class="InfoTable">
-					<table cellpadding="0" cellspacing="0" border="0">
-						<tr>
-							<td>Reason for cancellation : <br />
-							<textarea class="TableInnerTextarea"></textarea>
-							</td>
-						</tr>
-					</table>
-				</div><!-- InfoTable -->
-			</div><!-- InfoFloat -->
-
-			<div class="PopButtonLine">
-				<button class="Submit" type="submit">SAVE</button>
-			</div>
-			</form>
-		</div>
-	</div>
-</div>
-
 
 
 

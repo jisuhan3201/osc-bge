@@ -36,10 +36,10 @@ $(".RegistrationForm").on('submit', function(){
   var formality_id = $("#FormalityId").val()
   var values = $(".RegistrationForm").serializeArray()
   values.push({"name":"type", "value":"registration"})
-  create_post(formality_id, values)
+  create_registration(formality_id, values)
 })
 
-function create_post(formality_id, values){
+function create_registration(formality_id, values){
   $.ajax({
     url : "/agent/process/" + formality_id,
     type: "POST",
@@ -50,6 +50,33 @@ function create_post(formality_id, values){
         json.apply_at + " / " + json.school_count + " Schools, processing fee $" + json.payment_complete_fee + " payment completed"
       )
       $("#PopRegistration").hide()
+    },
+    error: function(err){
+      alert(err)
+    }
+  })
+}
+
+$("#CancelRegistration").click(function () {
+  $("#PopCancelRegistration").show()
+});
+
+$(".CancelRegistrationForm").on('submit', function(){
+  event.preventDefault();
+  var formality_id = $("#FormalityId").val()
+  var values = $(".CancelRegistrationForm").serializeArray()
+  values.push({"name":"type", "value":"cancel_registration"})
+  cancel_registration(formality_id, values)
+});
+
+function cancel_registration(formality_id, values){
+  $.ajax({
+    url : "/agent/process/" + formality_id,
+    type: "POST",
+    data: values,
+    success: function(json){
+      $(".AddComment").empty()
+      $("#PopCancelRegistration").hide()
     },
     error: function(err){
       alert(err)

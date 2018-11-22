@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views import View
 from django.db.models import Q
 from django.core import serializers
@@ -540,6 +540,8 @@ class ProcessApplyView(View):
         student_history = student_info.student_history
         school_formalities = form_models.SchoolFormality.objects.filter(formality=found_formality).order_by('school_priority')
         formality_form = forms.FormalityForm
+        formset_init = form_models.FormalityFile.objects.filter(formality=found_formality).order_by('-created_at')
+        file_formset = forms.FileFormset
 
         return render(
             request,
@@ -550,7 +552,9 @@ class ProcessApplyView(View):
                 "student_info":student_info,
                 "student_history":student_history,
                 "school_formalities":school_formalities,
-                "formality_form":formality_form
+                "formality_form":formality_form,
+                "formset_init":formset_init,
+                "file_formset":file_formset,
             }
         )
 
@@ -567,10 +571,8 @@ class ProcessApplyView(View):
         if not found_formality.counsel.counseler == found_counseler:
             return HttpResponse(status=401)
 
-        data = request.POST
-
+        data = request.POST or request.FILES
         if data:
-
             if data.get('type') == 'registration':
 
                 school_ids = []
@@ -611,6 +613,10 @@ class ProcessApplyView(View):
                 else:
                     found_formality.payment_complete=False
 
+                if found_formality.canceled_at:
+                    found_formality.canceled_at=None
+                    found_formality.cancel_reason=None
+
                 found_formality.save()
                 data = json.dumps({
                     "apply_at":str(found_formality.apply_at.strftime("%Y-%m-%d")),
@@ -619,12 +625,44 @@ class ProcessApplyView(View):
                 })
                 return HttpResponse(data, content_type="application/json")
 
+            elif data.get('type') == 'cancel_registration':
+
+                found_formality.canceled_at=data.get('Date')
+                found_formality.cancel_reason=data.get('cancel_reason')
+                found_formality.payment_complete=False
+                found_formality.apply_at=None
+
+                found_formality.save()
+
+                school_formalities = form_models.SchoolFormality.objects.filter(formality=found_formality)
+
+                for school_formality in school_formalities:
+                    school_formality.processing_fee=None
+                    school_formality.processing_fee_done=False
+                    school_formality.save()
+
+                return HttpResponse(status=201)
+
+            elif data.get('type') == "file_upload":
+                print(request.POST)
+                print(request.FILES)
+                formset = forms.FileFormset(request.POST, request.FILES)
+                if formset.is_valid():
+                    for form in formset:
+                        name = formset.cleaned_data.get('name')
+                        file_source = formset.cleaned_data.get('file_source')
+                        formality_file = form_models.FormalityFile(
+                            formality=found_formality,
+                            name=name,
+                            file_source=file_source,
+                        )
+                        formality_file.save()
+                    return HttpResponse(status=201)
+                else:
+                    return HttpResponse(status=400)
 
         else:
             return HttpResponse(status=400)
-
-
-
 
 
 def load_states(request):

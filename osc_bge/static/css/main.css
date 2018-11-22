@@ -113,7 +113,7 @@ border-radius:50%;background-position:center center;background-size:cover;overfl
 .TopMenuSet .Info .NameSet > li {width:180px;height:12px;font-size:11px;line-height:12px;font-weight:350;}
 .TopMenuSet .Info .NameSet .Name {color:rgba(255, 255, 255, 1);}
 .TopMenuSet .Info .NameSet .Rank {color:rgba(255, 255, 255, 0.5);}
-.TopMenuSet .Logout {width:45px;height:45px;
+.TopMenuSet .Logout {width:45px;height:45px;float:right;
 font-size:18px;font-weight:100;line-height:45px;text-align:center;color:#FFF;
 background:#fba016;cursor:pointer;}
 .TopMenuSet .Logout:hover {background:#FF6600;}
@@ -549,3 +549,33 @@ font-size:11px;font-weight:600;color:#666;border-radius:50%;background:#FAFAFA;}
 .CalendarSet .DaySet .Day > .Red {color:#d75e5e;}
 .CalendarSet .DaySet .Day > .OFF {color:#CCC;}
 .CalendarSet .DaySet .Day > div:hover {color:#FFF;background:#333;cursor:pointer;}
+
+
+/* File Input */
+
+.FileButton {
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.FileButton + label {display: inline-block;padding:0 8px;
+font-size:11px;font-weight:600;color:#333;line-height:22px;
+background:#FFF;border:1px solid #CCC;border-radius:3px;cursor:pointer;margin:0;}
+
+.FileButton:focus + label,
+.FileButton + label:hover {background:#FF6600;color:#FFF;}
+
+.SmallComment {width:calc(100% - 30px); margin-left:3px;font-weight:150;font-size:11px;color:#FF6600;display:none;overflow: hidden;}
+.FileSubmit {display: inline-block;padding:0 8px;
+font-size:11px;font-weight:600;color:#FFF;line-height:22px;
+background:#145677;border:1px solid #CCC;border-radius:3px;cursor:pointer;margin:0;}
+.DeleteButton {width:28px;padding:3px 5px;
+background:#FFF;border:1px solid #CCC;border-radius:3px;cursor:pointer;overflow:hidden;}
+.DeleteButton img {margin-top:-3px;height:16px;opacity:0.5;}
+.DeleteButton:hover img {opacity:1;}
+.AddFileButton {background-color: green!important; color:#FFF;}
+.DeleteFilebutton {background-color: red!important; color:#FFF;}

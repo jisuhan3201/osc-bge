@@ -99,6 +99,7 @@ class FormalityAdmin(admin.ModelAdmin):
         "payment_complete",
         "apply_at",
         "canceled_at",
+        "cancel_reason",
         "visa_reserve_at",
         "visa_approve_at",
         "visa_denied_at",
@@ -147,4 +148,14 @@ class SchoolFormalityAdmin(admin.ModelAdmin):
         "program_fee",
         "program_prefee",
         "program_restfee",
+    )
+
+@admin.register(models.FormalityFile)
+class FormalityFileAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "id",
+        "formality",
+        "name",
+        "file_source",
     )

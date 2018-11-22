@@ -159,8 +159,12 @@
 								{% endif %}
 							</td>
 							<td>
-								<label OnClick="document.getElementById('PopCancelRegistration').style.display='block';">
-                  <input type="checkbox" /><span></span>Cancel Registration
+								<label id="CancelRegistration">
+									{% if found_formality.canceled_at %}
+                  <input type="checkbox" checked/><span></span>Cancel Registration
+									{% else %}
+									<input type="checkbox" /><span></span>Cancel Registration
+									{% endif %}
                 </label>
 							</td>
 						</tr>

@@ -3,6 +3,8 @@ from django_countries.fields import CountryField
 from osc_bge.users import models as user_models
 from osc_bge.student import models as student_models
 from osc_bge.school import models as school_models
+import datetime
+import os
 
 
 # Create your models here.
@@ -128,6 +130,7 @@ class Formality(TimeStampedModel):
     payment_complete = models.NullBooleanField(blank=True)
     apply_at = models.DateTimeField(null=True, blank=True)
     canceled_at = models.DateTimeField(null=True, blank=True)
+    cancel_reason = models.TextField(null=True, blank=True)
     visa_reserve_at = models.DateTimeField(null=True, blank=True)
     visa_approve_at = models.DateTimeField(null=True, blank=True)
     visa_denied_at = models.DateTimeField(null=True, blank=True)
@@ -196,3 +199,33 @@ class SchoolFormality(TimeStampedModel):
 
     def __str__(self):
         return "{}".format(self.id)
+
+
+def set_filename_format(now, instance, filename):
+
+    return "{date}-{microsecond}{extension}".format(
+        date=str(now.date()),
+        microsecond=now.microsecond,
+        extension=os.path.splitext(filename)[1],
+        )
+
+def file_directory_path(instance, filename):
+
+    now = datetime.datetime.now()
+    path = "formality/{year}/{month}/{day}/{filename}".format(
+        year=now.year,
+        month=now.month,
+        day=now.day,
+        filename=set_filename_format(now, instance, filename),
+    )
+    return path
+
+
+class FormalityFile(TimeStampedModel):
+
+    formality = models.ForeignKey(Formality, on_delete=models.SET_NULL, null=True, related_name="formality_file")
+    name = models.CharField(max_length=140, null=True, blank=True)
+    file_source = models.FileField(upload_to=file_directory_path, null=True, blank=True)
+
+    def __str__(self):
+        return "{}".format(self.name)
