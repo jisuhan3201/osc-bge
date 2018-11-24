@@ -31,55 +31,74 @@ $("#Registration").click(function () {
   $("#PopRegistration").show()
 });
 
-$(".RegistrationForm").on('submit', function(){
-  event.preventDefault();
-  var formality_id = $("#FormalityId").val()
-  var values = $(".RegistrationForm").serializeArray()
-  values.push({"name":"type", "value":"registration"})
-  create_registration(formality_id, values)
-})
-
-function create_registration(formality_id, values){
-  $.ajax({
-    url : "/agent/process/" + formality_id,
-    type: "POST",
-    data: values,
-    success: function(json){
-      $(".AddComment").empty()
-      $(".AddComment").append(
-        json.apply_at + " / " + json.school_count + " Schools, processing fee $" + json.payment_complete_fee + " payment completed"
-      )
-      $("#PopRegistration").hide()
-    },
-    error: function(err){
-      alert(err)
-    }
-  })
-}
-
 $("#CancelRegistration").click(function () {
   $("#PopCancelRegistration").show()
 });
 
-$(".CancelRegistrationForm").on('submit', function(){
-  event.preventDefault();
-  var formality_id = $("#FormalityId").val()
-  var values = $(".CancelRegistrationForm").serializeArray()
-  values.push({"name":"type", "value":"cancel_registration"})
-  cancel_registration(formality_id, values)
-});
+$(".EnrolmentLabelClass").click(function(){
+  var formality_id = $(this).attr('id').replace("EnrolmentLabel", "")
+  $('#PopEnrolmentApplication' + formality_id).show()
+})
 
-function cancel_registration(formality_id, values){
-  $.ajax({
-    url : "/agent/process/" + formality_id,
-    type: "POST",
-    data: values,
-    success: function(json){
-      $(".AddComment").empty()
-      $("#PopCancelRegistration").hide()
-    },
-    error: function(err){
-      alert(err)
-    }
-  })
-}
+$(".SchoolInterviewLabelClass").click(function(){
+  var formality_id = $(this).attr('id').replace("SchoolInterviewLabel", "")
+  $('#PopSchoolinterview' + formality_id).show()
+})
+
+$(".AcceptanceLabelClass").click(function(){
+  var formality_id = $(this).attr('id').replace("AcceptanceLabel", "")
+  $('#PopAccepted' + formality_id).show()
+})
+
+$(".CancelEnrolmentLabelClass").click(function(){
+  var formality_id = $(this).attr('id').replace("CancelEnrolmentLabel", "")
+  $('#PopCancelEnrolment' + formality_id).show()
+})
+
+$(".I20RequestLabelClass").click(function(){
+  var formality_id = $(this).attr('id').replace("I20RequestLabel", "")
+  $('#PopI20Request' + formality_id).show()
+})
+
+$(".I20ReceivedLabelClass").click(function(){
+  var formality_id = $(this).attr('id').replace("I20ReceivedLabel", "")
+  $('#PopI20Received' + formality_id).show()
+})
+
+$(".ProgramFeePaymentLabelClass").click(function(){
+  var formality_id = $(this).attr('id').replace("ProgramFeePaymentLabel", "")
+  $('#PopProgramFeePayment' + formality_id).show()
+})
+$(".VisaInterviewSchedulingLabelClass").click(function(){
+  $('#PopVisaInterviewScheduling').show()
+})
+$(".VisaGrantedLabelClass").click(function(){
+  $('#PopVisaGranted').show()
+})
+$(".VisaRejectedLabelClass").click(function(){
+  $('#PopVisaRejected').show()
+})
+$(".FlightTicketingLabelClass").click(function(){
+  $('#PopFlightTicketing').show()
+})
+$(".AirportPickUpLabelClass").click(function(){
+  $('#PopAirportPickupApplication').show()
+})
+$(".AccommodationApplicationLabelClass").click(function(){
+  $('#PopApplication').show()
+})
+$(".HomeStayRecommendationLabelClass").click(function(){
+  $('#PopHomeStayRecommendation').show()
+})
+$(".HostSelectionLabelClass").click(function(){
+  $('#PopHostSelection').show()
+})
+$(".ParentsAccommodationLabelClass").click(function(){
+  $('#PopParentsAccommodation').show()
+})
+$(".DepartureOTLabelClass").click(function(){
+  $('#PopPreDepartureOrientation').show()
+})
+$(".DepartureConfirmedLabelClass").click(function(){
+  $('#PopDepartureConfirmed').show()
+})

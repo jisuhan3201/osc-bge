@@ -2,8 +2,8 @@
 .PopCover {position:fixed;width:100%;height:100%;top:0px;left:0px;bottom:0px;right:0px;
 background:rgba(0,0,0,0.7);z-index:1000;overflow:auto;}
 .PopCover .Popup {margin:150px auto;padding:20px;width:460px;
-background:#FFF;border-radius:3px;overflow:hidden;}
-.PopCover .Popup .TitleSet {position:relative;overflow:hidden;}
+background:#FFF;border-radius:3px;}
+.PopCover .Popup .TitleSet {position:relative;}
 .PopCover .Popup .TitleSet .Title {padding-bottom:10px;line-height:18px;font-size:18px;font-weight:350;color:#333;}
 .PopCover .Popup .TitleSet .Close {position:absolute;right:0px;width:16px;height:16px;line-height:16px;
 font-size:12px;font-weight:350;color:#999;z-index:1000;cursor:pointer;}
@@ -11,15 +11,15 @@ font-size:12px;font-weight:350;color:#999;z-index:1000;cursor:pointer;}
 
 .PopCover .WidePopup {margin:150px auto;padding:20px;width:540px;
 background:#FFF;border-radius:3px;}
-.PopCover .WidePopup .TitleSet {position:relative;overflow:hidden;}
+.PopCover .WidePopup .TitleSet {position:relative;}
 .PopCover .WidePopup .TitleSet .Title {padding-bottom:10px;line-height:18px;font-size:18px;font-weight:350;color:#333;}
 .PopCover .WidePopup .TitleSet .Close {position:absolute;right:0px;width:16px;height:16px;line-height:16px;
 font-size:12px;font-weight:350;color:#999;z-index:1000;cursor:pointer;}
 
 
 .PopCover .SmallPopup {margin:150px auto;padding:20px;width:240px;
-background:#FFF;border-radius:3px;overflow:hidden;}
-.PopCover .SmallPopup .TitleSet {position:relative;overflow:hidden;}
+background:#FFF;border-radius:3px;}
+.PopCover .SmallPopup .TitleSet {position:relative;}
 .PopCover .SmallPopup .TitleSet .Title {padding-bottom:10px;line-height:18px;font-size:18px;font-weight:350;color:#333;}
 .PopCover .SmallPopup .TitleSet .Close {position:absolute;right:0px;width:16px;height:16px;line-height:16px;
 font-size:12px;font-weight:350;color:#999;z-index:1000;cursor:pointer;}
@@ -226,7 +226,10 @@ background:#fba016;border-radius:3px;cursor:pointer;overflow:hidden;}
 .InfoTable .SchoolButton:hover {background:#FF6600;}
 .InfoTable .DoneIcon {margin:0px 5px;padding:0px 4px;font-weight:150;font-size:6px;color:#FFF;
 background:#FF6600;border-radius:50%;}
+.InfoTable .NotDoneIcon {margin:0px 5px;padding:0px 4px;font-weight:150;font-size:6px;color:#FFF;
+background:#215670;border-radius:50%;}
 .InfoTable .AddComment {margin-left:3px;font-weight:150;font-size:11px;color:#FF6600;}
+.InfoTable .AddComment2 {margin-left:3px;font-weight:150;font-size:11px;color:#215670;}
 .InfoTable .TitleColor {font-size:12px;font-weight:600;color:#000;background:#EFEFEF;}
 .InfoTable .TitleColor2 {font-size:11px;font-weight:600;color:#FF6600;text-align:center;background:#FAFAFA;}
 .InfoTable td .Button {padding:3px 10px;

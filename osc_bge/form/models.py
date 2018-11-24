@@ -131,21 +131,23 @@ class Formality(TimeStampedModel):
     apply_at = models.DateTimeField(null=True, blank=True)
     canceled_at = models.DateTimeField(null=True, blank=True)
     cancel_reason = models.TextField(null=True, blank=True)
-    visa_reserve_at = models.DateTimeField(null=True, blank=True)
-    visa_approve_at = models.DateTimeField(null=True, blank=True)
-    visa_denied_at = models.DateTimeField(null=True, blank=True)
-    departure_ot_at = models.DateTimeField(null=True, blank=True)
-    departure_complete = models.NullBooleanField(blank=True)
-    air_ticketing_at = models.DateTimeField(null=True, blank=True)
-    air_departure_at = models.DateTimeField(null=True, blank=True)
-    air_arrive_at = models.DateTimeField(null=True, blank=True)
-    air_departure_port = models.CharField(max_length=255, null=True, blank=True)
-    air_arrive_port = models.CharField(max_length=255, null=True, blank=True)
-    pickup_num = models.IntegerField(null=True, blank=True)
-    pickup_at = models.DateTimeField(null=True, blank=True)
-    is_pet = models.NullBooleanField(blank=True)
-    is_child = models.NullBooleanField(blank=True)
-    is_allergy = models.NullBooleanField(blank=True)
+    visa_reserve_date = models.DateField(null=True, blank=True)
+    visa_reserve_time = models.TimeField(null=True, blank=True)
+    visa_granted_date = models.DateField(null=True, blank=True)
+    visa_granted_time = models.TimeField(null=True, blank=True)
+    visa_copy_recieved = models.NullBooleanField(blank=True)
+    visa_rejected_date = models.DateField(null=True, blank=True)
+    visa_rejected_time = models.TimeField(null=True, blank=True)
+    eticket_attached = models.NullBooleanField(blank=True)
+    air_departure_date = models.DateField(null=True, blank=True)
+    air_departure_time = models.TimeField(null=True, blank=True)
+    air_departure_port = models.CharField(max_length=140, null=True, blank=True)
+    air_arrive_date = models.DateField(null=True, blank=True)
+    air_arrive_time = models.TimeField(null=True, blank=True)
+    air_arrive_port = models.CharField(max_length=140, null=True, blank=True)
+    pickup_num = models.CharField(max_length=80, null=True, blank=True)
+    departure_ot = models.DateField(null=True, blank=True)
+    departure_confirmed = models.DateField(null=True, blank=True)
 
     @property
     def school_formality_count(self):
@@ -177,25 +179,40 @@ class SchoolFormality(TimeStampedModel):
     course = models.CharField(max_length=80, null=True, blank=True)
     processing_fee = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     processing_fee_done = models.NullBooleanField(blank=True)
-    form_apply_fee = models.NullBooleanField(blank=True)
-    entrance_grade = models.CharField(null=True, max_length=255)
-    entrance_fee = models.IntegerField(null=True)
-    entrance_prefee = models.IntegerField(null=True)
-    entrance_restfee = models.IntegerField(null=True)
-    interview_reserve_at = models.DateTimeField(null=True)
-    training_reserve_at = models.DateTimeField(null=True)
-    entrance_approve_at = models.DateTimeField(null=True)
-    entrance_canceled_at = models.DateTimeField(null=True)
-    i20_apply_at = models.DateTimeField(null=True)
-    i20_fee = models.IntegerField(null=True)
-    i20_prefee = models.IntegerField(null=True)
-    i20_restfee = models.IntegerField(null=True)
-    i20_receive_at = models.DateTimeField(null=True)
-    program_fee_complete = models.NullBooleanField(blank=True)
-    program_fee_send_at = models.DateTimeField(null=True)
-    program_fee = models.IntegerField(null=True)
-    program_prefee = models.IntegerField(null=True)
-    program_restfee = models.IntegerField(null=True)
+    enrolment_apply_fee = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    enrolment_apply_done = models.NullBooleanField(blank=True)
+    enrolment_apply_done_date = models.DateTimeField(null=True, blank=True)
+    prepared_passport = models.NullBooleanField(blank=True)
+    prepared_transcript = models.NullBooleanField(blank=True)
+    prepared_eng_exams = models.NullBooleanField(blank=True)
+    prepared_recommendation = models.NullBooleanField(blank=True)
+    prepared_essay = models.NullBooleanField(blank=True)
+    school_interview_date = models.DateField(null=True, blank=True)
+    school_interview_time = models.TimeField(null=True, blank=True)
+    mock_interview = models.NullBooleanField(blank=True)
+    school_interview_done = models.NullBooleanField(blank=True)
+    acceptance_date = models.DateField(null=True, blank=True)
+    acceptance_letter = models.NullBooleanField(blank=True)
+    cancel_enrolment_date = models.DateField(null=True, blank=True)
+    cancel_enrolment_time = models.TimeField(null=True, blank=True)
+    i20_completed = models.NullBooleanField(blank=True)
+    i20_fee = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    i20_receipt = models.NullBooleanField(blank=True)
+    i20_received_date = models.DateField(null=True, blank=True)
+    i20_copy = models.NullBooleanField(blank=True)
+    i20_tracking = models.CharField(max_length=255, null=True, blank=True)
+    provider_application = models.NullBooleanField(blank=True)
+    bge_program_application = models.NullBooleanField(blank=True)
+    immunization = models.NullBooleanField(blank=True)
+    financial_support = models.NullBooleanField(blank=True)
+    program_fee_completed = models.NullBooleanField(blank=True)
+    program_fee = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    program_fee_receipt = models.NullBooleanField(blank=True)
+
+    @property
+    def payment_amount(self):
+        result = self.program_fee - self.i20_fee
+        return result
 
     def __str__(self):
         return "{}".format(self.id)
@@ -208,6 +225,50 @@ def set_filename_format(now, instance, filename):
         microsecond=now.microsecond,
         extension=os.path.splitext(filename)[1],
         )
+
+def accommodation_directory_path(instance, filename):
+
+    now = datetime.datetime.now()
+    path = "accommodation/{year}/{month}/{day}/{filename}".format(
+        year=now.year,
+        month=now.month,
+        day=now.day,
+        filename=set_filename_format(now, instance, filename),
+    )
+    return path
+
+
+class AccommodationFormality(TimeStampedModel):
+
+    HOST_CHOICES = (
+        ('a', 'A-Host'),
+        ('b', 'B-Host'),
+        ('c', 'C-Host'),
+    )
+
+    formality = models.OneToOneField(Formality, on_delete=models.SET_NULL, null=True, related_name="accommodation")
+    with_animal = models.NullBooleanField(blank=True)
+    with_child = models.NullBooleanField(blank=True)
+    with_other_student = models.NullBooleanField(blank=True)
+    other_preference = models.TextField(null=True, blank=True)
+    application_at = models.DateTimeField(null=True, blank=True)
+    recommendation_a = models.FileField(upload_to=accommodation_directory_path, null=True, blank=True)
+    recommendation_a_comment = models.CharField(max_length=255, null=True, blank=True)
+    recommendation_b = models.FileField(upload_to=accommodation_directory_path, null=True, blank=True)
+    recommendation_b_comment = models.CharField(max_length=255, null=True, blank=True)
+    recommendation_c = models.FileField(upload_to=accommodation_directory_path, null=True, blank=True)
+    recommendation_b_comment = models.CharField(max_length=255, null=True, blank=True)
+    homestay_recommendation_at = models.DateTimeField(null=True, blank=True)
+    host_selection = models.CharField(max_length=140, choices=HOST_CHOICES, null=True, blank=True)
+    host_selection_at = models.DateTimeField(null=True, blank=True)
+    parent_accommodation_guest_num = models.CharField(max_length=80, null=True, blank=True)
+    parent_length_of_stay = models.CharField(max_length=80, null=True, blank=True)
+    parent_other_preference = models.TextField(null=True, blank=True)
+    parent_accommodation_at = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return "{}".format(self.id)
+
 
 def file_directory_path(instance, filename):
 

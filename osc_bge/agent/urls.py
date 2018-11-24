@@ -9,6 +9,7 @@ urlpatterns = [
     path('customer/<int:counsel_num>/register', views.CustomerRegisterView.as_view(), name='customer_update'),
     path('application/<int:counsel_num>/register', views.ApplicationRegisterView.as_view(), name='customer_application'),
     path('process/<int:formality_id>', views.ProcessApplyView.as_view(), name='process_apply_view'),
+    path('upload/files/<int:formality_id>', views.upload_files, name='upload_files'),
     path('load/states', views.load_states, name='ajax_load_states'),
     path('load/schools', views.load_schools, name='ajax_load_schools'),
 ]

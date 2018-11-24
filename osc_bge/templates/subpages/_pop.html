@@ -3,105 +3,103 @@
 {% bootstrap_javascript jquery='full' %}
 {{ formality_form.media }}
 
-<style>
-#PopRegistration {display:none;}
-</style>
-<div class="PopCover" id="PopRegistration">
+<div class="PopCover" id="PopRegistration" style="display:none;">
 	<div class="Popup">
 		<div class="TitleSet">
 			<div class="Close" OnClick="document.getElementById('PopRegistration').style.display='none';">X</div>
 			<div class="Title">Registration</div>
 		</div>
-		<div class="Contents">
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="type" value="registration" hidden />
+			<div class="Contents">
 
-		<form class="RegistrationForm" method="post">
-			<input id="FormalityId" type="text" value="{{found_formality.id}}" hidden>
-			<div class="InfoTable">
-				<table cellpadding="0" cellspacing="0" border="0">
-					<colgroup>
-						<col width="100">
-						<col>
-					</colgroup>
-					{% for school_formality in school_formalities %}
-					<input type="text" name="school_id_{{school_formality.school.id}}" value="{{school_formality.school.id}}" hidden>
-					<tr>
-						<td class="TitleColor" colspan="2">{{ school_formality.school.name }}</td>
-					</tr>
-					<tr>
-						<th>Processing Fee : </th>
-						<td class="InnerInputTD">
-							{% if school_formality.processing_fee %}
-							Payment amount $<input type="text" class="TableInnerInput" size="10" value="{{school_formality.processing_fee}}" name="processing_fee_{{school_formality.school.id}}"/>
-							{% else %}
-							Payment amount $<input type="text" class="TableInnerInput" size="10" name="processing_fee_{{school_formality.school.id}}"/>
-							{% endif %}
-							{% if school_formality.processing_fee_done %}
-							<label><input type="checkbox" name="processing_fee_done_{{school_formality.school.id}}" checked/><span></span>Payment completed</label>
-							{% else %}
-							<label><input type="checkbox" name="processing_fee_done_{{school_formality.school.id}}"/><span></span>Payment completed</label>
-							{% endif %}
-						</td>
-					</tr>
-					{% endfor %}
-				</table>
-			</div><!-- InfoTable -->
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<colgroup>
+							<col width="100">
+							<col>
+						</colgroup>
+						{% for school_formality in school_formalities %}
+						<input type="text" name="school_id" value="{{school_formality.school.id}}" hidden>
+						<tr>
+							<td class="TitleColor" colspan="2">{{ school_formality.school.name }}</td>
+						</tr>
+						<tr>
+							<th>Processing Fee : </th>
+							<td class="InnerInputTD">
+								{% if school_formality.processing_fee %}
+								Payment amount $<input type="text" class="TableInnerInput" size="10" value="{{school_formality.processing_fee}}" name="processing_fee_{{school_formality.school.id}}"/>
+								{% else %}
+								Payment amount $<input type="text" class="TableInnerInput" size="10" name="processing_fee_{{school_formality.school.id}}"/>
+								{% endif %}
+								{% if school_formality.processing_fee_done %}
+								<label><input type="checkbox" name="processing_fee_done_{{school_formality.school.id}}" checked/><span></span>Payment completed</label>
+								{% else %}
+								<label><input type="checkbox" name="processing_fee_done_{{school_formality.school.id}}"/><span></span>Payment completed</label>
+								{% endif %}
+							</td>
+						</tr>
+						{% endfor %}
+					</table>
+				</div><!-- InfoTable -->
 
-			<div class="PopButtonLine">
-				<button class="Submit" type="submit">SAVE</button>
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div>
+
 			</div>
 		</form>
-
-		</div>
 	</div>
 </div>
 
 
-<style>
-#PopCancelRegistration {display:none;}
-</style>
-<div class="PopCover" id="PopCancelRegistration">
+<div class="PopCover" id="PopCancelRegistration" style="display:none;">
 	<div class="WidePopup">
 		<div class="TitleSet">
 			<div class="Close" OnClick="document.getElementById('PopCancelRegistration').style.display='none';">X</div>
 			<div class="Title">Cancel Registration</div>
 		</div>
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="type" value="cancel_registration" hidden />
 
-		<div class="Contents">
-			<form class="CancelRegistrationForm" method="POST">
-				<input id="FormalityId" type="text" value="{{found_formality.id}}" hidden>
-				<div class="CalendarFloat">
-					<div class="CalendarSet">
-					{{ formality_form }}
+			<div class="Contents">
+
+					<div class="CalendarFloat">
+						<div class="CalendarSet">
+						{{ formality_form }}
+						</div>
+						{% if found_formality.canceled_at %}
+						<div class="InfoTable">
+							<span class="DoneIcon">E</span>
+							<span class="AddComment">Canceled at : {{found_formality.canceled_at|date:"Y-m-d"}}</span>
+						</div>
+						{% endif %}
 					</div>
-					{% if found_formality.canceled_at %}
-					<div class="InfoTable">
-						<span class="DoneIcon">E</span>
-						<span class="AddComment">Canceled at : {{found_formality.canceled_at|date:"Y-m-d"}}</span>
+
+					<div class="InfoFloat">
+						<div class="InfoTable">
+							<table cellpadding="0" cellspacing="0" border="0">
+								<tr>
+									<td>Reason for cancellation : <br />
+									{% if found_formality.cancel_reason %}
+									<textarea class="TableInnerTextarea" name="cancel_reason">{{found_formality.cancel_reason}}</textarea>
+									{% else %}
+									<textarea class="TableInnerTextarea" name="cancel_reason"></textarea>
+									{% endif %}
+									</td>
+								</tr>
+							</table>
+						</div><!-- InfoTable -->
+					</div><!-- InfoFloat -->
+
+					<div class="PopButtonLine">
+						<button class="Submit" type="submit">SAVE</button>
 					</div>
-					{% endif %}
-				</div>
 
-				<div class="InfoFloat">
-					<div class="InfoTable">
-						<table cellpadding="0" cellspacing="0" border="0">
-							<tr>
-								<td>Reason for cancellation : <br />
-								{% if found_formality.cancel_reason %}
-								<textarea class="TableInnerTextarea" name="cancel_reason">{{found_formality.cancel_reason}}</textarea>
-								{% else %}
-								<textarea class="TableInnerTextarea" name="cancel_reason"></textarea>
-								{% endif %}
-								</td>
-							</tr>
-						</table>
-					</div><!-- InfoTable -->
-				</div><!-- InfoFloat -->
-
-				<div class="PopButtonLine">
-					<button class="Submit" type="submit">SAVE</button>
-				</div>
-			</form>
-		</div>
+			</div>
+		</form>
 	</div>
 </div>
 
@@ -117,8 +115,6 @@
 			<div class="Title">File Box</div>
 		</div>
 		<div class="Contents">
-			<form class="FileForm" method="POST" enctype="multipart/form-data">
-				{% csrf_token %}
 			<div class="ListTable">
 				<table id="FileBoxTable" cellpadding="0" cellspacing="0" border="0">
 					<colgroup>
@@ -145,6 +141,9 @@
 							</td>
 						</tr>
 						{% endfor %}
+
+						<form class="FileForm" action="/agent/upload/files/{{found_formality.id}}" method="POST" enctype="multipart/form-data">
+						{% csrf_token %}
 						{{ file_formset.management_form }}
 						{% for form in file_formset %}
 						<tr class="form-tr">
@@ -178,1526 +177,1072 @@
 
 
 
-
-<style>
-#PopEnrolmentApplication {display:none;}
-</style>
-<div class="PopCover" id="PopEnrolmentApplication">
+{% for school in school_formalities %}
+<div class="PopCover" id="PopEnrolmentApplication{{school.id}}" style="display:none;">
 	<div class="Popup">
 		<div class="TitleSet">
-			<div class="Close" OnClick="document.getElementById('PopEnrolmentApplication').style.display='none';">X</div>
+			<div class="Close" OnClick="document.getElementById('PopEnrolmentApplication{{school.id}}').style.display='none';">X</div>
 			<div class="Title">Enrolment Application</div>
 		</div>
-		<div class="Contents">
 
-			<div class="InfoTable">
-				<table cellpadding="0" cellspacing="0" border="0">
-					<colgroup>
-						<col width="135">
-						<col>
-					</colgroup>
-					<tr>
-						<th rowspan="5">Prepared Documents : </th>
-						<td>
-							<input type="checkbox" checked /><span></span>Copy of passport</label>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="checkbox" checked /><span></span>School transcript (English translated)</label>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="checkbox" checked /><span></span>TOEFL,SLEP, SSAT(if required), ELTIS</label>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="checkbox" checked /><span></span>Letters of recommendation</label>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="checkbox" checked /><span></span>Essay</label>
-						</td>
-					</tr>
-					<tr>
-						<th rowspan="2">Application fee : </th>
-						<td>
-							<label><input type="checkbox" checked /><span></span>Payment completed</label>
-						</td>
-					</tr>
-					<tr>
-						<td class="InnerInputTD">
-							Payment amount $<input type="text" class="TableInnerInput" size="10" value="" />
-						</td>
-					</tr>
-				</table>
-			</div><!-- InfoTable -->
+		<form class="EnrolmentApplication" method="post">
+			{% csrf_token %}
+			<input id="EnrolmentSchoolId" type="text" name="school_formality_id" value="{{school.id}}" hidden />
+			<input type="text" name="type" value="enrolment_application" hidden />
 
-
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopEnrolmentApplication').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopEnrolmentApplication').style.display='none';">SAVE</div>
-			</div>
-
-		</div>
-	</div>
-</div>
-
-
-
-
-<style>
-#PopSchoolinterview {display:none;}
-</style>
-<div class="PopCover" id="PopSchoolinterview">
-	<div class="Popup">
-		<div class="TitleSet">
-			<div class="Close" OnClick="document.getElementById('PopSchoolinterview').style.display='none';">X</div>
-			<div class="Title">School Interview</div>
-		</div>
-		<div class="Contents">
-
-			<div class="CalendarFloat">
-				<div class="CalendarSet">
-					<div class="MonthSet">
-						<div class="LArrow"><img src="../img/ico_larrow.png" /></div>
-						<div class="Month">July, <span>2018</span></div>
-						<div class="RArrow"><img src="../img/ico_rarrow.png" /></div>
-					</div><!-- MonthSet -->
-					<div class="DaySet">
-						<div class="WeekSet">
-							<div class="Red">S</div>
-							<div class="">M</div>
-							<div class="">T</div>
-							<div class="">W</div>
-							<div class="">T</div>
-							<div class="">F</div>
-							<div class="Blue">S</div>
-						</div><!-- WeekSet -->
-						<div class="Day">
-							<div class="Red">1</div>
-							<div class="">2</div>
-							<div class="">3</div>
-							<div class="ON">4</div>
-							<div class="">5</div>
-							<div class="">6</div>
-							<div class="Blue">7</div>
-							<div class="Red">8</div>
-							<div class="">9</div>
-							<div class="">10</div>
-							<div class="">11</div>
-							<div class="">12</div>
-							<div class="">13</div>
-							<div class="Blue">14</div>
-							<div class="Red">15</div>
-							<div class="">16</div>
-							<div class="">17</div>
-							<div class="">18</div>
-							<div class="">19</div>
-							<div class="">20</div>
-							<div class="Blue">21</div>
-							<div class="Red">22</div>
-							<div class="">23</div>
-							<div class="">24</div>
-							<div class="">25</div>
-							<div class="">26</div>
-							<div class="">27</div>
-							<div class="Blue">28</div>
-							<div class="Red">29</div>
-							<div class="">30</div>
-							<div class="">31</div>
-							<div class="OFF">1</div>
-							<div class="OFF">2</div>
-							<div class="OFF">3</div>
-							<div class="OFF">4</div>
-						</div><!-- Day -->
-					</div><!-- DaySet -->
-				</div><!-- CalendarSet -->
-			</div><!-- CalendarFloat -->
-
-
-			<div class="InfoFloat">
+			<div class="Contents">
 				<div class="InfoTable">
 					<table cellpadding="0" cellspacing="0" border="0">
+						<colgroup>
+							<col width="135">
+							<col>
+						</colgroup>
 						<tr>
-							<td>Time :
-								<select class="TableInnerInput">
-									<option>AM</option>
-									<option>PM</option>
-								</select>
-								<input type="text" class="TableInnerInput" size="2" value="10" /> : <input type="text" class="TableInnerInput" size="2" value="45" />
+							<th rowspan="5">Prepared Documents : </th>
+							<td>
+								{% if school.prepared_passport %}
+								<label><input type="checkbox" name="passport" checked/><span></span>Copy of passport</label>
+								{% else %}
+								<label><input type="checkbox" name="passport"/><span></span>Copy of passport</label>
+								{% endif %}
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input type="checkbox" checked /><span></span>Mock Interview</label>
+								{% if school.prepared_transcript %}
+								<label><input type="checkbox" name="transcript" checked/><span></span>School transcript (English translated)</label>
+								{% else %}
+								<label><input type="checkbox" name="transcript" /><span></span>School transcript (English translated)</label>
+								{% endif %}
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input type="checkbox" checked /><span></span>Interview Complete</label>
+								{% if school.prepared_eng_exams %}
+								<label><input type="checkbox" name="eng_exams" checked/><span></span>TOEFL,SLEP, SSAT(if required), ELTIS</label>
+								{% else %}
+								<label><input type="checkbox" name="eng_exams" /><span></span>TOEFL,SLEP, SSAT(if required), ELTIS</label>
+								{% endif %}
 							</td>
 						</tr>
-					</table>
-				</div><!-- InfoTable -->
-			</div><!-- InfoFloat -->
-
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopSchoolinterview').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopSchoolinterview').style.display='none';">SAVE</div>
-			</div>
-
-		</div>
-	</div>
-</div>
-
-
-
-
-
-<style>
-#PopAccepted {display:none;}
-</style>
-<div class="PopCover" id="PopAccepted">
-	<div class="Popup">
-		<div class="TitleSet">
-			<div class="Close" OnClick="document.getElementById('PopAccepted').style.display='none';">X</div>
-			<div class="Title">Accepted</div>
-		</div>
-		<div class="Contents">
-
-			<div class="CalendarFloat">
-				<div class="CalendarSet">
-					<div class="MonthSet">
-						<div class="LArrow"><img src="../img/ico_larrow.png" /></div>
-						<div class="Month">July, <span>2018</span></div>
-						<div class="RArrow"><img src="../img/ico_rarrow.png" /></div>
-					</div><!-- MonthSet -->
-					<div class="DaySet">
-						<div class="WeekSet">
-							<div class="Red">S</div>
-							<div class="">M</div>
-							<div class="">T</div>
-							<div class="">W</div>
-							<div class="">T</div>
-							<div class="">F</div>
-							<div class="Blue">S</div>
-						</div><!-- WeekSet -->
-						<div class="Day">
-							<div class="Red">1</div>
-							<div class="">2</div>
-							<div class="">3</div>
-							<div class="ON">4</div>
-							<div class="">5</div>
-							<div class="">6</div>
-							<div class="Blue">7</div>
-							<div class="Red">8</div>
-							<div class="">9</div>
-							<div class="">10</div>
-							<div class="">11</div>
-							<div class="">12</div>
-							<div class="">13</div>
-							<div class="Blue">14</div>
-							<div class="Red">15</div>
-							<div class="">16</div>
-							<div class="">17</div>
-							<div class="">18</div>
-							<div class="">19</div>
-							<div class="">20</div>
-							<div class="Blue">21</div>
-							<div class="Red">22</div>
-							<div class="">23</div>
-							<div class="">24</div>
-							<div class="">25</div>
-							<div class="">26</div>
-							<div class="">27</div>
-							<div class="Blue">28</div>
-							<div class="Red">29</div>
-							<div class="">30</div>
-							<div class="">31</div>
-							<div class="OFF">1</div>
-							<div class="OFF">2</div>
-							<div class="OFF">3</div>
-							<div class="OFF">4</div>
-						</div><!-- Day -->
-					</div><!-- DaySet -->
-				</div><!-- CalendarSet -->
-			</div><!-- CalendarFloat -->
-
-
-			<div class="InfoFloat">
-				<div class="InfoTable">
-					<table cellpadding="0" cellspacing="0" border="0">
 						<tr>
 							<td>
-								<input type="checkbox" checked /><span></span>Acceptance letter</label>
+								{% if school.prepared_recommendation %}
+								<label><input type="checkbox" name="recommendation"  checked/><span></span>Letters of recommendation</label>
+								{% else %}
+								<label><input type="checkbox" name="recommendation" /><span></span>Letters of recommendation</label>
+								{% endif %}
 							</td>
 						</tr>
-					</table>
-				</div><!-- InfoTable -->
-			</div><!-- InfoFloat -->
-
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopAccepted').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopAccepted').style.display='none';">SAVE</div>
-			</div>
-
-		</div>
-	</div>
-</div>
-
-
-
-
-
-<style>
-#PopCancelEnrolmen {display:none;}
-</style>
-<div class="PopCover" id="PopCancelEnrolmen">
-	<div class="Popup">
-		<div class="TitleSet">
-			<div class="Close" OnClick="document.getElementById('PopCancelEnrolmen').style.display='none';">X</div>
-			<div class="Title">Cancel Enrolmen</div>
-		</div>
-		<div class="Contents">
-
-			<div class="CalendarFloat">
-				<div class="CalendarSet">
-					<div class="MonthSet">
-						<div class="LArrow"><img src="{% static 'img/ico_larrow.png' %}" /></div>
-						<div class="Month">July, <span>2018</span></div>
-						<div class="RArrow"><img src="{% static 'img/ico_rarrow.png' %}" /></div>
-					</div><!-- MonthSet -->
-					<div class="DaySet">
-						<div class="WeekSet">
-							<div class="Red">S</div>
-							<div class="">M</div>
-							<div class="">T</div>
-							<div class="">W</div>
-							<div class="">T</div>
-							<div class="">F</div>
-							<div class="Blue">S</div>
-						</div><!-- WeekSet -->
-						<div class="Day">
-							<div class="Red">1</div>
-							<div class="">2</div>
-							<div class="">3</div>
-							<div class="ON">4</div>
-							<div class="">5</div>
-							<div class="">6</div>
-							<div class="Blue">7</div>
-							<div class="Red">8</div>
-							<div class="">9</div>
-							<div class="">10</div>
-							<div class="">11</div>
-							<div class="">12</div>
-							<div class="">13</div>
-							<div class="Blue">14</div>
-							<div class="Red">15</div>
-							<div class="">16</div>
-							<div class="">17</div>
-							<div class="">18</div>
-							<div class="">19</div>
-							<div class="">20</div>
-							<div class="Blue">21</div>
-							<div class="Red">22</div>
-							<div class="">23</div>
-							<div class="">24</div>
-							<div class="">25</div>
-							<div class="">26</div>
-							<div class="">27</div>
-							<div class="Blue">28</div>
-							<div class="Red">29</div>
-							<div class="">30</div>
-							<div class="">31</div>
-							<div class="OFF">1</div>
-							<div class="OFF">2</div>
-							<div class="OFF">3</div>
-							<div class="OFF">4</div>
-						</div><!-- Day -->
-					</div><!-- DaySet -->
-				</div><!-- CalendarSet -->
-			</div><!-- CalendarFloat -->
-
-
-			<div class="InfoFloat">
-				<div class="InfoTable">
-					<table cellpadding="0" cellspacing="0" border="0">
-						<tr>
-							<td>Time :
-								<select class="TableInnerInput">
-									<option>AM</option>
-									<option>PM</option>
-								</select>
-								<input type="text" class="TableInnerInput" size="2" value="10" /> : <input type="text" class="TableInnerInput" size="2" value="45" />
-							</td>
-						</tr>
-					</table>
-				</div><!-- InfoTable -->
-			</div><!-- InfoFloat -->
-
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopCancelEnrolmen').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopCancelEnrolmen').style.display='none';">SAVE</div>
-			</div>
-
-		</div>
-	</div>
-</div>
-
-
-
-
-<style>
-#PopI20Request {display:none;}
-</style>
-<div class="PopCover" id="PopI20Request">
-	<div class="Popup">
-		<div class="TitleSet">
-			<div class="Close" OnClick="document.getElementById('PopI20Request').style.display='none';">X</div>
-			<div class="Title">I-20 Request</div>
-		</div>
-		<div class="Contents">
-
-			<div class="InfoTable">
-				<table cellpadding="0" cellspacing="0" border="0">
-					<colgroup>
-						<col width="135">
-						<col>
-					</colgroup>
-					<tr>
-						<th rowspan="3">Program deposit : </th>
-						<td>
-							<input type="checkbox" checked /><span></span>Payment completed</label>
-						</td>
-					</tr>
-					<tr>
-						<td class="InnerInputTD">
-							Payment amount $ <input type="text" class="TableInnerInput" size="10" value="" />
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="checkbox" checked /><span></span>Payment receipt attached</label>
-						</td>
-					</tr>
-				</table>
-			</div><!-- InfoTable -->
-
-
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopI20Request').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopI20Request').style.display='none';">SAVE</div>
-			</div>
-
-		</div>
-	</div>
-</div>
-
-
-
-
-
-
-
-<style>
-#PopI20Received {display:none;}
-</style>
-<div class="PopCover" id="PopI20Received">
-	<div class="Popup">
-		<div class="TitleSet">
-			<div class="Close" OnClick="document.getElementById('PopI20Received').style.display='none';">X</div>
-			<div class="Title">Cancel Enrolmen</div>
-		</div>
-		<div class="Contents">
-
-			<div class="CalendarFloat">
-				<div class="CalendarSet">
-					<div class="MonthSet">
-						<div class="LArrow"><img src="{% static 'img/ico_larrow.png' %}" /></div>
-						<div class="Month">July, <span>2018</span></div>
-						<div class="RArrow"><img src="{% static 'img/ico_rarrow.png' %}" /></div>
-					</div><!-- MonthSet -->
-					<div class="DaySet">
-						<div class="WeekSet">
-							<div class="Red">S</div>
-							<div class="">M</div>
-							<div class="">T</div>
-							<div class="">W</div>
-							<div class="">T</div>
-							<div class="">F</div>
-							<div class="Blue">S</div>
-						</div><!-- WeekSet -->
-						<div class="Day">
-							<div class="Red">1</div>
-							<div class="">2</div>
-							<div class="">3</div>
-							<div class="ON">4</div>
-							<div class="">5</div>
-							<div class="">6</div>
-							<div class="Blue">7</div>
-							<div class="Red">8</div>
-							<div class="">9</div>
-							<div class="">10</div>
-							<div class="">11</div>
-							<div class="">12</div>
-							<div class="">13</div>
-							<div class="Blue">14</div>
-							<div class="Red">15</div>
-							<div class="">16</div>
-							<div class="">17</div>
-							<div class="">18</div>
-							<div class="">19</div>
-							<div class="">20</div>
-							<div class="Blue">21</div>
-							<div class="Red">22</div>
-							<div class="">23</div>
-							<div class="">24</div>
-							<div class="">25</div>
-							<div class="">26</div>
-							<div class="">27</div>
-							<div class="Blue">28</div>
-							<div class="Red">29</div>
-							<div class="">30</div>
-							<div class="">31</div>
-							<div class="OFF">1</div>
-							<div class="OFF">2</div>
-							<div class="OFF">3</div>
-							<div class="OFF">4</div>
-						</div><!-- Day -->
-					</div><!-- DaySet -->
-				</div><!-- CalendarSet -->
-			</div><!-- CalendarFloat -->
-
-
-			<div class="InfoFloat">
-				<div class="InfoTable">
-					<table cellpadding="0" cellspacing="0" border="0">
 						<tr>
 							<td>
-								<input type="checkbox" checked /><span></span>Copy of I-20</label>
+								{% if school.prepared_essay %}
+								<label><input type="checkbox" name="essay" checked/><span></span>Essay</label>
+								{% else %}
+								<label><input type="checkbox" name="essay" /><span></span>Essay</label>
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<th rowspan="2">Application fee : </th>
+							<td>
+								{% if school.enrolment_apply_done %}
+								<label><input type="checkbox" name="enrolment_apply_done" checked/><span></span>Payment completed</label>
+								{% else %}
+								<label><input type="checkbox" name="enrolment_apply_done" /><span></span>Payment completed</label>
+								{% endif %}
 							</td>
 						</tr>
 						<tr>
 							<td class="InnerInputTD">
-								Tracking # <input type="text" class="TableInnerInput" size="13" value="" />
+								Payment amount $
+								{% if school.enrolment_apply_fee %}
+								<input type="text" class="TableInnerInput" name="enrolment_apply_fee" value="{{school.enrolment_apply_fee}}"size="10" />
+								{% else %}
+								<input type="text" class="TableInnerInput" name="enrolment_apply_fee" size="10" />
+								{% endif %}
 							</td>
 						</tr>
 					</table>
 				</div><!-- InfoTable -->
-			</div><!-- InfoFloat -->
 
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopI20Received').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopI20Received').style.display='none';">SAVE</div>
-			</div>
 
+				<div class="PopButtonLine">
+					<button type="submit" class="Submit" OnClick="document.getElementById('PopEnrolmentApplication').style.display='none';">SAVE</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
 
 
 
-
-
-
-<style>
-#PopProgramFeePayment {display:none;}
-</style>
-<div class="PopCover" id="PopProgramFeePayment">
+<div class="PopCover" id="PopSchoolinterview{{school.id}}" style="display:none;">
 	<div class="Popup">
 		<div class="TitleSet">
-			<div class="Close" OnClick="document.getElementById('PopProgramFeePayment').style.display='none';">X</div>
-			<div class="Title">Program Fee Payment</div>
+			<div class="Close" OnClick="document.getElementById('PopSchoolinterview{{school.id}}').style.display='none';">X</div>
+			<div class="Title">School Interview</div>
 		</div>
-		<div class="Contents">
 
-			<div class="InfoTable">
-				<table cellpadding="0" cellspacing="0" border="0">
-					<colgroup>
-						<col width="135">
-						<col>
-					</colgroup>
-					<tr>
-						<th rowspan="4">Document prepared : </th>
-						<td>
-							<input type="checkbox" checked /><span></span>Copy of passport</label>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="checkbox" checked /><span></span>BGE Program application</label>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="checkbox" checked /><span></span>Immunization, Medical treatment</label>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="checkbox" checked /><span></span>Financial Support docs</label>
-						</td>
-					</tr>
-					<tr>
-						<th rowspan="3">Program fee : </th>
-						<td>
-							<input type="checkbox" checked /><span></span>Payment completed</label>
-						</td>
-					</tr>
-					<tr>
-						<td class="InnerInputTD">
-							Payment amount $ <input type="text" class="TableInnerInput" size="10" value="" />
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="checkbox" checked /><span></span>Payment receipt attached</label>
-						</td>
-					</tr>
-					<tr>
-						<td class="TitleColor2" colspan="2">Program fee: $53,000 – Deposit paid: $5,000 =Amount $48,000</td>
-					</tr>
-				</table>
-			</div><!-- InfoTable -->
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="school_formality_id" value="{{school.id}}" hidden />
+			<input type="text" name="type" value="school_interview" hidden />
+			<div class="Contents">
 
+				{{ datetime_form }}
+				{% if school.school_interview_date or school.school_interview_time %}
+				<div class="InfoTable">
+					<span class="DoneIcon">E</span>
+					<span class="AddComment">Interview : {{school.school_interview_date|date:"Y-m-d"}} {{school.school_interview_time}}</span>
+				</div>
+				{% endif %}
+				<div class="InfoFloat">
+					<div class="InfoTable">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td>
+									{% if school.mock_interview %}
+									<label><input type="checkbox" name="mock_interview" checked /><span></span>Mock Interview</label>
+									{% else %}
+									<label><input type="checkbox" name="mock_interview" /><span></span>Mock Interview</label>
+									{% endif %}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									{% if school.school_interview_done %}
+									<label><input type="checkbox" name="interview_done" checked /><span></span>Interview Complete</label>
+									{% else %}
+									<label><input type="checkbox" name="interview_done" /><span></span>Interview Complete</label>
+									{% endif %}
+								</td>
+							</tr>
+						</table>
+					</div><!-- InfoTable -->
+				</div><!-- InfoFloat -->
 
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopProgramFeePayment').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopProgramFeePayment').style.display='none';">SAVE</div>
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div>
+
 			</div>
-
-		</div>
+		</form>
 	</div>
 </div>
 
 
 
 
-<style>
-#PopVisaInterviewScheduling {display:none;}
-</style>
-<div class="PopCover" id="PopVisaInterviewScheduling">
+
+<div class="PopCover" id="PopAccepted{{school.id}}" style="display:none;">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopAccepted{{school.id}}').style.display='none';">X</div>
+			<div class="Title">Accepted</div>
+		</div>
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="school_formality_id" value="{{school.id}}" hidden />
+			<input type="text" name="type" value="accepted" hidden />
+
+			<div class="Contents">
+
+				{{ formality_form }}
+				{% if school.acceptance_date %}
+				<div class="InfoTable">
+					<span class="DoneIcon">E</span>
+					<span class="AddComment">Accepted : {{school.acceptance_date|date:"Y-m-d"}}</span>
+				</div>
+				{% endif %}
+				<div class="InfoFloat">
+					<div class="InfoTable">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td>
+									{% if school.acceptance_letter %}
+									<label><input type="checkbox" name="acceptance_letter" checked /><span></span>Acceptance letter</label>
+									{% else %}
+									<label><input type="checkbox" name="acceptance_letter" /><span></span>Acceptance letter</label>
+									{% endif %}
+								</td>
+							</tr>
+						</table>
+					</div><!-- InfoTable -->
+				</div><!-- InfoFloat -->
+
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div>
+
+			</div>
+		</form>
+	</div>
+</div>
+
+
+
+<div class="PopCover" id="PopCancelEnrolment{{school.id}}" style="display:none;">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopCancelEnrolment{{school.id}}').style.display='none';">X</div>
+			<div class="Title">Cancel Enrolment</div>
+		</div>
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="school_formality_id" value="{{school.id}}" hidden />
+			<input type="text" name="type" value="cancel_enrolment" hidden />
+
+			<div class="Contents">
+
+				{{ cancel_enrolment_form }}
+
+				{% if school.cancel_enrolment_date or school.cancel_enrolment_time %}
+				<div class="InfoTable">
+					<span class="DoneIcon">E</span>
+					<span class="AddComment">Canceled : {{school.cancel_enrolment_date|date:"Y-m-d"}} / {{ school.cancel_enrolment_time }}</span>
+				</div>
+				{% endif %}
+
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div>
+
+			</div>
+		</form>
+	</div>
+</div>
+
+
+
+<div class="PopCover" id="PopI20Request{{school.id}}" style="display:none;">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopI20Request{{school.id}}').style.display='none';">X</div>
+			<div class="Title">I-20 Request</div>
+		</div>
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="school_formality_id" value="{{school.id}}" hidden />
+			<input type="text" name="type" value="i20_request" hidden />
+
+			<div class="Contents">
+
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<colgroup>
+							<col width="135">
+							<col>
+						</colgroup>
+						<tr>
+							<th rowspan="3">Program deposit : </th>
+							<td>
+								{% if school.i20_completed %}
+								<label><input type="checkbox" name="i20_completed" checked /><span></span>Payment completed</label>
+								{% else %}
+								<label><input type="checkbox" name="i20_completed"/><span></span>Payment completed</label>
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td class="InnerInputTD">
+								Payment amount $
+								{% if school.i20_fee %}
+								<input type="text" class="TableInnerInput" size="10" name="i20_fee" value="{{school.i20_fee}}" />
+								{% else %}
+								<input type="text" class="TableInnerInput" size="10" name="i20_fee" value="" />
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								{% if school.i20_receipt %}
+								<label><input type="checkbox" name="i20_receipt" checked /><span></span>Payment receipt attached</label>
+								{% else %}
+								<label><input type="checkbox" name="i20_receipt" /><span></span>Payment receipt attached</label>
+								{% endif %}
+							</td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
+
+
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div>
+
+			</div>
+		</form>
+	</div>
+</div>
+
+
+
+<div class="PopCover" id="PopI20Received{{school.id}}" style="display:none;">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopI20Received{{school.id}}').style.display='none';">X</div>
+			<div class="Title">I20 Received</div>
+		</div>
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="school_formality_id" value="{{school.id}}" hidden />
+			<input type="text" name="type" value="i20_received" hidden />
+
+			<div class="Contents">
+
+				{{ formality_form }}
+
+				{% if school.i20_received_date %}
+				<div class="InfoTable">
+					<span class="DoneIcon">E</span>
+					<span class="AddComment">Canceled : {{school.i20_received_date|date:"Y-m-d"}}</span>
+				</div>
+				{% endif %}
+
+				<div class="InfoFloat">
+					<div class="InfoTable">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td>
+									{% if school.i20_copy %}
+									<label><input type="checkbox" name="i20_copy" checked /><span></span>Copy of I-20</label>
+									{% else %}
+									<label><input type="checkbox" name="i20_copy" /><span></span>Copy of I-20</label>
+									{% endif %}
+								</td>
+							</tr>
+							<tr>
+								<td class="InnerInputTD">
+									Tracking #
+									{% if school.i20_tracking %}
+									<input type="text" class="TableInnerInput" size="30" name="i20_tracking" value="{{school.i20_tracking}}" />
+									{% else %}
+									<input type="text" class="TableInnerInput" size="30" name="i20_tracking" value="" />
+									{% endif %}
+								</td>
+							</tr>
+						</table>
+					</div><!-- InfoTable -->
+				</div><!-- InfoFloat -->
+
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div>
+
+			</div>
+		</form>
+	</div>
+</div>
+
+
+
+<div class="PopCover" id="PopProgramFeePayment{{school.id}}" style="display:none;">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopProgramFeePayment{{school.id}}').style.display='none';">X</div>
+			<div class="Title">Program Fee Payment</div>
+		</div>
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="school_formality_id" value="{{school.id}}" hidden />
+			<input type="text" name="type" value="program_fee_payment" hidden />
+
+			<div class="Contents">
+
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<colgroup>
+							<col width="135">
+							<col>
+						</colgroup>
+						<tr>
+							<th rowspan="4">Document prepared : </th>
+							<td>
+								{% if school.provider_application %}
+								<label><input type="checkbox" name="provider_application" checked /><span></span>Provider program application</label>
+								{% else%}
+								<label><input type="checkbox" name="provider_application" /><span></span>Provider program application</label>
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								{% if school.bge_program_application %}
+								<label><input type="checkbox" name="bge_program_application" checked /><span></span>BGE Program application</label>
+								{% else %}
+								<label><input type="checkbox" name="bge_program_application" /><span></span>BGE Program application</label>
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								{% if school.immunization %}
+								<label><input type="checkbox" name="immunization" checked /><span></span>Immunization, Medical treatment</label>
+								{% else%}
+								<label><input type="checkbox" name="immunization" /><span></span>Immunization, Medical treatment</label>
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								{% if school.financial_support %}
+								<label><input type="checkbox" name="financial_support" checked /><span></span>Financial Support docs</label>
+								{% else %}
+								<label><input type="checkbox" name="financial_support" /><span></span>Financial Support docs</label>
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<th rowspan="3">Program fee : </th>
+							<td>
+								{% if school.program_fee_completed %}
+								<label><input type="checkbox" name="program_fee_completed"checked /><span></span>Payment completed</label>
+								{% else %}
+								<label><input type="checkbox" name="program_fee_completed" /><span></span>Payment completed</label>
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td class="InnerInputTD">
+								Payment amount $
+								{% if school.program_fee %}
+								<input type="text" class="TableInnerInput" name="program_fee" size="10" value="{{school.program_fee}}" />
+								{% else %}
+								<input type="text" class="TableInnerInput" name="program_fee" size="10" value="" />
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								{% if school.program_fee_receipt %}
+								<label><input type="checkbox" name="program_fee_receipt"checked /><span></span>Payment receipt attached</label>
+								{% else %}
+								<label><input type="checkbox" name="program_fee_receipt" /><span></span>Payment receipt attached</label>
+								{% endif %}
+							</td>
+						</tr>
+						{% if school.program_fee_completed %}
+						<tr>
+							<td class="TitleColor2" colspan="2">Program fee: ${{school.program_fee}} – Deposit paid: ${{school.i20_fee}} = Amount ${{school.payment_amount}}</td>
+						</tr>
+						{% endif %}
+					</table>
+				</div><!-- InfoTable -->
+
+
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div>
+
+			</div>
+		</form>
+	</div>
+</div>
+
+{% endfor %}
+
+
+<div class="PopCover" id="PopVisaInterviewScheduling" style="display:none;">
 	<div class="Popup">
 		<div class="TitleSet">
 			<div class="Close" OnClick="document.getElementById('PopVisaInterviewScheduling').style.display='none';">X</div>
 			<div class="Title">Visa Interview Schedule</div>
 		</div>
-		<div class="Contents">
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="school_formality_id" value="{{school.id}}" hidden />
+			<input type="text" name="type" value="visa_interview_scheduling" hidden />
 
-			<div class="CalendarFloat">
-				<div class="CalendarSet">
-					<div class="MonthSet">
-						<div class="LArrow"><img src="../img/ico_larrow.png" /></div>
-						<div class="Month">July, <span>2018</span></div>
-						<div class="RArrow"><img src="../img/ico_rarrow.png" /></div>
-					</div><!-- MonthSet -->
-					<div class="DaySet">
-						<div class="WeekSet">
-							<div class="Red">S</div>
-							<div class="">M</div>
-							<div class="">T</div>
-							<div class="">W</div>
-							<div class="">T</div>
-							<div class="">F</div>
-							<div class="Blue">S</div>
-						</div><!-- WeekSet -->
-						<div class="Day">
-							<div class="Red">1</div>
-							<div class="">2</div>
-							<div class="">3</div>
-							<div class="ON">4</div>
-							<div class="">5</div>
-							<div class="">6</div>
-							<div class="Blue">7</div>
-							<div class="Red">8</div>
-							<div class="">9</div>
-							<div class="">10</div>
-							<div class="">11</div>
-							<div class="">12</div>
-							<div class="">13</div>
-							<div class="Blue">14</div>
-							<div class="Red">15</div>
-							<div class="">16</div>
-							<div class="">17</div>
-							<div class="">18</div>
-							<div class="">19</div>
-							<div class="">20</div>
-							<div class="Blue">21</div>
-							<div class="Red">22</div>
-							<div class="">23</div>
-							<div class="">24</div>
-							<div class="">25</div>
-							<div class="">26</div>
-							<div class="">27</div>
-							<div class="Blue">28</div>
-							<div class="Red">29</div>
-							<div class="">30</div>
-							<div class="">31</div>
-							<div class="OFF">1</div>
-							<div class="OFF">2</div>
-							<div class="OFF">3</div>
-							<div class="OFF">4</div>
-						</div><!-- Day -->
-					</div><!-- DaySet -->
-				</div><!-- CalendarSet -->
-			</div><!-- CalendarFloat -->
+			<div class="Contents">
 
+				{{visa_interview_scheduling_form}}
 
-			<div class="InfoFloat">
+				{% if found_formality.visa_reserve_date or found_formality.visa_reserve_time %}
 				<div class="InfoTable">
-					<table cellpadding="0" cellspacing="0" border="0">
-						<tr>
-							<td>Time :
-								<select class="TableInnerInput">
-									<option>AM</option>
-									<option>PM</option>
-								</select>
-								<input type="text" class="TableInnerInput" size="2" value="10" /> : <input type="text" class="TableInnerInput" size="2" value="45" />
-							</td>
-						</tr>
-					</table>
-				</div><!-- InfoTable -->
-			</div><!-- InfoFloat -->
+					<span class="DoneIcon">E</span>
+					<span class="AddComment">Scheduled : {{found_formality.visa_reserve_date|date:"Y-m-d"}} / {{found_formality.visa_reserve_time}}</span>
+				</div>
+				{% endif %}
 
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopVisaInterviewScheduling').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopVisaInterviewScheduling').style.display='none';">SAVE</div>
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div>
+
 			</div>
-
-		</div>
+		</form>
 	</div>
 </div>
 
 
-
-
-
-
-
-<style>
-#PopVisaGranted {display:none;}
-</style>
-<div class="PopCover" id="PopVisaGranted">
+<div class="PopCover" id="PopVisaGranted" style="display:none;">
 	<div class="Popup">
 		<div class="TitleSet">
 			<div class="Close" OnClick="document.getElementById('PopVisaGranted').style.display='none';">X</div>
 			<div class="Title">Visa Granted</div>
 		</div>
-		<div class="Contents">
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="school_formality_id" value="{{school.id}}" hidden />
+			<input type="text" name="type" value="visa_granted" hidden />
 
-			<div class="CalendarFloat">
-				<div class="CalendarSet">
-					<div class="MonthSet">
-						<div class="LArrow"><img src="../img/ico_larrow.png" /></div>
-						<div class="Month">July, <span>2018</span></div>
-						<div class="RArrow"><img src="../img/ico_rarrow.png" /></div>
-					</div><!-- MonthSet -->
-					<div class="DaySet">
-						<div class="WeekSet">
-							<div class="Red">S</div>
-							<div class="">M</div>
-							<div class="">T</div>
-							<div class="">W</div>
-							<div class="">T</div>
-							<div class="">F</div>
-							<div class="Blue">S</div>
-						</div><!-- WeekSet -->
-						<div class="Day">
-							<div class="Red">1</div>
-							<div class="">2</div>
-							<div class="">3</div>
-							<div class="ON">4</div>
-							<div class="">5</div>
-							<div class="">6</div>
-							<div class="Blue">7</div>
-							<div class="Red">8</div>
-							<div class="">9</div>
-							<div class="">10</div>
-							<div class="">11</div>
-							<div class="">12</div>
-							<div class="">13</div>
-							<div class="Blue">14</div>
-							<div class="Red">15</div>
-							<div class="">16</div>
-							<div class="">17</div>
-							<div class="">18</div>
-							<div class="">19</div>
-							<div class="">20</div>
-							<div class="Blue">21</div>
-							<div class="Red">22</div>
-							<div class="">23</div>
-							<div class="">24</div>
-							<div class="">25</div>
-							<div class="">26</div>
-							<div class="">27</div>
-							<div class="Blue">28</div>
-							<div class="Red">29</div>
-							<div class="">30</div>
-							<div class="">31</div>
-							<div class="OFF">1</div>
-							<div class="OFF">2</div>
-							<div class="OFF">3</div>
-							<div class="OFF">4</div>
-						</div><!-- Day -->
-					</div><!-- DaySet -->
-				</div><!-- CalendarSet -->
-			</div><!-- CalendarFloat -->
+			<div class="Contents">
 
+				{{ visa_granted_form}}
 
-			<div class="InfoFloat">
+				{% if found_formality.visa_granted_date or found_formality.visa_granted_time %}
 				<div class="InfoTable">
-					<table cellpadding="0" cellspacing="0" border="0">
-						<tr>
-							<td>
-								<input type="checkbox" checked /><span></span>Visa copy received</label>
-							</td>
-						</tr>
-					</table>
-				</div><!-- InfoTable -->
-			</div><!-- InfoFloat -->
+					<span class="DoneIcon">E</span>
+					<span class="AddComment">Granted : {{found_formality.visa_granted_date|date:"Y-m-d"}} / {{found_formality.visa_granted_time}}</span>
+				</div>
+				{% endif %}
 
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopVisaGranted').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopVisaGranted').style.display='none';">SAVE</div>
+				<div class="InfoFloat">
+					<div class="InfoTable">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td>
+									{% if found_formality.visa_copy_recieved %}
+									<label><input type="checkbox" name="visa_copy_recieved" checked/><span></span>Visa copy received</label>
+									{% else %}
+									<label><input type="checkbox" name="visa_copy_recieved" /><span></span>Visa copy received</label>
+									{% endif %}
+								</td>
+							</tr>
+						</table>
+					</div><!-- InfoTable -->
+				</div><!-- InfoFloat -->
+
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div>
 			</div>
-
-		</div>
+		</form>
 	</div>
 </div>
 
 
-
-
-
-
-<style>
-#PopVisaRejected {display:none;}
-</style>
-<div class="PopCover" id="PopVisaRejected">
-	<div class="SmallPopup">
+<div class="PopCover" id="PopVisaRejected" style="display:none;">
+	<div class="Popup">
 		<div class="TitleSet">
 			<div class="Close" OnClick="document.getElementById('PopVisaRejected').style.display='none';">X</div>
 			<div class="Title">Visa Interview Schedule</div>
 		</div>
-		<div class="Contents">
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="school_formality_id" value="{{school.id}}" hidden />
+			<input type="text" name="type" value="visa_rejected" hidden />
 
-				<div class="CalendarSet">
-					<div class="MonthSet">
-						<div class="LArrow"><img src="../img/ico_larrow.png" /></div>
-						<div class="Month">July, <span>2018</span></div>
-						<div class="RArrow"><img src="../img/ico_rarrow.png" /></div>
-					</div><!-- MonthSet -->
-					<div class="DaySet">
-						<div class="WeekSet">
-							<div class="Red">S</div>
-							<div class="">M</div>
-							<div class="">T</div>
-							<div class="">W</div>
-							<div class="">T</div>
-							<div class="">F</div>
-							<div class="Blue">S</div>
-						</div><!-- WeekSet -->
-						<div class="Day">
-							<div class="Red">1</div>
-							<div class="">2</div>
-							<div class="">3</div>
-							<div class="ON">4</div>
-							<div class="">5</div>
-							<div class="">6</div>
-							<div class="Blue">7</div>
-							<div class="Red">8</div>
-							<div class="">9</div>
-							<div class="">10</div>
-							<div class="">11</div>
-							<div class="">12</div>
-							<div class="">13</div>
-							<div class="Blue">14</div>
-							<div class="Red">15</div>
-							<div class="">16</div>
-							<div class="">17</div>
-							<div class="">18</div>
-							<div class="">19</div>
-							<div class="">20</div>
-							<div class="Blue">21</div>
-							<div class="Red">22</div>
-							<div class="">23</div>
-							<div class="">24</div>
-							<div class="">25</div>
-							<div class="">26</div>
-							<div class="">27</div>
-							<div class="Blue">28</div>
-							<div class="Red">29</div>
-							<div class="">30</div>
-							<div class="">31</div>
-							<div class="OFF">1</div>
-							<div class="OFF">2</div>
-							<div class="OFF">3</div>
-							<div class="OFF">4</div>
-						</div><!-- Day -->
-					</div><!-- DaySet -->
-				</div><!-- CalendarSet -->
+			<div class="Contents">
 
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopVisaRejected').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopVisaRejected').style.display='none';">SAVE</div>
-			</div><!-- PopButtonLine -->
+				{{ visa_rejected_form }}
 
-		</div><!-- Contents -->
+				{% if found_formality.visa_rejected_date or found_formality.visa_rejected_time %}
+				<div class="InfoTable">
+					<span class="DoneIcon">E</span>
+					<span class="AddComment">Rejected : {{found_formality.visa_rejected_date|date:"Y-m-d"}} / {{found_formality.visa_rejected_time}}</span>
+				</div>
+				{% endif %}
+
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div><!-- PopButtonLine -->
+
+			</div><!-- Contents -->
+		</form>
 	</div>
 </div>
 
 
-
-
-
-<style>
-#PopFlightTicketing {display:none;}
-</style>
-<div class="PopCover" id="PopFlightTicketing">
+<div class="PopCover" id="PopFlightTicketing" style="display:none;">
 	<div class="WidePopup">
 		<div class="TitleSet">
 			<div class="Close" OnClick="document.getElementById('PopFlightTicketing').style.display='none';">X</div>
-			<div class="Title">Visa Interview Schedule</div>
+			<div class="Title">Flight ticketing</div>
 		</div>
-		<div class="Contents">
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="school_formality_id" value="{{school.id}}" hidden />
+			<input type="text" name="type" value="flight_ticketing" hidden />
 
-			<div class="InfoTable">
-				<table cellpadding="0" cellspacing="0" border="0">
-					<tr>
-						<td>
-							<input type="checkbox" checked /><span></span>e-ticket attached</label>
-						</td>
-					</tr>
-				</table>
-			</div><!-- InfoTable -->
-			<div class="BOX02">
-				<div class="CalendarSet">
-					<div class="MonthSet">
-						<div class="LArrow"><img src="../img/ico_larrow.png" /></div>
-						<div class="Month">July, <span>2018</span></div>
-						<div class="RArrow"><img src="../img/ico_rarrow.png" /></div>
-					</div><!-- MonthSet -->
-					<div class="DaySet">
-						<div class="WeekSet">
-							<div class="Red">S</div>
-							<div class="">M</div>
-							<div class="">T</div>
-							<div class="">W</div>
-							<div class="">T</div>
-							<div class="">F</div>
-							<div class="Blue">S</div>
-						</div><!-- WeekSet -->
-						<div class="Day">
-							<div class="Red">1</div>
-							<div class="">2</div>
-							<div class="">3</div>
-							<div class="ON">4</div>
-							<div class="">5</div>
-							<div class="">6</div>
-							<div class="Blue">7</div>
-							<div class="Red">8</div>
-							<div class="">9</div>
-							<div class="">10</div>
-							<div class="">11</div>
-							<div class="">12</div>
-							<div class="">13</div>
-							<div class="Blue">14</div>
-							<div class="Red">15</div>
-							<div class="">16</div>
-							<div class="">17</div>
-							<div class="">18</div>
-							<div class="">19</div>
-							<div class="">20</div>
-							<div class="Blue">21</div>
-							<div class="Red">22</div>
-							<div class="">23</div>
-							<div class="">24</div>
-							<div class="">25</div>
-							<div class="">26</div>
-							<div class="">27</div>
-							<div class="Blue">28</div>
-							<div class="Red">29</div>
-							<div class="">30</div>
-							<div class="">31</div>
-							<div class="OFF">1</div>
-							<div class="OFF">2</div>
-							<div class="OFF">3</div>
-							<div class="OFF">4</div>
-						</div><!-- Day -->
-					</div><!-- DaySet -->
-				</div><!-- CalendarSet -->
+			<div class="Contents">
+
 				<div class="InfoTable">
 					<table cellpadding="0" cellspacing="0" border="0">
 						<tr>
-							<td style="text-align:right;">Departure Time :
-								<select class="TableInnerInput">
-									<option>AM</option>
-									<option>PM</option>
-								</select>
-								<input type="text" class="TableInnerInput" size="2" value="10" /> : <input type="text" class="TableInnerInput" size="2" value="45" />
-							</td>
-						</tr>
-						<tr>
-							<td style="text-align:right;">
-								Airport : <input type="text" class="TableInnerInput" size="20" value="" />
+							<td>
+								{% if found_formality.eticket_attached %}
+								<label><input type="checkbox" name="eticket_attached" checked /><span></span>e-ticket attached</label>
+								{% else %}
+								<label><input type="checkbox" name="eticket_attached" /><span></span>e-ticket attached</label>
+								{% endif %}
 							</td>
 						</tr>
 					</table>
 				</div><!-- InfoTable -->
-			</div><!-- BOX02 -->
+				<div class="BOX02">
 
-			<div class="BOX02E">
-				<div class="CalendarSet">
-					<div class="MonthSet">
-						<div class="LArrow"><img src="../img/ico_larrow.png" /></div>
-						<div class="Month">July, <span>2018</span></div>
-						<div class="RArrow"><img src="../img/ico_rarrow.png" /></div>
-					</div><!-- MonthSet -->
-					<div class="DaySet">
-						<div class="WeekSet">
-							<div class="Red">S</div>
-							<div class="">M</div>
-							<div class="">T</div>
-							<div class="">W</div>
-							<div class="">T</div>
-							<div class="">F</div>
-							<div class="Blue">S</div>
-						</div><!-- WeekSet -->
-						<div class="Day">
-							<div class="Red">1</div>
-							<div class="">2</div>
-							<div class="">3</div>
-							<div class="ON">4</div>
-							<div class="">5</div>
-							<div class="">6</div>
-							<div class="Blue">7</div>
-							<div class="Red">8</div>
-							<div class="">9</div>
-							<div class="">10</div>
-							<div class="">11</div>
-							<div class="">12</div>
-							<div class="">13</div>
-							<div class="Blue">14</div>
-							<div class="Red">15</div>
-							<div class="">16</div>
-							<div class="">17</div>
-							<div class="">18</div>
-							<div class="">19</div>
-							<div class="">20</div>
-							<div class="Blue">21</div>
-							<div class="Red">22</div>
-							<div class="">23</div>
-							<div class="">24</div>
-							<div class="">25</div>
-							<div class="">26</div>
-							<div class="">27</div>
-							<div class="Blue">28</div>
-							<div class="Red">29</div>
-							<div class="">30</div>
-							<div class="">31</div>
-							<div class="OFF">1</div>
-							<div class="OFF">2</div>
-							<div class="OFF">3</div>
-							<div class="OFF">4</div>
-						</div><!-- Day -->
-					</div><!-- DaySet -->
-				</div><!-- CalendarSet -->
-				<div class="InfoTable">
-					<table cellpadding="0" cellspacing="0" border="0">
-						<tr>
-							<td style="text-align:right;">Arrival Time :
-								<select class="TableInnerInput">
-									<option>AM</option>
-									<option>PM</option>
-								</select>
-								<input type="text" class="TableInnerInput" size="2" value="10" /> : <input type="text" class="TableInnerInput" size="2" value="45" />
-							</td>
-						</tr>
-						<tr>
-							<td style="text-align:right;">
-								Airport : <input type="text" class="TableInnerInput" size="20" value="" />
-							</td>
-						</tr>
-					</table>
-				</div><!-- InfoTable -->
-			</div><!-- BOX02E -->
+					{{ flight_departure_form }}
+
+					{% if found_formality.air_departure_date or found_formality.air_departure_time %}
+					<div class="InfoTable">
+						<span class="DoneIcon">E</span>
+						<span class="AddComment">Departure : {{found_formality.air_departure_date|date:"Y-m-d"}} / {{found_formality.air_departure_time}}</span>
+					</div>
+					{% endif %}
+
+					<div class="InfoTable">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td>
+									{% if found_formality.air_departure_port %}
+									Departure Airport : <input type="text" class="TableInnerInput" size="20" name="air_departure_port" value="{{found_formality.air_departure_port}}" />
+									{% else %}
+									Departure Airport : <input type="text" class="TableInnerInput" size="20" name="air_departure_port" value="" />
+									{% endif %}
+								</td>
+							</tr>
+						</table>
+					</div><!-- InfoTable -->
+				</div><!-- BOX02 -->
+
+				<div class="BOX02E">
+
+					{{ flight_arrive_form }}
+
+					{% if found_formality.air_arrive_date or found_formality.air_arrive_time %}
+					<div class="InfoTable">
+						<span class="DoneIcon">E</span>
+						<span class="AddComment">Departure : {{found_formality.air_arrive_date|date:"Y-m-d"}} / {{found_formality.air_arrive_time}}</span>
+					</div>
+					{% endif %}
+
+					<div class="InfoTable">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td>
+									{% if found_formality.air_arrive_port %}
+									Arrive Airport : <input type="text" class="TableInnerInput" size="20" name="air_arrive_port" value="{{found_formality.air_arrive_port}}" />
+									{% else %}
+									Arrive Airport : <input type="text" class="TableInnerInput" size="20" name="air_arrive_port" value="" />
+									{% endif %}
+								</td>
+							</tr>
+						</table>
+					</div><!-- InfoTable -->
+				</div><!-- BOX02E -->
 
 
 
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopFlightTicketing').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopFlightTicketing').style.display='none';">SAVE</div>
-			</div>
-
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
 
 
-
-
-
-
-<style>
-#PopAirportPickupApplication {display:none;}
-</style>
-<div class="PopCover" id="PopAirportPickupApplication">
+<div class="PopCover" id="PopAirportPickupApplication" style="display:none;">
 	<div class="Popup">
 		<div class="TitleSet">
 			<div class="Close" OnClick="document.getElementById('PopAirportPickupApplication').style.display='none';">X</div>
 			<div class="Title">Airport Pick-up Application</div>
 		</div>
-		<div class="Contents">
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="school_formality_id" value="{{school.id}}" hidden />
+			<input type="text" name="type" value="airport_pickup" hidden />
 
-			<div class="InfoTable">
-				<table cellpadding="0" cellspacing="0" border="0">
-					<colgroup>
-						<col width="150">
-						<col>
-					</colgroup>
-					<tr>
-						<th># of passenger : </th>
-						<td class="InnerInputTD">
-								<select class="TableInnerInput">
-									<option>3</option>
-									<option>2</option>
-									<option>1</option>
-								</select>
-						</td>
-					</tr>
-					<tr>
-						<th>Airport pick-up Schedule : </th>
-						<td>
-							2018-08-15 / 16:20 <br />
-							BOS (Boston's Logan International Airport)
-						</td>
-					</tr>
-				</table>
-			</div><!-- InfoTable -->
+			<div class="Contents">
+
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<colgroup>
+							<col width="150">
+							<col>
+						</colgroup>
+						<tr>
+							<th># of passenger : </th>
+							<td class="InnerInputTD">
+									<select id="AirportPickupSelectId" class="TableInnerInput" name="pickup_num">
+										<option></option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+										<option value="More than 10">More than 10</option>
+									</select>
+									<script type="text/javascript">
+										document.getElementById('AirportPickupSelectId').value={{found_formality.pickup_num}}
+									</script>
+							</td>
+						</tr>
+						{% if found_formality.air_arrive_date or found_formality.air_arrive_time %}
+						<tr>
+							<th>Airport pick-up Schedule : </th>
+							<td>
+								{{found_formality.air_arrive_date|date:"Y-m-d"}} / {{found_formality.air_arrive_time}} <br />
+								Airport : {{found_formality.air_arrive_port}}
+							</td>
+						</tr>
+						{% endif %}
+					</table>
+				</div><!-- InfoTable -->
 
 
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopAirportPickupApplication').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopAirportPickupApplication').style.display='none';">SAVE</div>
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div>
+
 			</div>
-
-		</div>
+		</form>
 	</div>
 </div>
 
 
-
-
-
-
-
-
-<style>
-#PopApplication {display:none;}
-</style>
-<div class="PopCover" id="PopApplication">
+<div class="PopCover" id="PopApplication" style="display:none;">
 	<div class="Popup">
 		<div class="TitleSet">
 			<div class="Close" OnClick="document.getElementById('PopApplication').style.display='none';">X</div>
 			<div class="Title">Application</div>
 		</div>
-		<div class="Contents">
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="type" value="accommodation_application" hidden />
 
-			<div class="InfoTable">
-				<table cellpadding="0" cellspacing="0" border="0">
-					<colgroup>
-						<col width="135">
-						<col>
-					</colgroup>
-					<tr>
-						<th rowspan="3">Home stay preferences : </th>
-						<td>
-							<input type="checkbox" checked /><span></span>With animals</label>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="checkbox" checked /><span></span>With young children</label>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="checkbox" checked /><span></span>With other students</label>
-						</td>
-					</tr>
-					<tr>
-						<td class="TitleColor" colspan="2">Other preferences</td>
-					</tr>
-					<tr>
-						<th colspan="2">(with any food allergy/ dietary requirements)<br />
-							<textarea class="TableInnerTextarea"></textarea>
-						</td>
-					</tr>
-				</table>
-			</div><!-- InfoTable -->
+			<div class="Contents">
+
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<colgroup>
+							<col width="135">
+							<col>
+						</colgroup>
+						<tr>
+							<th rowspan="3">Home stay preferences : </th>
+							<td>
+								{% if found_formality.accommodation.with_animal %}
+								<label><input type="checkbox" name="with_animal" checked /><span></span>With animals</label>
+								{% else %}
+								<label><input type="checkbox" name="with_animal" /><span></span>With animals</label>
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								{% if found_formality.accommodation.with_child %}
+								<label><input type="checkbox" name="with_child" checked /><span></span>With young children</label>
+								{% else %}
+								<label><input type="checkbox" name="with_child" /><span></span>With young children</label>
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								{% if found_formality.accommodation.with_other_student %}
+								<label><input type="checkbox" name="with_other_student" checked /><span></span>With other students</label>
+								{% else %}
+								<label><input type="checkbox" name="with_other_student" /><span></span>With other students</label>
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td class="TitleColor" colspan="2">Other preferences</td>
+						</tr>
+						<tr>
+							<th colspan="2">(with any food allergy/ dietary requirements)<br />
+								<textarea class="TableInnerTextarea" name="other_preference">{{found_formality.accommodation.other_preference}}</textarea>
+							</td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
 
 
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopApplication').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopApplication').style.display='none';">SAVE</div>
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div>
+
 			</div>
-
-		</div>
+		</form>
 	</div>
 </div>
 
 
-
-
-
-
-
-
-<style>
-#PopHomeStayRecommendation {display:none;}
-</style>
-<div class="PopCover" id="PopHomeStayRecommendation">
+<div class="PopCover" id="PopHomeStayRecommendation" style="display:none;">
 	<div class="Popup">
 		<div class="TitleSet">
 			<div class="Close" OnClick="document.getElementById('PopHomeStayRecommendation').style.display='none';">X</div>
 			<div class="Title">Home Stay Recommendation</div>
 		</div>
-		<div class="Contents">
+		<form method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<input type="text" name="type" value="homestay_recommendation" hidden />
 
-			<div class="InfoTable">
-				<table cellpadding="0" cellspacing="0" border="0">
-					<colgroup>
-						<col>
-						<col width="90">
-					</colgroup>
-					<tr>
-						<td class="TitleColor">HOST A</td>
-						<td class="TitleColor InnerInputTD">
-							<a href="" class="Button">Attachment</a>
-						</td>
-					</tr>
-					<tr>
-						<td><input type="text" class="TableInnerInput" size="56" value="" /></td>
-						<td class="InnerInputTD">
-							<a href="" class="Button">Comment</a>
-						</td>
-					</tr>
-					<tr>
-						<td class="TitleColor">HOST B</td>
-						<td class="TitleColor InnerInputTD">
-							<a href="" class="Button">Attachment</a>
-						</td>
-					</tr>
-					<tr>
-						<td><input type="text" class="TableInnerInput" size="56" value="" /></td>
-						<td class="InnerInputTD">
-							<a href="" class="Button">Comment</a>
-						</td>
-					</tr>
-					<tr>
-						<td class="TitleColor">HOST C</td>
-						<td class="TitleColor InnerInputTD">
-							<a href="" class="Button">Attachment</a>
-						</td>
-					</tr>
-					<tr>
-						<td><input type="text" class="TableInnerInput" size="56" value="" /></td>
-						<td class="InnerInputTD">
-							<a href="" class="Button">Comment</a>
-						</td>
-					</tr>
-				</table>
-			</div><!-- InfoTable -->
+			<div class="Contents">
+
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<colgroup>
+							<col>
+							<col width="90">
+						</colgroup>
+						<tr>
+							<th class="TitleColor">HOST A</th>
+						</tr>
+						<tr>
+							<td class="InnerInputTD">
+								{{ found_formality.accommodation.recommendation_a }}
+								<input type="file" name="recommendation_a" multiple>
+							</td>
+						</tr>
+						<tr>
+							{% if found_formality.accommodation.recommendation_a_comment %}
+							<th><input type="text" class="TableInnerInput" name="recommendation_a_comment" size="56" value="{{found_formality.accommodation.recommendation_a_comment}}" /></th>
+							{% else %}
+							<th><input type="text" class="TableInnerInput" name="recommendation_a_comment" placeholder="Comment" size="56" value="" /></th>
+							{% endif %}
+						</tr>
+						<tr>
+							<th class="TitleColor">HOST B</th>
+						</tr>
+						<tr>
+							<td class="InnerInputTD">
+								{{ found_formality.accommodation.recommendation_b }}
+								<input type="file" name="recommendation_b" multiple>
+							</td>
+						</tr>
+						<tr>
+							{% if found_formality.accommodation.recommendation_b_comment %}
+							<th><input type="text" class="TableInnerInput" name="recommendation_b_comment" size="56" value="{{found_formality.accommodation.recommendation_b_comment}}" /></th>
+							{% else %}
+							<th><input type="text" class="TableInnerInput" name="recommendation_b_comment" size="56" placeholder="Comment" value="" /></th>
+							{% endif %}
+						</tr>
+						<tr>
+							<td class="TitleColor">HOST C</td>
+						</tr>
+						<tr>
+							<td class="InnerInputTD">
+								{{ found_formality.accommodation.recommendation_c }}
+								<input type="file" name="recommendation_c" multiple>
+							</td>
+						</tr>
+						<tr>
+							{% if found_formality.accommodation.recommendation_c_comment %}
+							<th><input type="text" class="TableInnerInput" name="recommendation_c_comment" size="56" value="{{found_formality.accommodation.recommendation_c_comment}}" /></th>
+							{% else %}
+							<th><input type="text" class="TableInnerInput" name="recommendation_c_comment" size="56" placeholder="Comment" value="" /></th>
+							{% endif %}
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
 
 
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopHomeStayRecommendation').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopHomeStayRecommendation').style.display='none';">SAVE</div>
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div>
+
 			</div>
-
-		</div>
+		</form>
 	</div>
 </div>
 
 
-
-
-
-
-
-
-<style>
-#PopHostSelection {display:none;}
-</style>
-<div class="PopCover" id="PopHostSelection">
+<div class="PopCover" id="PopHostSelection" style="display:none;">
 	<div class="SmallPopup">
 		<div class="TitleSet">
 			<div class="Close" OnClick="document.getElementById('PopHostSelection').style.display='none';">X</div>
 			<div class="Title">Host Selection</div>
 		</div>
-		<div class="Contents">
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="type" value="host_selection" hidden />
 
-			<div class="InfoTable">
-				<table cellpadding="0" cellspacing="0" border="0">
-					<colgroup>
-						<col width="135">
-						<col>
-					</colgroup>
-					<tr>
-						<td>
-							<input type="checkbox" checked /><span></span>A HOST</label>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="checkbox" checked /><span></span>B HOST</label>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="checkbox" checked /><span></span>C HOST</label>
-						</td>
-					</tr>
-				</table>
-			</div><!-- InfoTable -->
+			<div class="Contents">
+
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<colgroup>
+							<col width="135">
+							<col>
+						</colgroup>
+						<tr>
+							<td>
+								{% if found_formality.accommodation.host_selection == 'a' %}
+								<label><input type="radio" name="host_selection" value="a" checked/><span></span>A HOST</label>
+								{% else %}
+								<label><input type="radio" name="host_selection" value="a" /><span></span>A HOST</label>
+								{%endif%}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								{% if found_formality.accommodation.host_selection == 'b' %}
+								<label><input type="radio" name="host_selection" value="b" checked/><span></span>B HOST</label>
+								{% else %}
+								<label><input type="radio" name="host_selection" value="b" /><span></span>B HOST</label>
+								{%endif%}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								{% if found_formality.accommodation.host_selection == 'c' %}
+								<label><input type="radio" name="host_selection" value="c" checked/><span></span>C HOST</label>
+								{% else %}
+								<label><input type="radio" name="host_selection" value="c" /><span></span>C HOST</label>
+								{%endif%}
+							</td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
 
 
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopHostSelection').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopHostSelection').style.display='none';">SAVE</div>
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div>
+
 			</div>
-
-		</div>
+		</form>
 	</div>
 </div>
 
 
 
-
-
-
-
-
-
-<style>
-#PopParentsAccommodation {display:none;}
-</style>
-<div class="PopCover" id="PopParentsAccommodation">
+<div class="PopCover" id="PopParentsAccommodation" style="display:none;">
 	<div class="Popup">
 		<div class="TitleSet">
 			<div class="Close" OnClick="document.getElementById('PopParentsAccommodation').style.display='none';">X</div>
 			<div class="Title">Parents Accommodation</div>
 		</div>
-		<div class="Contents">
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="type" value="parents_accommodation" hidden />
 
-			<div class="InfoTable">
-				<table cellpadding="0" cellspacing="0" border="0">
-					<colgroup>
-						<col width="135">
-						<col>
-					</colgroup>
-					<tr>
-						<td class="TitleColor" colspan="2">Accommodation preferences</td>
-					</tr>
-					<tr>
-						<th># of guests : </th>
-						<td class="InnerInputTD">
-						<select class="TableInnerInput">
-							<option>2</option>
-						</select>
-						</td>
-					</tr>
-					<tr>
-						<th>Length of sta : </th>
-						<td class="InnerInputTD">
-						<select class="TableInnerInput">
-							<option>3 nights</option>
-						</select>
-						</td>
-					</tr>
-					<tr>
-						<td class="TitleColor" colspan="2">Other preferences</td>
-					</tr>
-					<tr>
-						<th colspan="2">ex) # of rooms, non-smoking, facilities, Hotel ratings<br />
-							<textarea class="TableInnerTextarea"></textarea>
-						</td>
-					</tr>
-				</table>
-			</div><!-- InfoTable -->
+			<div class="Contents">
 
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<colgroup>
+							<col width="135">
+							<col>
+						</colgroup>
+						<tr>
+							<td class="TitleColor" colspan="2">Accommodation preferences</td>
+						</tr>
+						<tr>
+							<th>Number of guests : </th>
+							<td class="InnerInputTD">
+							<select id="ParentsGuestSelectId" class="TableInnerInput" name="parent_accommodation_guest_num">
+								<option></option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+							</select>
+							<script type="text/javascript">
+								document.getElementById('ParentsGuestSelectId').value={{found_formality.accommodation.parent_accommodation_guest_num}}
+							</script>
+							</td>
+						</tr>
+						<tr>
+							<th>Length of sta : </th>
+							<td class="InnerInputTD">
+							<select id="ParentsStaySelectId" class="TableInnerInput" name="parent_length_of_stay">
+								<option></option>
+								<option value="1">1 nights</option>
+								<option value="2">2 nights</option>
+								<option value="3">3 nights</option>
+								<option value="4">4 nights</option>
+								<option value="5">5 nights</option>
+								<option value="6">6 nights</option>
+								<option value="7">7 nights</option>
+								<option value="8">8 nights</option>
+								<option value="9">9 nights</option>
+								<option value="10">10 nights</option>
+								<option value="more">More</option>
+								<script type="text/javascript">
+									document.getElementById('ParentsStaySelectId').value={{found_formality.accommodation.parent_length_of_stay}}
+								</script>
+							</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="TitleColor" colspan="2">Other preferences</td>
+						</tr>
+						<tr>
+							<th colspan="2">ex) # of rooms, non-smoking, facilities, Hotel ratings<br />
+								<textarea name="parent_other_preference" class="TableInnerTextarea">{{found_formality.accommodation.parent_other_preference}}</textarea>
+							</td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
 
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopParentsAccommodation').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopParentsAccommodation').style.display='none';">SAVE</div>
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div>
+
 			</div>
-
-		</div>
+		</form>
 	</div>
 </div>
 
 
-
-
-
-
-<style>
-#PopPreDepartureOrientation {display:none;}
-</style>
-<div class="PopCover" id="PopPreDepartureOrientation">
+<div class="PopCover" id="PopPreDepartureOrientation" style="display:none;">
 	<div class="SmallPopup">
 		<div class="TitleSet">
 			<div class="Close" OnClick="document.getElementById('PopPreDepartureOrientation').style.display='none';">X</div>
 			<div class="Title">Pre-departure Orientation</div>
 		</div>
-		<div class="Contents">
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="type" value="departure_ot" hidden />
 
-				<div class="CalendarSet">
-					<div class="MonthSet">
-						<div class="LArrow"><img src="../img/ico_larrow.png" /></div>
-						<div class="Month">July, <span>2018</span></div>
-						<div class="RArrow"><img src="../img/ico_rarrow.png" /></div>
-					</div><!-- MonthSet -->
-					<div class="DaySet">
-						<div class="WeekSet">
-							<div class="Red">S</div>
-							<div class="">M</div>
-							<div class="">T</div>
-							<div class="">W</div>
-							<div class="">T</div>
-							<div class="">F</div>
-							<div class="Blue">S</div>
-						</div><!-- WeekSet -->
-						<div class="Day">
-							<div class="Red">1</div>
-							<div class="">2</div>
-							<div class="">3</div>
-							<div class="ON">4</div>
-							<div class="">5</div>
-							<div class="">6</div>
-							<div class="Blue">7</div>
-							<div class="Red">8</div>
-							<div class="">9</div>
-							<div class="">10</div>
-							<div class="">11</div>
-							<div class="">12</div>
-							<div class="">13</div>
-							<div class="Blue">14</div>
-							<div class="Red">15</div>
-							<div class="">16</div>
-							<div class="">17</div>
-							<div class="">18</div>
-							<div class="">19</div>
-							<div class="">20</div>
-							<div class="Blue">21</div>
-							<div class="Red">22</div>
-							<div class="">23</div>
-							<div class="">24</div>
-							<div class="">25</div>
-							<div class="">26</div>
-							<div class="">27</div>
-							<div class="Blue">28</div>
-							<div class="Red">29</div>
-							<div class="">30</div>
-							<div class="">31</div>
-							<div class="OFF">1</div>
-							<div class="OFF">2</div>
-							<div class="OFF">3</div>
-							<div class="OFF">4</div>
-						</div><!-- Day -->
-					</div><!-- DaySet -->
-				</div><!-- CalendarSet -->
+			<div class="Contents">
 
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopPreDepartureOrientation').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopPreDepartureOrientation').style.display='none';">SAVE</div>
-			</div><!-- PopButtonLine -->
+					{{ formality_form }}
 
-		</div><!-- Contents -->
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div><!-- PopButtonLine -->
+
+			</div><!-- Contents -->
+		</form>
 	</div>
 </div>
 
 
-
-
-
-
-<style>
-#PopDepartureConfirmed {display:none;}
-</style>
-<div class="PopCover" id="PopDepartureConfirmed">
+<div class="PopCover" id="PopDepartureConfirmed" style="display:none;">
 	<div class="SmallPopup">
 		<div class="TitleSet">
 			<div class="Close" OnClick="document.getElementById('PopDepartureConfirmed').style.display='none';">X</div>
 			<div class="Title">Departure Confirmed</div>
 		</div>
-		<div class="Contents">
+		<form method="post">
+			{% csrf_token %}
+			<input type="text" name="type" value="departure_confirmed" hidden />
 
-				<div class="CalendarSet">
-					<div class="MonthSet">
-						<div class="LArrow"><img src="../img/ico_larrow.png" /></div>
-						<div class="Month">July, <span>2018</span></div>
-						<div class="RArrow"><img src="../img/ico_rarrow.png" /></div>
-					</div><!-- MonthSet -->
-					<div class="DaySet">
-						<div class="WeekSet">
-							<div class="Red">S</div>
-							<div class="">M</div>
-							<div class="">T</div>
-							<div class="">W</div>
-							<div class="">T</div>
-							<div class="">F</div>
-							<div class="Blue">S</div>
-						</div><!-- WeekSet -->
-						<div class="Day">
-							<div class="Red">1</div>
-							<div class="">2</div>
-							<div class="">3</div>
-							<div class="ON">4</div>
-							<div class="">5</div>
-							<div class="">6</div>
-							<div class="Blue">7</div>
-							<div class="Red">8</div>
-							<div class="">9</div>
-							<div class="">10</div>
-							<div class="">11</div>
-							<div class="">12</div>
-							<div class="">13</div>
-							<div class="Blue">14</div>
-							<div class="Red">15</div>
-							<div class="">16</div>
-							<div class="">17</div>
-							<div class="">18</div>
-							<div class="">19</div>
-							<div class="">20</div>
-							<div class="Blue">21</div>
-							<div class="Red">22</div>
-							<div class="">23</div>
-							<div class="">24</div>
-							<div class="">25</div>
-							<div class="">26</div>
-							<div class="">27</div>
-							<div class="Blue">28</div>
-							<div class="Red">29</div>
-							<div class="">30</div>
-							<div class="">31</div>
-							<div class="OFF">1</div>
-							<div class="OFF">2</div>
-							<div class="OFF">3</div>
-							<div class="OFF">4</div>
-						</div><!-- Day -->
-					</div><!-- DaySet -->
-				</div><!-- CalendarSet -->
+			<div class="Contents">
 
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopDepartureConfirmed').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopDepartureConfirmed').style.display='none';">SAVE</div>
-			</div><!-- PopButtonLine -->
+				{{ formality_form }}
 
-		</div><!-- Contents -->
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div><!-- PopButtonLine -->
+
+			</div><!-- Contents -->
+		</form>
 	</div>
 </div>

@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.views import View
 from django.db.models import Q
 from django.core import serializers
@@ -541,7 +541,14 @@ class ProcessApplyView(View):
         school_formalities = form_models.SchoolFormality.objects.filter(formality=found_formality).order_by('school_priority')
         formality_form = forms.FormalityForm
         formset_init = form_models.FormalityFile.objects.filter(formality=found_formality).order_by('-created_at')
-        file_formset = forms.FileFormset
+        file_formset = forms.FileFormset()
+        datetime_form = forms.DateTimeForm
+        cancel_enrolment_form = forms.CancelEnrolmentForm
+        visa_interview_scheduling_form = forms.VisaReserveSchedulingForm(instance=found_formality)
+        visa_granted_form = forms.VisaGrantedForm(instance=found_formality)
+        visa_rejected_form = forms.VisaRejectedForm(instance=found_formality)
+        flight_departure_form = forms.FlightDepartureForm(instance=found_formality)
+        flight_arrive_form = forms.FlightArriveForm(instance=found_formality)
 
         return render(
             request,
@@ -555,6 +562,13 @@ class ProcessApplyView(View):
                 "formality_form":formality_form,
                 "formset_init":formset_init,
                 "file_formset":file_formset,
+                "datetime_form":datetime_form,
+                'cancel_enrolment_form':cancel_enrolment_form,
+                "visa_interview_scheduling_form":visa_interview_scheduling_form,
+                "visa_granted_form": visa_granted_form,
+                "visa_rejected_form": visa_rejected_form,
+                "flight_departure_form": flight_departure_form,
+                "flight_arrive_form": flight_arrive_form,
             }
         )
 
@@ -566,6 +580,11 @@ class ProcessApplyView(View):
         except form_models.Formality.DoesNotExist:
             return HttpResponse(status=400)
 
+        try:
+            found_accommodation = form_models.AccommodationFormality.objects.get(formality=found_formality)
+        except form_models.AccommodationFormality.DoesNotExist:
+            found_accommodation = None
+
         found_counseler = self.get_counseler()
 
         if not found_formality.counsel.counseler == found_counseler:
@@ -573,12 +592,10 @@ class ProcessApplyView(View):
 
         data = request.POST or request.FILES
         if data:
+
             if data.get('type') == 'registration':
 
-                school_ids = []
-                for k in data.keys():
-                    if 'school_id' in k:
-                        school_ids.append(data.get(k))
+                school_ids = data.getlist('school_id')
 
                 for school_id in school_ids:
 
@@ -613,35 +630,17 @@ class ProcessApplyView(View):
                 else:
                     found_formality.payment_complete=False
 
-                if found_formality.canceled_at:
-                    found_formality.canceled_at=None
-                    found_formality.cancel_reason=None
-
                 found_formality.save()
-                data = json.dumps({
-                    "apply_at":str(found_formality.apply_at.strftime("%Y-%m-%d")),
-                    "school_count":found_formality.school_formality_count,
-                    "payment_complete_fee":str(found_formality.payment_complete_fee),
-                })
-                return HttpResponse(data, content_type="application/json")
+
+                return HttpResponseRedirect(request.path_info)
 
             elif data.get('type') == 'cancel_registration':
 
-                found_formality.canceled_at=data.get('Date')
-                found_formality.cancel_reason=data.get('cancel_reason')
-                found_formality.payment_complete=False
-                found_formality.apply_at=None
-
+                found_formality.canceled_at = data.get('Date') if data.get('Date') else None
+                found_formality.cancel_reason=data.get('cancel_reason') if data.get('cancel_reason') else None
                 found_formality.save()
 
-                school_formalities = form_models.SchoolFormality.objects.filter(formality=found_formality)
-
-                for school_formality in school_formalities:
-                    school_formality.processing_fee=None
-                    school_formality.processing_fee_done=False
-                    school_formality.save()
-
-                return HttpResponse(status=201)
+                return HttpResponseRedirect(request.path_info)
 
             elif data.get('type') == "file_upload":
                 print(request.POST)
@@ -659,10 +658,311 @@ class ProcessApplyView(View):
                         formality_file.save()
                     return HttpResponse(status=201)
                 else:
+                    print(formset.errors)
                     return HttpResponse(status=400)
+
+            elif data.get('type') == "enrolment_application":
+
+                try:
+                    found_school_formality = form_models.SchoolFormality.objects.get(pk=int(data.get('school_formality_id')))
+                except form_models.SchoolFormality.DoesNotExist:
+                    return HttpResponse(status=400)
+
+                found_school_formality.prepared_passport = True if data.get('passport') else False
+                found_school_formality.prepared_transcript = True if data.get('transcript') else False
+                found_school_formality.prepared_eng_exams = True if data.get('eng_exams') else False
+                found_school_formality.prepared_recommendation = True if data.get('recommendation') else False
+                found_school_formality.prepared_essay = True if data.get('essay') else False
+                found_school_formality.enrolment_apply_done = True if data.get('enrolment_apply_done') else False
+                found_school_formality.enrolment_apply_fee = Decimal(data.get('enrolment_apply_fee')) if data.get('enrolment_apply_fee') else None
+                found_school_formality.enrolment_apply_done_date = datetime.now() if data.get('enrolment_apply_done') else False
+                found_school_formality.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+            elif data.get('type') == "school_interview":
+
+                try:
+                    found_school_formality = form_models.SchoolFormality.objects.get(pk=int(data.get('school_formality_id')))
+                except form_models.SchoolFormality.DoesNotExist:
+                    return HttpResponse(status=400)
+
+                found_school_formality.school_interview_date = data.get('school_interview_date') if data.get('school_interview_date') else None
+                found_school_formality.school_interview_time = data.get('school_interview_time') if data.get('school_interview_time') else None
+                found_school_formality.mock_interview = True if data.get('mock_interview') else False
+                found_school_formality.school_interview_done = True if data.get('interview_done') else False
+                found_school_formality.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+            elif data.get('type') == "accepted":
+
+                try:
+                    found_school_formality = form_models.SchoolFormality.objects.get(pk=int(data.get('school_formality_id')))
+                except form_models.SchoolFormality.DoesNotExist:
+                    return HttpResponse(status=400)
+
+                found_school_formality.acceptance_date = data.get('Date') if data.get('Date') else None
+                found_school_formality.acceptance_letter = True if data.get('acceptance_letter') else None
+                found_school_formality.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+            elif data.get('type') == 'cancel_enrolment':
+
+                try:
+                    found_school_formality = form_models.SchoolFormality.objects.get(pk=int(data.get('school_formality_id')))
+                except form_models.SchoolFormality.DoesNotExist:
+                    return HttpResponse(status=400)
+
+                found_school_formality.cancel_enrolment_date = data.get('cancel_enrolment_date') if data.get('cancel_enrolment_date') else None
+                found_school_formality.cancel_enrolment_time = data.get('cancel_enrolment_time') if data.get('cancel_enrolment_time') else None
+                found_school_formality.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+            elif data.get('type') == 'i20_request':
+
+                try:
+                    found_school_formality = form_models.SchoolFormality.objects.get(pk=int(data.get('school_formality_id')))
+                except form_models.SchoolFormality.DoesNotExist:
+                    return HttpResponse(status=400)
+
+                found_school_formality.i20_completed = True if data.get('i20_completed') else False
+                found_school_formality.i20_fee = Decimal(data.get('i20_fee')) if data.get('i20_fee') else None
+                found_school_formality.i20_receipt = True if data.get('i20_receipt') else False
+                found_school_formality.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+            elif data.get('type') == 'i20_received':
+
+                try:
+                    found_school_formality = form_models.SchoolFormality.objects.get(pk=int(data.get('school_formality_id')))
+                except form_models.SchoolFormality.DoesNotExist:
+                    return HttpResponse(status=400)
+
+                found_school_formality.i20_received_date = data.get('Date') if data.get('Date') else None
+                found_school_formality.i20_copy = True if data.get('i20_copy') else False
+                found_school_formality.i20_tracking = data.get('i20_tracking') if data.get('i20_tracking') else None
+                found_school_formality.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+            elif data.get('type') == 'program_fee_payment':
+
+                try:
+                    found_school_formality = form_models.SchoolFormality.objects.get(pk=int(data.get('school_formality_id')))
+                except form_models.SchoolFormality.DoesNotExist:
+                    return HttpResponse(status=400)
+
+                found_school_formality.provider_application = True if data.get('provider_application') else False
+                found_school_formality.bge_program_application = True if data.get('bge_program_application') else False
+                found_school_formality.immunization = True if data.get('immunization') else False
+                found_school_formality.financial_support = True if data.get('financial_support') else False
+                found_school_formality.program_fee_completed = True if data.get('program_fee_completed') else False
+                found_school_formality.program_fee = Decimal(data.get('program_fee')) if data.get('program_fee') else None
+                found_school_formality.program_fee_receipt = True if data.get('program_fee_receipt') else False
+                found_school_formality.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+            elif data.get('type') == 'visa_interview_scheduling':
+
+                found_formality.visa_reserve_date = data.get('visa_reserve_date') if data.get('visa_reserve_date') else None
+                found_formality.visa_reserve_time = data.get('visa_reserve_time') if data.get('visa_reserve_time') else None
+                found_formality.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+            elif data.get('type') == 'visa_granted':
+
+                found_formality.visa_granted_date = data.get('visa_granted_date') if data.get('visa_granted_date') else None
+                found_formality.visa_granted_time = data.get('visa_granted_time') if data.get('visa_granted_time') else None
+                found_formality.visa_copy_recieved = True if data.get('visa_copy_recieved') else False
+                found_formality.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+            elif data.get('type') == 'visa_rejected':
+
+                found_formality.visa_rejected_date = data.get('visa_rejected_date') if data.get('visa_rejected_date') else None
+                found_formality.visa_rejected_time = data.get('visa_rejected_time') if data.get('visa_rejected_time') else None
+                found_formality.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+            elif data.get('type') == 'flight_ticketing':
+
+                found_formality.eticket_attached = True if data.get('eticket_attached') else False
+                found_formality.air_departure_date = data.get('air_departure_date') if data.get('air_departure_date') else None
+                found_formality.air_departure_time = data.get('air_departure_time') if data.get('air_departure_time') else None
+                found_formality.air_departure_port = data.get('air_departure_port') if data.get('air_departure_port') else None
+                found_formality.air_arrive_date = data.get('air_arrive_date') if data.get('air_arrive_date') else None
+                found_formality.air_arrive_time = data.get('air_arrive_time') if data.get('air_arrive_time') else None
+                found_formality.air_arrive_port = data.get('air_arrive_port') if data.get('air_arrive_port') else None
+                found_formality.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+            elif data.get('type') == 'airport_pickup':
+
+                found_formality.pickup_num = data.get('pickup_num') if data.get('pickup_num') else None
+                found_formality.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+            elif data.get('type') == 'accommodation_application':
+
+                if found_accommodation:
+                    found_accommodation.with_animal = True if data.get('with_animal') else False
+                    found_accommodation.with_child = True if data.get('with_child') else False
+                    found_accommodation.with_other_student = True if data.get('with_other_student') else False
+                    found_accommodation.other_preference = data.get('other_preference') if data.get('other_preference') else None
+                    found_accommodation.application_at = datetime.now()
+                    found_accommodation.save()
+
+                else:
+                    accommodation = form_models.AccommodationFormality(
+                        formality = found_formality,
+                        with_animal = True if data.get('with_animal') else False,
+                        with_child = True if data.get('with_child') else False,
+                        with_other_student = True if data.get('with_other_student') else False,
+                        other_preference = data.get('other_preference') if data.get('other_preference') else None,
+                        application_at = datetime.now()
+                    )
+                    accommodation.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+            elif data.get('type') == 'homestay_recommendation':
+
+                if found_accommodation:
+                    found_accommodation.recommendation_a = request.FILES.get('recommendation_a') if request.FILES.get('recommendation_a') else None
+                    found_accommodation.recommendation_b = request.FILES.get('recommendation_b') if request.FILES.get('recommendation_b') else None
+                    found_accommodation.recommendation_c = request.FILES.get('recommendation_c') if request.FILES.get('recommendation_c') else None
+                    found_accommodation.recommendation_a_comment = data.get('recommendation_a_comment') if data.get('recommendation_a_comment') else None
+                    found_accommodation.recommendation_b_comment = data.get('recommendation_b_comment') if data.get('recommendation_b_comment') else None
+                    found_accommodation.recommendation_c_comment = data.get('recommendation_c_comment') if data.get('recommendation_c_comment') else None
+                    found_accommodation.homestay_recommendation_at = datetime.now()
+                    found_accommodation.save()
+
+                else:
+                    accommodation = form_models.AccommodationFormality(
+                        formality = found_formality,
+                        recommendation_a = request.FILES.get('recommendation_a') if request.FILES.get('recommendation_a') else None,
+                        recommendation_b = request.FILES.get('recommendation_b') if request.FILES.get('recommendation_b') else None ,
+                        recommendation_c = request.FILES.get('recommendation_c') if request.FILES.get('recommendation_c') else None ,
+                        recommendation_a_comment = data.get('recommendation_a_comment') if data.get('recommendation_a_comment') else None,
+                        recommendation_b_comment = data.get('recommendation_b_comment') if data.get('recommendation_b_comment') else None,
+                        recommendation_c_comment = data.get('recommendation_c_comment') if data.get('recommendation_c_comment') else None,
+                        homestay_recommendation_at = datetime.now()
+                    )
+                    accommodation.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+            elif data.get('type') == 'host_selection':
+
+                if found_accommodation:
+                    found_accommodation.host_selection = data.get('host_selection') if data.get('host_selection') else None
+                    found_accommodation.host_selection_at = datetime.now()
+                    found_accommodation.save()
+
+                else:
+                    accommodation = form_models.AccommodationFormality(
+                        formality = found_formality,
+                        host_selection = data.get('host_selection') if data.get('host_selection') else None,
+                        host_selection_at = datetime.now()
+                    )
+                    accommodation.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+            elif data.get('type') == 'parents_accommodation':
+
+                if found_accommodation:
+                    found_accommodation.parent_accommodation_guest_num = data.get('parent_accommodation_guest_num') if data.get('parent_accommodation_guest_num') else None
+                    found_accommodation.parent_length_of_stay = data.get('parent_length_of_stay') if data.get('parent_length_of_stay') else None
+                    found_accommodation.parent_other_preference = data.get('parent_other_preference') if data.get('parent_other_preference') else None
+                    found_accommodation.parent_accommodation_at = datetime.now()
+                    found_accommodation.save()
+
+                else:
+                    accommodation = form_models.AccommodationFormality(
+                        formality = found_formality,
+                        parent_accommodation_guest_num = data.get('parent_accommodation_guest_num') if data.get('parent_accommodation_guest_num') else None,
+                        parent_length_of_stay = data.get('parent_length_of_stay') if data.get('parent_length_of_stay') else None,
+                        parent_other_preference = data.get('parent_other_preference') if data.get('parent_other_preference') else None,
+                        parent_accommodation_at = datetime.now()
+                    )
+                    accommodation.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+            elif data.get('type') == 'departure_ot':
+
+                found_formality.departure_ot = data.get('Date') if data.get('Date') else None
+                found_formality.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+            elif data.get('type') == 'departure_confirmed':
+
+                found_formality.departure_confirmed = data.get('Date') if data.get('Date') else None
+                found_formality.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+            else:
+                return HttpResponse(status=400)
 
         else:
             return HttpResponse(status=400)
+
+
+
+# Have to solve
+def upload_files(request, formality_id):
+    print(1)
+    try:
+        found_formality = form_models.Formality.objects.get(pk=formality_id)
+    except form_models.Formality.DoesNotExist:
+        return HttpResponse(status=400)
+    print(2)
+    user = request.user
+    try:
+        found_counseler = user_models.Counseler.objects.get(user=user)
+    except user_models.Counseler.DoesNotExist:
+        return HttpResponse(status=401)
+
+    if not found_formality.counsel.counseler == found_counseler:
+        return HttpResponse(status=401)
+
+    formset = forms.FileFormset(request.POST, request.FILES)
+    print(formset)
+    print(request.POST)
+    print(request.FILES)
+    print(3)
+    if formset.is_valid():
+        for form in formset:
+            name = form.cleaned_data.get('name')
+            file_source = request.FILES
+            print("Filee!!!!!!!")
+            print(form.cleaned_data)
+            print(file_source.cleaned_data)
+            formality_file = form_models.FormalityFile(
+                formality=found_formality,
+                name=name,
+                file_source=file_source,
+            )
+            # formality_file.save()
+        return redirect('/agent/process/' + str(formality_id))
+
+    else:
+        print(formset.errors)
+        return HttpResponse(status=400)
+
 
 
 def load_states(request):

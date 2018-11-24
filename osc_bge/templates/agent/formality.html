@@ -145,7 +145,7 @@
 							<td>
 								{% if found_formality.payment_complete %}
 								<label id="Registration">
-                  <input type="checkbox" checked /><span></span>Registration
+                  <input type="checkbox" disabled checked /><span></span>Registration
                 </label>
 								<span class="DoneIcon">E</span>
 								<span class="AddComment">
@@ -153,19 +153,24 @@
 								</span>
 								{% else %}
 								<label id="Registration">
-                  <input type="checkbox"/><span></span>Registration
+                  <input type="checkbox" disabled /><span></span>Registration
                 </label>
-								<span class="AddComment"></span>
 								{% endif %}
 							</td>
 							<td>
 								<label id="CancelRegistration">
 									{% if found_formality.canceled_at %}
-                  <input type="checkbox" checked/><span></span>Cancel Registration
+                  <input type="checkbox" disabled checked/><span></span>Cancel Registration
 									{% else %}
-									<input type="checkbox" /><span></span>Cancel Registration
+									<input type="checkbox" disabled /><span></span>Cancel Registration
 									{% endif %}
                 </label>
+								{% if found_formality.canceled_at %}
+								<span class="DoneIcon">E</span>
+								<span class="AddComment">
+									{{ found_formality.canceled_at|date:"Y-m-d" }}
+								</span>
+								{% endif %}
 							</td>
 						</tr>
 					</table>
@@ -191,96 +196,107 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<label OnClick="document.getElementById('PopEnrolmentApplication').style.display='block';">
-              <input type="checkbox"/><span></span>
+						<label id="EnrolmentLabel{{school.id}}" class="EnrolmentLabelClass">
+							{% if school.enrolment_apply_done %}
+							<input type="checkbox" disabled checked/><span></span>
+							{% else %}
+              <input type="checkbox" disabled /><span></span>
+							{% endif %}
               Enrolment Application
             </label>
+						{% if school.enrolment_apply_done %}
+						<span class="DoneIcon">E</span><span class="AddComment">{{school.enrolment_apply_done_date|date:"Y-m-d"}} / Application fee ${{school.enrolment_apply_fee}} payment completed</span>
+						{% endif %}
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<label OnClick="document.getElementById('PopSchoolinterview').style.display='block';">
-              <input type="checkbox"/><span></span>School interview scheduling
+						<label id="SchoolInterviewLabel{{school.id}}" class="SchoolInterviewLabelClass">
+							{% if school.school_interview_date or school.school_interview_time %}
+              <input type="checkbox" disabled checked/><span></span>School interview scheduling
+							{% else %}
+							<input type="checkbox" disabled /><span></span>School interview scheduling
+							{% endif %}
             </label>
+						{% if school.school_interview_date or school.school_interview_time %}
+							<span class="DoneIcon">E</span>
+							<span class="AddComment">{{school.school_interview_date|date:"Y-m-d"}} / {{school.school_interview_time}}</span>
+						{% endif %}
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<label OnClick="document.getElementById('PopAccepted').style.display='block';">
-              <input type="checkbox"/><span></span>Accepted
+						<label id="AcceptanceLabel{{school.id}}" class="AcceptanceLabelClass">
+							{% if school.acceptance_date or school.acceptance_letter %}
+              <input type="checkbox" disabled checked/><span></span>Accepted
+							{% else %}
+							<input type="checkbox" disabled /><span></span>Accepted
+							{% endif %}
             </label>
+						{% if school.acceptance_date %}
+							<span class="DoneIcon">E</span>
+							<span class="AddComment">{{school.acceptance_date|date:"Y-m-d"}}</span>
+						{% endif %}
 					</td>
 					<td>
-						<label OnClick="document.getElementById('PopCancelEnrolmen').style.display='block';">
-              <input type="checkbox" /><span></span>Cancel enrolment
+						<label id="CancelEnrolmentLabel{{school.id}}" class="CancelEnrolmentLabelClass">
+							{% if school.cancel_enrolment_date or school.cancel_enrolment_time %}
+              <input type="checkbox" disabled checked/><span></span>Cancel enrolment
+							{% else %}
+							<input type="checkbox" disabled /><span></span>Cancel enrolment
+							{% endif %}
             </label>
+						{% if school.cancel_enrolment_date or school.cancel_enrolment_time %}
+							<span class="DoneIcon">E</span>
+							<span class="AddComment">{{school.cancel_enrolment_date|date:"Y-m-d"}} / {{school.cancel_enrolment_time}}</span>
+						{% endif %}
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<label OnClick="document.getElementById('PopI20Request').style.display='block';">
-              <input type="checkbox"/><span></span>I-20 request
+						<label id="I20RequestLabel{{school.id}}" class="I20RequestLabelClass">
+							{% if school.i20_completed %}
+							<input type="checkbox" disabled checked/><span></span>I-20 request
+							{% else %}
+              <input type="checkbox" disabled /><span></span>I-20 request
+							{% endif %}
             </label>
+						{% if school.i20_completed %}
+							<span class="DoneIcon">E</span>
+							<span class="AddComment">I20 fee ${{school.i20_fee}} payment completed</span>
+						{% endif %}
 					</td>
 					<td>
-						<label OnClick="document.getElementById('PopI20Received').style.display='block';">
-              <input type="checkbox"/><span></span>I-20 received
+						<label id="I20ReceivedLabel{{school.id}}" class="I20ReceivedLabelClass">
+							{% if school.i20_received_date %}
+              <input type="checkbox" disabled checked/><span></span>I-20 received
+							{% else %}
+							<input type="checkbox" disabled /><span></span>I-20 received
+							{% endif %}
             </label>
+						{% if school.i20_received_date %}
+							<span class="DoneIcon">E</span>
+							<span class="AddComment">I20 received date {{school.i20_received_date|date:"Y-m-d"}}</span>
+						{% endif %}
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<label OnClick="document.getElementById('PopProgramFeePayment').style.display='block';">
-              <input type="checkbox"/><span></span>Program fee payment
+						<label id="ProgramFeePaymentLabel{{school.id}}" class="ProgramFeePaymentLabelClass">
+							{% if school.program_fee_completed %}
+              <input type="checkbox" disabled checked/><span></span>Program fee payment
+							{% else %}
+							<input type="checkbox" disabled /><span></span>Program fee payment
+							{% endif %}
             </label>
+						{% if school.program_fee_completed %}
+							<span class="DoneIcon">E</span>
+							<span class="AddComment">Program fee ${{school.program_fee}} - I20 Deposit ${{school.i20_fee}} : Amount ${{school.payment_amount}}</span>
+						{% endif %}
 					</td>
 				</tr>
 			</table>
       {% endfor %}
-
-			<table cellpadding="0" cellspacing="0" border="0">
-				<colgroup>
-					<col width="50%">
-				</colgroup>
-				<tr>
-					<td class="TitleColor" colspan="2">St. John’s High School – MA</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<label OnClick="document.getElementById('PopEnrolmentApplication').style.display='block';"><input type="checkbox" checked /><span></span>Enrolment Application</label>
-						<span class="DoneIcon">E</span><span class="AddComment">2018-02-03 / Application fee $100 payment completed</span>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<label OnClick="document.getElementById('PopSchoolinterview').style.display='block';"><input type="checkbox" checked /><span></span>School interview scheduling</label>
-						<span class="DoneIcon">E</span><span class="AddComment">2018-02-15 / 20:00</span>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label OnClick="document.getElementById('PopAccepted').style.display='block';"><input type="checkbox" checked /><span></span>Accepted</label>
-						<span class="DoneIcon">E</span><span class="AddComment">2018-02-20</span>
-					</td>
-					<td>
-						<label OnClick="document.getElementById('PopCancelEnrolmen').style.display='block';"><input type="checkbox" /><span></span>Cancel enrolment</label>
-						<span class="DoneIcon">E</span><span class="AddComment">2018-02-20</span>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label OnClick="document.getElementById('PopI20Request').style.display='block';"><input type="checkbox" /><span></span>I-20 request</label>
-					</td>
-					<td>
-						<label OnClick="document.getElementById('PopI20Received').style.display='block';"><input type="checkbox" /><span></span>I-20 received</label>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<label OnClick="document.getElementById('PopProgramFeePayment').style.display='block';"><input type="checkbox" /><span></span>Program fee payment</label>
-					</td>
-				</tr>
-			</table>
 
 		</div><!-- InfoTable -->
 		<div class="EndPart"></div>
@@ -293,17 +309,42 @@
 				</colgroup>
 				<tr>
 					<td colspan="2">
-						<label OnClick="document.getElementById('PopVisaInterviewScheduling').style.display='block';"><input type="checkbox" checked /><span></span>Visa interview scheduling</label>
-						<span class="DoneIcon">E</span><span class="AddComment">2018-03-06 / 15:00</span>
+						<label class="VisaInterviewSchedulingLabelClass">
+							{% if found_formality.visa_reserve_date or found_formality.visa_reserve_time %}
+							<input type="checkbox" disabled checked /><span></span>Visa interview scheduling
+							{% else %}
+							<input type="checkbox" disabled /><span></span>Visa interview scheduling
+							{% endif %}
+						</label>
+							{% if found_formality.visa_reserve_date or found_formality.visa_reserve_time %}
+								<span class="DoneIcon">E</span><span class="AddComment">{{ found_formality.visa_reserve_date|date:"Y-m-d"}} / {{ found_formality.visa_reserve_time}}</span>
+							{% endif %}
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<label OnClick="document.getElementById('PopVisaGranted').style.display='block';"><input type="checkbox" checked /><span></span>Visa granted </label>
-						<span class="DoneIcon">E</span><span class="AddComment">2018-03-06 / 15:00</span>
+						<label class="VisaGrantedLabelClass">
+							{% if found_formality.visa_granted_date or visa_granted_time %}
+							<input type="checkbox" disabled checked /><span></span>Visa granted
+							{% else %}
+							<input type="checkbox" disabled /><span></span>Visa granted
+							{% endif %}
+						</label>
+						{% if found_formality.visa_granted_date or found_formality.visa_granted_time %}
+							<span class="DoneIcon">E</span><span class="AddComment">{{found_formality.visa_granted_date|date:"Y-m-d"}} / {{found_formality.visa_granted_time}}</span>
+						{% endif %}
 					</td>
 					<td>
-						<label OnClick="document.getElementById('PopVisaRejected').style.display='block';"><input type="checkbox" /><span></span>Visa Rejected</label>
+						<label class="VisaRejectedLabelClass">
+							{% if found_formality.visa_rejected_date or found_formality.visa_rejected_time %}
+							<input type="checkbox" disabled checked/><span></span>Visa Rejected
+							{% else %}
+							<input type="checkbox" disabled/><span></span>Visa Rejected
+							{% endif %}
+						</label>
+						{% if found_formality.visa_rejected_date or found_formality.visa_rejected_time %}
+							<span class="DoneIcon">E</span><span class="AddComment">{{found_formality.visa_rejected_date|date:"Y-m-d"}} / {{found_formality.visa_rejected_time}}</span>
+						{% endif %}
 					</td>
 				</tr>
 			</table>
@@ -315,14 +356,35 @@
 			<table cellpadding="0" cellspacing="0" border="0">
 				<tr>
 					<td>
-						<label OnClick="document.getElementById('PopFlightTicketing').style.display='block';"><input type="checkbox" checked /><span></span>Flight ticketing</label>
-						<span class="DoneIcon">E</span><span class="AddComment">Dep. 2018-08-15 / 17:00 |  Arr. 2018-08-15 / 16:20</span>
+						<label class="FlightTicketingLabelClass">
+							{% if found_formality.air_departure_date or found_formality.air_arrive_date %}
+							<input type="checkbox" disabled checked /><span></span>Flight ticketing
+							{% else %}
+							<input type="checkbox" disabled /><span></span>Flight ticketing
+							{% endif %}
+						</label>
+						{% if found_formality.air_departure_date or found_formality.air_arrive_date %}
+						<span class="DoneIcon">E</span><span class="AddComment">Dep. {{found_formality.air_departure_date|date:"Y-m-d"}} / {{found_formality.air_departure_time}} ({{found_formality.air_departure_port}})  |
+							  Arr. {{found_formality.air_arrive_date|date:"Y-m-d"}} / {{found_formality.air_arrive_time}} ({{found_formality.air_arrive_port}})</span>
+						{% endif %}
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<label OnClick="document.getElementById('PopAirportPickupApplication').style.display='block';"><input type="checkbox" checked /><span></span>Airport Pick-up application</label>
-						<span class="DoneIcon">E</span><span class="AddComment">2018-08-10 | Member : 3</span>
+						<label class="AirportPickUpLabelClass">
+							{% if found_formality.pickup_num %}
+							<input type="checkbox" disabled checked /><span></span>Airport Pick-up application
+							{% else %}
+							<input type="checkbox" disabled /><span></span>Airport Pick-up application
+							{% endif %}
+						</label>
+						{% if found_formality.air_arrive_date or found_formality.air_arrive_time %}
+							{% if found_formality.pickup_num %}
+							<span class="DoneIcon">E</span><span class="AddComment">{{found_formality.air_arrive_date|date:"Y-m-d"}} / {{found_formality.air_arrive_time}} ({{found_formality.air_arrive_port}}) | Member : {{found_formality.pickup_num}}</span>
+							{% else %}
+							<span class="NotDoneIcon">N</span><span class="AddComment2">{{found_formality.air_arrive_date|date:"Y-m-d"}} / {{found_formality.air_arrive_time}} ({{found_formality.air_arrive_port}})</span>
+							{% endif %}
+						{% endif %}
 					</td>
 				</tr>
 			</table>
@@ -337,22 +399,54 @@
 				</colgroup>
 				<tr>
 					<td>
-						<label OnClick="document.getElementById('PopApplication').style.display='block';"><input type="checkbox" checked /><span></span>Application</label>
-						<span class="DoneIcon">E</span><span class="AddComment">2018-03-10</span>
+						<label class="AccommodationApplicationLabelClass">
+							{% if found_formality.accommodation.application_at %}
+							<input type="checkbox" disabled checked /><span></span>Application
+							{% else %}
+							<input type="checkbox" disabled /><span></span>Application
+							{% endif %}
+						</label>
+						{% if found_formality.accommodation.application_at %}
+						<span class="DoneIcon">E</span><span class="AddComment">{{ found_formality.accommodation.application_at|date:"Y-m-d" }}</span>
+						{% endif %}
 					</td>
 					<td>
-						<label OnClick="document.getElementById('PopHomeStayRecommendation').style.display='block';"><input type="checkbox" checked /><span></span>Home stay recommendation</label>
-						<span class="DoneIcon">E</span><span class="AddComment">2018-07-30</span>
+						<label class="HomeStayRecommendationLabelClass">
+							{% if found_formality.accommodation.homestay_recommendation_at %}
+							<input type="checkbox" disabled checked /><span></span>Home stay recommendation
+							{% else %}
+							<input type="checkbox" disabled /><span></span>Home stay recommendation
+							{% endif %}
+						</label>
+						{% if found_formality.accommodation.homestay_recommendation_at %}
+						<span class="DoneIcon">E</span><span class="AddComment">{{found_formality.accommodation.homestay_recommendation_at|date:"Y-m-d"}}</span>
+						{% endif %}
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<label OnClick="document.getElementById('PopHostSelection').style.display='block';"><input type="checkbox" checked /><span></span>Host selection</label>
-						<span class="DoneIcon">E</span><span class="AddComment">2018-07-31</span>
+						<label class="HostSelectionLabelClass">
+							{% if found_formality.accommodation.host_selection_at %}
+							<input type="checkbox" disabled checked /><span></span>Host selection
+							{% else %}
+							<input type="checkbox" disabled /><span></span>Host selection
+							{% endif %}
+						</label>
+						{% if found_formality.accommodation.host_selection_at %}
+						<span class="DoneIcon">E</span><span class="AddComment">{{found_formality.accommodation.host_selection_at|date:"Y-m-d"}}</span>
+						{% endif %}
 					</td>
 					<td>
-						<label OnClick="document.getElementById('PopParentsAccommodation').style.display='block';"><input type="checkbox" checked /><span></span>Parents accommodation</label>
-						<span class="DoneIcon">E</span><span class="AddComment">2018-07-31</span>
+						<label class="ParentsAccommodationLabelClass">
+							{% if found_formality.accommodation.parent_accommodation_at %}
+							<input type="checkbox" disabled checked /><span></span>Parents accommodation
+							{% else %}
+							<input type="checkbox" disabled /><span></span>Parents accommodation
+							{% endif %}
+						</label>
+						{% if found_formality.accommodation.parent_accommodation_at %}
+						<span class="DoneIcon">E</span><span class="AddComment">{{found_formality.accommodation.parent_accommodation_at|date:"Y-m-d"}}</span>
+						{% endif %}
 					</td>
 				</tr>
 			</table>
@@ -369,11 +463,28 @@
 				</colgroup>
 				<tr>
 					<td>
-						<label OnClick="document.getElementById('PopPreDepartureOrientation').style.display='block';"><input type="checkbox" checked /><span></span>Pre-departure Orientation</label>
-						<span class="DoneIcon">E</span><span class="AddComment">2018-08-01</span>
+						<label class="DepartureOTLabelClass">
+							{% if found_formality.departure_ot %}
+							<input type="checkbox" disabled checked /><span></span>Pre-departure Orientation
+							{% else %}
+							<input type="checkbox" disabled /><span></span>Pre-departure Orientation
+							{% endif %}
+						</label>
+						{% if found_formality.departure_ot %}
+						<span class="DoneIcon">E</span><span class="AddComment">{{found_formality.departure_ot|date:"Y-m-d"}}</span>
+						{% endif %}
 					</td>
 					<td>
-						<label OnClick="document.getElementById('PopDepartureConfirmed').style.display='block';"><input type="checkbox" checked /><span></span>Departure confirmed</label>
+						<label class="DepartureConfirmedLabelClass">
+							{% if found_formality.departure_confirmed%}
+							<input type="checkbox" disabled checked /><span></span>Departure confirmed
+							{% else %}
+							<input type="checkbox" disabled /><span></span>Departure confirmed
+							{% endif %}
+						</label>
+						{% if found_formality.departure_confirmed %}
+						<span class="DoneIcon">E</span><span class="AddComment">{{found_formality.departure_confirmed|date:"Y-m-d"}}</span>
+						{% endif %}
 					</td>
 				</tr>
 			</table>
