@@ -53,8 +53,8 @@ class Counsel(TimeStampedModel):
         ('Coed', 'Coed'),
     )
 
-    counseler = models.ForeignKey(user_models.Counseler, on_delete=models.SET_NULL, null=True, blank=True)
-    student = models.ForeignKey(student_models.Student, on_delete=models.SET_NULL, null=True, blank=True)
+    counseler = models.ForeignKey(user_models.Counseler, on_delete=models.SET_NULL, null=True, blank=True, related_name="counseling")
+    student = models.OneToOneField(student_models.Student, on_delete=models.SET_NULL, null=True, blank=True, related_name="counsel")
     counseling_date = models.DateField(null=True, blank=True)
     desire_country = models.CharField(max_length=80, null=True, blank=True)
     program_interested = models.CharField(null=True, max_length=255, blank=True)
@@ -126,7 +126,7 @@ class MonthlyReport(TimeStampedModel):
 
 class Formality(TimeStampedModel):
 
-    counsel = models.OneToOneField(Counsel, on_delete=models.SET_NULL, null=True)
+    counsel = models.OneToOneField(Counsel, on_delete=models.SET_NULL, null=True, related_name="formality")
     payment_complete = models.NullBooleanField(blank=True)
     apply_at = models.DateTimeField(null=True, blank=True)
     canceled_at = models.DateTimeField(null=True, blank=True)

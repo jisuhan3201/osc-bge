@@ -70,11 +70,12 @@
 					<th>NewOasis</th>
 					<th>etc.</th>
 				</tr>
+				{% for counseler in counselers %}
 				<tr>
-					<td>Claire</td>
-					<td>21</td>
-					<td>15</td>
-					<td>72%</td>
+					<td>{{counseler.user.first_name}} {{counseler.user.last_name}}</td>
+					<td>{{counseler.counsel_count}}</td>
+					<td>{{counseler.formality_count}}</td>
+					<td>{{counseler.apply_percentage}}%</td>
 					<td>10</td>
 					<td>2</td>
 					<td>3</td>
@@ -87,6 +88,7 @@
 					<td>-</td>
 					<td>-</td>
 				</tr>
+				{% endfor %}
 				<tr>
 					<td>Helena</td>
 					<td>21</td>

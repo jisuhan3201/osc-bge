@@ -72,3 +72,14 @@ class StudentHistory(TimeStampedModel):
 
     def __str__(self):
         return "{} - {}".format(self.student, self.gpa)
+
+
+class StudentReport(TimeStampedModel):
+
+    student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True, related_name='report')
+    counseler = models.ForeignKey(user_models.Counseler, on_delete=models.SET_NULL, null=True)
+    comment = models.TextField(null=True, blank=True)
+    reported_date = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return "{}".format(self.id)

@@ -8,6 +8,7 @@ from django.views import defaults as default_views
 urlpatterns = [
     path('', include('osc_bge.bge.urls')),
     path('agent/', include('osc_bge.agent.urls')),
+    path('student/', include('osc_bge.student.urls')),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management

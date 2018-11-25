@@ -128,8 +128,13 @@ class Counseler(models.Model):
     agency = models.ForeignKey(AgencyAdminUser, on_delete=models.SET_NULL, null=True)
     agency_branch = models.ForeignKey(AgencyBranchAdminUser, on_delete=models.SET_NULL, null=True)
 
+    @property
+    def counsel_count(self):
+        return self.counseling.count()
+
     def __str__(self):
         return "{} - {}".format(self.user, self.coordinator)
+
 
 
 class Host(models.Model):

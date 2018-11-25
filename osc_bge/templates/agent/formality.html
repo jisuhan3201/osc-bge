@@ -15,8 +15,8 @@
 			</div><!-- TabTitle -->
 			<div class="TabConternts">
 				<div class="InnerTabContents">
-          {% for formality in in_progress %}
-					<li><a href="process/{{formality.id}}/student">{{formality.counsel.student.name}}</a></li>
+          {% for progress in in_progress %}
+					<li><a href="/agent/process/{{progress.id}}">{{progress.counsel.student.name}}</a></li>
 					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div>
@@ -33,10 +33,9 @@
 			</div><!-- TabTitle -->
 			<div class="TabConternts">
 				<div class="InnerTabContents">
-					<li><a href="../process/student.php">Huashuo</a></li>
-					<li><a href="../process/student.php">Xinxiang</a></li>
-					<li><a href="../process/student.php">Eric</a></li>
-					<li><a href="../process/student.php">Jason</a></li>
+					{% for completed in process_completed %}
+					<li><a href="/agent/process/{{completed.id}}">{{completed.counsel.student.name}}</a></li>
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div>
 		</div><!-- LeftTab ID:LeftTab02 -->
@@ -52,10 +51,9 @@
 			</div><!-- TabTitle -->
 			<div class="TabConternts">
 				<div class="InnerTabContents">
-					<li><a href="../process/student.php">Jun</a></li>
-					<li><a href="../process/student.php">Jae</a></li>
-					<li><a href="../process/student.php">Soomin</a></li>
-					<li><a href="../process/student.php">Christine</a></li>
+					{% for canceled in process_canceled %}
+					<li><a href="/agent/process/{{canceled.id}}">{{canceled.counsel.student.name}}</a></li>
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div>
 		</div><!-- LeftTab ID:LeftTab03 -->
@@ -182,7 +180,6 @@
 
 
 		<div class="MTitle" style="width:100%;">
-			<div class="MTitleButton">Edit Appication info</div>
 			Application information
     </div>
 		<div class="InfoTable">

@@ -16,6 +16,28 @@ from decimal import Decimal
 from datetime import datetime
 
 
+class StatisticsView(View):
+
+    def get(self, request):
+
+        # Not Done!! counselers query by branch
+        counselers = user_models.Counseler.objects.all()
+        for counseler in counselers:
+
+            formality_count = form_models.Formality.objects.filter(counsel__counseler=counseler).count()
+
+            try:
+                apply_percentage = formality_count * 100 / counseler.counsel_count
+                apply_percentage = int(apply_percentage)
+            except ZeroDivisionError:
+                apply_percentage = 0
+
+            counseler.formality_count = formality_count
+            counseler.apply_percentage = apply_percentage
+            counseler.save()
+
+        return render(request, 'agent/statistics.html', {"counselers":counselers})
+
 class CounselView(View):
 
     def get(self, request):
@@ -316,8 +338,6 @@ class ApplicationRegisterView(View):
             try:
                 found_formality = form_models.Formality.objects.get(counsel=found_counsel)
                 school_formalities = form_models.SchoolFormality.objects.filter(formality=found_formality).order_by('school_priority')
-                print(found_formality)
-                print(school_formalities)
             except:
                 school_formalities = None
 
@@ -502,11 +522,83 @@ class ProcessView(View):
 
         found_counseler = self.get_counseler()
 
-        in_progress = form_models.Formality.objects.filter(
-            payment_complete=False).filter(
-            counsel__counseler=found_counseler).order_by("-created_at")
+        try:
+            found_formalities = form_models.Formality.objects.filter(
+                counsel__counseler=found_counseler).filter(
+                departure_confirmed=None).filter(
+                canceled_at=None)
+        except form_models.Formality.DoesNotExist:
+            found_formalities=None
 
-        return render(request, 'agent/process.html', {'in_progress':in_progress})
+        try:
+            application_not_completed = found_formalities.filter(
+                Q(school_formality__enrolment_apply_done__isnull=True)|
+                Q(school_formality__enrolment_apply_done=False)).order_by('created_at').distinct()
+        except:
+            application_not_completed =None
+
+        try:
+            upcoming_school_interview = form_models.SchoolFormality.objects.filter(
+                Q(school_interview_done__isnull=True)|
+                Q(school_interview_done=False)).exclude(
+                school_interview_date__isnull=True).order_by('school_interview_date').distinct()
+        except:
+            upcoming_school_interview = None
+
+        try:
+            pending_admission_decision = found_formalities.filter(
+                school_formality__acceptance_date__isnull=True).order_by("created_at").distinct()
+        except:
+            pending_admission_decision=None
+
+        try:
+            pending_issue_i20 = found_formalities.filter(
+                Q(school_formality__i20_completed__isnull=True)|
+                Q(school_formality__i20_completed=False)).order_by("created_at").distinct()
+        except:
+            pending_issue_i20=None
+
+        try:
+            upcoming_visa_interview = found_formalities.filter(
+                visa_reserve_date__isnull=False,
+                visa_granted_date__isnull=True,
+                visa_rejected_date__isnull=True).order_by('visa_reserve_date').distinct()
+        except:
+            upcoming_visa_interview = None
+
+        try:
+            departure_schedule = found_formalities.exclude(
+                air_departure_date__isnull=True).order_by('air_departure_date').distinct()
+        except:
+            departure_schedule = None
+
+        in_progress = form_models.Formality.objects.filter(
+            counsel__counseler=found_counseler).filter(
+            departure_confirmed=None).filter(canceled_at=None).order_by("-created_at")
+
+        process_completed = form_models.Formality.objects.filter(
+            counsel__counseler=found_counseler).filter(canceled_at=None).exclude(
+            departure_confirmed=None).order_by("-departure_confirmed")
+
+        process_canceled = form_models.Formality.objects.filter(
+            counsel__counseler=found_counseler).exclude(
+            canceled_at=None).order_by("-canceled_at")
+
+        return render(
+            request,
+            'agent/process.html',
+            {
+                "application_not_completed": application_not_completed,
+                "upcoming_school_interview": upcoming_school_interview,
+                "pending_admission_decision": pending_admission_decision,
+                "pending_issue_i20": pending_issue_i20,
+                "upcoming_visa_interview": upcoming_visa_interview,
+                "departure_schedule": departure_schedule,
+                "in_progress":in_progress,
+                "process_completed":process_completed,
+                "process_canceled":process_canceled,
+            }
+        )
 
 
 class ProcessApplyView(View):
@@ -533,8 +625,16 @@ class ProcessApplyView(View):
             return HttpResponse(status=401)
 
         in_progress = form_models.Formality.objects.filter(
-            payment_complete=False).filter(
-            counsel__counseler=found_counseler).order_by("-created_at")
+            counsel__counseler=found_counseler).filter(
+            departure_confirmed=None).filter(canceled_at=None).order_by("-created_at")
+
+        process_completed = form_models.Formality.objects.filter(
+        counsel__counseler=found_counseler).filter(canceled_at=None).exclude(
+            departure_confirmed=None).order_by("-departure_confirmed")
+
+        process_canceled = form_models.Formality.objects.filter(
+            counsel__counseler=found_counseler).exclude(
+            canceled_at=None).order_by("-canceled_at")
 
         student_info = found_formality.counsel.student
         student_history = student_info.student_history
@@ -556,6 +656,8 @@ class ProcessApplyView(View):
             {
                 "found_formality":found_formality,
                 "in_progress":in_progress,
+                "process_completed":process_completed,
+                "process_canceled":process_canceled,
                 "student_info":student_info,
                 "student_history":student_history,
                 "school_formalities":school_formalities,
@@ -594,7 +696,7 @@ class ProcessApplyView(View):
         if data:
 
             if data.get('type') == 'registration':
-
+                print(data)
                 school_ids = data.getlist('school_id')
 
                 for school_id in school_ids:
@@ -919,7 +1021,6 @@ class ProcessApplyView(View):
 
         else:
             return HttpResponse(status=400)
-
 
 
 # Have to solve
