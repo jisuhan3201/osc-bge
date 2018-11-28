@@ -254,9 +254,9 @@ class CustomerRegisterView(LoginRequiredMixin, View):
             except form_models.Counsel.DoesNotExist:
                 return HttpResponse(status=404)
 
-            found_counselor = self.get_counseler()
+            found_counselor = self.get_counselor()
 
-            if not found_counsel.counseler == found_counseler:
+            if not found_counsel.counselor == found_counselor:
                 return HttpResponse(status=401)
 
             try:
@@ -270,7 +270,7 @@ class CustomerRegisterView(LoginRequiredMixin, View):
     def post(self, request, counsel_num=None):
 
         data = request.POST
-        found_counseler = self.get_counseler()
+        found_counselor = self.get_counselor()
 
         if counsel_num:
             try:
@@ -278,7 +278,7 @@ class CustomerRegisterView(LoginRequiredMixin, View):
             except form_models.Counsel.DoesNotExist:
                 return HttpResponse(status=404)
 
-            if not found_counseler == found_counsel.counseler:
+            if not found_counselor == found_counsel.counselor:
                 return HttpResponse(status=401)
 
             parent_info = None
@@ -302,7 +302,7 @@ class CustomerRegisterView(LoginRequiredMixin, View):
                     parent_info.save()
 
             student = found_counsel.student
-            student.counseler=found_counseler
+            student.counselor=found_counselor
             student.parent_info = parent_info
             student.name = data.get('name')
             student.gender = data.get('gender')
@@ -369,7 +369,7 @@ class CustomerRegisterView(LoginRequiredMixin, View):
                 parent_info.save()
 
             student = student_models.Student(
-                counseler=found_counseler,
+                counselor=found_counselor,
                 parent_info=parent_info if parent_info else None,
                 name=data.get('name'),
                 gender=data.get('gender'),
@@ -383,7 +383,7 @@ class CustomerRegisterView(LoginRequiredMixin, View):
             student.save()
 
             counsel = form_models.Counsel(
-                counseler=found_counseler,
+                counselor=found_counselor,
                 student=student,
                 counseling_date=data.get('date'),
                 desire_country=data.get('country'),
@@ -423,20 +423,20 @@ class CustomerRegisterView(LoginRequiredMixin, View):
 class ProspectiveView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
-    def get_counseler(self):
+    def get_counselor(self):
 
         user = self.request.user
         try:
-            found_counseler = user_models.Counseler.objects.get(user=user)
-        except user_models.Counseler.DoesNotExist:
+            found_counselor = user_models.Counselor.objects.get(user=user)
+        except user_models.Counselor.DoesNotExist:
             return HttpResponse(status=401)
 
-        return found_counseler
+        return found_counselor
 
     def search(self):
 
-        found_counseler = self.get_counseler()
-        queryset = form_models.Counsel.objects.filter(counseler=found_counseler)
+        found_counselor = self.get_counselor()
+        queryset = form_models.Counsel.objects.filter(counselor=found_counselor)
         query = self.request.GET.get('q', None)
         if query:
             queryset = queryset.filter(Q(student__name__icontains=query) |
@@ -476,7 +476,7 @@ class ProspectiveView(LoginRequiredMixin, View):
 
     def get(self, request):
 
-        found_counseler = self.get_counseler()
+        found_counselor = self.get_counselor()
 
         all_counsel = self.search()
         paginator = Paginator(all_counsel, 10)
@@ -495,14 +495,14 @@ class ProspectiveView(LoginRequiredMixin, View):
 class ApplicationRegisterView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
-    def get_counseler(self):
+    def get_counselor(self):
 
         user = self.request.user
         try:
-            found_counseler = user_models.Counseler.objects.get(user=user)
-        except user_models.Counseler.DoesNotExist:
+            found_counselor = user_models.Counselor.objects.get(user=user)
+        except user_models.Counselor.DoesNotExist:
             return HttpResponse(status=401)
-        return found_counseler
+        return found_counselor
 
     def get(self, request, counsel_num=None):
 
@@ -513,9 +513,9 @@ class ApplicationRegisterView(LoginRequiredMixin, View):
             except form_models.Counsel.DoesNotExist:
                 return HttpResponse(status=404)
 
-            found_counseler = self.get_counseler()
+            found_counselor = self.get_counselor()
 
-            if not found_counsel.counseler == found_counseler:
+            if not found_counsel.counselor == found_counselor:
                 return HttpResponse(status=401)
 
             try:
@@ -557,7 +557,7 @@ class ApplicationRegisterView(LoginRequiredMixin, View):
     def post(self, request, counsel_num=None):
 
         data = request.POST
-        found_counseler = self.get_counseler()
+        found_counselor = self.get_counselor()
 
         if counsel_num:
             try:
@@ -565,7 +565,7 @@ class ApplicationRegisterView(LoginRequiredMixin, View):
             except form_models.Counsel.DoesNotExist:
                 return HttpResponse(status=404)
 
-            if not found_counseler == found_counsel.counseler:
+            if not found_counselor == found_counsel.counselor:
                 return HttpResponse(status=401)
 
             parent_info = None
@@ -589,7 +589,7 @@ class ApplicationRegisterView(LoginRequiredMixin, View):
                     parent_info.save()
 
             student = found_counsel.student
-            student.counseler=found_counseler
+            student.counselor=found_counselor
             student.parent_info = parent_info
             student.name = data.get('name')
             student.gender = data.get('gender')
@@ -701,22 +701,22 @@ class ApplicationRegisterView(LoginRequiredMixin, View):
 class ProcessView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
-    def get_counseler(self):
+    def get_counselor(self):
 
         user = self.request.user
         try:
-            found_counseler = user_models.Counseler.objects.get(user=user)
-        except user_models.Counseler.DoesNotExist:
+            found_counselor = user_models.Counselor.objects.get(user=user)
+        except user_models.Counselor.DoesNotExist:
             return HttpResponse(status=401)
-        return found_counseler
+        return found_counselor
 
     def get(self, request):
 
-        found_counseler = self.get_counseler()
+        found_counselor = self.get_counselor()
 
         try:
             found_formalities = form_models.Formality.objects.filter(
-                counsel__counseler=found_counseler).filter(
+                counsel__counselor=found_counselor).filter(
                 departure_confirmed=None).filter(
                 canceled_at=None)
         except form_models.Formality.DoesNotExist:
@@ -765,15 +765,15 @@ class ProcessView(LoginRequiredMixin, View):
             departure_schedule = None
 
         in_progress = form_models.Formality.objects.filter(
-            counsel__counseler=found_counseler).filter(
+            counsel__counselor=found_counselor).filter(
             departure_confirmed=None).filter(canceled_at=None).order_by("-created_at")
 
         process_completed = form_models.Formality.objects.filter(
-            counsel__counseler=found_counseler).filter(canceled_at=None).exclude(
+            counsel__counselor=found_counselor).filter(canceled_at=None).exclude(
             departure_confirmed=None).order_by("-departure_confirmed")
 
         process_canceled = form_models.Formality.objects.filter(
-            counsel__counseler=found_counseler).exclude(
+            counsel__counselor=found_counselor).exclude(
             canceled_at=None).order_by("-canceled_at")
 
         return render(
@@ -796,14 +796,14 @@ class ProcessView(LoginRequiredMixin, View):
 class ProcessApplyView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
-    def get_counseler(self):
+    def get_counselor(self):
 
         user = self.request.user
         try:
-            found_counseler = user_models.Counseler.objects.get(user=user)
-        except user_models.Counseler.DoesNotExist:
+            found_counselor = user_models.Counselor.objects.get(user=user)
+        except user_models.Counselor.DoesNotExist:
             return HttpResponse(status=401)
-        return found_counseler
+        return found_counselor
 
     def get(self, request, formality_id):
 
@@ -812,21 +812,21 @@ class ProcessApplyView(LoginRequiredMixin, View):
         except form_models.Formality.DoesNotExist:
             return HttpResponse(status=400)
 
-        found_counseler = self.get_counseler()
+        found_counselor = self.get_counselor()
 
-        if not found_formality.counsel.counseler == found_counseler:
+        if not found_formality.counsel.counselor == found_counselor:
             return HttpResponse(status=401)
 
         in_progress = form_models.Formality.objects.filter(
-            counsel__counseler=found_counseler).filter(
+            counsel__counselor=found_counselor).filter(
             departure_confirmed=None).filter(canceled_at=None).order_by("-created_at")
 
         process_completed = form_models.Formality.objects.filter(
-        counsel__counseler=found_counseler).filter(canceled_at=None).exclude(
+        counsel__counselor=found_counselor).filter(canceled_at=None).exclude(
             departure_confirmed=None).order_by("-departure_confirmed")
 
         process_canceled = form_models.Formality.objects.filter(
-            counsel__counseler=found_counseler).exclude(
+            counsel__counselor=found_counselor).exclude(
             canceled_at=None).order_by("-canceled_at")
 
         student_info = found_formality.counsel.student
@@ -880,9 +880,9 @@ class ProcessApplyView(LoginRequiredMixin, View):
         except form_models.AccommodationFormality.DoesNotExist:
             found_accommodation = None
 
-        found_counseler = self.get_counseler()
+        found_counselor = self.get_counselor()
 
-        if not found_formality.counsel.counseler == found_counseler:
+        if not found_formality.counsel.counselor == found_counselor:
             return HttpResponse(status=401)
 
         data = request.POST or request.FILES
@@ -1227,11 +1227,11 @@ def upload_files(request, formality_id):
     print(2)
     user = request.user
     try:
-        found_counseler = user_models.Counseler.objects.get(user=user)
-    except user_models.Counseler.DoesNotExist:
+        found_counselor = user_models.Counselor.objects.get(user=user)
+    except user_models.Counselor.DoesNotExist:
         return HttpResponse(status=401)
 
-    if not found_formality.counsel.counseler == found_counseler:
+    if not found_formality.counsel.counselor == found_counselor:
         return HttpResponse(status=401)
 
     formset = forms.FileFormset(request.POST, request.FILES)
