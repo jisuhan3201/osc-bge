@@ -14,6 +14,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'USER': env('RDS_DB_USERNAME'),
+        'NAME': "",
         'PASSWORD': env('RDS_DB_PASSWORD'),
         'HOST': env('RDS_DB_HOSTNAME'),
         'PORT': env('RDS_DB_PORT'),
