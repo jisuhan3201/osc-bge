@@ -181,7 +181,10 @@ class StatisticsView(LoginRequiredMixin, View):
             total_nz_count += nz_count
 
 
-        total_success_rate = int(total_registered * 100 / total_counsel)
+        try:
+            total_success_rate = int(total_registered * 100 / total_counsel)
+        except ZeroDivisionError:
+            total_success_rate = 0
 
         # Make range of months for templates
         template_date_range = []
