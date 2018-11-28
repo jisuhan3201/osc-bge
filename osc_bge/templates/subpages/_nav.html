@@ -48,8 +48,8 @@
     {% endif %}
     <div class="NameSet">
 			<li class="Name">{{ user.first_name }} {{ user.last_name }} ( {{user.type|capfirst}} )</li>
-      {% if user.type == 'counseler' %}
-			<li class="Rank">{{ user.counseler.agency.name }} / {{ user.counseler.agency.branch }}</li>
+      {% if user.type == 'counselor' %}
+			<li class="Rank">{{ user.counselor.agency.name }} / {{ user.counselor.agency.branch }}</li>
       {% elif user.type == 'agency_admin' %}
       <li class="Rank">{{ user.agency_admin.agency.name }} / {{ user.agency_admin.agency.branch }}</li>
       {% endif %}

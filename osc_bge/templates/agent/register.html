@@ -17,8 +17,8 @@
 		{% endif %}
 		<div class="NameSet">
 			<li class="Name">{{ user.first_name }} {{ user.last_name }} ( {{user.type|capfirst}} )</li>
-      {% if user.type == 'counseler' %}
-			<li class="Rank">{{ user.counseler.agency.name }} / {{ user.counseler.agency.branch }}</li>
+      {% if user.type == 'counselor' %}
+			<li class="Rank">{{ user.counselor.agency.name }} / {{ user.counselor.agency.branch }}</li>
       {% elif user.type == 'agency_admin' %}
       <li class="Rank">{{ user.agency_admin.agency.name }} / {{ user.agency_admin.agency.branch }}</li>
       {% endif %}
@@ -46,7 +46,7 @@
 					</colgroup>
 					<tr>
 						<th>Agent-Branch / Counselor : </th>
-						<td>{{ user.counseler.agency.name }} - {{ user.counseler.agency.branch }} / {{ user.first_name }}</td>
+						<td>{{ user.counselor.agency.name }} - {{ user.counselor.agency.branch }} / {{ user.first_name }}</td>
 						<th>Date of Counseling : </th>
 						{% if counsel %}
 						<td><input type="text" name="date" value="{{ counsel.counseling_date|date:'Y-m-d' }}" readonly required></td>
