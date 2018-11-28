@@ -22,7 +22,6 @@ class SchoolAdmin(admin.ModelAdmin):
 class SecondaryAdmin(admin.ModelAdmin):
 
     list_display = (
-        "id",
         "school",
         "detail_type",
         "total_fee",
@@ -43,7 +42,6 @@ class SecondaryAdmin(admin.ModelAdmin):
 class CollegeAdmin(admin.ModelAdmin):
 
     list_display = (
-        "id",
         "school",
         "detail_type",
         "toefl_requirement",

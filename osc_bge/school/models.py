@@ -30,7 +30,7 @@ class School(TimeStampedModel):
     name = models.CharField(max_length=80, null=True)
     type = models.CharField(max_length=80, null=True, choices=TYPE_CHOICES)
     image = models.ImageField(upload_to='school', null=True, blank=True)
-    country = models.CharField(max_length=80, null=True, blank=True, choices=COUNTRY_CHOICES)
+    country = models.CharField(max_length=80, null=True, choices=COUNTRY_CHOICES)
     address = models.CharField(max_length=140, null=True, blank=True)
     contacts = models.CharField(max_length=140, null=True, blank=True)
     founded = models.CharField(max_length=80, null=True, blank=True)
