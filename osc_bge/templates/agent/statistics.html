@@ -3,309 +3,167 @@
 {% block content %}
 <div class="ContentsFrame">
 	<div class="MainAFrame">
-
-		<div class="MTitle">Performance Status	</div>
-		<div class="ListSearch Aright">
-			<div>
-			From :
-			<select class="SearchSelect">
-				<option>December 2017</option>
-				<option>November 2017</option>
-				<option>October 2017</option>
-				<option>September 2017</option>
-				<option>August 2017</option>
-				<option>July 2017</option>
-				<option>June 2017</option>
-				<option>May 2017</option>
-				<option>April 2017</option>
-				<option>March 2017</>
-				<option>February 2017</option>
-				<option>January 2017</option>
-			</select>
-			&nbsp;&nbsp;
-			To :
-			<select class="SearchSelect">
-				<option>December 2017</option>
-				<option>November 2017</option>
-				<option>October 2017</option>
-				<option>September 2017</option>
-				<option>August 2017</option>
-				<option>July 2017</option>
-				<option>June 2017</option>
-				<option>May 2017</option>
-				<option>April 2017</option>
-				<option>March 2017</>
-				<option>February 2017</option>
-				<option>January 2017</option>
-			</select>
-
-			<select class="SearchSelect">
-				<option>Country</option>
-				<option>Program</option>
-				<option>Provider</option>
-			</select>
-			</div>
-		</div>
-
-		<div class="ListTable">
-			<table cellpadding="0" cellspacing="0" border="0">
-				<colgroup>
-					<col width="180">
-					<col>
-				</colgroup>
-				<tr>
-					<th>Counselor Name</th>
-					<th>Counseled</th>
-					<th>Registered</th>
-					<th>Register success rate</th>
-					<th>Secondary</th>
-					<th>College</th>
-					<th>Camp</th>
-					<th>US</th>
-					<th>CA</th>
-					<th>UK</th>
-					<th>AU</th>
-					<th>NZ</th>
-					<th>BGE</th>
-					<th>NewOasis</th>
-					<th>etc.</th>
-				</tr>
-				{% for counseler in counselers %}
-				<tr>
-					<td>{{counseler.user.first_name}} {{counseler.user.last_name}}</td>
-					<td>{{counseler.counsel_count}}</td>
-					<td>{{counseler.formality_count}}</td>
-					<td>{{counseler.apply_percentage}}%</td>
-					<td>10</td>
-					<td>2</td>
-					<td>3</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				{% endfor %}
-				<tr>
-					<td>Helena</td>
-					<td>21</td>
-					<td>15</td>
-					<td>72%</td>
-					<td>10</td>
-					<td>2</td>
-					<td>3</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td>James</td>
-					<td>21</td>
-					<td>15</td>
-					<td>72%</td>
-					<td>10</td>
-					<td>2</td>
-					<td>3</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td>Alex</td>
-					<td>21</td>
-					<td>15</td>
-					<td>72%</td>
-					<td>10</td>
-					<td>2</td>
-					<td>3</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td>Mike</td>
-					<td>21</td>
-					<td>15</td>
-					<td>72%</td>
-					<td>10</td>
-					<td>2</td>
-					<td>3</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td class="TitleColor">Total</td>
-					<td class="TitleColor">108</td>
-					<td class="TitleColor">51</td>
-					<td class="TitleColor">47%</td>
-					<td class="TitleColor">24</td>
-					<td class="TitleColor">7</td>
-					<td class="TitleColor">8</td>
-					<td class="TitleColor">-</td>
-					<td class="TitleColor">-</td>
-					<td class="TitleColor">-</td>
-					<td class="TitleColor">-</td>
-					<td class="TitleColor">-</td>
-					<td class="TitleColor">-</td>
-					<td class="TitleColor">-</td>
-					<td class="TitleColor">-</td>
-				</tr>
-			</table>
-		</div><!-- ListTable -->
-		<div class="EndPart"></div>
-
-
-
-
-
-		<div class="ListTable">
+		<form method="GET">
+			<div class="MTitle">Performance Status	</div>
 			<div class="ListSearch Aright">
 				<div>
-				Search :
-				<select class="SearchSelect">
-					<option>Select Period</option>
-					<option selected>Past 6months</option>
+				From :
+				<select class="SearchSelect" name="start_date">
+					{% for month in template_date_range %}
+					<option value="{{month.0|date:'Y-m-d'}}">{{month.0|date:"M Y"}}</option>
+					{% endfor %}
 				</select>
-
-				<select class="SearchSelect">
-					<option>Counselor</option>
-					<option>Provider</option>
+				&nbsp;&nbsp;
+				To :
+				<select class="SearchSelect" name="end_date">
+					{% for month in template_date_range %}
+					<option value="{{month.1|date:'Y-m-d'}}">{{month.1|date:"M Y"}}</option>
+					{% endfor %}
 				</select>
-
-				<select class="SearchSelect">
-					<option>Secondary</option>
-					<option>College</option>
-					<option>Camp</option>
-				</select>
-
-				<select class="SearchSelect">
-					<option>Counseled</option>
-					<option>Registered</option>
-					<option>Register success rate</option>
-				</select>
+				<div class="InfoTable">
+					<button type="submit" class="SchoolButton">Search</button>
+				</div>
 				</div>
 			</div>
-			<table cellpadding="0" cellspacing="0" border="0">
-				<colgroup>
-					<col width="180">
-					<col>
-				</colgroup>
-				<tr>
-					<th>Counselor Name</th>
-					<th>Jan</th>
-					<th>Feb</th>
-					<th>Mar</th>
-					<th>Apr</th>
-					<th>May</th>
-					<th>Jun</th>
-					<th>Jul</th>
-					<th>Aug</th>
-					<th>Sep</th>
-					<th>Oct</th>
-					<th>Nov</th>
-					<th>Dec</th>
-				</tr>
-				<tr>
-					<td>Claire</td>
-					<td>70%</td>
-					<td>50%</td>
-					<td>75%</td>
-					<td>65%</td>
-					<td>80%</td>
-					<td>55%</td>
-					<td>1%</td>
-					<td>2%</td>
-					<td>3%</td>
-					<td>4%</td>
-					<td>5%</td>
-					<td>6%</td>
-				</tr>
-				<tr>
-					<td>Helena</td>
-					<td>70%</td>
-					<td>50%</td>
-					<td>75%</td>
-					<td>65%</td>
-					<td>80%</td>
-					<td>55%</td>
-					<td>1%</td>
-					<td>2%</td>
-					<td>3%</td>
-					<td>4%</td>
-					<td>5%</td>
-					<td>6%</td>
-				</tr>
-				<tr>
-					<td>James</td>
-					<td>70%</td>
-					<td>50%</td>
-					<td>75%</td>
-					<td>65%</td>
-					<td>80%</td>
-					<td>55%</td>
-					<td>1%</td>
-					<td>2%</td>
-					<td>3%</td>
-					<td>4%</td>
-					<td>5%</td>
-					<td>6%</td>
-				</tr>
-				<tr>
-					<td>Alex</td>
-					<td>70%</td>
-					<td>50%</td>
-					<td>75%</td>
-					<td>65%</td>
-					<td>80%</td>
-					<td>55%</td>
-					<td>1%</td>
-					<td>2%</td>
-					<td>3%</td>
-					<td>4%</td>
-					<td>5%</td>
-					<td>6%</td>
-				</tr>
-				<tr>
-					<td>Mike</td>
-					<td>70%</td>
-					<td>50%</td>
-					<td>75%</td>
-					<td>65%</td>
-					<td>80%</td>
-					<td>55%</td>
-					<td>1%</td>
-					<td>2%</td>
-					<td>3%</td>
-					<td>4%</td>
-					<td>5%</td>
-					<td>6%</td>
-				</tr>
-			</table>
-		</div><!-- ListTable -->
+		</form>
+			<div class="ListTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="180">
+						<col>
+					</colgroup>
+					<tr>
+						<th>Counselor Name</th>
+						<th>Counseled</th>
+						<th>Registered</th>
+						<th>Register success rate</th>
+						<th>Secondary</th>
+						<th>College</th>
+						<th>Camp</th>
+						<th>US</th>
+						<th>CA</th>
+						<th>UK</th>
+						<th>AU</th>
+						<th>NZ</th>
+						<th>BGE</th>
+						<th>NewOasis</th>
+						<th>etc.</th>
+					</tr>
+					{% for counseler in counselers %}
+					<tr>
+						<td>{{counseler.user.first_name}} {{counseler.user.last_name}}</td>
+						<td>{{counseler.counsel_count}}</td>
+						<td>{{counseler.formality_count}}</td>
+						<td>{{counseler.apply_percentage}}%</td>
+						<td>{{counseler.secondary}}</td>
+						<td>{{counseler.college}}</td>
+						<td>{{counseler.camp}}</td>
+						<td>{{counseler.us_count}}</td>
+						<td>{{counseler.ca_count}}</td>
+						<td>{{counseler.uk_count}}</td>
+						<td>{{counseler.au_count}}</td>
+						<td>{{counseler.nz_count}}</td>
+						<td>-</td>
+						<td>-</td>
+						<td>-</td>
+					</tr>
+					{% endfor %}
+					<tr>
+						<td class="TitleColor">Total</td>
+						<td class="TitleColor">{{total_counsel}}</td>
+						<td class="TitleColor">{{total_registered}}</td>
+						<td class="TitleColor">{{total_success_rate}}%</td>
+						<td class="TitleColor">{{total_secondary}}</td>
+						<td class="TitleColor">{{total_college}}</td>
+						<td class="TitleColor">{{total_camp}}</td>
+						<td class="TitleColor">{{total_us_count}}</td>
+						<td class="TitleColor">{{total_ca_count}}</td>
+						<td class="TitleColor">{{total_uk_count}}</td>
+						<td class="TitleColor">{{total_au_count}}</td>
+						<td class="TitleColor">{{total_nz_count}}</td>
+						<td class="TitleColor">-</td>
+						<td class="TitleColor">-</td>
+						<td class="TitleColor">-</td>
+					</tr>
+				</table>
+			</div><!-- ListTable -->
+			<div class="EndPart"></div>
+
+
+
+			<div class="ListTable">
+				<div class="ListSearch Aright">
+					<form method="GET">
+					<div>
+					Search :
+					<select class="SearchSelect" name="past_months">
+						<option selected value="3">Past 3 months</option>
+						<option value="6">Past 6 months</option>
+						<option value="12">Past 1 year</option>
+						<option value="24">Past 2 years</option>
+					</select>
+
+					<select class="SearchSelect">
+						<option>Counselor</option>
+						<option>Provider</option>
+					</select>
+
+					<select class="SearchSelect" name="school_type">
+						<option value="">-------</option>
+						<option value="k12">Secondary</option>
+						<option value="college">College</option>
+						<option value="camp">Camp</option>
+					</select>
+
+					<select class="SearchSelect" name="data_type">
+						<option value="counseled">Counseled</option>
+						<option value="registered">Registered</option>
+						<option selected value="success_rate">Register success rate</option>
+					</select>
+					<div class="InfoTable">
+						<button type="submit" class="SchoolButton">Search</button>
+					</div>
+					</div>
+					</form>
+				</div>
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="180">
+						<col>
+					</colgroup>
+
+					<tr>
+						<th>Counselor Name</th>
+						{% for date in past_date_first %}
+						<th>{{date|date:"Y M"}}</th>
+						{% endfor %}
+					</tr>
+					{% for key, values in monthly_data.items %}
+						{% if request.GET.data_type == 'counseled'%}
+						<tr>
+							<td>{{key}}</td>
+							{% for i in values %}
+							<td>{{i.monthly_counsels_count}}</td>
+							{% endfor %}
+						</tr>
+						{% elif request.GET.data_type == 'registered' %}
+						<tr>
+							<td>{{key}}</td>
+							{% for i in values %}
+							<td>{{i.monthly_formality_count}}</td>
+							{% endfor %}
+						</tr>
+						{% else %}
+						<tr>
+							<td>{{key}}</td>
+							{% for i in values %}
+							<td>{{i.monthly_success_rate}}%</td>
+							{% endfor %}
+						</tr>
+						{% endif %}
+					{% endfor %}
+				</table>
+			</div><!-- ListTable -->
 
 	</div><!-- MainFrame -->
 </div><!--  ContentsFrame-->

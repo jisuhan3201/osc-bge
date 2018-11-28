@@ -6,21 +6,19 @@ from . import models
 class AgencyAdmin(admin.ModelAdmin):
 
     list_display = (
+        "id",
         "name",
-        "country",
-        "state",
-        "address",
-        "program",
+        "branch",
     )
 
-@admin.register(models.AgencyBranch)
-class AgencyBranchAdmin(admin.ModelAdmin):
-
-    list_display = (
-        "agency",
-        "name",
-        "country",
-        "state",
-        "address",
-        "students",
-    )
+# @admin.register(models.AgencyBranch)
+# class AgencyBranchAdmin(admin.ModelAdmin):
+#
+#     list_display = (
+#         "agency",
+#         "name",
+#         "country",
+#         "state",
+#         "address",
+#         "students",
+#     )

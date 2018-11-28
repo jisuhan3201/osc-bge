@@ -2,25 +2,25 @@ from django.contrib import admin
 from . import models
 
 # Register your models here.
-@admin.register(models.Memo)
-class MemoAdmin(admin.ModelAdmin):
-
-    list_display = (
-        "bge",
-        "branch_admin",
-        "coordinator",
-        "agency_admin",
-        "agency_branch_admin",
-        "counseler",
-        "school",
-        "host",
-        "student",
-        "title",
-        "types",
-        "content",
-        "priority",
-        "filename",
-    )
+# @admin.register(models.Memo)
+# class MemoAdmin(admin.ModelAdmin):
+#
+#     list_display = (
+#         "bge",
+#         "branch_admin",
+#         "coordinator",
+#         "agency_admin",
+#         "agency_branch_admin",
+#         "counseler",
+#         "school",
+#         "host",
+#         "student",
+#         "title",
+#         "types",
+#         "content",
+#         "priority",
+#         "filename",
+#     )
 
 @admin.register(models.Counsel)
 class CounselAdmin(admin.ModelAdmin):
@@ -40,54 +40,54 @@ class CounselAdmin(admin.ModelAdmin):
         "detail",
     )
 
-@admin.register(models.HomeStay)
-class HomeStayAdmin(admin.ModelAdmin):
-
-    list_display = (
-        "student",
-        "memo",
-        "deadline",
-        "culture_adapt",
-        "culture_improve",
-        "rule_observe",
-        "rule_improve",
-        "arrange_per",
-        "arrange_improve",
-        "conversation_per",
-        "conversation_improve",
-        "timestrict_per",
-        "timestrict_improve",
-        "class_attendancy",
-        "class_attendancy_improve",
-        "filename",
-    )
-
-@admin.register(models.MonthlyReport)
-class MonthlyReportAdmin(admin.ModelAdmin):
-
-    list_display = (
-        "student_coordi",
-        "school_coordi",
-        "host_coordi",
-        "agency_branch_admin",
-        "counseler",
-        "host",
-        "form_homestay",
-        "student",
-        "memo",
-        "title",
-        "category",
-        "priority",
-        "status",
-        "to_parent",
-        "to_agency",
-        "admin_approve",
-        "student_coordi_at",
-        "school_coordi_at",
-        "host_coordi_at",
-        "deadline",
-        "filetype",
-    )
+# @admin.register(models.HomeStay)
+# class HomeStayAdmin(admin.ModelAdmin):
+#
+#     list_display = (
+#         "student",
+#         "memo",
+#         "deadline",
+#         "culture_adapt",
+#         "culture_improve",
+#         "rule_observe",
+#         "rule_improve",
+#         "arrange_per",
+#         "arrange_improve",
+#         "conversation_per",
+#         "conversation_improve",
+#         "timestrict_per",
+#         "timestrict_improve",
+#         "class_attendancy",
+#         "class_attendancy_improve",
+#         "filename",
+#     )
+#
+# @admin.register(models.MonthlyReport)
+# class MonthlyReportAdmin(admin.ModelAdmin):
+#
+#     list_display = (
+#         "student_coordi",
+#         "school_coordi",
+#         "host_coordi",
+#         "agency_branch_admin",
+#         "counseler",
+#         "host",
+#         "form_homestay",
+#         "student",
+#         "memo",
+#         "title",
+#         "category",
+#         "priority",
+#         "status",
+#         "to_parent",
+#         "to_agency",
+#         "admin_approve",
+#         "student_coordi_at",
+#         "school_coordi_at",
+#         "host_coordi_at",
+#         "deadline",
+#         "filetype",
+#     )
 
 
 @admin.register(models.Formality)

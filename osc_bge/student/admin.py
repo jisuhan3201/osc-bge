@@ -16,12 +16,9 @@ class ParentInfoAdmin(admin.ModelAdmin):
 class StudentAdmin(admin.ModelAdmin):
 
     list_display = (
-        "coordinator",
         "agency_admin",
-        "agency_branch_admin",
         "counseler",
         "school",
-        "host",
         "parent_info",
         "name",
         "gender",

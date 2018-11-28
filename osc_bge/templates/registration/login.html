@@ -1,0 +1,33 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% block content %}
+
+<div class="LoginPop">
+	<div class="Title"><img src="{% static 'img/logo.png'%}" /></div>
+	<div class="LoginTitle">Admission Team’s View</div>
+	<div class="Form">
+    <form method="POST">
+      {% csrf_token %}
+      <li><input type="text" name="username" class="Input" /></li>
+  		<li><input type="password" name="password" class="Input" /></li>
+  		<li>
+  			<button class="LoginButton" type="submit">
+  				<div class="Icon"><img src="{% static 'img/ico_login.png'%}" /></div>
+  				<div class="Text">MEMBER LOGIN</div>
+  			</button>
+  		</li>
+    </form>
+	</div>
+	<div class="Footter">
+	<a href="../login/forgotten.php">Problems logging in<br />
+	or forgotten your usename or password ?</a>
+	</div>
+</div>
+
+
+<div class="LoginContents">
+	<div class="VisualCover">&nbsp;</div>
+</div>
+<div class="BottomSet">Copyright © 2018, Boston Global Education, Inc.</div>
+
+{% endblock %}

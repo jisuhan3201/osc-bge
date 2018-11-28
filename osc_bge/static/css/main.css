@@ -57,10 +57,10 @@ background-image:url('../img/left_corner.png');background-position:left top;back
 .LoginPop .LoginTitle {padding:2px 25px 0px 25px;height:24px;
 font-size:13px;line-height:24px;color:rgba(255, 255, 255, 0.8);}
 .LoginPop .Form {padding:0px 18px;}
-.LoginPop .Form .Input {margin:2px 0px;padding:0px 10px;width:calc(100% - 22px);height:50px;
+.LoginPop .Form .Input {margin:2px 0px;padding:0px 10px;width:calc(100% - 20px);height:50px;
 font-size:16px;line-height:50px;color:#AAA;
 border-radius:3px;border:1px solid #FAFAFA;}
-.LoginPop .Form .LoginButton {margin:2px 0px;padding:11px 10px;width:calc(100% - 20px);height:30px;
+.LoginPop .Form .LoginButton {margin:2px 0px;padding:11px 10px;width:100%;
 font-size:16px;line-height:30px;
 background:#fba016;border-radius:3px;cursor:pointer;overflow:hidden;}
 .LoginPop .Form .LoginButton:hover {background:#FF6600;}
@@ -280,9 +280,9 @@ font-size:9px;line-height:18px;color:#999;}
 .ListCounter a {margin:0px 5px;}
 
 .ListSearch {margin:10px 0px;text-align:center;}
-.ListSearch div {display:inline-block;vertical-align:top;
+.ListSearch div {display:inline-block;vertical-align:middle;
 font-size:12px;}
-.ListSearch .Hspace {display:inline-block;vertical-align:top;padding:0px 5px;}
+.ListSearch .Hspace {display:inline-block;vertical-align:middle;padding:0px 5px;}
 .ListSearch .SearchInput {padding:0px 5px;height:30px;
 font-size:12px;font-weight:350;line-height:30px;border:1px solid #DDD;}
 .ListSearch .SearchSelect {padding:0px 5px;height:30px;

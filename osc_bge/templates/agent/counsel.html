@@ -25,17 +25,11 @@
 					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
 				</div><!-- InnerTab -->
 				<div class="InnerTabContents">
-					<li><a href="../school/" target="_BLANK">Saint John’s High School</a></li>
-					<li><a href="../school/" target="_BLANK">Saint Bernadette School</a></li>
-					<li><a href="../school/" target="_BLANK">Holy Name Catholic High School</a></li>
-					<li><a href="../school/" target="_BLANK">Lowell Catholic High School</a></li>
-					<li><a href="../school/" target="_BLANK">Saint Mary’s Schools of Worcester</a></li>
-					<li><a href="../school/" target="_BLANK">Whitinsville Christian High School</a></li>
-					<li><a href="../school/" target="_BLANK">Archbishop Williams High School</a></li>
-					<li><a href="../school/" target="_BLANK">Arlington Catholic High School</a></li>
-					<li><a href="../school/" target="_BLANK">Boston Trinity Academy</a></li>
-					<li><a href="../school/" target="_BLANK">Bradford Christian Academy</a></li>
-					<li><a href="../school/" target="_BLANK">Holy Family Academy</a></li>
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'ma' %}
+							<li><a href="/school/secondary/{{secondary.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts ID:InnerTab0101 -->
 
@@ -52,10 +46,11 @@
 					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
 				</div><!-- InnerTab -->
 				<div class="InnerTabContents">
-					<li><a href="../school/" target="_BLANK">Marian High School</a></li>
-					<li><a href="../school/" target="_BLANK">Pioneer Valley Christian Academy</a></li>
-					<li><a href="../school/" target="_BLANK">Saint Bernard Central High School</a></li>
-					<li><a href="../school/" target="_BLANK">St. John’s Preparatory School</a></li>
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'ct' %}
+							<li><a href="/school/secondary/{{secondary.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts ID:InnerTab0102 -->
 
@@ -72,8 +67,11 @@
 					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
 				</div><!-- InnerTab -->
 				<div class="InnerTabContents">
-					<li><a href="../school/" target="_BLANK">St. Joseph School</a></li>
-					<li><a href="../school/" target="_BLANK">Saint Joseph Preparatory High School</a></li>
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'nj' %}
+							<li><a href="/school/secondary/{{secondary.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts ID:InnerTab0103 -->
 
@@ -90,7 +88,11 @@
 					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
 				</div><!-- InnerTab -->
 				<div class="InnerTabContents">
-					<li><a href="../school/" target="_BLANK">Saint Peter-Marian High School</a></li>
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'fa' %}
+							<li><a href="/school/secondary/{{secondary.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts ID:InnerTab0104 -->
 
@@ -107,8 +109,11 @@
 					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
 				</div><!-- InnerTab -->
 				<div class="InnerTabContents">
-					<li><a href="../school/" target="_BLANK">The Newman School</a></li>
-					<li><a href="../school/" target="_BLANK">Trivium School</a></li>
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'dc' %}
+							<li><a href="/school/secondary/{{secondary.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts ID:InnerTab0105 -->
 
@@ -125,10 +130,11 @@
 					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
 				</div><!-- InnerTab -->
 				<div class="InnerTabContents">
-					<li><a href="../school/" target="_BLANK">Marian High School</a></li>
-					<li><a href="../school/" target="_BLANK">Pioneer Valley Christian Academy</a></li>
-					<li><a href="../school/" target="_BLANK">Saint Bernard Central High School</a></li>
-					<li><a href="../school/" target="_BLANK">St. John’s Preparatory School</a></li>
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'ca' %}
+							<li><a href="/school/secondary/{{secondary.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts ID:InnerTab0106 -->
 
@@ -145,8 +151,11 @@
 					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
 				</div><!-- InnerTab -->
 				<div class="InnerTabContents">
-					<li><a href="../school/" target="_BLANK">St. Joseph School</a></li>
-					<li><a href="../school/" target="_BLANK">Saint Joseph Preparatory High School</a></li>
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'fl' %}
+							<li><a href="/school/secondary/{{secondary.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts ID:InnerTab0107 -->
 
@@ -163,7 +172,11 @@
 					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
 				</div><!-- InnerTab -->
 				<div class="InnerTabContents">
-					<li><a href="../school/" target="_BLANK">Saint Peter-Marian High School</a></li>
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'tx' %}
+							<li><a href="/school/secondary/{{secondary.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts ID:InnerTab0108 -->
 
@@ -180,8 +193,11 @@
 					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC OnETC">OTHERS</div>
 				</div><!-- InnerTab -->
 				<div class="InnerTabContents">
-					<li><a href="../school/" target="_BLANK">The Newman School</a></li>
-					<li><a href="../school/" target="_BLANK">Trivium School</a></li>
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'others' %}
+							<li><a href="/school/secondary/{{secondary.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts ID:InnerTab0109 -->
 		</div><!-- LeftTab ID:LeftTab01 -->
@@ -200,9 +216,11 @@
 				</div><!-- InnerTab -->
 				<div class="USAMap"><img src="../img/usa.png" /></div>
 				<div class="InnerTabContents">
-					<li><a href="../college/" target="_BLANK">Saint John’s College</a></li>
-					<li><a href="../college/" target="_BLANK">Saint Bernadette College</a></li>
-					<li><a href="../college/" target="_BLANK">Holy Name Catholic College</a></li>
+					{% for college in colleges %}
+						{% if college.location == 'ne' %}
+							<li><a href="/school/college/{{college.id}}" target="_BLANK">{{college.school}}</a></li>
+						{% endif %}
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts ID:InnerTab0101 -->
 
@@ -215,10 +233,11 @@
 				</div><!-- InnerTab -->
 				<div class="USAMap"><img src="../img/usa.png" /></div>
 				<div class="InnerTabContents">
-					<li><a href="../college/" target="_BLANK">Lowell Catholic College</a></li>
-					<li><a href="../college/" target="_BLANK">Saint Mary’s College of Worcester</a></li>
-					<li><a href="../college/" target="_BLANK">Whitinsville Christian College</a></li>
-					<li><a href="../college/" target="_BLANK">Archbishop Williams College</a></li>
+					{% for college in colleges %}
+						{% if college.location == 'se' %}
+							<li><a href="/school/college/{{college.id}}" target="_BLANK">{{college.school}}</a></li>
+						{% endif %}
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts ID:InnerTab0102 -->
 
@@ -231,10 +250,11 @@
 				</div><!-- InnerTab -->
 				<div class="USAMap"><img src="../img/usa.png" /></div>
 				<div class="InnerTabContents">
-					<li><a href="../college/" target="_BLANK">Arlington Catholic College</a></li>
-					<li><a href="../college/" target="_BLANK">Boston Trinity College</a></li>
-					<li><a href="../college/" target="_BLANK">Bradford Christian College</a></li>
-					<li><a href="../college/" target="_BLANK">Holy Family College</a></li>
+					{% for college in colleges %}
+						{% if college.location == 'mw' %}
+							<li><a href="/school/college/{{college.id}}" target="_BLANK">{{college.school}}</a></li>
+						{% endif %}
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts ID:InnerTab0103 -->
 
@@ -247,10 +267,11 @@
 				</div><!-- InnerTab -->
 				<div class="USAMap"><img src="../img/usa.png" /></div>
 				<div class="InnerTabContents">
-					<li><a href="../college/" target="_BLANK">Arlington Catholic College</a></li>
-					<li><a href="../college/" target="_BLANK">Boston Trinity College</a></li>
-					<li><a href="../college/" target="_BLANK">Bradford Christian College</a></li>
-					<li><a href="../college/" target="_BLANK">Holy Family College</a></li>
+					{% for college in colleges %}
+						{% if college.location == 'w' %}				
+							<li><a href="/school/college/{{college.id}}" target="_BLANK">{{college.school}}</a></li>
+						{% endif %}
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts ID:InnerTab0104 -->
 		</div><!-- LeftTab ID:LeftTab02 -->

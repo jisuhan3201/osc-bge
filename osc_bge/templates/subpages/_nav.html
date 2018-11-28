@@ -8,7 +8,9 @@
 	<div class="Logo"><img src="{% static 'img/m_logo.png' %}"/></div>
 	<div class="Menu">
 		<!-- Agent Branch Manager Start-->
+    {% if user.type == 'agency_admin' %}
 		<a href="/agent/statistics">Agent Statistics</a>
+    {% endif %}
 		<!-- Agent Branch Manager End-->
 		<a href="/agent/counsel">Counseling</a>
 		<a href="/agent/prospective">Prospective Students</a>
@@ -23,8 +25,12 @@
       <div class="FaceOn" style="background-image:url('{% static 'img/no_user.png' %}');">&nbsp;</div>
     {% endif %}
     <div class="NameSet">
-			<li class="Name">{{ user.first_name }} {{ user.last_name }}(counselor)</li>
-			<li class="Rank">{{ user.counseler.agency.agency.name }} / {{ user.counseler.agency_branch.agency_branch.name }}</li>
+			<li class="Name">{{ user.first_name }} {{ user.last_name }} ( {{user.type|capfirst}} )</li>
+      {% if user.type == 'counseler' %}
+			<li class="Rank">{{ user.counseler.agency.name }} / {{ user.counseler.agency.branch }}</li>
+      {% elif user.type == 'agency_admin' %}
+      <li class="Rank">{{ user.agency_admin.agency.name }} / {{ user.agency_admin.agency.branch }}</li>
+      {% endif %}
 		</div>
 	</div>
 	<div class="Logout" OnClick="document.location.href='../';"><img src="{% static 'img/ico_logout.png' %}"/></div>

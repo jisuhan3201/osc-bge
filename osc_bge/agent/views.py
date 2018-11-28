@@ -4,6 +4,8 @@ from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.views import View
 from django.db.models import Q
 from django.core import serializers
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from . import models, forms
 from osc_bge.users import models as user_models
 from osc_bge.form import models as form_models
@@ -13,39 +15,223 @@ from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 import json
 from decimal import Decimal
-from datetime import datetime
+from datetime import datetime, date
 
 
-class StatisticsView(View):
+class StatisticsView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
 
     def get(self, request):
 
-        # Not Done!! counselers query by branch
-        counselers = user_models.Counseler.objects.all()
+        user = request.user
+        if user.type != "agency_admin":
+            return HttpResponse(status=401)
+
+        try:
+            agency_admin = user_models.AgencyAdminUser.objects.get(user=user)
+            agency = agency_admin.agency
+        except user_models.AgencyAdminUser.DoesNotExist:
+            return HttpResponse(status=401)
+
+        # 1st section statistics
+
+        total_counsel = 0
+        total_registered = 0
+        total_secondary = 0
+        total_college = 0
+        total_camp = 0
+        total_us_count = 0
+        total_ca_count = 0
+        total_uk_count = 0
+        total_au_count = 0
+        total_nz_count = 0
+
+        # 2nd Section statistics
+        monthly_data = {}
+        past_date_range = []
+        past_date_first = []
+
+        if self.request.GET.get('past_months'):
+
+            today = date.today()
+            past_months = int(self.request.GET.get('past_months'))
+
+            for number in range(0, past_months+1):
+
+                sd = today - relativedelta(months=number)
+                ed = today - relativedelta(months=number-1)
+
+                past_start_date = date(sd.year, sd.month, 1)
+                past_end_date = date(ed.year, ed.month, 1) - relativedelta(days=1)
+                past_date_range.append([past_start_date, past_end_date])
+                past_date_first.append(past_start_date)
+
+        counselers = user_models.Counseler.objects.filter(agency=agency)
         for counseler in counselers:
 
-            formality_count = form_models.Formality.objects.filter(counsel__counseler=counseler).count()
+            # For 1st Section statistics
+            query_start_date = self.request.GET.get('start_date', None)
+            query_end_date = self.request.GET.get('end_date', None)
+            if query_start_date or query_end_date:
+                found_counsels = form_models.Counsel.objects.filter(counseler=counseler).filter(
+                    created_at__range=(query_start_date, query_end_date))
+                found_formalities = form_models.Formality.objects.filter(counsel__counseler=counseler).filter(
+                    counsel__created_at__range=(query_start_date, query_end_date))
+            else:
+                found_counsels = form_models.Counsel.objects.filter(counseler=counseler)
+                found_formalities = form_models.Formality.objects.filter(counsel__counseler=counseler)
+
+            # For 2nd Section statistics
+            if past_date_range:
+
+                data_list = []
+
+                for date_range in past_date_range:
+                    data_dict = {}
+                    date_first = date_range[0]
+                    monthly_counsels = form_models.Counsel.objects.filter(counseler=counseler).filter(
+                        created_at__range=(date_range[0], date_range[1]))
+                    monthly_formality_count = form_models.Formality.objects.filter(counsel__counseler=counseler).filter(
+                        counsel__created_at__range=(date_range[0], date_range[1])).count()
+                    if request.GET.get('school_type'):
+                        monthly_counsels = monthly_counsels.filter(program_interested=request.GET.get('school_type'))
+                        monthly_formality_count = form_models.Formality.objects.filter(counsel__counseler=counseler).filter(
+                        counsel__created_at__range=(date_range[0], date_range[1])).filter(
+                        counsel__program_interested=request.GET.get('school_type')).count()
+                    monthly_counsels_count = monthly_counsels.count()
+                    try:
+                        monthly_success_rate = int(monthly_formality_count * 100 / monthly_counsels_count)
+                    except ZeroDivisionError:
+                        monthly_success_rate = 0
+                    data_dict.update({
+                        'date_first':date_first,
+                        'monthly_counsels_count':monthly_counsels_count,
+                        'monthly_formality_count':monthly_formality_count,
+                        'monthly_success_rate':monthly_success_rate,
+                    })
+                    data_list.append(data_dict)
+
+                counseler_fullname = counseler.user.first_name + " " + counseler.user.last_name
+                monthly_data.update({counseler_fullname:data_list})
+
+            counsel_count = found_counsels.count()
+            total_counsel += counsel_count
+            formality_count = found_formalities.count()
+            total_registered += formality_count
 
             try:
-                apply_percentage = formality_count * 100 / counseler.counsel_count
+                apply_percentage = formality_count * 100 / counsel_count
                 apply_percentage = int(apply_percentage)
             except ZeroDivisionError:
                 apply_percentage = 0
 
+            secondary_count = 0
+            college_count = 0
+            camp_count = 0
+            us_count = 0
+            ca_count = 0
+            uk_count = 0
+            au_count = 0
+            nz_count = 0
+
+            for counsel in found_counsels:
+
+                if counsel.program_interested == 'k12':
+                    secondary_count += 1
+                elif counsel.program_interested == 'college':
+                    college_count += 1
+                elif counsel.program_interested == 'camp':
+                    camp_count += 1
+                else:
+                    continue
+
+                if counsel.desire_country == 'us':
+                    us_count += 1
+                elif counsel.desire_country == 'ca':
+                    ca_count += 1
+                elif counsel.desire_country == 'uk':
+                    uk_count += 1
+                elif counsel.desire_country == 'au':
+                    au_count += 1
+                elif counsel.desire_country == 'nz':
+                    nz_count += 1
+                else:
+                    continue
+
+            counseler.counsel_count = counsel_count
             counseler.formality_count = formality_count
             counseler.apply_percentage = apply_percentage
+            counseler.secondary = secondary_count
+            counseler.college = college_count
+            counseler.camp = camp_count
+            counseler.us_count = us_count
+            counseler.ca_count = ca_count
+            counseler.uk_count = uk_count
+            counseler.au_count = au_count
+            counseler.nz_count = nz_count
             counseler.save()
 
-        return render(request, 'agent/statistics.html', {"counselers":counselers})
+            total_secondary += secondary_count
+            total_college += college_count
+            total_camp += camp_count
+            total_us_count += us_count
+            total_ca_count += ca_count
+            total_uk_count += uk_count
+            total_au_count += au_count
+            total_nz_count += nz_count
 
-class CounselView(View):
+
+        total_success_rate = int(total_registered * 100 / total_counsel)
+
+        # Make range of months for templates
+        template_date_range = []
+        today = date.today()
+        for number in range(0, 13):
+
+            sd = today - relativedelta(months=number)
+            ed = today - relativedelta(months=number-1)
+
+            past_start_date = date(sd.year, sd.month, 1)
+            past_end_date = date(ed.year, ed.month, 1) - relativedelta(days=1)
+            template_date_range.append([past_start_date, past_end_date])
+
+
+        return render(request, 'agent/statistics.html', {
+            "counselers":counselers,
+            'total_counsel':total_counsel,
+            'total_registered':total_registered,
+            'total_success_rate':total_success_rate,
+            'total_secondary':total_secondary,
+            'total_college':total_college,
+            'total_camp':total_camp,
+            'total_us_count':total_us_count,
+            'total_ca_count':total_ca_count,
+            'total_uk_count':total_uk_count,
+            'total_au_count':total_au_count,
+            'total_nz_count':total_nz_count,
+            'monthly_data':monthly_data,
+            'past_date_first':past_date_first,
+            'template_date_range':template_date_range,
+        })
+
+class CounselView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
 
     def get(self, request):
 
-        return render(request, 'agent/counsel.html', {})
+        secondaries = school_models.Secondary.objects.all()
+        colleges = school_models.College.objects.all()
+
+        return render(request, 'agent/counsel.html',
+            {
+                "secondaries":secondaries,
+                "colleges":colleges,
+            }
+        )
 
 
-class CustomerRegisterView(View):
+class CustomerRegisterView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
 
     def get_counseler(self):
 
@@ -231,7 +417,8 @@ class CustomerRegisterView(View):
         return redirect('/agent/prospective')
 
 
-class ProspectiveView(View):
+class ProspectiveView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
 
     def get_counseler(self):
 
@@ -302,7 +489,8 @@ class ProspectiveView(View):
         return render(request, 'agent/prospective.html', {"data":counsels})
 
 
-class ApplicationRegisterView(View):
+class ApplicationRegisterView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
 
     def get_counseler(self):
 
@@ -507,7 +695,8 @@ class ApplicationRegisterView(View):
         return redirect('/agent/process')
 
 
-class ProcessView(View):
+class ProcessView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
 
     def get_counseler(self):
 
@@ -601,7 +790,8 @@ class ProcessView(View):
         )
 
 
-class ProcessApplyView(View):
+class ProcessApplyView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
 
     def get_counseler(self):
 
@@ -1024,6 +1214,7 @@ class ProcessApplyView(View):
 
 
 # Have to solve
+@login_required(login_url='/accounts/login/')
 def upload_files(request, formality_id):
     print(1)
     try:
@@ -1065,7 +1256,7 @@ def upload_files(request, formality_id):
         return HttpResponse(status=400)
 
 
-
+@login_required(login_url='/accounts/login/')
 def load_states(request):
 
     country = request.GET.get('country')
@@ -1079,6 +1270,8 @@ def load_states(request):
 
     return HttpResponse(result, content_type="application/json")
 
+
+@login_required(login_url='/accounts/login/')
 def load_schools(request):
 
     state = request.GET.get('state')

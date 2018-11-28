@@ -37,6 +37,7 @@ django-countries = "*"
 django-seed = "*"
 django-bootstrap-datepicker-plus = "*"
 "django-bootstrap4" = "*"
+awsebcli = "*"
 
 [requires]
 python_version = "3.6"

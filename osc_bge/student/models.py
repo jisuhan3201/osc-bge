@@ -35,12 +35,9 @@ class Student(TimeStampedModel):
         ('registered', 'Registered'),
     )
 
-    coordinator = models.ForeignKey(user_models.BgeBranchCoordinator, on_delete=models.SET_NULL, null=True)
     agency_admin = models.ForeignKey(user_models.AgencyAdminUser, on_delete=models.SET_NULL, null=True)
-    agency_branch_admin = models.ForeignKey(user_models.AgencyBranchAdminUser, on_delete=models.SET_NULL, null=True)
     counseler = models.ForeignKey(user_models.Counseler, on_delete=models.SET_NULL, null=True)
     school = models.ForeignKey(school_models.School, on_delete=models.SET_NULL, null=True)
-    host = models.ForeignKey(user_models.Host, on_delete=models.SET_NULL, null=True)
     parent_info = models.ForeignKey(ParentInfo, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=80, null=True)
     gender = models.CharField(max_length=80, choices=GENDER_CHOICES, null=True)

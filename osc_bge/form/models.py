@@ -17,25 +17,24 @@ class TimeStampedModel(models.Model):
         abstract = True
 
 
-class Memo(TimeStampedModel):
-
-    bge = models.ForeignKey(user_models.BgeAdminUser, on_delete=models.SET_NULL, null=True, blank=True)
-    branch_admin = models.ForeignKey(user_models.BgeBranchAdminUser, on_delete=models.SET_NULL, null=True, blank=True)
-    coordinator = models.ForeignKey(user_models.BgeBranchCoordinator, on_delete=models.SET_NULL, null=True, blank=True)
-    agency_admin = models.ForeignKey(user_models.AgencyAdminUser, on_delete=models.SET_NULL, null=True, blank=True)
-    agency_branch_admin = models.ForeignKey(user_models.AgencyBranchAdminUser, on_delete=models.SET_NULL, null=True, blank=True)
-    counseler = models.ForeignKey(user_models.Counseler, on_delete=models.SET_NULL, null=True, blank=True)
-    school = models.ForeignKey(school_models.School, on_delete=models.SET_NULL, null=True, blank=True)
-    host = models.ForeignKey(user_models.Host, on_delete=models.SET_NULL, null=True, blank=True)
-    student = models.ForeignKey(student_models.Student, on_delete=models.SET_NULL, null=True, blank=True)
-    title = models.CharField(max_length=255, null=True)
-    types = models.CharField(max_length=255, null=True, blank=True)
-    content = models.TextField(null=True, blank=True)
-    priority = models.CharField(max_length=255, null=True, blank=True)
-    filename = models.CharField(max_length=255, null=True, blank=True)
-
-    def __str__(self):
-        return "{}".format(self.title)
+# class Memo(TimeStampedModel):
+#
+#     bge = models.ForeignKey(user_models.BgeAdminUser, on_delete=models.SET_NULL, null=True, blank=True)
+#     branch_admin = models.ForeignKey(user_models.BgeBranchAdminUser, on_delete=models.SET_NULL, null=True, blank=True)
+#     coordinator = models.ForeignKey(user_models.BgeBranchCoordinator, on_delete=models.SET_NULL, null=True, blank=True)
+#     agency_admin = models.ForeignKey(user_models.AgencyAdminUser, on_delete=models.SET_NULL, null=True, blank=True)
+#     counseler = models.ForeignKey(user_models.Counseler, on_delete=models.SET_NULL, null=True, blank=True)
+#     school = models.ForeignKey(school_models.School, on_delete=models.SET_NULL, null=True, blank=True)
+#     host = models.ForeignKey(user_models.Host, on_delete=models.SET_NULL, null=True, blank=True)
+#     student = models.ForeignKey(student_models.Student, on_delete=models.SET_NULL, null=True, blank=True)
+#     title = models.CharField(max_length=255, null=True)
+#     types = models.CharField(max_length=255, null=True, blank=True)
+#     content = models.TextField(null=True, blank=True)
+#     priority = models.CharField(max_length=255, null=True, blank=True)
+#     filename = models.CharField(max_length=255, null=True, blank=True)
+#
+#     def __str__(self):
+#         return "{}".format(self.title)
 
 
 class Counsel(TimeStampedModel):
@@ -73,55 +72,54 @@ class Counsel(TimeStampedModel):
         ordering = ['-created_at']
 
 
-class HomeStay(TimeStampedModel):
+# class HomeStay(TimeStampedModel):
+#
+#     student = models.ForeignKey(student_models.Student, on_delete=models.SET_NULL, null=True, blank=True)
+#     memo = models.ForeignKey(Memo, on_delete=models.SET_NULL, null=True, blank=True)
+#     deadline = models.DateTimeField(null=True, blank=True)
+#     culture_adapt = models.IntegerField(null=True, blank=True)
+#     culture_improve = models.TextField(null=True, blank=True)
+#     rule_observe = models.IntegerField(null=True, blank=True)
+#     rule_improve = models.TextField(null=True, blank=True)
+#     arrange_per = models.IntegerField(null=True, blank=True)
+#     arrange_improve = models.TextField(null=True, blank=True)
+#     conversation_per = models.IntegerField(null=True, blank=True)
+#     conversation_improve = models.TextField(null=True, blank=True)
+#     timestrict_per = models.IntegerField(null=True, blank=True)
+#     timestrict_improve = models.TextField(null=True, blank=True)
+#     class_attendancy = models.IntegerField(null=True, blank=True)
+#     class_attendancy_improve = models.TextField(null=True, blank=True)
+#     filename = models.CharField(max_length=255, null=True, blank=True)
+#
+#     def __str__(self):
+#         return "{}".format(self.student)
 
-    student = models.ForeignKey(student_models.Student, on_delete=models.SET_NULL, null=True, blank=True)
-    memo = models.ForeignKey(Memo, on_delete=models.SET_NULL, null=True, blank=True)
-    deadline = models.DateTimeField(null=True, blank=True)
-    culture_adapt = models.IntegerField(null=True, blank=True)
-    culture_improve = models.TextField(null=True, blank=True)
-    rule_observe = models.IntegerField(null=True, blank=True)
-    rule_improve = models.TextField(null=True, blank=True)
-    arrange_per = models.IntegerField(null=True, blank=True)
-    arrange_improve = models.TextField(null=True, blank=True)
-    conversation_per = models.IntegerField(null=True, blank=True)
-    conversation_improve = models.TextField(null=True, blank=True)
-    timestrict_per = models.IntegerField(null=True, blank=True)
-    timestrict_improve = models.TextField(null=True, blank=True)
-    class_attendancy = models.IntegerField(null=True, blank=True)
-    class_attendancy_improve = models.TextField(null=True, blank=True)
-    filename = models.CharField(max_length=255, null=True, blank=True)
 
-    def __str__(self):
-        return "{}".format(self.student)
-
-
-class MonthlyReport(TimeStampedModel):
-
-    student_coordi = models.ForeignKey(user_models.BgeBranchCoordinator, on_delete=models.SET_NULL, related_name="student_coordi", null=True, blank=True)
-    school_coordi = models.ForeignKey(user_models.BgeBranchCoordinator, on_delete=models.SET_NULL, related_name="school_coordi", null=True, blank=True)
-    host_coordi = models.ForeignKey(user_models.BgeBranchCoordinator, on_delete=models.SET_NULL, related_name="host_coordi", null=True, blank=True)
-    agency_branch_admin = models.ForeignKey(user_models.AgencyBranchAdminUser, related_name="agency_branch_admin", on_delete=models.SET_NULL, null=True, blank=True)
-    counseler = models.ForeignKey(user_models.Counseler, on_delete=models.SET_NULL, related_name="counseler", null=True, blank=True)
-    host = models.ForeignKey(user_models.Host, on_delete=models.SET_NULL, related_name="host", null=True, blank=True)
-    form_homestay = models.ForeignKey(HomeStay, on_delete=models.SET_NULL, null=True, blank=True)
-    student = models.ForeignKey(student_models.Student, on_delete=models.SET_NULL, null=True, blank=True)
-    memo = models.ForeignKey(Memo, on_delete=models.SET_NULL, null=True, blank=True)
-    title = models.CharField(max_length=255, null=True)
-    category = models.CharField(max_length=255, null=True)
-    priority = models.CharField(max_length=255, null=True)
-    status = models.CharField(max_length=255, null=True)
-    to_parent = models.DateTimeField(null=True)
-    to_agency = models.DateTimeField(null=True)
-    admin_approve = models.DateTimeField(null=True)
-    student_coordi_at = models.DateTimeField(null=True)
-    school_coordi_at = models.DateTimeField(null=True)
-    host_coordi_at = models.DateTimeField(null=True)
-    deadline = models.DateTimeField(null=True)
-    filetype = models.CharField(max_length=255, null=True)
-
-    def __str__(self):
-        return "{}".format(self.title)
+# class MonthlyReport(TimeStampedModel):
+#
+#     student_coordi = models.ForeignKey(user_models.BgeBranchCoordinator, on_delete=models.SET_NULL, related_name="student_coordi", null=True, blank=True)
+#     school_coordi = models.ForeignKey(user_models.BgeBranchCoordinator, on_delete=models.SET_NULL, related_name="school_coordi", null=True, blank=True)
+#     host_coordi = models.ForeignKey(user_models.BgeBranchCoordinator, on_delete=models.SET_NULL, related_name="host_coordi", null=True, blank=True)
+#     counseler = models.ForeignKey(user_models.Counseler, on_delete=models.SET_NULL, related_name="counseler", null=True, blank=True)
+#     host = models.ForeignKey(user_models.Host, on_delete=models.SET_NULL, related_name="host", null=True, blank=True)
+#     form_homestay = models.ForeignKey(HomeStay, on_delete=models.SET_NULL, null=True, blank=True)
+#     student = models.ForeignKey(student_models.Student, on_delete=models.SET_NULL, null=True, blank=True)
+#     memo = models.ForeignKey(Memo, on_delete=models.SET_NULL, null=True, blank=True)
+#     title = models.CharField(max_length=255, null=True)
+#     category = models.CharField(max_length=255, null=True)
+#     priority = models.CharField(max_length=255, null=True)
+#     status = models.CharField(max_length=255, null=True)
+#     to_parent = models.DateTimeField(null=True)
+#     to_agency = models.DateTimeField(null=True)
+#     admin_approve = models.DateTimeField(null=True)
+#     student_coordi_at = models.DateTimeField(null=True)
+#     school_coordi_at = models.DateTimeField(null=True)
+#     host_coordi_at = models.DateTimeField(null=True)
+#     deadline = models.DateTimeField(null=True)
+#     filetype = models.CharField(max_length=255, null=True)
+#
+#     def __str__(self):
+#         return "{}".format(self.title)
 
 
 class Formality(TimeStampedModel):
