@@ -1,0 +1,558 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+#PopRegistReview {display:none;}
+</style>
+<div class="PopCover" id="PopRegistReview">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopRegistReview').style.display='none';">X</div>
+			<div class="Title">Review Regist</div>
+		</div>
+		<div class="Contents">
+
+
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="110">
+						<col>
+					</colgroup>
+					<tr>
+						<th>Name : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" size="24" value="" />
+						</td>
+					</tr>
+					<tr>
+						<th>Grade : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" size="10" value="" />
+						</td>
+					</tr>
+					<tr>
+						<th>School : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" size="10" value="" />
+						</td>
+					</tr>
+					<tr>
+						<th>Home City : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" size="10" value="" />
+						</td>
+					</tr>
+					<tr>
+						<th>Comment : </th>
+						<td class="InnerInputTD">
+							<textarea class="TableInnerTextarea"></textarea>
+						</td>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopRegistReview').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopRegistReview').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+<style>
+#PopRegistGraduateProfile {display:none;}
+</style>
+<div class="PopCover" id="PopRegistGraduateProfile">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopRegistGraduateProfile').style.display='none';">X</div>
+			<div class="Title">Regist Graduate Profile</div>
+		</div>
+		<div class="Contents">
+
+
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="110">
+						<col>
+						<col width="110">
+						<col>
+					</colgroup>
+					<tr>
+						<th>Name : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
+						</td>
+						<th>Years Attended : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
+						</td>
+					</tr>
+					<tr>
+						<th>Initial English : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
+						</td>
+						<th>GPA in China : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
+						</td>
+					</tr>
+					<tr>
+						<th>TOEFL : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
+						</td>
+						<th>GPA : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
+						</td>
+					</tr>
+					<tr>
+						<th>SAT / ACT : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
+						</td>
+						<th>Activities : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
+						</td>
+					</tr>
+					<tr>
+						<th>College : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
+						</td>
+						<th>Major : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput"  style="width:calc(100% - 10px);" value="" />
+						</td>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopRegistGraduateProfile').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopRegistGraduateProfile').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+<?php include('../inc/_top.php'); ?>
+<div class="ContentsFrame">
+	<div class="LeftFrame" id="LeftF">
+		<div class="SectionTitle">SECONDARY SCHOOLS</div>
+		<div class="LeftTab" id="LeftTab01">
+			<div class="TabConternts" id="InnerTab0101">
+				<div class="InnerTabContents">
+					<li><a href="/school/secondary/test">Saint John’s High School</a></li>
+					<li><a href="/school/secondary/test">Saint Bernadette School</a></li>
+					<li><a href="/school/secondary/test">Holy Name Catholic High School</a></li>
+					<li><a href="/school/secondary/test">Lowell Catholic High School</a></li>
+					<li><a href="/school/secondary/test">Saint Mary’s Schools of Worcester</a></li>
+					<li><a href="/school/secondary/test">Whitinsville Christian High School</a></li>
+					<li><a href="/school/secondary/test">Archbishop Williams High School</a></li>
+					<li><a href="/school/secondary/test">Arlington Catholic High School</a></li>
+					<li><a href="/school/secondary/test">Boston Trinity Academy</a></li>
+					<li><a href="/school/secondary/test">Bradford Christian Academy</a></li>
+					<li><a href="/school/secondary/test">Holy Family Academy</a></li>
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0101 -->
+
+		</div><!-- LeftTab ID:LeftTab01 -->
+
+
+					<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/school/secondary/test" class="IsolationButton">+ &nbsp; Add New School</a>
+
+
+
+	</div><!-- LeftFrame -->
+	<script>
+
+
+
+
+	function TabOpen(TabName) {
+	document.getElementById('LeftTab01').style.display='none';
+	document.getElementById('LeftTab02').style.display='none';
+
+	document.getElementById(TabName).style.display='block';
+	}
+
+	function PageOpen(PageName) {
+	document.getElementById('CollegeTab').style.display='none';
+	document.getElementById('SchoolTab').style.display='none';
+
+	document.getElementById(PageName).style.display='block';
+	}
+
+
+
+	function InnerTabOpen01(TabName) {
+	document.getElementById('InnerTab0101').style.display='none';
+	document.getElementById('InnerTab0102').style.display='none';
+	document.getElementById('InnerTab0103').style.display='none';
+	document.getElementById('InnerTab0104').style.display='none';
+	document.getElementById('InnerTab0105').style.display='none';
+	document.getElementById('InnerTab0106').style.display='none';
+	document.getElementById('InnerTab0107').style.display='none';
+	document.getElementById('InnerTab0108').style.display='none';
+	document.getElementById('InnerTab0109').style.display='none';
+
+	document.getElementById(TabName).style.display='block';
+	}
+
+
+	function InnerTabOpen02(TabName) {
+	document.getElementById('InnerTab0201').style.display='none';
+	document.getElementById('InnerTab0202').style.display='none';
+	document.getElementById('InnerTab0203').style.display='none';
+	document.getElementById('InnerTab0204').style.display='none';
+
+	document.getElementById(TabName).style.display='block';
+	}
+
+
+	</script>
+
+
+
+
+
+
+
+	<div class="MainFrame" id="MainF">
+		<div class="PTitle">Saint Peter-Marian High School <span>School Profile Update</span></div>
+
+		<!-- 등록일 경우
+		<div class="PTitle">School Profile Regist</div>
+		-->
+
+		<div class="MTitle">School information</div>
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="160">
+					<col>
+					<col width="160">
+					<col>
+				</colgroup>
+				<tr>
+					<th>School Name : </th>
+					<td class="InnerInputTD" colspan="3"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="Saint Peter-Marian High School" /></td>
+				</tr>
+				<tr>
+					<th>School Main Photo  : </th>
+					<td class="InnerInputTD" colspan="3"><input type="file" class="TableInnerInput" value="" /><br />
+					<label>
+					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA8hCGZ69G52M0EThs-5dHEQr223RDgzasznLuBOxs4RG1cRyo" class="SchoolThumbnail" />
+					<input type="checkbox" /><span></span>delete</label>
+					</td>
+				</tr>
+				<tr>
+					<th>Additional Photos  : </th>
+					<td class="InnerInputTD" colspan="3"><input type="file" class="TableInnerInput" value="" /><br />
+					<label>
+					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFjzv6eTle07KVFV2LHOFEM7oLaaMdAlV-_Hsi_vuSYFXsn4ZiqA" class="SchoolThumbnail" />
+					<input type="checkbox" /><span></span>delete</label>
+					<label>
+					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxtqgQZqXLlAJcmsa3GLZRf-6VeiLozvHCVUCRLX4VGzRFwlA9" class="SchoolThumbnail" />
+					<input type="checkbox" /><span></span>delete</label>
+					<label>
+					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7N_WDVOvf430oABcLznBMit__Jc1WFMqlc5vueHWb19v1N3yB" class="SchoolThumbnail" />
+					<input type="checkbox" /><span></span>delete</label>
+					</td>
+				</tr>
+				<tr>
+					<th>Partnership : </th>
+					<td>
+						<label><input type="radio" /><span></span>Yes</label>
+						<label><input type="radio" /><span></span>No</label>
+					</td>
+					<th>Provider : </th>
+					<td>
+						<label><input type="radio" /><span></span>BGE</label>
+						<label><input type="radio" /><span></span>Other Providers</label>
+					</td>
+				</tr>
+				<tr>
+					<th>Provider Branch : </th>
+					<td class="InnerInputTD" colspan="3"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="ex. BGE Boston  / NA" /></td>
+				</tr>
+				<tr>
+					<th>Admission Coordinator  : </th>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+					<th>School Coordinator  : </th>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+				</tr>
+				<tr>
+					<th>(Enroll) Term  : </th>
+					<td>
+						<label><input type="checkbox" /><span></span>Fall</label>
+						<label><input type="checkbox" /><span></span>Spring</label>
+					</td>
+					<th>(Accepting) Transfer  : </th>
+					<td>
+						<label><input type="radio" /><span></span>Yes</label>
+						<label><input type="radio" /><span></span>No</label>
+					</td>
+				</tr>
+				<tr>
+					<th>(Serving) Grades  : </th>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+					<th>Accepting 12th Grade  : </th>
+					<td>
+						<label><input type="radio" /><span></span>Yes</label>
+						<label><input type="radio" /><span></span>No</label>
+					</td>
+				</tr>
+				<tr>
+					<th>Application Fee : </th>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+					<th>Program Fee  : </th>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+				</tr>
+				<tr>
+					<th>Admission Requirements : </th>
+					<td class="InnerInputTD" colspan="3"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>Admission DocumentsList : </th>
+					<td class="InnerInputTD" colspan="3"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>Selling Points(Both English & Chinese) : </th>
+					<td class="InnerInputTD" colspan="3"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>Location : </th>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="City, State" /></td>
+					<th>Address : </th>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="Complete  Address" /></td>
+				</tr>
+				<tr>
+					<th>Area Description : </th>
+					<td class="InnerInputTD" colspan="3"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="ex. suburban residential area" /></td>
+				</tr>
+				<tr>
+					<th>Phone # : </th>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<th>Website URL : </th>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>Year Founded : </th>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<th>School Type : </th>
+					<td>
+						<label><input type="checkbox" /><span></span>College Prep</label>
+						<label><input type="checkbox" /><span></span>Day</label>
+						<label><input type="checkbox" /><span></span>Boarding</label>
+					</td>
+				</tr>
+				<tr>
+					<th>Student Body : </th>
+					<td>
+						<label><input type="radio" /><span></span>Boys</label>
+						<label><input type="radio" /><span></span>Girls</label>
+						<label><input type="radio" /><span></span>Coed</label>
+					</td>
+					<th>Religion : </th>
+					<td>
+						<label><input type="radio" /><span></span>Catholic</label>
+						<label><input type="radio" /><span></span>Christian</label>
+						<label><input type="radio" /><span></span>NA</label>
+					</td>
+				</tr>
+				<tr>
+					<th>Students # : </th>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<th>International Students : </th>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>ESL : </th>
+					<td>
+						<label><input type="radio" /><span></span>Yes</label>
+						<label><input type="radio" /><span></span>No</label>
+					</td>
+					<th>Student: Teach Ratio : </th>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>Class Size : </th>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<th>Uniform : </th>
+					<td>
+						<label><input type="radio" /><span></span>Yes</label>
+						<label><input type="radio" /><span></span>No</label>
+					</td>
+				</tr>
+				<tr>
+					<th>College Acceptance Rate : </th>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<th>Average SAT : </th>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>Honor Courses # : </th>
+					<td class="InnerInputTD" colspan="3"><input type="text" class="TableInnerInput" size="10" value="" /></td>
+				</tr>
+				<tr>
+					<th>Honor Courses List : </th>
+					<td class="InnerInputTD" colspan="3"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>AP Courses # : </th>
+					<td class="InnerInputTD" colspan="3"><input type="text" class="TableInnerInput" size="10" value="" /></td>
+				</tr>
+				<tr>
+					<th>AP Courses List : </th>
+					<td class="InnerInputTD" colspan="3"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+
+				<tr>
+					<th>Clubs # : </th>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<th>Sports : </th>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+
+				<tr>
+					<th>Facilities : </th>
+					<td class="InnerInputTD" colspan="3"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+			</table>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+		<div class="MTitle">Current Student Review</div>
+		<div class="ListSearch Aright">
+			<a href="Javascript:void(0);" class="IsolationButton" OnClick="document.getElementById('PopRegistReview').style.display='block';">+ &nbsp; Regist Review</a>
+		</div>
+		<div class="cdiv"></div>
+		<!-- 학교리뷰목록 -->
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>No</th>
+					<th>Name</th>
+					<th>Grade</th>
+					<th>School</th>
+					<th>Home city</th>
+				</tr>
+				<tr>
+					<td>124</td>
+					<td><a href="">Yixun “Patrick” Bu</a></td>
+					<td>10th</td>
+					<td>St John’s High School</td>
+					<td>Jinan, Shandong, China</td>
+				</tr>
+				<tr>
+					<td>124</td>
+					<td><a href="">Yixun “Patrick” Bu</a></td>
+					<td>10th</td>
+					<td>St John’s High School</td>
+					<td>Jinan, Shandong, China</td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+		<!-- 학교리뷰목록 끝 -->
+		<div class="EndPart"></div>
+
+		<div class="MTitle">Graduate Profile</div>
+		<div class="ListSearch Aright">
+			<a href="Javascript:void(0);" class="IsolationButton" OnClick="document.getElementById('PopRegistGraduateProfile').style.display='block';">+ &nbsp; Regist Graduate Profile</a>
+		</div>
+		<div class="cdiv"></div>
+		<!-- 학교리뷰목록 -->
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>No</th>
+					<th>Name</th>
+					<th>Years Attended</th>
+					<th>Initial English</th>
+					<th>GPA in China</th>
+					<th>TOEFL</th>
+					<th>GPA</th>
+					<th>SAT / ACT</th>
+					<th>Activities</th>
+					<th>College</th>
+					<th>Major</th>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+		<!-- 학교리뷰목록 끝 -->
+		<div class="EndPart"></div>
+
+
+		<div class="SubmitButtonLine">
+			<div class="Close" OnClick="self.close();">CLOSE</div>
+			<div class="Submit">SAVE</div>
+		</div>
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+{% endblock %}
+
+<script>
+function MenuOpen() {
+	obj = document.getElementById('LeftF');
+
+	if (obj.style.margin == "0px 0px 0px -229px") {
+		document.getElementById('LeftF').style.margin='0px 0px 0px 0px';
+		document.getElementById('MToggle').style.transform='rotate(90deg)';
+		document.getElementById('MainF').style.width='calc(100% - 355px)';
+	} else {
+		document.getElementById('LeftF').style.margin='0px 0px 0px -229px';
+		document.getElementById('MToggle').style.transform='rotate(0deg)';
+		document.getElementById('MainF').style.width='calc(100% - 126px)';
+	}
+}
+</script>

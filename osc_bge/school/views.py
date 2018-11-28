@@ -11,11 +11,13 @@ class SecondaryView(LoginRequiredMixin, View):
 
     def get(self, request, secondary_id=None):
 
-        try:
-            found_secondary = models.Secondary.objects.get(pk=secondary_id)
-        except models.Secondary.DoesNotExist:
-            return HttpResponse(status=400)
 
-        return render(request, 'school/secondary.html', {
-            "found_secondary":found_secondary,
-        })
+        return render(request, 'school/test.html', {})
+
+class SecondaryLogView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def get(self, request, secondary_id=None):
+
+
+        return render(request, 'school/testlog.html', {})

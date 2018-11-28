@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+#PopCommunicationUpdate {display:none;}
+</style>
+<div class="PopCover" id="PopCommunicationUpdate">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopCommunicationUpdate').style.display='none';">X</div>
+			<div class="Title">Add New Log</div>
+		</div>
+		<div class="Contents">
+
+
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="110">
+						<col>
+					</colgroup>
+					<tr>
+						<th>Write : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" size="24" value="" />
+						</td>
+					</tr>
+					<tr>
+						<th>Date : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" size="10" value="" />
+						</td>
+					</tr>
+					<tr>
+						<th>Comment : </th>
+						<td class="InnerInputTD">
+							<textarea class="TableInnerTextarea"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<th>File Attechment : </th>
+						<td class="InnerInputTD"><a class="Button" href="">Attechment</a></td>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopCommunicationUpdate').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopCommunicationUpdate').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+<?php include('../inc/_top.php'); ?>
+<div class="ContentsFrame">
+
+	<div class="LeftFrame" id="LeftF">
+		<div class="SectionTitle">Secondary Schools</div>
+		<div class="LeftTab" id="LeftTab01">
+			<div class="TabConternts" id="InnerTab0101">
+				<div class="InnerTabContents">
+					<li><a href="/school/secondary/test">Saint John’s High School</a></li>
+					<li><a href="/school/secondary/test">Saint Bernadette School</a></li>
+					<li><a href="/school/secondary/test">Holy Name Catholic High School</a></li>
+					<li><a href="/school/secondary/test">Lowell Catholic High School</a></li>
+					<li><a href="/school/secondary/test">Saint Mary’s Schools of Worcester</a></li>
+					<li><a href="/school/secondary/test">Whitinsville Christian High School</a></li>
+					<li><a href="/school/secondary/test">Archbishop Williams High School</a></li>
+					<li><a href="/school/secondary/test">Arlington Catholic High School</a></li>
+					<li><a href="/school/secondary/test">Boston Trinity Academy</a></li>
+					<li><a href="/school/secondary/test">Bradford Christian Academy</a></li>
+					<li><a href="/school/secondary/test">Holy Family Academy</a></li>
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0101 -->
+		</div><!-- LeftTab ID:LeftTab01 -->
+		<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/school/secondary/test" class="IsolationButton">+ &nbsp; Add New School</a>
+	</div><!-- LeftFrame -->
+
+
+
+	<div class="MainFrame">
+
+
+		<div class="MTitle">Saint Peter-Marian High School <span>Communication Log</span></div>
+		<div class="ListSearch Aright">
+			<div><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';" class="IsolationButton">+ &nbsp; Add New Log</a></div>
+		</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>No</th>
+					<th>Date</th>
+					<th>Comment</th>
+					<th>File</th>
+					<th>Writer</th>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>2017.10.14</td>
+					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
+					<td>-</td>
+					<td>Mariah Chang</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>2017.10.14</td>
+					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
+					<td>-</td>
+					<td>Mariah Chang</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>2017.10.14</td>
+					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
+					<td>-</td>
+					<td>Mariah Chang</td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+{% endblock %}

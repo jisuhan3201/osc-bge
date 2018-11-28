@@ -10,6 +10,7 @@ urlpatterns = [
     path('branch/', include('osc_bge.branch.urls')),
     path('agent/', include('osc_bge.agent.urls')),
     path('student/', include('osc_bge.student.urls')),
+    path('school/', include('osc_bge.school.urls')),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
