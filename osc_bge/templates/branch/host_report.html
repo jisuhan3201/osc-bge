@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="ContentsFrame">
+	<div class="LeftFrame" id="LeftF">
+		<div class="SectionTitle">Host Families</div>
+		<div class="LeftTab">
+			<div class="TabConternts">
+				<div class="InnerTabContents">
+					<li><a href="/branch/host/test">Host Family A</a></li>
+					<li><a href="/branch/host/test">Host Family B</a></li>
+					<li><a href="/branch/host/test">Host Family C</a></li>
+					<li><a href="/branch/host/test">Host Family D</a></li>
+				</div><!-- InnerTabContents -->
+			</div>
+		</div><!-- LeftTab -->
+		<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/branch/host/test" class="IsolationButton">+ &nbsp; Add New Family</a>
+	</div><!-- LeftFrame -->
+
+
+	<div class="MainFrame" id="MainF">
+		<div class="PTitle">Yuren <span>Host Family A</span></div>
+
+
+		<div class="MTitle">Recent Reports</div>
+		<!-- 등록일 경우
+		<div class="MTitle">Reports Regist</div>
+		-->
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="160">
+					<col>
+					<col width="160">
+					<col>
+				</colgroup>
+				<tr>
+					<th>Student Name : </th>
+					<td>Student 1</td>
+					<th>Host Family Name : </th>
+					<td>Host Family A</td>
+				</tr>
+				<tr>
+					<th>Branch : </th>
+					<td>Host Coordinator</td>
+					<th>Last Update : </th>
+					<td>2017.03.01</td>
+				</tr>
+				<tr>
+					<th>Photo  : </th>
+					<td class="InnerInputTD" colspan="3"><input type="file" class="TableInnerInput" value="" /><br />
+					<label>
+					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA8hCGZ69G52M0EThs-5dHEQr223RDgzasznLuBOxs4RG1cRyo" class="SchoolThumbnail" />
+					<input type="checkbox" /><span></span>delete</label>
+					</td>
+				</tr>
+				<tr>
+					<th>Description : </th>
+					<td class="InnerInputTD" colspan="3"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>Rate : </th>
+					<td>
+						<label><input type="radio" /><span></span>Great</label>
+						<label><input type="radio" /><span></span>Fair</label>
+						<label><input type="radio" /><span></span>Needs effort</label>
+					</td>
+					<th>Improvement : </th>
+					<td>
+						<label><input type="radio" /><span></span>Yes</label>
+						<label><input type="radio" /><span></span>NO</label>
+					</td>
+				</tr>
+				<tr>
+					<th>Cultural Fluency : </th>
+					<td class="InnerInputTD" colspan="3">
+					<textarea class="TableInnerTextarea" style="height:100px;">Understand American culture and lifestyle</textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>House Rules & Attitude : </th>
+					<td class="InnerInputTD" colspan="3">
+					<textarea class="TableInnerTextarea" style="height:100px;">Abide by family rules and maintain polite manners</textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>Responsibility : </th>
+					<td class="InnerInputTD" colspan="3">
+					<textarea class="TableInnerTextarea" style="height:100px;">Complete required cleaning and household duties</textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>Communication : </th>
+					<td class="InnerInputTD" colspan="3">
+					<textarea class="TableInnerTextarea" style="height:100px;">Provide adequate notice for rides and favors</textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>Sleeping Habits : </th>
+					<td class="InnerInputTD" colspan="3">
+					<textarea class="TableInnerTextarea" style="height:100px;">Respect a bedtime curfew and get ready for school on time</textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>School Attendance : </th>
+					<td class="InnerInputTD" colspan="3">
+					<textarea class="TableInnerTextarea" style="height:100px;">Improve attendance (no unexcused absences and tardies)</textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>Comment : </th>
+					<td class="InnerInputTD" colspan="3">
+					<textarea class="TableInnerTextarea" style="height:100px;"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>Photo/File Attachment : </th>
+					<td class="InnerInputTD" colspan="3">
+						<input type="file" class="TableInnerInput" style="width:calc(100% - 100px);" /><a href="" class="Button">x &nbsp; delete</a>
+						<br /><input type="file" class="TableInnerInput" style="width:calc(100% - 100px);" /><a href="" class="Button">x &nbsp; delete</a>
+						<br /><input type="file" class="TableInnerInput" style="width:calc(100% - 100px);" /><a href="" class="Button">+ &nbsp; add</a>
+					</td>
+				</tr>
+			</table>
+		</div><!-- InfoTable -->
+
+		<div class="SubmitButtonLine">
+			<div class="Close">RESET</div>
+			<div class="Submit">SAVE</div>
+		</div>
+		<div class="EndPart"></div>
+		<div class="EndPart"></div>
+
+
+
+		<div class="MTitle">Report Update History</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>date</th>
+					<th>branch</th>
+					<th>writer</th>
+					<th>descripton</th>
+				</tr>
+				<tr>
+					<td>2018-03-01</td>
+					<td>branch name</td>
+					<td>coodi name</td>
+					<td>Understand American culture and lifestyle</td>
+				</tr>
+				<tr>
+					<td>2018-02-29</td>
+					<td>branch name</td>
+					<td>coodi name</td>
+					<td>Understand American culture and lifestyle</td>
+				</tr>
+				<tr>
+					<td>2018-02-26</td>
+					<td>branch name</td>
+					<td>coodi name</td>
+					<td>Understand American culture and lifestyle</td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+		<div class="EndPart"></div>
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+
+{% endblock %}

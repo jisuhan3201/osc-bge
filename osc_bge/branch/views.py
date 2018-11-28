@@ -41,7 +41,29 @@ class BranchHostsView(LoginRequiredMixin, View):
 
 class BranchResourcesView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
-    
+
     def get(self, request):
 
         return render(request, 'branch/resources.html', {})
+
+
+class HostTestView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def get(self, request):
+
+        return render(request, 'branch/host_info.html', {})
+
+class HostLogTestView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def get(self, request):
+
+        return render(request, 'branch/host_log.html', {})
+
+class HostReportTestView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def get(self, request):
+
+        return render(request, 'branch/host_report.html', {})
