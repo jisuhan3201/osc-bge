@@ -9,15 +9,20 @@ from django.views import View
 @login_required(login_url='/accounts/login/')
 def index(request):
 
-    if request.user.type == 'counseler':
+    if request.user.is_authenticated:
 
-        return redirect('/agent/counsel')
+        if request.user.type == 'bge_admin':
+            return redirect('/statistics')
 
-    elif request.user.type == 'agency_admin':
-        return redirect('/agent/statistics')
+        elif request.user.type == 'bge_branch_admin':
+            return redirect('/branch/statistics')
 
-    else:
-        return redirect('/statistics')
+        elif request.user.type == "counseler":
+
+            return redirect('/agent/prospective')
+
+        else:
+            return redirect('/agent/statistics')
 
 
 class BgeStatisticsView(LoginRequiredMixin, View):
