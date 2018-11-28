@@ -214,7 +214,7 @@
 					<div OnClick="InnerTabOpen02('InnerTab0203');" class="AreaColorMW" title="Middlewest">MW</div>
 					<div OnClick="InnerTabOpen02('InnerTab0204');" class="AreaColorW" title="West">W</div>
 				</div><!-- InnerTab -->
-				<div class="USAMap"><img src="../img/usa.png" /></div>
+				<div class="USAMap"><img src="{% static 'img/usa.png'%}" /></div>
 				<div class="InnerTabContents">
 					{% for college in colleges %}
 						{% if college.location == 'ne' %}
@@ -231,7 +231,7 @@
 					<div OnClick="InnerTabOpen02('InnerTab0203');" class="AreaColorMW" title="Middlewest">MW</div>
 					<div OnClick="InnerTabOpen02('InnerTab0204');" class="AreaColorW" title="West">W</div>
 				</div><!-- InnerTab -->
-				<div class="USAMap"><img src="../img/usa.png" /></div>
+				<div class="USAMap"><img src="{% static 'img/usa.png'%}" /></div>
 				<div class="InnerTabContents">
 					{% for college in colleges %}
 						{% if college.location == 'se' %}
@@ -248,7 +248,7 @@
 					<div OnClick="InnerTabOpen02('InnerTab0203');" class="AreaColorMW OnMW" title="Middlewest">MW</div>
 					<div OnClick="InnerTabOpen02('InnerTab0204');" class="AreaColorW" title="West">W</div>
 				</div><!-- InnerTab -->
-				<div class="USAMap"><img src="../img/usa.png" /></div>
+				<div class="USAMap"><img src="{% static 'img/usa.png'%}" /></div>
 				<div class="InnerTabContents">
 					{% for college in colleges %}
 						{% if college.location == 'mw' %}
@@ -265,10 +265,10 @@
 					<div OnClick="InnerTabOpen02('InnerTab0203');" class="AreaColorMW" title="Middlewest">MW</div>
 					<div OnClick="InnerTabOpen02('InnerTab0204');" class="AreaColorW OnW" title="West">W</div>
 				</div><!-- InnerTab -->
-				<div class="USAMap"><img src="../img/usa.png" /></div>
+				<div class="USAMap"><img src="{% static 'img/usa.png'%}" /></div>
 				<div class="InnerTabContents">
 					{% for college in colleges %}
-						{% if college.location == 'w' %}				
+						{% if college.location == 'w' %}
 							<li><a href="/school/college/{{college.id}}" target="_BLANK">{{college.school}}</a></li>
 						{% endif %}
 					{% endfor %}
