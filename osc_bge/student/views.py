@@ -62,3 +62,9 @@ class StudentReportView(View):
 
         else:
             return HttpResponse(status=400)
+
+class TestReportView(View):
+
+    def get(self, request):
+
+        return render(request, 'student/testreport.html', {})
