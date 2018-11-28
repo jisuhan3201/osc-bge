@@ -47,7 +47,7 @@ class User(AbstractUser):
         ('bge_admin', "BGE_Admin"),
         ('bge_branch_admin', "BGE_Branch_Admin"),
         ('agency_admin', 'Agency_Admin'),
-        ('counseler', 'Counseler'),
+        ('counselor', 'Counselor'),
     )
 
     address = models.CharField(max_length=255, null=True)
@@ -123,9 +123,9 @@ class AgencyAdminUser(models.Model):
 #     def __str__(self):
 #         return "{} - {}".format(self.agency_branch, self.user)
 
-class Counseler(models.Model):
+class Counselor(models.Model):
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name="counseler")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name="counselor")
     agency = models.ForeignKey(agent_models.Agency, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):

@@ -26,7 +26,7 @@ from . import models
 class CounselAdmin(admin.ModelAdmin):
 
     list_display = (
-        "counseler",
+        "counselor",
         "student",
         "counseling_date",
         "desire_country",

@@ -36,7 +36,7 @@ class Student(TimeStampedModel):
     )
 
     agency_admin = models.ForeignKey(user_models.AgencyAdminUser, on_delete=models.SET_NULL, null=True)
-    counseler = models.ForeignKey(user_models.Counseler, on_delete=models.SET_NULL, null=True)
+    counselor = models.ForeignKey(user_models.Counselor, on_delete=models.SET_NULL, null=True)
     school = models.ForeignKey(school_models.School, on_delete=models.SET_NULL, null=True)
     parent_info = models.ForeignKey(ParentInfo, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=80, null=True)
@@ -74,7 +74,7 @@ class StudentHistory(TimeStampedModel):
 class StudentReport(TimeStampedModel):
 
     student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True, related_name='report')
-    counseler = models.ForeignKey(user_models.Counseler, on_delete=models.SET_NULL, null=True)
+    counselor = models.ForeignKey(user_models.Counselor, on_delete=models.SET_NULL, null=True)
     comment = models.TextField(null=True, blank=True)
     reported_date = models.DateField(null=True, blank=True)
 

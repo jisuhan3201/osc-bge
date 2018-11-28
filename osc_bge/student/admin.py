@@ -17,7 +17,7 @@ class StudentAdmin(admin.ModelAdmin):
 
     list_display = (
         "agency_admin",
-        "counseler",
+        "counselor",
         "school",
         "parent_info",
         "name",

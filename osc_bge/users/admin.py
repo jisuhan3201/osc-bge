@@ -59,8 +59,8 @@ class AgencyAdminUserAdmin(admin.ModelAdmin):
 #         "agency_branch",
 #     )
 
-@admin.register(models.Counseler)
-class CounselerAdmin(admin.ModelAdmin):
+@admin.register(models.Counselor)
+class CounselorAdmin(admin.ModelAdmin):
 
     list_display = (
         "user",

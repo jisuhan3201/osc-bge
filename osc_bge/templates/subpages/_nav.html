@@ -10,7 +10,7 @@
     {% if user.type == 'bge_admin'%}
     <a href="/statistics">BGE Statistics</a>
     <a href="/branches">Branches</a>
-    <a href="/agents/prospective">Prospective Students</a>
+    <a href="/agent/prospective">Prospective Students</a>
     <a href="/agent/process">Application Process</a>
     <a href="/agents">Agents</a>
     <a href="/secondary">Secondary Schools</a>
@@ -32,7 +32,7 @@
     <a href="/agent/resources">Resources</a>
     {% endif %}
 		<!-- Counseler-->
-    {% if user.type == 'counseler' %}
+    {% if user.type == 'counselor' %}
   		<a href="/agent/counsel">Counseling</a>
   		<a href="/agent/prospective">Prospective Students</a>
   		<a href="/agent/process">Application Process</a>

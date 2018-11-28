@@ -52,7 +52,7 @@ class Counsel(TimeStampedModel):
         ('Coed', 'Coed'),
     )
 
-    counseler = models.ForeignKey(user_models.Counseler, on_delete=models.SET_NULL, null=True, blank=True, related_name="counseling")
+    counselor = models.ForeignKey(user_models.Counselor, on_delete=models.SET_NULL, null=True, blank=True, related_name="counseling")
     student = models.OneToOneField(student_models.Student, on_delete=models.SET_NULL, null=True, blank=True, related_name="counsel")
     counseling_date = models.DateField(null=True, blank=True)
     desire_country = models.CharField(max_length=80, null=True, blank=True)

@@ -66,20 +66,20 @@ class StatisticsView(LoginRequiredMixin, View):
                 past_date_range.append([past_start_date, past_end_date])
                 past_date_first.append(past_start_date)
 
-        counselers = user_models.Counseler.objects.filter(agency=agency)
-        for counseler in counselers:
+        counselors = user_models.Counselor.objects.filter(agency=agency)
+        for counselor in counselors:
 
             # For 1st Section statistics
             query_start_date = self.request.GET.get('start_date', None)
             query_end_date = self.request.GET.get('end_date', None)
             if query_start_date or query_end_date:
-                found_counsels = form_models.Counsel.objects.filter(counseler=counseler).filter(
+                found_counsels = form_models.Counsel.objects.filter(counselor=counselor).filter(
                     created_at__range=(query_start_date, query_end_date))
-                found_formalities = form_models.Formality.objects.filter(counsel__counseler=counseler).filter(
+                found_formalities = form_models.Formality.objects.filter(counsel__counselor=counselor).filter(
                     counsel__created_at__range=(query_start_date, query_end_date))
             else:
-                found_counsels = form_models.Counsel.objects.filter(counseler=counseler)
-                found_formalities = form_models.Formality.objects.filter(counsel__counseler=counseler)
+                found_counsels = form_models.Counsel.objects.filter(counselor=counselor)
+                found_formalities = form_models.Formality.objects.filter(counsel__counselor=counselor)
 
             # For 2nd Section statistics
             if past_date_range:
@@ -89,13 +89,13 @@ class StatisticsView(LoginRequiredMixin, View):
                 for date_range in past_date_range:
                     data_dict = {}
                     date_first = date_range[0]
-                    monthly_counsels = form_models.Counsel.objects.filter(counseler=counseler).filter(
+                    monthly_counsels = form_models.Counsel.objects.filter(counselor=counselor).filter(
                         created_at__range=(date_range[0], date_range[1]))
-                    monthly_formality_count = form_models.Formality.objects.filter(counsel__counseler=counseler).filter(
+                    monthly_formality_count = form_models.Formality.objects.filter(counsel__counselor=counselor).filter(
                         counsel__created_at__range=(date_range[0], date_range[1])).count()
                     if request.GET.get('school_type'):
                         monthly_counsels = monthly_counsels.filter(program_interested=request.GET.get('school_type'))
-                        monthly_formality_count = form_models.Formality.objects.filter(counsel__counseler=counseler).filter(
+                        monthly_formality_count = form_models.Formality.objects.filter(counsel__counselor=counselor).filter(
                         counsel__created_at__range=(date_range[0], date_range[1])).filter(
                         counsel__program_interested=request.GET.get('school_type')).count()
                     monthly_counsels_count = monthly_counsels.count()
@@ -111,8 +111,8 @@ class StatisticsView(LoginRequiredMixin, View):
                     })
                     data_list.append(data_dict)
 
-                counseler_fullname = counseler.user.first_name + " " + counseler.user.last_name
-                monthly_data.update({counseler_fullname:data_list})
+                counselor_fullname = counselor.user.first_name + " " + counselor.user.last_name
+                monthly_data.update({counselor_fullname:data_list})
 
             counsel_count = found_counsels.count()
             total_counsel += counsel_count
@@ -158,18 +158,18 @@ class StatisticsView(LoginRequiredMixin, View):
                 else:
                     continue
 
-            counseler.counsel_count = counsel_count
-            counseler.formality_count = formality_count
-            counseler.apply_percentage = apply_percentage
-            counseler.secondary = secondary_count
-            counseler.college = college_count
-            counseler.camp = camp_count
-            counseler.us_count = us_count
-            counseler.ca_count = ca_count
-            counseler.uk_count = uk_count
-            counseler.au_count = au_count
-            counseler.nz_count = nz_count
-            counseler.save()
+            counselor.counsel_count = counsel_count
+            counselor.formality_count = formality_count
+            counselor.apply_percentage = apply_percentage
+            counselor.secondary = secondary_count
+            counselor.college = college_count
+            counselor.camp = camp_count
+            counselor.us_count = us_count
+            counselor.ca_count = ca_count
+            counselor.uk_count = uk_count
+            counselor.au_count = au_count
+            counselor.nz_count = nz_count
+            counselor.save()
 
             total_secondary += secondary_count
             total_college += college_count
@@ -200,7 +200,7 @@ class StatisticsView(LoginRequiredMixin, View):
 
 
         return render(request, 'agent/statistics.html', {
-            "counselers":counselers,
+            "counselors":counselors,
             'total_counsel':total_counsel,
             'total_registered':total_registered,
             'total_success_rate':total_success_rate,
@@ -236,14 +236,14 @@ class CounselView(LoginRequiredMixin, View):
 class CustomerRegisterView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
-    def get_counseler(self):
+    def get_counselor(self):
 
         user = self.request.user
         try:
-            found_counseler = user_models.Counseler.objects.get(user=user)
-        except user_models.Counseler.DoesNotExist:
+            found_counselor = user_models.Counselor.objects.get(user=user)
+        except user_models.Counselor.DoesNotExist:
             return HttpResponse(status=401)
-        return found_counseler
+        return found_counselor
 
     def get(self, request, counsel_num=None):
 
@@ -254,7 +254,7 @@ class CustomerRegisterView(LoginRequiredMixin, View):
             except form_models.Counsel.DoesNotExist:
                 return HttpResponse(status=404)
 
-            found_counseler = self.get_counseler()
+            found_counselor = self.get_counseler()
 
             if not found_counsel.counseler == found_counseler:
                 return HttpResponse(status=401)

@@ -17,7 +17,7 @@ def index(request):
         elif request.user.type == 'bge_branch_admin':
             return redirect('/branch/statistics')
 
-        elif request.user.type == "counseler":
+        elif request.user.type == "counselor":
 
             return redirect('/agent/prospective')
 
