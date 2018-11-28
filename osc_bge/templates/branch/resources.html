@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="ContentsFrame">
+	<div class="MainAFrame">
+
+		<div class="MTitle">Data Upload</div>
+		<div class="ListSearch Aright">
+			<div>
+			Date : 2018.11.30 &nbsp;&nbsp;
+			Category :
+			<select class="SearchSelect">
+				<option>For Agent</option>
+				<option>For BGE</option>
+			</select>
+			<select class="SearchSelect">
+				<option>Category select..</option>
+				<option>Agent</option>
+				<option>Forms</option>
+				<option>Schools</option>
+				<option>Sales</option>
+				<option>Others</option>
+			</select>
+			&nbsp;&nbsp;
+			Title :
+            <input type="text" class="SearchInput" style="width:250px;" />
+			&nbsp;&nbsp;
+			Resource :
+            <input type="file" class="SearchInput" />
+            <input type="button" class="ListSearchButton" value="Upload" />
+			</div>
+		</div>
+
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>No.</th>
+					<th>Date</th>
+					<th>Category</th>
+					<th>Sub Category</th>
+					<th>Title</th>
+					<th>File</th>
+					<th>Writer</th>
+					<th>Management</th>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>2018.11.30</td>
+					<td>For Agent</td>
+					<td>Agent</td>
+					<td>BGE Cataloge vr0.1</td>
+					<td><a href="">Cataloge.pptx</a></td>
+					<td>David Kang</td>
+					<td class="InnerInputTD"><a href="" class="Button">MOD</a><a href="" class="Button">DEL</a></td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>2018.11.30</td>
+					<td>For BGE</td>
+					<td>BGE Forms</td>
+					<td>BGE Estimate Test</td>
+					<td><a href="">Estimate.doc</a></td>
+					<td>Sujan</td>
+					<td class="InnerInputTD">-</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>2018.11.30</td>
+					<td>For Agent</td>
+					<td>Sales</td>
+					<td>BGE Cataloge Last</td>
+					<td><a href="">Cataloge.pptx</a></td>
+					<td>Michael</td>
+					<td class="InnerInputTD">-</td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+
+		<div class="EndPart"></div>
+		<div class="EndPart"></div>
+
+
+
+
+		<div class="MTitle">Directory Map</div>
+		<div class="cdiv"></div>
+
+		<div class="Layout_2-1">
+			<div class="DirectoryTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<th colspan="6">Agent</th>
+					</tr>
+					<tr>
+						<td colspan="3">Agent Forms</td>
+						<td>Schools</td>
+						<td>Sales</td>
+						<td>Others</td>
+					</tr>
+					<tr>
+						<td>Students Profile</td>
+						<td>Students Contract</td>
+						<td>Medical form</td>
+						<td>School Information</td>
+						<td>Agent Training materials</td>
+						<td></td>
+				</table>
+			</div><!-- ListTable -->
+		</div><!-- Layout_2-1 -->
+
+		<div class="Layout_2-1">
+			<div class="DirectoryTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<th colspan="4">BGE</th>
+					</tr>
+					<tr>
+						<td>BGE Forms</td>
+						<td>Study</td>
+						<td>Host Family</td>
+						<td>Others</td>
+					</tr>
+				</table>
+			</div><!-- ListTable -->
+		</div><!-- Layout_2-1 -->
+
+
+
+
+	</div><!-- MainAFrame -->
+</div><!--  ContentsFrame-->
+
+{% endblock %}

@@ -1,0 +1,310 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="ContentsFrame">
+	<div class="MainAFrame">
+
+		<div class="MTitle">Performance Status	</div>
+		<div class="ListSearch Aright">
+			<div>
+			From :
+			<select class="SearchSelect">
+				<option>December 2017</option>
+				<option>November 2017</option>
+				<option>October 2017</option>
+				<option>September 2017</option>
+				<option>August 2017</option>
+				<option>July 2017</option>
+				<option>June 2017</option>
+				<option>May 2017</option>
+				<option>April 2017</option>
+				<option>March 2017</>
+				<option>February 2017</option>
+				<option>January 2017</option>
+			</select>
+			&nbsp;&nbsp;
+			To :
+			<select class="SearchSelect">
+				<option>December 2017</option>
+				<option>November 2017</option>
+				<option>October 2017</option>
+				<option>September 2017</option>
+				<option>August 2017</option>
+				<option>July 2017</option>
+				<option>June 2017</option>
+				<option>May 2017</option>
+				<option>April 2017</option>
+				<option>March 2017</>
+				<option>February 2017</option>
+				<option>January 2017</option>
+			</select>
+
+			<select class="SearchSelect">
+				<option>Country</option>
+				<option>Program</option>
+				<option>Provider</option>
+			</select>
+			</div>
+		</div>
+
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="180">
+					<col>
+				</colgroup>
+				<tr>
+					<th>Counselor Name</th>
+					<th>Counseled</th>
+					<th>Registered</th>
+					<th>Register success rate</th>
+					<th>Secondary</th>
+					<th>College</th>
+					<th>Camp</th>
+					<th>US</th>
+					<th>CA</th>
+					<th>UK</th>
+					<th>AU</th>
+					<th>NZ</th>
+					<th>BGE</th>
+					<th>NewOasis</th>
+					<th>etc.</th>
+				</tr>
+				<tr>
+					<td>Claire</td>
+					<td>21</td>
+					<td>15</td>
+					<td>72%</td>
+					<td>10</td>
+					<td>2</td>
+					<td>3</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>Helena</td>
+					<td>21</td>
+					<td>15</td>
+					<td>72%</td>
+					<td>10</td>
+					<td>2</td>
+					<td>3</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>James</td>
+					<td>21</td>
+					<td>15</td>
+					<td>72%</td>
+					<td>10</td>
+					<td>2</td>
+					<td>3</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>Alex</td>
+					<td>21</td>
+					<td>15</td>
+					<td>72%</td>
+					<td>10</td>
+					<td>2</td>
+					<td>3</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>Mike</td>
+					<td>21</td>
+					<td>15</td>
+					<td>72%</td>
+					<td>10</td>
+					<td>2</td>
+					<td>3</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td class="TitleColor">Total</td>
+					<td class="TitleColor">108</td>
+					<td class="TitleColor">51</td>
+					<td class="TitleColor">47%</td>
+					<td class="TitleColor">24</td>
+					<td class="TitleColor">7</td>
+					<td class="TitleColor">8</td>
+					<td class="TitleColor">-</td>
+					<td class="TitleColor">-</td>
+					<td class="TitleColor">-</td>
+					<td class="TitleColor">-</td>
+					<td class="TitleColor">-</td>
+					<td class="TitleColor">-</td>
+					<td class="TitleColor">-</td>
+					<td class="TitleColor">-</td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+		<div class="EndPart"></div>
+
+
+
+
+
+		<div class="ListTable">
+			<div class="ListSearch Aright">
+				<div>
+				Search :
+				<select class="SearchSelect">
+					<option>Select Period</option>
+					<option selected>Past 6months</option>
+				</select>
+
+				<select class="SearchSelect">
+					<option>Counselor</option>
+					<option>Provider</option>
+				</select>
+
+				<select class="SearchSelect">
+					<option>Secondary</option>
+					<option>College</option>
+					<option>Camp</option>
+				</select>
+
+				<select class="SearchSelect">
+					<option>Counseled</option>
+					<option>Registered</option>
+					<option>Register success rate</option>
+				</select>
+				</div>
+			</div>
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="180">
+					<col>
+				</colgroup>
+				<tr>
+					<th>Counselor Name</th>
+					<th>Jan</th>
+					<th>Feb</th>
+					<th>Mar</th>
+					<th>Apr</th>
+					<th>May</th>
+					<th>Jun</th>
+					<th>Jul</th>
+					<th>Aug</th>
+					<th>Sep</th>
+					<th>Oct</th>
+					<th>Nov</th>
+					<th>Dec</th>
+				</tr>
+				<tr>
+					<td>Claire</td>
+					<td>70%</td>
+					<td>50%</td>
+					<td>75%</td>
+					<td>65%</td>
+					<td>80%</td>
+					<td>55%</td>
+					<td>1%</td>
+					<td>2%</td>
+					<td>3%</td>
+					<td>4%</td>
+					<td>5%</td>
+					<td>6%</td>
+				</tr>
+				<tr>
+					<td>Helena</td>
+					<td>70%</td>
+					<td>50%</td>
+					<td>75%</td>
+					<td>65%</td>
+					<td>80%</td>
+					<td>55%</td>
+					<td>1%</td>
+					<td>2%</td>
+					<td>3%</td>
+					<td>4%</td>
+					<td>5%</td>
+					<td>6%</td>
+				</tr>
+				<tr>
+					<td>James</td>
+					<td>70%</td>
+					<td>50%</td>
+					<td>75%</td>
+					<td>65%</td>
+					<td>80%</td>
+					<td>55%</td>
+					<td>1%</td>
+					<td>2%</td>
+					<td>3%</td>
+					<td>4%</td>
+					<td>5%</td>
+					<td>6%</td>
+				</tr>
+				<tr>
+					<td>Alex</td>
+					<td>70%</td>
+					<td>50%</td>
+					<td>75%</td>
+					<td>65%</td>
+					<td>80%</td>
+					<td>55%</td>
+					<td>1%</td>
+					<td>2%</td>
+					<td>3%</td>
+					<td>4%</td>
+					<td>5%</td>
+					<td>6%</td>
+				</tr>
+				<tr>
+					<td>Mike</td>
+					<td>70%</td>
+					<td>50%</td>
+					<td>75%</td>
+					<td>65%</td>
+					<td>80%</td>
+					<td>55%</td>
+					<td>1%</td>
+					<td>2%</td>
+					<td>3%</td>
+					<td>4%</td>
+					<td>5%</td>
+					<td>6%</td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+{% endblock %}

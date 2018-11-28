@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="ContentsFrame">
+	<div class="MainAFrame">
+		<div class="MTitle">Students List</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th rowspan="2">Student Name</th>
+					<th colspan="3" class="row2">Monthly Report status (Student Coordi and Manager)</th>
+					<th rowspan="2">Sent to Agent Date</th>
+					<th rowspan="2">Report to Parent<br />(Confirmed by Agent)</th>
+					<th rowspan="2"># of comm log<br />(per month)</th>
+					<th rowspan="2">Status Change</th>
+				</tr>
+				<tr>
+					<th class="row2">Due Date</th>
+					<th class="row2">Submitted Date</th>
+					<th class="row2">Confirmed Date</th>
+				</tr>
+				<tr>
+					<td><a href="../student/report.php">Yuren</a></td>
+					<td>2018-03-01</td>
+					<td>2018-03-01</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>5 Times <a href="../student/log.php" class="Button">View Log</a></td>
+					<td class="InnerInputTD">
+						<select class="TableInnerInput">
+							<option>Select.. </option>
+							<option>Transfer</option>
+							<option>Graduate College</option>
+							<option>Graduate Major</option>
+							<option>Terminate</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><a href="../student/report.php">Tianyi</a></td>
+					<td>2018-03-01</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td class="InnerInputTD">
+						<select class="TableInnerInput">
+							<option>Select.. </option>
+							<option>Transfer</option>
+							<option>Graduate College</option>
+							<option>Graduate Major</option>
+							<option>Terminate</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+
+{% endblock %}

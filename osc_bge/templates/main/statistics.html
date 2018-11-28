@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="ContentsFrame">
+
+	<div class="MainAFrame" id="MainF">
+
+		<div class="MTitle">New Students</div>
+		<div class="ListSearch Aright">
+			<div>
+			From :
+			<select class="SearchSelect">
+				<option>December</option>
+				<option>November</option>
+				<option>October</option>
+				<option>September</option>
+				<option>August</option>
+				<option>July</option>
+				<option>June</option>
+				<option>May</option>
+				<option>April</option>
+				<option>March</>
+				<option>February</option>
+				<option>January</option>
+			</select>
+			&nbsp;&nbsp;
+			To :
+			<select class="SearchSelect">
+				<option>December</option>
+				<option>November</option>
+				<option>October</option>
+				<option>September</option>
+				<option>August</option>
+				<option>July</option>
+				<option>June</option>
+				<option>May</option>
+				<option>April</option>
+				<option>March</>
+				<option>February</option>
+				<option>January</option>
+			</select>
+			&nbsp;&nbsp;
+			<select class="SearchSelect">
+				<option>2018 ~ 2019 year</option>
+			</select>
+
+			<select class="SearchSelect">
+				<option>Program</option>
+				<option>New Secondary</option>
+				<option>Transferred</option>
+				<option>College</option>
+				<option>Camp</option>
+			</select>
+			</div>
+		</div>
+
+		<div class="AgentFrameL">
+			<div class="ListTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="180">
+						<col>
+					</colgroup>
+					<tr>
+						<th>agent</th>
+						<th>inquired</th>
+						<th>Applied</th>
+						<th>Accepted</th>
+						<th>Cancelled</th>
+						<th>Enrolled</th>
+					</tr>
+					<tr>
+						<td>Meten</td>
+						<td>21</td>
+						<td>15</td>
+						<td>13</td>
+						<td>-</td>
+						<td>10</td>
+					</tr>
+					<tr>
+						<td>BGE-Yanzhou</td>
+						<td>21</td>
+						<td>15</td>
+						<td>13</td>
+						<td>-</td>
+						<td>10</td>
+					</tr>
+					<tr>
+						<td>AaisUS</td>
+						<td>21</td>
+						<td>15</td>
+						<td>13</td>
+						<td>-</td>
+						<td>10</td>
+					</tr>
+					<tr>
+						<td>Other(BGE Staff)</td>
+						<td>21</td>
+						<td>15</td>
+						<td>13</td>
+						<td>-</td>
+						<td>10</td>
+					</tr>
+					<tr>
+						<td class="TitleColor">Total</td>
+						<td class="TitleColor">108</td>
+						<td class="TitleColor">51</td>
+						<td class="TitleColor">47%</td>
+						<td class="TitleColor">-</td>
+						<td class="TitleColor">24</td>
+					</tr>
+				</table>
+			</div><!-- ListTable -->
+		</div><!-- AgentFrameL -->
+
+		<div class="AgentFrameR">
+			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+			<script type="text/javascript">
+			  google.charts.load('current', {'packages':['line']});
+			  google.charts.setOnLoadCallback(drawChart);
+
+			function drawChart() {
+
+			  var data = new google.visualization.DataTable();
+			  data.addColumn('number', 'year');
+			  data.addColumn('number', 'Meten');
+			  data.addColumn('number', 'Yangzhou');
+			  data.addColumn('number', 'AsiaUS');
+			  data.addColumn('number', 'Other(BGE Staff)');
+
+			  data.addRows([
+				[2018,  37.8, 80.8, 41.8, 10],
+				[2019,  30.9, 69.5, 32.4, 10],
+				[2020,  25.4,   57, 25.7, 10],
+				[2021,  11.7, 18.8, 10.5, 10],
+				[2022,  11.9, 17.6, 10.4, 10],
+			  ]);
+
+			  var options = {
+
+//				chart: {
+//				  title: 'Box Office Earnings in First Two Weeks of Opening',
+//				  subtitle: 'in millions of dollars (USD)'
+//				},
+				width: 600,
+				height: 190,
+				axes: {
+				  x: {
+					0: {side: 'bottom'}
+				  }
+				}
+			  };
+
+			  var chart = new google.charts.Line(document.getElementById('line_top_x'));
+
+			  chart.draw(data, google.charts.Line.convertOptions(options));
+			}
+		  </script>
+			<div id="line_top_x"></div>
+		</div><!-- AgentFrameR -->
+
+
+		<div class="ListTable">
+			<div class="ListSearch Aright">
+				<div>
+				<select class="SearchSelect">
+					<option>Week</option>
+					<option>03.26 ~ 03.31</option>
+					<option>03.26 ~ 03.31</option>
+					<option>03.26 ~ 03.31</option>
+					<option>03.26 ~ 03.31</option>
+					<option>03.26 ~ 03.31</option>
+				</select>
+
+				<select class="SearchSelect">
+					<option>Day</option>
+					<option>03.27</option>
+					<option>03.28</option>
+					<option>03.29</option>
+					<option>03.30</option>
+					<option>03.31</option>
+				</select>
+
+				<select class="SearchSelect">
+					<option>Program</option>
+					<option>New Secondary</option>
+					<option>Transferred</option>
+					<option>College</option>
+					<option>Camp</option>
+				</select>
+				</div>
+			</div>
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="180">
+					<col>
+				</colgroup>
+				<tr>
+					<th>agent</th>
+					<th>new inquired</th>
+					<th>new Applied</th>
+					<th>new Accepted</th>
+					<th>new Cancelled</th>
+					<th>new Enrolled</th>
+				</tr>
+				<tr>
+					<td>Meten</td>
+					<td>21</td>
+					<td>15</td>
+					<td>13</td>
+					<td>-</td>
+					<td>10</td>
+				</tr>
+				<tr>
+					<td>BGE-Yanzhou</td>
+					<td>21</td>
+					<td>15</td>
+					<td>13</td>
+					<td>-</td>
+					<td>10</td>
+				</tr>
+				<tr>
+					<td>AaisUS</td>
+					<td>21</td>
+					<td>15</td>
+					<td>13</td>
+					<td>-</td>
+					<td>10</td>
+				</tr>
+				<tr>
+					<td>Other(BGE Staff)</td>
+					<td>21</td>
+					<td>15</td>
+					<td>13</td>
+					<td>-</td>
+					<td>10</td>
+				</tr>
+				<tr>
+					<td class="TitleColor">Total</td>
+					<td class="TitleColor">108</td>
+					<td class="TitleColor">51</td>
+					<td class="TitleColor">47%</td>
+					<td class="TitleColor">-</td>
+					<td class="TitleColor">24</td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+		<div class="EndPart"></div>
+		<div class="EndPart"></div>
+		<div class="cdiv"></div>
+		<div class="EndPart"></div>
+
+
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+{% endblock %}

@@ -45,6 +45,7 @@ class User(AbstractUser):
     # around the globe.
     USER_TYPE = (
         ('bge_admin', "BGE_Admin"),
+        ('bge_branch_admin', "BGE_Branch_Admin"),
         ('agency_admin', 'Agency_Admin'),
         ('counseler', 'Counseler'),
     )

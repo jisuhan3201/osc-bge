@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="ContentsFrame">
+	<div class="LeftFrame" id="LeftF">
+		<div class="SectionTitle">Secondary Schools</div>
+		<div class="LeftTab" id="LeftTab01">
+			<div class="TabConternts" id="InnerTab0101">
+				<div class="InnerTabContents">
+					<li><a href="../secondary/info.php">Saint John’s High School</a></li>
+					<li><a href="../secondary/info.php">Saint Bernadette School</a></li>
+					<li><a href="../secondary/info.php">Holy Name Catholic High School</a></li>
+					<li><a href="../secondary/info.php">Lowell Catholic High School</a></li>
+					<li><a href="../secondary/info.php">Saint Mary’s Schools of Worcester</a></li>
+					<li><a href="../secondary/info.php">Whitinsville Christian High School</a></li>
+					<li><a href="../secondary/info.php">Archbishop Williams High School</a></li>
+					<li><a href="../secondary/info.php">Arlington Catholic High School</a></li>
+					<li><a href="../secondary/info.php">Boston Trinity Academy</a></li>
+					<li><a href="../secondary/info.php">Bradford Christian Academy</a></li>
+					<li><a href="../secondary/info.php">Holy Family Academy</a></li>
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0101 -->
+		</div><!-- LeftTab ID:LeftTab01 -->
+		<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../secondary/info.php" class="IsolationButton">+ &nbsp; Add New School</a>
+	</div><!-- LeftFrame -->
+
+	<div class="MainFrame" id="MainF">
+
+		<div class="MTitle">Search Result</div>
+			<div class="ListSearch Aright">
+				<div>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script>
+       jQuery.fn.filterByText = function(textbox, selectSingleMatch) {
+        return this.each(function() {
+            var select = this;
+            var options = [];
+            $(select).find('option').each(function() {
+                options.push({value: $(this).val(), text: $(this).text()});
+            });
+            $(select).data('options', options);
+            $(textbox).bind('change keyup', function() {
+                var options = $(select).empty().data('options');
+                var search = $(this).val().trim();
+                var regex = new RegExp(search,"gi");
+
+                $.each(options, function(i) {
+                    var option = options[i];
+                    if(option.text.match(regex) !== null) {
+                        $(select).append(
+                           $('<option>').text(option.text).val(option.value)
+                        );
+                    }
+                });
+                if (selectSingleMatch === true && $(select).children().length === 1) {
+                    $(select).children().get(0).selected = true;
+                }
+            });
+        });
+    };
+
+    $(function() {
+        $('#school_name').filterByText($('#school_textbox'), false);
+      $("select option").click(function(){
+        alert(1);
+      });
+    });
+</script>
+
+				Search by School Name :
+               <input id="school_textbox" type="text" class="SearchInput" style="width:300px;" />
+				<select class="SearchSelect" id="school_name">
+					<option>Select School..</option>
+					<option>Saint John’s High School</option>
+					<option>Saint Bernadette School</option>
+					<option>Holy Name Catholic High School</option>
+					<option>Lowell Catholic High School</option>
+					<option>Saint Mary’s Schools of Worcester</option>
+					<option>Whitinsville Christian High School</option>
+					<option>Archbishop Williams High School</option>
+					<option>Arlington Catholic High School</option>
+					<option>Boston Trinity Academy</option>
+					<option>Bradford Christian Academy</option>
+					<option>Holy Family Academy</option>
+				</select>
+				</div>
+			</div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>School Name</th>
+					<th>Partner Status</th>
+					<th>(Recent) Log Date</th>
+					<th>(Recent) Comment</th>
+					<th>Student</th>
+				</tr>
+				<tr>
+					<td class="Relationship"><a href="../secondary/log.php">Saint John’s High School</a></td>
+					<td class="Relationship">Yes</td>
+					<td class="Relationship">2018.02.14</td>
+					<td class="Relationship Aleft">PTO Fundraising</td>
+					<td class="Relationship Aleft">
+					<a class="Button">David Kang</a>
+					<a class="Button">Michael Joe</a>
+					<a class="Button">Susan Lin</a>
+					<a class="Button">Jason Kim</a>
+					</td>
+				</tr>
+				<tr>
+					<td class="Relationship"><a href="../secondary/log.php">Saint Bernadette School</a></td>
+					<td class="Relationship">Yes</td>
+					<td class="Relationship">2017.09.20</td>
+					<td class="Relationship Aleft">Homecoming Dance</td>
+					<td class="Relationship Aleft">
+					<a class="Button">Susan Lin</a>
+					<a class="Button">Jason Kim</a>
+					</td>
+				</tr>
+				<tr>
+					<td><a href="../secondary/log.php">Saint John’s High School</a></td>
+					<td>Yes</td>
+					<td>2018.02.14</td>
+					<td class="Aleft">
+					Initial Meeting<br />
+					To recruit partner school and please add our list
+					</td>
+					<td class="Aleft">
+					<a class="Button">David Kang</a>
+					</td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+{% endblock %}

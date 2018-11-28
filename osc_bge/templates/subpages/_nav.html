@@ -7,16 +7,38 @@
   {% endif %}
 	<div class="Logo"><img src="{% static 'img/m_logo.png' %}"/></div>
 	<div class="Menu">
-		<!-- Agent Branch Manager Start-->
+    {% if user.type == 'bge_admin'%}
+    <a href="/statistics">BGE Statistics</a>
+    <a href="/branches">Branches</a>
+    <a href="/agents/prospective">Prospective Students</a>
+    <a href="/agent/process">Application Process</a>
+    <a href="/agents">Agents</a>
+    <a href="/secondary">Secondary Schools</a>
+    {% endif %}
+    {% if user.type == 'bge_branch_admin' %}
+    <a href="/branch/statistics">Branch Statistics</a>
+    <a href="/branch/secondary">Secondary School</a>
+    <a href="/branch/students">Students</a>
+    <a href="/branch/hosts">Host Families</a>
+    <a href="/branch/resources">Resourses</a>
+    {% endif %}
+		<!-- Agent Branch Manager-->
     {% if user.type == 'agency_admin' %}
 		<a href="/agent/statistics">Agent Statistics</a>
+    <a href="/agent/counsel">Counseling</a>
+    <a href="/agent/prospective">Prospective Students</a>
+    <a href="/agent/process">Application Process</a>
+    <a href="/student/current">Current Students</a>
+    <a href="/agent/resources">Resources</a>
     {% endif %}
-		<!-- Agent Branch Manager End-->
-		<a href="/agent/counsel">Counseling</a>
-		<a href="/agent/prospective">Prospective Students</a>
-		<a href="/agent/process">Application Process</a>
-		<a href="/student/current">Current Students</a>
-		<a href="/agent/resources">Resources</a>
+		<!-- Counseler-->
+    {% if user.type == 'counseler' %}
+  		<a href="/agent/counsel">Counseling</a>
+  		<a href="/agent/prospective">Prospective Students</a>
+  		<a href="/agent/process">Application Process</a>
+  		<a href="/student/current">Current Students</a>
+  		<a href="/agent/resources">Resources</a>
+    {% endif %}
 	</div>
 	<div OnClick="document.location.href='../mypage/';" class="Info" >
     {% if user.image %}
@@ -33,5 +55,5 @@
       {% endif %}
 		</div>
 	</div>
-	<div class="Logout" OnClick="document.location.href='../';"><img src="{% static 'img/ico_logout.png' %}"/></div>
+	<div class="Logout" OnClick="document.location.href='/accounts/logout';"><img src="{% static 'img/ico_logout.png' %}"/></div>
 </div><!-- TopMenuSet -->

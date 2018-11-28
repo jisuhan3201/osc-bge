@@ -7,7 +7,7 @@ from django.views import defaults as default_views
 
 urlpatterns = [
     path('', include('osc_bge.bge.urls')),
-    path('users/', include('osc_bge.users.urls')),
+    path('branch/', include('osc_bge.branch.urls')),
     path('agent/', include('osc_bge.agent.urls')),
     path('student/', include('osc_bge.student.urls')),
     # Django Admin, use {% url 'admin:index' %}

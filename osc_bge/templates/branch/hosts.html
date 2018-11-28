@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+#PopDateInput {display:none;}
+</style>
+<div class="PopCover" id="PopDateInput">
+	<div class="SmallPopup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopDateInput').style.display='none';">X</div>
+			<div class="Title">Set Date</div>
+		</div>
+		<div class="Contents">
+
+				<div class="CalendarSet">
+					<div class="MonthSet">
+						<div class="LArrow"><img src="../img/ico_larrow.png" /></div>
+						<div class="Month">July, <span>2018</span></div>
+						<div class="RArrow"><img src="../img/ico_rarrow.png" /></div>
+					</div><!-- MonthSet -->
+					<div class="DaySet">
+						<div class="WeekSet">
+							<div class="Red">S</div>
+							<div class="">M</div>
+							<div class="">T</div>
+							<div class="">W</div>
+							<div class="">T</div>
+							<div class="">F</div>
+							<div class="Blue">S</div>
+						</div><!-- WeekSet -->
+						<div class="Day">
+							<div class="Red">1</div>
+							<div class="">2</div>
+							<div class="">3</div>
+							<div class="ON">4</div>
+							<div class="">5</div>
+							<div class="">6</div>
+							<div class="Blue">7</div>
+							<div class="Red">8</div>
+							<div class="">9</div>
+							<div class="">10</div>
+							<div class="">11</div>
+							<div class="">12</div>
+							<div class="">13</div>
+							<div class="Blue">14</div>
+							<div class="Red">15</div>
+							<div class="">16</div>
+							<div class="">17</div>
+							<div class="">18</div>
+							<div class="">19</div>
+							<div class="">20</div>
+							<div class="Blue">21</div>
+							<div class="Red">22</div>
+							<div class="">23</div>
+							<div class="">24</div>
+							<div class="">25</div>
+							<div class="">26</div>
+							<div class="">27</div>
+							<div class="Blue">28</div>
+							<div class="Red">29</div>
+							<div class="">30</div>
+							<div class="">31</div>
+							<div class="OFF">1</div>
+							<div class="OFF">2</div>
+							<div class="OFF">3</div>
+							<div class="OFF">4</div>
+						</div><!-- Day -->
+					</div><!-- DaySet -->
+				</div><!-- CalendarSet -->
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopDateInput').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopDateInput').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+<?php include('../inc/_top.php'); ?>
+<div class="ContentsFrame">
+	<div class="LeftFrame" id="LeftF">
+		<div class="SectionTitle">Host Families</div>
+		<div class="LeftTab">
+			<div class="TabConternts">
+				<div class="InnerTabContents">
+					<li><a href="../family/info.php">Host Family A</a></li>
+					<li><a href="../family/info.php">Host Family B</a></li>
+					<li><a href="../family/info.php">Host Family C</a></li>
+					<li><a href="../family/info.php">Host Family D</a></li>
+				</div><!-- InnerTabContents -->
+			</div>
+		</div><!-- LeftTab -->
+		<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../family/info.php" class="IsolationButton">+ &nbsp; Add New Family</a>
+	</div><!-- LeftFrame -->
+
+
+
+
+
+
+	<div class="MainFrame">
+		<div class="MTitle">Host Families List</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>Host Family Name</th>
+					<th>Student Name</th>
+					<th>(Newest Monthly)<br />Report Date</th>
+					<th>Report Due Date</th>
+					<th>Next Year Plan</th>
+					<th>Communication Log w/Date (with Date)</th>
+					<th>Contact Info</th>
+				</tr>
+				<tr>
+					<td rowspan="2"><a href="../family/info.php">Host Family A</a></td>
+					<td class="InnerInputTD">Yuren &nbsp; <a href="../family/report.php" class="IsolationButton">Report</a></td>
+					<td>2018-03-01</td>
+					<td class="InnerInputTD"><a href="JavaScript:void:(0);" OnClick="document.getElementById('PopDateInput').style.display='block';">2018-03-01</a> <a href="" class="Button">Comfirm</a></td>
+					<td class="InnerInputTD">
+						<select class="TableInnerInput">
+							<option>Select.. </option>
+							<option>Host same student</option>
+							<option>Change student</option>
+							<option>N/A</option>
+							<option>A</option>
+						</select>
+					</td>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="Requested report 3/20/2018" /></td>
+					<td><a href="">010.0000.0000</a><br /><a href="">abcdefg@gmail.com</a></td>
+				</tr>
+				<tr>
+					<td>Tianyi &nbsp; <a href="../family/report.php" class="IsolationButton">Report</a></td>
+					<td>2018-03-01</td>
+					<td class="InnerInputTD"><a href="JavaScript:void:(0);" OnClick="document.getElementById('PopDateInput').style.display='block';">2018-03-01</a> <a href="" class="Button">Comfirm</a></td>
+					<td class="InnerInputTD">
+						<select class="TableInnerInput">
+							<option>Select.. </option>
+							<option>Host same student</option>
+							<option>Change student</option>
+							<option>N/A</option>
+							<option>A</option>
+						</select>
+					</td>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="Requested report 3/20/2018" /></td>
+					<td><a href="">010.0000.0000</a><br /><a href="">abcdefg@gmail.com</a></td>
+				</tr>
+				<tr>
+					<td><a href="../family/info.php">Host Family B</a></td>
+					<td>Jessica &nbsp; <a href="../family/report.php" class="IsolationButton">Report</a></td>
+					<td>2018-03-01</td>
+					<td class="InnerInputTD">2018-03-01</td>
+					<td class="InnerInputTD">
+						<select class="TableInnerInput">
+							<option>Select.. </option>
+							<option>Host same student</option>
+							<option>Change student</option>
+							<option>N/A</option>
+							<option>A</option>
+						</select>
+					</td>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="Requested report 3/20/2018" /></td>
+					<td><a href="">010.0000.0000</a><br /><a href="">abcdefg@gmail.com</a></td>
+				</tr>
+				<tr>
+					<td><a href="../family/info.php">Host Family C</a></td>
+					<td>Mariah Chang &nbsp; <a href="../family/report.php" class="IsolationButton">Report</a></td>
+					<td>2018-03-01</td>
+					<td class="InnerInputTD"><a href="JavaScript:void:(0);" OnClick="document.getElementById('PopDateInput').style.display='block';">2018-03-01</a> <a href="" class="Button">Comfirm</a></td>
+					<td class="InnerInputTD">
+						<select class="TableInnerInput">
+							<option>Select.. </option>
+							<option>Host same student</option>
+							<option>Change student</option>
+							<option>N/A</option>
+							<option>A</option>
+						</select>
+					</td>
+					<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="Requested report 3/20/2018" /></td>
+					<td><a href="">010.0000.0000</a><br /><a href="">abcdefg@gmail.com</a></td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+
+{% endblock %}
