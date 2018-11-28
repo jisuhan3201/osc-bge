@@ -8,7 +8,7 @@
 	<div class="Logo"><img src="{% static 'img/m_logo.png' %}"/></div>
 	<div class="Menu">
 		<!-- Agent Branch Manager Start-->
-    {% if user.type == 'agency_admin' %}
+    {% if user.type != 'counseler' %}
 		<a href="/agent/statistics">Agent Statistics</a>
     {% endif %}
 		<!-- Agent Branch Manager End-->
