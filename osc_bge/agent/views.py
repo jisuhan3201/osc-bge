@@ -1263,9 +1263,13 @@ def upload_files(request, formality_id):
 def load_states(request):
 
     country = request.GET.get('country')
-    states = school_models.School.objects.filter(country=country).values('state').order_by('state').distinct()
+    states = school_models.Secondary.objects.filter(school__country=country).values('state').order_by('state').distinct()
 
     state_list = []
+    for state in states:
+        state_list.append(state)
+
+    states = school_models.College.objects.filter(school__country=country).values('state').order_by('state').distinct()
     for state in states:
         state_list.append(state)
 
@@ -1279,7 +1283,12 @@ def load_schools(request):
 
     state = request.GET.get('state')
 
-    schools = school_models.School.objects.filter(state__iexact=state).order_by('name')
+    if school_models.Secondary.objects.filter(state__iexact=state):
+        schools = school_models.School.objects.filter(secondary__state__iexact=state).order_by('name')
+    elif school_models.College.objects.filter(state__iexact=state):
+        schools = school_models.School.objects.filter(college__state__iexact=state).order_by('name')
+    else:
+        return HttpResponse(status=400)
 
     data = serializers.serialize("json", schools)
 

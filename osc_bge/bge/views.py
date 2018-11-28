@@ -17,12 +17,12 @@ def index(request):
         elif request.user.type == 'bge_branch_admin':
             return redirect('/branch/statistics')
 
-        elif request.user.type == "counselor":
+        elif request.user.type == "agency_admin":
 
-            return redirect('/agent/prospective')
+            return redirect('/agent/statistics')
 
         else:
-            return redirect('/agent/statistics')
+            return redirect('/agent/counsel')
 
 
 class BgeStatisticsView(LoginRequiredMixin, View):

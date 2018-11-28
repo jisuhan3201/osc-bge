@@ -11,7 +11,7 @@ $(document).ready(function(){
           $("#StateAjax1").empty()
           $("#StateAjax1").append('<option>State Select..</option>')
           for (var i=0; i < data.data.length; i++){
-            $("#StateAjax1").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state + '</option>')
+            $("#StateAjax1").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state.toUpperCase().toUpperCase() + '</option>')
           }
         }
       });
@@ -58,7 +58,7 @@ $(document).ready(function(){
           $("#StateAjax2").empty()
           $("#StateAjax2").append('<option>State Select..</option>')
           for (var i=0; i < data.data.length; i++){
-            $("#StateAjax2").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state + '</option>')
+            $("#StateAjax2").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state.toUpperCase() + '</option>')
           }
         }
       });
@@ -106,7 +106,7 @@ $(document).ready(function(){
           $("#StateAjax3").empty()
           $("#StateAjax3").append('<option>State Select..</option>')
           for (var i=0; i < data.data.length; i++){
-            $("#StateAjax3").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state + '</option>')
+            $("#StateAjax3").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state.toUpperCase() + '</option>')
           }
         }
       });
@@ -154,7 +154,7 @@ $(document).ready(function(){
           $("#StateAjax4").empty()
           $("#StateAjax4").append('<option>State Select..</option>')
           for (var i=0; i < data.data.length; i++){
-            $("#StateAjax4").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state + '</option>')
+            $("#StateAjax4").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state.toUpperCase() + '</option>')
           }
         }
       });
@@ -202,7 +202,7 @@ $(document).ready(function(){
           $("#StateAjax5").empty()
           $("#StateAjax5").append('<option>State Select..</option>')
           for (var i=0; i < data.data.length; i++){
-            $("#StateAjax5").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state + '</option>')
+            $("#StateAjax5").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state.toUpperCase() + '</option>')
           }
         }
       });
@@ -250,7 +250,7 @@ $(document).ready(function(){
           $("#StateAjax6").empty()
           $("#StateAjax6").append('<option>State Select..</option>')
           for (var i=0; i < data.data.length; i++){
-            $("#StateAjax6").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state + '</option>')
+            $("#StateAjax6").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state.toUpperCase() + '</option>')
           }
         }
       });
@@ -298,7 +298,7 @@ $(document).ready(function(){
           $("#StateAjax7").empty()
           $("#StateAjax7").append('<option>State Select..</option>')
           for (var i=0; i < data.data.length; i++){
-            $("#StateAjax7").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state + '</option>')
+            $("#StateAjax7").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state.toUpperCase() + '</option>')
           }
         }
       });
@@ -346,7 +346,7 @@ $(document).ready(function(){
           $("#StateAjax8").empty()
           $("#StateAjax8").append('<option>State Select..</option>')
           for (var i=0; i < data.data.length; i++){
-            $("#StateAjax8").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state + '</option>')
+            $("#StateAjax8").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state.toUpperCase() + '</option>')
           }
         }
       });
@@ -394,7 +394,7 @@ $(document).ready(function(){
           $("#StateAjax9").empty()
           $("#StateAjax9").append('<option>State Select..</option>')
           for (var i=0; i < data.data.length; i++){
-            $("#StateAjax9").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state + '</option>')
+            $("#StateAjax9").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state.toUpperCase() + '</option>')
           }
         }
       });
@@ -442,7 +442,7 @@ $(document).ready(function(){
           $("#StateAjax10").empty()
           $("#StateAjax10").append('<option>State Select..</option>')
           for (var i=0; i < data.data.length; i++){
-            $("#StateAjax10").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state + '</option>')
+            $("#StateAjax10").append('<option value=' + "'" + data.data[i].state + "'" + '>' + data.data[i].state.toUpperCase() + '</option>')
           }
         }
       });

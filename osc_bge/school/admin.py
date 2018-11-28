@@ -47,7 +47,7 @@ class CollegeAdmin(admin.ModelAdmin):
         "school",
         "detail_type",
         "toefl_requirement",
-        "location",
+        "state",
         "national_univ",
         "tuition",
         "room_and_board",
