@@ -15,6 +15,7 @@ django-redis==4.9.0  # https://github.com/niwinz/django-redis
 django-bootstrap4==0.0.7 # for datepicker
 django-bootstrap-datepicker-plus==3.0.5 # for calendar
 django-countries==5.3.2
+django-seed==0.1.9
 
 # Django REST Framework
 djangorestframework==3.9.0  # https://github.com/encode/django-rest-framework
