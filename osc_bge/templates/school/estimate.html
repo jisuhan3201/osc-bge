@@ -1,0 +1,202 @@
+{% extends 'school_base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="ContentsFrame">
+	<div class="RateInfo">
+		<div class="Text">Currency rate <span></span></div>
+		<div><input type="text" class="Input" value="1.22" /></div>
+		<div><input type="button" value="Apply" class="Button" /></div>
+	</div>
+	<div class="SchoolName">
+	<span>School Information</span><br />
+	St. John’s High School
+	</div>
+	<div class="SchoolFrame">
+
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+					<col width="40">
+					<col width="200">
+				</colgroup>
+				<tr>
+					<th>Detailed information</th>
+					<th>Qty</th>
+					<th style="text-align:center;">Amount</th>
+				</tr>
+			</table>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+
+		<div class="MTitle">Program fee</div>
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+					<col width="40">
+					<col width="60">
+					<col width="140">
+				</colgroup>
+				<tr>
+					<td>
+						<label><input type="checkbox" checked /><span></span>
+						Grade -11 * 1 Academic Year (10months)</label>
+					</td>
+					<td>1</td>
+					<td>USD</td>
+					<td>$45,000.00</td>
+				</tr>
+				<tr>
+					<td>
+						<label><input type="checkbox" checked /><span></span>
+						Application Fee</label>
+					</td>
+					<td>1</td>
+					<td>USD</td>
+					<td>$200.00</td>
+				</tr>
+				<tr>
+					<td class="TotalCount">Sub total-Program Fee</td>
+					<td class="TotalCount"></td>
+					<td class="TotalCount">USD</td>
+					<td class="TotalCount">$45,200.00</td>
+				</tr>
+			</table>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+
+		<div class="MTitle">Processing Fee</div>
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+					<col width="40">
+					<col width="60">
+					<col width="140">
+				</colgroup>
+				<tr>
+					<td>
+						<label><input type="checkbox" checked /><span></span>
+						Processing Fee</label>
+					</td>
+					<td>1</td>
+					<td>USD</td>
+					<td class="InnerInputTD">$<input type="text" class="TableInnerInput" size="12" value="1,000.00" /></td>
+				</tr>
+				<tr>
+					<td>
+						<label><input type="checkbox" checked /><span></span>
+						Additional schools</label>
+					</td>
+					<td>3</td>
+					<td>USD</td>
+					<td class="InnerInputTD">$<input type="text" class="TableInnerInput" size="12" value="3,000.00" /></td>
+				</tr>
+				<tr>
+					<td class="TotalCount">Sub total-Processing Fee</td>
+					<td class="TotalCount"></td>
+					<td class="TotalCount">USD</td>
+					<td class="TotalCount">$4,000.00</td>
+				</tr>
+			</table>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+
+		<div class="MTitle">Other Fee</div>
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+					<col width="40">
+					<col width="60">
+					<col width="140">
+				</colgroup>
+				<tr>
+					<td>
+						<label><input type="checkbox" checked /><span></span>
+						U.S.Visa Application Fee</label>
+					</td>
+					<td>1</td>
+					<td>USD</td>
+					<td>$<input type="text" class="TableInnerInput" size="12" value="190" /></td>
+				</tr>
+				<tr>
+					<td>
+						<label><input type="checkbox" checked /><span></span>
+						International BankTransfer Fee</label>
+					</td>
+					<td>1</td>
+					<td>USD</td>
+					<td>$<input type="text" class="TableInnerInput" size="12" value="20" /></td>
+				</tr>
+				<tr>
+					<td class="TotalCount">Sub total-Other Fee</td>
+					<td class="TotalCount"></td>
+					<td class="TotalCount">USD</td>
+					<td class="TotalCount">$210.00</td>
+				</tr>
+			</table>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+
+		<div class="MTitle">Total Cost</div>
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+					<col width="40">
+					<col width="60">
+					<col width="140">
+				</colgroup>
+				<tr>
+					<td class="TotalCount">Total Cost</td>
+					<td class="TotalCount"></td>
+					<td class="TotalCount">USD</td>
+					<td class="TotalCount">$49,410.00</td>
+				</tr>
+				<tr>
+					<td class="TotalCount">Promotion-Application Fee Waive</td>
+					<td class="TotalCount"></td>
+					<td class="TotalCount">USD</td>
+					<td class="TotalCount">$<input type="text" class="TableInnerInput" size="12" value="200.00" /></td>
+				</tr>
+			</table>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+
+		<div class="MTitle">
+			<!-- div class="MTitleButton">Service Description</div -->
+			Memo
+		</div>
+		<div class="TextAreaForm">
+			<textarea>
+- Program fee includes: tuition, application fee, school registration fee/enrollment fee, activities, student's accommodation and meals for 10 months. (The fee does not include personal expenses such as phone plans, shopping expenses, etc.)
+
+- Processing Fee Includes: Program application& Visa application handling
+			</textarea>
+			<div class="SchoolButton">Modify</div>
+		</div><!-- TextAreaForm -->
+		<div class="EndPart"></div>
+
+		<div class="TotalEstimate">
+			<div class="Total"><span>Total Estimate Cost</span>$49,210.00</div>
+			<div class="Button">
+				<div class="MailSubmit">E-mail</div>
+				<div class="PrintSubmit">Print</div>
+			</div>
+		</div><!-- TotalEstimate -->
+		<div class="EndPart"></div>
+
+
+	</div>
+</div><!--  ContentsFrame-->
+
+
+{% endblock %}

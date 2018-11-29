@@ -582,3 +582,23 @@ background:#FFF;border:1px solid #CCC;border-radius:3px;cursor:pointer;overflow:
 .DeleteButton:hover img {opacity:1;}
 .AddFileButton {background-color: green!important; color:#FFF;}
 .DeleteFilebutton {background-color: red!important; color:#FFF;}
+
+.IsolationButton {padding:5px 12px 5px 10px;font-size:12px;font-weight:200;color:#333;
+background-color:#FFF;border-radius:3px;border:1px solid #DDD;cursor:pointer;}
+.IsolationButton:hover {color:#FFF;background-color:#333;border:1px solid #333;}
+
+.AgentFrameL {padding-right:30px;width:calc(100% - 660px);display:inline-block;vertical-align:top;}
+.AgentFrameR {display:inline-block;vertical-align:top;padding:10px;background-color:#FFF;}
+.PTitle {padding:0px 0px 20px 0px;font-size:24px;font-weight:600;color:#333;}
+.PTitle span {padding:0px 10px 0px 10px;font-size:16px;font-weight:300;color:#666;}
+
+.SchoolThumbnail {margin:3px;height:80px;}
+.Layout_2-1 {float:left;padding:0px 5px;width:calc(50% - 10px);}
+
+
+.DirectoryTable {margin:5px 0px;overflow:hidden;border-radius:3px;}
+.DirectoryTable table {width:100%;
+font-size:12px;line-height:16px;text-align:center;border-top:1px solid #DDD;border-right:1px solid #DDD;}
+.DirectoryTable th {padding:9px;font-weight:450;color:#FFF;background:#215670;}
+.DirectoryTable td {padding:6px;font-weight:450;color:#333;border-bottom:1px solid #DDD;border-left:1px solid #DDD;}
+.GraphgArea {padding:20px;height:400px;background:#FFF;}

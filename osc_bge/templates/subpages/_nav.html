@@ -15,6 +15,13 @@
     <a href="/agents">Agents</a>
     <a href="/secondary">Secondary Schools</a>
     {% endif %}
+    {% if user.type == "bge_team" %}
+    <a href="/statistics">BGE Statistics</a>
+    <a href="/agent/prospective">Prospective Students</a>
+    <a href="/agent/process">Application Process</a>
+    <a href="/secondary">Secondary Schools</a>
+    <a href="/college">College</a>
+    {% endif %}
     {% if user.type == 'bge_branch_admin' %}
     <a href="/branch/statistics">Branch Statistics</a>
     <a href="/branch/secondary">Secondary School</a>

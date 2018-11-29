@@ -21,3 +21,66 @@ class SecondaryLogView(LoginRequiredMixin, View):
 
 
         return render(request, 'school/testlog.html', {})
+
+
+class CollegeSchoolView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def get(self, request, secondary_id=None):
+
+
+        return render(request, 'school/college.html', {})
+
+
+class SecondarySummaryView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def get(self, request, secondary_id=None):
+
+
+        return render(request, 'school/summary.html', {})
+
+
+class SecondaryDetailView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def get(self, request, secondary_id=None):
+
+
+        return render(request, 'school/detailed_info.html', {})
+
+
+class SecondaryServiceView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def get(self, request, secondary_id=None):
+
+
+        return render(request, 'school/service.html', {})
+
+
+class SecondaryReviewView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def get(self, request, secondary_id=None):
+
+
+        return render(request, 'school/review.html', {})
+
+
+class SecondaryEstimateView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def get(self, request, secondary_id=None):
+
+
+        return render(request, 'school/estimate.html', {})
+
+
+class SecondaryPhotoView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def get(self, request, secondary_id=None):
+
+
+        return render(request, 'school/photo.html', {})

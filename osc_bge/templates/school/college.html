@@ -1,0 +1,167 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% block content %}
+
+<div class="TopMenuSet">
+	<div class="SchoolName"><img src="{% static 'img/m_logo.png' %}" /></div>
+	<div class="SchoolMenu"></div>
+	<div class="ButtonLine"></div>
+</div><!-- TopMenuSet -->
+
+<div class="ContentsFrame">
+	<div class="SchoolVisual" style="background-image:url('{% static 'imgsrc/college.jpg'%}');">
+		<div class="Cover">
+			<div class="Name">
+			<span>College Information</span><br />
+			Princeton University
+			</div>
+
+
+			<div class="WhiteTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="150">
+						<col>
+					</colgroup>
+					<tr>
+						<th>Location : </th>
+						<td>Princeton, NJ</td>
+					</tr>
+					<tr>
+						<th>Type : </th>
+						<td>Private</td>
+					</tr>
+					<tr>
+						<th>Tuition : </th>
+						<td>$49,055</td>
+					</tr>
+					<tr>
+						<th>Room & Board : </th>
+						<td>$18,520</td>
+					</tr>
+					<tr>
+						<th>SAT/ACT Requirement : </th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>SAT/ACT 25% : </th>
+						<td>1470 (New SAT 1600)</td>
+					</tr>
+					<tr>
+						<th>SAT/ACT 75% : </th>
+						<td>1590</td>
+					</tr>
+					<tr>
+						<th>GPA Requirement : </th>
+						<td>3.87 unweighted</td>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+
+
+		</div>
+	</div><!-- SchoolVisual -->
+	<div class="SchoolMFrame">
+
+		<div class="MTitle">College Information</div>
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="150">
+					<col>
+					<col width="150">
+					<col>
+					<col width="150">
+					<col>
+				</colgroup>
+				<tr>
+					<th>Ranking : </th>
+					<td>-</td>
+					<th>Setting : </th>
+					<td>-</td>
+					<th>Acceptance % : </th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th>Year Founded : </th>
+					<td>-</td>
+					<th># of Students : </th>
+					<td>-</td>
+					<th>Asian % : </th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th>High School Top 10 % : </th>
+					<td>-</td>
+					<th>Full Time Faculty (%) : </th>
+					<td>-</td>
+					<th>Student/Faculty Ratio :</th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th>Classes Under 20 (%) : </th>
+					<td>-</td>
+					<th>E/D, E/A Deadline : </th>
+					<td>-</td>
+					<th>E/D, E/A Notice Date :</th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th>Application Deadline : </th>
+					<td>-</td>
+					<th>Degrees Offered : </th>
+					<td>-</td>
+					<th>Most Popular Majors :</th>
+					<td>-</td>
+				</tr>
+			</table>
+		</div><!-- InfoTable -->
+		<div class="cdiv"></div>
+		<div class="EndPart"></div>
+
+
+		<div class="BOX03">
+			<div class="MTitle">Selling point</div>
+			<div class="MTextBox">
+				<li>Very famous boy school, more AP courses, excellent education quality, teachers are responsible, very experienced at handling any problems that boys may have.</li>
+				<li><b>Recent College Acceptance</b> : Amherst, Yale, Stanford, MIT, Georgetown, Johns Hopkins, Virginia Tech…</li>
+				<li><b>College Acceptance Rate</b> : 96%</li>
+			</div><!-- MTextBox -->
+		</div>
+
+		<div class="BOX03">
+			<div class="MTitle">BGE Services</div>
+			<div class="MTextBox">
+				<li>Click to see How we care students when they arrive in the U. S. </li>
+				<div class="MMore">+ See More</div>
+			</div><!-- MTextBox -->
+		</div>
+
+		<div class="BOX03E">
+			<div class="MTitle">Student’s Review</div>
+			<div class="MTextBox">
+				<li>I have been with BGE since I was in eighth grade and they were very helpful in preparing me for high school in the United States…..</li>
+				<div class="MMore">+ See More</div>
+			</div><!-- MTextBox -->
+		</div>
+		<div class="cdiv"></div>
+		<div class="EndPart"></div>
+
+
+		<div class="MTitle">Location& Contacts</div>
+		<div class="Location">
+			<div class="API" id="map_canvas">MapAPI</div>
+			<div class="Info">
+				<li>378 Main St, Shrewsbury MA 01545</li>
+				<li>+1 508-842-8934</li>
+				<li>https://www.stjohnshigh.org</li>
+			</div>
+		</div><!-- Location -->
+		<div class="cdiv"></div>
+		<div class="EndPart"></div>
+
+
+	</div><!-- SchoolMFrame -->
+</div><!--  ContentsFrame-->
+
+{% endblock %}
