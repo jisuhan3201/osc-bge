@@ -1,0 +1,565 @@
+/* POP */
+.PopCover {position:fixed;width:100%;height:100%;top:0px;left:0px;bottom:0px;right:0px;
+background:rgba(0,0,0,0.7);z-index:1000;overflow:auto;}
+.PopCover .Popup {margin:150px auto;padding:20px;width:460px;
+background:#FFF;border-radius:3px;overflow:hidden;}
+.PopCover .Popup .TitleSet {position:relative;overflow:hidden;}
+.PopCover .Popup .TitleSet .Title {padding-bottom:10px;line-height:18px;font-size:18px;font-weight:350;color:#333;}
+.PopCover .Popup .TitleSet .Close {position:absolute;right:0px;width:16px;height:16px;line-height:16px;
+font-size:12px;font-weight:350;color:#999;z-index:1000;cursor:pointer;}
+
+
+.PopCover .WidePopup {margin:150px auto;padding:20px;width:540px;
+background:#FFF;border-radius:3px;overflow:hidden;}
+.PopCover .WidePopup .TitleSet {position:relative;overflow:hidden;}
+.PopCover .WidePopup .TitleSet .Title {padding-bottom:10px;line-height:18px;font-size:18px;font-weight:350;color:#333;}
+.PopCover .WidePopup .TitleSet .Close {position:absolute;right:0px;width:16px;height:16px;line-height:16px;
+font-size:12px;font-weight:350;color:#999;z-index:1000;cursor:pointer;}
+
+
+.PopCover .SmallPopup {margin:150px auto;padding:20px;width:240px;
+background:#FFF;border-radius:3px;overflow:hidden;}
+.PopCover .SmallPopup .TitleSet {position:relative;overflow:hidden;}
+.PopCover .SmallPopup .TitleSet .Title {padding-bottom:10px;line-height:18px;font-size:18px;font-weight:350;color:#333;}
+.PopCover .SmallPopup .TitleSet .Close {position:absolute;right:0px;width:16px;height:16px;line-height:16px;
+font-size:12px;font-weight:350;color:#999;z-index:1000;cursor:pointer;}
+
+
+
+.PopButtonLine {text-align:right;}
+.PopButtonLine div {display:inline-block;margin-top:20px;padding:0px 20px;height:28px;
+font-size:9px;font-weight:600;color:#FFF;line-height:28px;text-align:center;
+background:#084360;border-radius:3px;overflow:hidden;cursor:pointer;}
+.PopButtonLine .Close {background:#AAA;}
+.PopButtonLine div {background:#145677;}
+
+
+
+
+
+
+
+
+
+
+
+/* LOGIN */
+.LoginContents {min-height:600px;height:calc(100% - 36px);
+background-image:url('../img/visual_img01.jpg');background-position:center center;background-size:cover;}
+.VisualCover {width:100%;height:100%;background-image:url('../img/visual_cover2.png');}
+.BottomSet {position:absolute;bottom:0px;width:100%;height:36px;
+font-size:10px;font-weight:350;line-height:36px;color:rgba(255, 255, 255, 0.5);text-align:center;
+background:#084360;z-index:10;}
+.LoginPop {position:absolute;top:50%;margin-top:-191px;height:346px;
+left:50%;margin-left:-143px;width:286px;
+border-radius:3px;background:#084360;overflow:hidden;z-index:100;}
+.LoginPop .Title {padding:15px 25px 0px;height:75px;
+line-height:75px;
+background-image:url('../img/left_corner.png');background-position:left top;background-repeat:no-repeat;}
+.LoginPop .LoginTitle {padding:2px 25px 0px 25px;height:24px;
+font-size:13px;line-height:24px;color:rgba(255, 255, 255, 0.8);}
+.LoginPop .Form {padding:0px 18px;}
+.LoginPop .Form .Input {margin:2px 0px;padding:0px 10px;width:calc(100% - 22px);height:50px;
+font-size:16px;line-height:50px;color:#AAA;
+border-radius:3px;border:1px solid #FAFAFA;}
+.LoginPop .Form .LoginButton {margin:2px 0px;padding:11px 10px;width:calc(100% - 20px);height:30px;
+font-size:16px;line-height:30px;
+background:#fba016;border-radius:3px;cursor:pointer;overflow:hidden;}
+.LoginPop .Form .LoginButton:hover {background:#FF6600;}
+.LoginPop .Form .LoginButton > div {float:left;}
+.LoginPop .Form .LoginButton > .Icon {line-height:30px;height:30px;}
+.LoginPop .Form .LoginButton > .Icon img {margin-top:-3px;height:100%;}
+.LoginPop .Form .LoginButton > .Text {margin-left:10px;padding-left:15px;
+font-size:16px;font-weight:600;color:#FFF;line-height:30px;
+border-left:1px solid rgba(255, 255, 255, 0.2);}
+.LoginPop .Footter {padding:13px 25px 15px 25px;height:34px;
+font-size:12px;line-height:14px;color:rgba(255, 255, 255, 0.5);
+background-image:url('../img/right_corner.png');background-position:right bottom;background-repeat:no-repeat;}
+.LoginPop .Footter a {color:rgba(255, 255, 255, 0.5);}
+.LoginPop .Footter a:hover {color:rgba(255, 255, 255, 1);}
+
+
+
+/* TOP */
+.TopMenuSet {width:100%;height:45px;line-height:45px;background:#084360;overflow:hidden;}
+.TopMenuSet > div {float:left;height:45px;line-height:45px;}
+.TopMenuSet .Logo {width:149px;text-align:center;
+font-size:14px;font-weight:600;color:#FFF;line-height:45px;
+border-left:1px solid rgba(255, 255, 255, 0.1);}
+.TopMenuSet .Logo img {max-width:149px;height:45px;}
+.TopMenuSet .RegLogo {width:149px;text-align:center;
+font-size:14px;font-weight:600;color:#FFF;line-height:45px;
+border-left:1px solid rgba(255, 255, 255, 0.1);background-image:url('../img/left_corner.png');
+background-position:-15px top;background-repeat:no-repeat;}
+.TopMenuSet .RegLogo img {max-width:149px;height:45px;}
+.TopMenuSet .LeftOnMenu {width:45px;
+transform:rotate(90deg);cursor:pointer;transition: all linear 200ms;}
+.TopMenuSet .LeftOnMenu img {margin:6px;width:33px;height:33px;}
+
+
+.TopMenuSet .LeftOffMenu {width:45px;}
+.TopMenuSet .LeftOffMenu img {margin:6px;width:33px;height:33px;opacity:0.5}
+
+
+.TopMenuSet .RegMenu {padding:0px 20px;width:calc(100% - 470px);
+font-size:18px;font-weight:600;color:#FFF;}
+.TopMenuSet .Menu {padding:0px 20px;width:calc(100% - 515px);text-align:right;}
+.TopMenuSet .Menu a {padding:0px 15px;font-size:13px;font-weight:600;line-height:45px;color:#FFF;}
+.TopMenuSet .Menu .On {color:#dcb068 !important;}
+.TopMenuSet .Menu a:hover {font-size:13px;line-height:45px;color:#FF6600;}
+.TopMenuSet .Info {width:235px;overflow:hidden;cursor:pointer;}
+.TopMenuSet .Info > div {float:left;}
+.TopMenuSet .Info .FaceOn {margin:6px;width:33px;height:33px;
+border-radius:50%;background-position:center center;background-size:cover;overflow:hidden;}
+.TopMenuSet .Info .NameSet {margin:10px 5px;width:180px;}
+.TopMenuSet .Info .NameSet > li {width:180px;height:12px;font-size:11px;line-height:12px;font-weight:350;}
+.TopMenuSet .Info .NameSet .Name {color:rgba(255, 255, 255, 1);}
+.TopMenuSet .Info .NameSet .Rank {color:rgba(255, 255, 255, 0.5);}
+.TopMenuSet .Logout {width:45px;height:45px;
+font-size:18px;font-weight:100;line-height:45px;text-align:center;color:#FFF;
+background:#fba016;cursor:pointer;}
+.TopMenuSet .Logout:hover {background:#FF6600;}
+.TopMenuSet .Logout img {width:45px;height:45px;}
+
+/* CONTENTS */
+.ContentsFrame {position:relative;width:100%;height:calc(100% - 45px);min-height:calc(100% - 45px);background-color:#FAFAFA;
+background-image:url('../img/right_corner.png');background-position:right bottom;background-repeat:no-repeat;}
+.CIButton {position:absolute;top:6px;right:6px;padding:0px 20px;height:30px;
+font-size:12px;font-weight:600;color:#FFF;line-height:30px;
+background:#fba016;border-radius:3px;cursor:pointer;overflow:hidden;}
+.CIButton:hover {background:#FF6600;}
+.EndPart {padding:18px;}
+
+/* LEFT */
+.LeftFrame {float:left;margin:0px;width:274px;height:100%;min-height:100%;border-right:1px solid #DDD;
+background-color:#FFF;
+background-image:url('../img/right_corner.png');background-position:right bottom;background-repeat:no-repeat;
+transition: all linear 200ms;overflow:auto;}
+.LeftFrame .SectionTitle {padding:0px 20px;height:42px;line-height:42px;
+font-size:16px;font-weight:600;color:#000;text-transform:uppercase;
+background-color:#f6ecdd;background-image:url('../img/left_corner.png');
+background-position:-28px top;background-repeat:no-repeat;}
+
+.LeftTab .TabTitle {padding:0px 3px;
+background:#215670;overflow:hidden;}
+.LeftTab .TabTitle > div {float:left;margin:4px 1px 0px 1px;padding:0px 10px;
+font-size:12px;font-weight:600;line-height:32px;color:rgba(255, 255, 255, 0.5);
+background:#4384a4;border-radius:5px 5px 0px 0px;cursor:pointer;}
+.LeftTab .TabTitle > .On {color:#333;background:#FFF;}
+.LeftTab .TabTitle > div:hover {color:#333;background:#EFEFEF;}
+
+.LeftTab .TabConternts .InnerTab {padding:15px 20px 0px 20px;overflow:hidden;text-align:center;}
+.LeftTab .TabConternts .InnerTab > div {display:inline-block;margin:5px 0px;width:40px;height:40px;
+font-size:12px;font-weight:600;line-height:40px;color:#999;text-align:center;
+background:#EFEFEF;border-radius:50%;border:1px solid #DDD;cursor:pointer;}
+
+.LeftTab .TabConternts .InnerTab > .On {color:#FFF;background:#dcb068;border:1px solid #cfa155;}
+.LeftTab .TabConternts .InnerTab > div:hover {color:#FFF;background:#FF6600;}
+.LeftTab .TabConternts .USAMap {margin:10px 40px 0px 40px;}
+.LeftTab .TabConternts .USAMap img {width:100%;}
+
+.LeftTab .TabConternts .InnerTabContents {padding:20px 20px;overflow:hidden;}
+.LeftTab .TabConternts .InnerTabContents li {padding:5px 0px;
+font-size:12px;font-weight:350;line-height:1.3em;}
+.LeftTab .TabConternts .InnerTabContents li a {color:#999;}
+.LeftTab .TabConternts .InnerTabContents li a:hover {color:#000;}
+
+.LeftTab .TabConternts .AreaColorMA:hover {background:#fb2a9f !important;}
+.LeftTab .TabConternts .OnMA {color:#FFF !important;background:#E4007F !important;}
+.LeftTab .TabConternts .AreaColorCT:hover {background:#494cae !important;}
+.LeftTab .TabConternts .OnCT {color:#FFF !important;background:#1D2088 !important;}
+.LeftTab .TabConternts .AreaColorNJ:hover {background:#94d758 !important;}
+.LeftTab .TabConternts .OnNJ {color:#FFF !important;background:#6FBA2C !important;}
+.LeftTab .TabConternts .AreaColorDC:hover {background:#750069 !important;}
+.LeftTab .TabConternts .OnDC {color:#FFF !important;background:#750069 !important;}
+.LeftTab .TabConternts .AreaColorFA:hover {background:#750069 !important;}
+.LeftTab .TabConternts .OnFA {color:#FFF !important;background:#750069 !important;}
+.LeftTab .TabConternts .AreaColorCA:hover {background:#eeb636 !important;}
+.LeftTab .TabConternts .OnCA {color:#FFF !important;background:#F6AB00 !important;}
+.LeftTab .TabConternts .AreaColorFL:hover {background:#eeb636 !important;}
+.LeftTab .TabConternts .OnFL {color:#FFF !important;background:#F6AB00 !important;}
+.LeftTab .TabConternts .AreaColorTX:hover {background:#eeb636 !important;}
+.LeftTab .TabConternts .OnTX {color:#FFF !important;background:#F6AB00 !important;}
+.LeftTab .TabConternts .AreaColorETC {font-size:9px !important;letter-spacing:-0.05em;}
+.LeftTab .TabConternts .AreaColorETC:hover {background:#eeb636 !important;}
+.LeftTab .TabConternts .OnETC {color:#FFF !important;background:#F6AB00 !important;}
+
+.LeftTab .TabConternts .AreaColorNE:hover {background:#e96e6a !important;}
+.LeftTab .TabConternts .OnNE {color:#FFF !important;background:#cf4641 !important;}
+.LeftTab .TabConternts .AreaColorSE:hover {background:#51d7c4 !important;}
+.LeftTab .TabConternts .OnSE {color:#FFF !important;background:#21baa4 !important;}
+.LeftTab .TabConternts .AreaColorMW:hover {background:#5285cc !important;}
+.LeftTab .TabConternts .OnMW {color:#FFF !important;background:#2764b8 !important;}
+.LeftTab .TabConternts .AreaColorW:hover {background:#ffd48b !important;}
+.LeftTab .TabConternts .OnW {color:#FFF !important;background:#fdc059 !important;}
+
+/* MAIN */
+.MainFrame {float:left;padding:42px 40px 20px 40px;width:calc(100% - 355px);height:calc(100% - 62px);min-height:calc(100% - 62px);
+transition: all linear 200ms;overflow:auto;}
+.MainFrame .MTitle {float:left;margin-bottom:10px;padding-left:10px;height:36px;
+font-size:18px;font-weight:600;line-height:36px;color:#333;
+border-left:3px solid #dcb068;}
+.MainAFrame .MTitle {float:left;padding-left:10px;height:36px;
+font-size:16px;font-weight:600;line-height:36px;color:#333;
+border-left:3px solid #dcb068;}
+.MainFrame .MTitle span {margin-left:10px;font-size:14px;font-weight:100;color:#666;}
+.MainAFrame .MTitle span {margin-left:10px;font-size:14px;font-weight:100;color:#666;}
+
+
+.MainAFrame {padding:42px 40px 20px 40px;height:calc(100% - 62px);min-height:calc(100% - 62px);
+transition: all linear 200ms;overflow:auto;}
+.MainAFrame .MTitle {padding-left:10px;height:36px;
+font-size:18px;font-weight:600;line-height:36px;color:#333;
+border-left:3px solid #dcb068;}
+
+
+
+
+
+
+/* TABLE*/
+.InfoTable {margin:5px 0px;}
+.InfoTable table {width:100%;
+font-size:12px;line-height:16px;border-bottom:1px solid #DDD;}
+.InfoTable tr:hover {background:#FFF;}
+.InfoTable th {padding:6px;font-weight:150;color:#999;text-align:left;border-top:1px solid #DDD;}
+.InfoTable td {font-size:12px;line-height:18px;padding:6px;font-weight:600;color:#333;border-top:1px solid #DDD;}
+.InfoTable .SchoolButton {position:absolute;right:40px;padding:0px 20px;height:30px;
+font-size:12px;font-weight:600;color:#FFF;line-height:30px;text-align:center;
+background:#fba016;border-radius:3px;cursor:pointer;overflow:hidden;}
+.InfoTable .SchoolButton:hover {background:#FF6600;}
+.InfoTable .DoneIcon {margin:0px 5px;padding:0px 4px;font-weight:150;font-size:6px;color:#FFF;
+background:#FF6600;border-radius:50%;}
+.InfoTable .AddComment {margin-left:3px;font-weight:150;font-size:11px;color:#FF6600;}
+.InfoTable .TitleColor {font-size:12px;font-weight:600;color:#000;background:#EFEFEF;}
+.InfoTable .TitleColor2 {font-size:11px;font-weight:600;color:#FF6600;text-align:center;background:#FAFAFA;}
+.InfoTable td .Button {padding:3px 10px;
+font-size:11px;font-weight:600;color:#333;line-height:22px;
+background:#FFF;border:1px solid #CCC;border-radius:3px;cursor:pointer;overflow:hidden;}
+.InfoTable td .Button:hover {background:#FF6600;color:#FFF;}
+
+.InfoTable .TotalCount {color:#000;border-top:1px solid #AAA;border-bottom:1px solid #AAA;background:#FFF;}
+
+
+.ListTable {margin:5px 0px;overflow:hidden;border-radius:3px;}
+.ListTable table {width:100%;
+font-size:12px;line-height:16px;text-align:center;}
+.ListTable tr:hover {background:#FFF;}
+.ListTable th {padding:9px;font-weight:450;color:#FFF;background:#215670;}
+.ListTable td {padding:6px;font-weight:450;color:#333;border-bottom:1px solid #DDD;}
+.ListTable .Relationship {background-color:#e3fddf;}
+.ListTable tr:hover .RelationShip {background:#FFF;}
+.ListTable td .Button {padding:3px 10px;
+font-size:11px;font-weight:600;color:#333;line-height:22px;
+background:#FFF;border:1px solid #CCC;border-radius:3px;cursor:pointer;overflow:hidden;}
+.ListTable td .Button:hover {background:#FF6600;color:#FFF;}
+
+.ListTable .row2 {padding:2px !important;}
+.ListTable .IcoButton {width:22px;padding:3px 5px;
+background:#FFF;border:1px solid #CCC;border-radius:3px;cursor:pointer;overflow:hidden;}
+.ListTable .IcoButton img {margin-top:-3px;height:16px;opacity:0.5;}
+.ListTable .IcoButton:hover img {opacity:1;}
+.ListTable .TitleColor {font-size:12px;font-weight:600;color:#000;background:#EFEFEF;}
+.ListTable .TitleColor2 {font-size:11px;font-weight:600;color:#FF6600;text-align:center;background:#FAFAFA;}
+
+
+
+
+
+
+.WhiteTable {margin:300px 20px 0px 20px;}
+.WhiteTable table {width:100%;
+font-size:12px;line-height:16px;border-bottom:1px solid rgba(255, 255, 255, 0.5);}
+.WhiteTable tr:hover {background:#FFF;}
+.WhiteTable th {padding:6px;font-weight:150;color:rgba(255, 255, 255, 0.7);text-align:left;border-top:1px solid #DDD;}
+.WhiteTable td {padding:6px;font-weight:600;color:rgba(255, 255, 255, 1);border-top:1px solid rgba(255, 255, 255, 0.5);}
+
+
+
+.ListCounter {margin:10px 0px;text-align:center;
+font-size:9px;line-height:18px;color:#999;}
+.ListCounter a {margin:0px 5px;}
+
+.ListSearch {margin:10px 0px;text-align:center;}
+.ListSearch div {display:inline-block;vertical-align:top;
+font-size:12px;}
+.ListSearch .Hspace {display:inline-block;vertical-align:top;padding:0px 5px;}
+.ListSearch .SearchInput {padding:0px 5px;height:30px;
+font-size:12px;font-weight:350;line-height:30px;border:1px solid #DDD;}
+.ListSearch .SearchSelect {padding:0px 5px;height:30px;
+font-size:12px;font-weight:350;line-height:30px;border:1px solid #DDD;}
+.ListSearch .SearchInput {padding:0px 5px;height:28px;
+font-size:12px;font-weight:350;line-height:28px;border:1px solid #DDD;}
+.ListSearch .ListSearchButton {padding:0px 20px;height:30px;
+font-size:12px;font-weight:600;color:#FFF;line-height:30px;
+background:#fba016;border:0px;border-radius:3px;cursor:pointer;overflow:hidden;}
+.ListSearch .ListSearchButton:hover {background:#FF6600;}
+
+
+
+
+/* SCHOOL */
+.TopMenuSet .SchoolName {width:200px;
+font-size:16px;font-weight:600;line-height:45px;color:#FFF;
+background-image:url('../img/left_corner.png');background-position:-20px top;background-repeat:no-repeat;}
+
+.TopMenuSet .SchoolMenu {width:calc(100% - 456px);text-align:right;}
+.TopMenuSet .SchoolMenu a {padding:0px 20px;font-size:13px;font-weight:600;line-height:45px;color:#FFF;}
+.TopMenuSet .SchoolMenu .On {color:#dcb068 !important;}
+.TopMenuSet .SchoolMenu a:hover {font-size:13px;line-height:45px;color:#FF6600;}
+
+
+.TopMenuSet .ButtonLine {margin-right:6px;width:250px;text-align:right;}
+.TopMenuSet .ButtonLine > div {display:inline-block;margin-top:7px;}
+.TopMenuSet .ButtonLine .SchoolButton {padding:0px 20px;height:30px;
+font-size:12px;font-weight:600;color:#FFF;line-height:30px;
+background:#fba016;border-radius:3px;cursor:pointer;overflow:hidden;}
+.TopMenuSet .ButtonLine .SchoolButton:hover {background:#FF6600;}
+
+
+
+.SchoolVisual {position:relative;float:left;width:800px;height:100%;
+background-position:center center;background-size:cover;}
+.SchoolVisual .Cover {position:relative;width:100%;height:100%;background-image:url('../img/visual_cover.png');}
+.SchoolVisual .Name {margin:0px 20px;padding:10px 0px 10px 0px;
+font-size:28px;font-weight:600;line-height:28px;color:#FFF;border-bottom:1px solid rgba(255, 255, 255, 0.3);}
+.SchoolVisual .Name span {font-size:14px;}
+.SchoolVisual .InfoSet {margin:20px;padding:10px;width:740px;text-align:center;
+border-radius:3px;background-color:rgba(255, 255, 255, 0.9);}
+
+
+
+
+
+.SchoolMFrame .InfoSet {text-align:center;} 
+.SchoolMFrame .InfoSet > div {display:inline-block;margin:5px;width:80px;height:80px;text-align:center;
+border-radius:50%;background:rgba(0, 0, 0, 0.2);overflow:hidden;} 
+.SchoolMFrame .InfoSet .Value {margin-top:10px;height:40px;
+font-size:24px;font-weight:600;color:color:rgba(0, 0, 0, 0.5);line-height:40px;}
+.SchoolMFrame .InfoSet .Title {margin:0px auto;width:40px;height:20px;
+font-size:11px;font-weight:600;color:rgba(0, 0, 0, 0.5);line-height:20px;border-top:1px solid rgba(0, 0, 0, 0.2);}
+
+
+
+
+
+
+
+.SchoolMFrame {float:left;padding:42px 40px 20px 40px;width:calc(100% - 880px);height:calc(100% - 62px);}
+.SchoolMFrame .MTitle {padding-left:10px;height:36px;
+font-size:18px;font-weight:600;line-height:36px;color:#333;
+border-left:3px solid #dcb068;}
+.SchoolMFrame .MMore {margin-top:10px;width:60px;height:16px;
+font-size:9px;font-weight:100;color:#666;line-height:16px;text-align:center;
+border-radius:3px;border:1px solid #DDD;cursor:pointer;overflow:hidden;}
+.SchoolMFrame .MMore:hover {color:#FFF;background:#333;}
+
+.SchoolMFrame .MTextBox {margin:5px 0px;overflow:hidden;border-radius:3px;
+padding:6px 0px;font-size:12px;line-height:16px;color:#333;}
+.SchoolMFrame .MTextBox li {padding:4px 0px;}
+
+
+
+.SchoolMFrame .Location .API {float:left;margin:5px 0px;width:calc(100% - 340px);height:200px;
+background:#000;}
+.SchoolMFrame .Location .Info {float:left;margin:5px 0px;padding:20px;width:300px;height:160px;
+overflow:hidden;border-radius:3px;font-size:12px;line-height:16px;color:#333;
+background:#FFF;}
+.SchoolMFrame .Location .Info li {padding:4px 0px;}
+
+
+
+
+.ContentsFrame .SchoolName {margin:0px 20px;padding:10px 0px 10px 0px;
+font-size:28px;font-weight:600;line-height:24px;color:#666;border-bottom:1px solid rgba(0, 0, 0, 0.3);}
+.ContentsFrame .SchoolName span {font-size:14px;font-weight:100;color:#AAA;}
+
+
+.SchoolFrame {float:left;padding:42px 40px 20px 40px;
+width:calc(100% - 80px);height:calc(100% - 137px);}
+.SchoolFrame .MTitle {padding-left:10px;height:36px;
+font-size:18px;font-weight:600;line-height:36px;color:#333;
+border-left:3px solid #dcb068;}
+
+
+.ReviewTop {margin:5px 0px;padding:15px;
+background:#FFF;border-top:1px solid #DDD;border-bottom:1px solid #DDD;}
+.ReviewTop .Name {font-size:16px;font-weight:600;line-height:1em;color:#333;}
+.ReviewTop .Info {font-size:12px;font-weight:450;line-height:2em;color:#999;}
+.ReviewTop .Info span {margin-right:20px;}
+.ReviewTop .Info b {color:#666;}
+.ReviewTop .Contents {padding-top:15px;
+font-size:12px;line-height:1.5em;color:#666;}
+
+.RateInfo {position:absolute;top:15px;right:20px;text-align:left;}
+.RateInfo div {display:inline-block;vertical-align:top;margin:5px 0px;margin-left:-3px;}
+.RateInfo .Text {padding:0px 10px 0px 20px;font-size:14px;font-weight:450;line-height:48px;color:#333;
+background:#DDD;border-radius:50px 0px 0px 50px;border:0px;overflow:hidden;}
+.RateInfo .Input {padding:0px 10px;width:100px;height:46px;text-align:center;
+font-size:16px;font-weight:600;line-height:46px;border:0px;
+border-top:1px solid #DDD;border-bottom:1px solid #DDD;overflow:hidden;}
+.RateInfo .Button {padding:0px 20px 0px 10px;height:48px;
+font-size:14px;font-weight:600;color:#FFF;line-height:48px;text-align:center;
+background:#FF6600;border-radius:0px 50px 50px 0px;border:0px;overflow:hidden;cursor:pointer;}
+.RateInfo .Button:hover {background:#666;}
+
+.TotalEstimate {padding:0px 20px;overflow:hidden;
+border:1px solid #DDD;border-radius:10px;background:#EFEFEF;}
+.TotalEstimate .Total {float:left;padding:20px 0px;
+font-size:24px;font-weight:600;line-height:32px;;color:#666;}
+.TotalEstimate .Total span {margin-right:10px;font-size:16px;color:#999;}
+.TotalEstimate .Button {float:right;}
+.TotalEstimate .Button div {display:inline-block;margin:20px 0px;padding:0px 40px;height:32px;
+font-size:14px;font-weight:600;color:#FFF;line-height:32px;text-align:center;
+background:#084360;border-radius:6px;overflow:hidden;cursor:pointer;}
+.TotalEstimate .Button div:hover {background:#145677;}
+
+
+
+/* LAYOUT */
+.BOX02 {float:left;margin-right:4%;width:48%;}
+.BOX02E {float:left;width:48%;}
+.BOX03 {float:left;margin-right:5%;width:30%;}
+.BOX03E {float:left;width:30%;}
+.BOX04 {float:left;margin-right:4%;width:22%;}
+.BOX04E {float:left;width:22%;}
+
+
+
+.Aright {text-align:right;}
+.Aleft {text-align:left;}
+
+
+
+.MediaList {margin:5px 0px;width:100%;overflow:hidden;}
+.MediaList .MediaSet {margin-bottom:40px;}
+.MediaList .MediaSet .Image {height:200px;
+background-position:center center;background-size:cover;}
+.MediaList .MediaSet .Media {height:200px;}
+.MediaList .MediaSet .Media iframe {width:100%;height:100%;}
+.MediaList .MediaSet .Title {padding:10px;
+font-size:12px;font-weight:450;color:#999;line-height:18px;}
+
+
+
+.TableInnerInput {margin:0px 1px;padding:0px 5px;height:24px;
+font-size:12px;font-weight:600;line-height:24px;border:1px solid #DDD;border-radius:3px;}
+.TableInnerTextarea {margin:0px 1px;padding:0px 5px;width:calc(100% - 22px);height:234px;
+font-size:12px;font-weight:600;line-height:24px;border:1px solid #DDD;border-radius:3px;}
+.InnerInputTD {padding:1px 5px !important;}
+
+.TextAreaForm {margin:5px 0px;width:100%;overflow:hidden;}
+.TextAreaForm textarea {padding:20px;width:calc(100% - 40px);height:120px;
+font-size:12px;line-height:1.7em;color:#333;
+border:0px;border-top:1px solid #DDD;border-bottom:1px solid #DDD;}
+
+.TextAreaForm .SchoolButton {position:absolute;right:40px;padding:0px 20px;height:30px;
+font-size:12px;font-weight:600;color:#FFF;line-height:30px;text-align:center;
+background:#fba016;border-radius:3px;cursor:pointer;overflow:hidden;}
+.TextAreaForm .SchoolButton:hover {background:#FF6600;}
+
+
+
+.MTitle {position:relative;}
+.MTitle .MTitleButton {position:absolute;right:0px;margin-top:4px;padding:0px 20px;height:30px;
+font-size:12px;font-weight:600;color:#FFF;line-height:30px;text-align:center;
+background:#fba016;border-radius:3px;cursor:pointer;overflow:hidden;}
+.MTitle .MTitleButton:hover {background:#FF6600;}
+.MTitle .MTitleForm {position:absolute;right:0px;margin-top:4px;
+font-size:12px;font-weight:450;}
+.MTitle .MTitleInput {margin:0px 1px;padding:0px 5px;height:24px;
+font-size:12px;font-weight:450;line-height:24px;border:1px solid #DDD;border-radius:3px;}
+
+
+.SubmitButtonLine {text-align:center;}
+.SubmitButtonLine div {display:inline-block;margin:20px 0px;padding:0px 40px;height:32px;
+font-size:14px;font-weight:600;color:#FFF;line-height:32px;text-align:center;
+background:#084360;border-radius:3px;overflow:hidden;cursor:pointer;}
+.SubmitButtonLine .Close {background:#AAA;}
+.SubmitButtonLine div {background:#145677;}
+
+
+.ChoiceSet {margin:10px 0px;width:100%;text-align:center;}
+.ChoiceSet .TitleIcon {display:inline-block;vertical-align:middle;
+margin-right:15px;padding:14px 0px;width:60px;height:32px;line-height:16px;
+font-size:13px;font-weight:600;color:#FFF;text-align:center;
+background:#145677;border-radius:50%;}
+.ChoiceSet .Information {display:inline-block;vertical-align:middle;
+width:calc(100% - 160px);text-align:left;}
+.ChoiceSet .AddIcon {display:inline-block;vertical-align:middle;
+margin-left:15px;}
+.ChoiceSet .AddIcon > div {margin:3px 0px;padding:4px 0px;width:60px;height:16px;line-height:16px;
+font-size:12px;font-weight:600;color:#666;text-align:center;
+background:#FFF;border-radius:3px;border:1px solid #DDD;cursor:pointer;}
+
+
+
+
+.InformationSet {margin:10px 0px;width:100%;text-align:center;}
+.InformationSet .Picture {display:inline-block;vertical-align:middle;
+margin-right:15px;width:120px;height:140px;
+background-position:center center;background-size:cover;border-radius:3px;}
+.InformationSet .Information {display:inline-block;vertical-align:middle;
+width:calc(100% - 150px);text-align:left;}
+
+
+.InformationSet .HButton {display:inline-block;vertical-align:middle;
+margin:5px 15px 5px 0px;width:120px;height:30px;line-height:30px;
+font-size:12px;font-weight:600;color:#FFF;text-align:center;
+background:#FF6600;border-radius:3px;cursor:pointer;}
+.InformationSet .HButton:hover {background:#FF9900;}
+
+
+
+/* CALENDAR */
+
+.CalendarFloat {display:inline-block;vertical-align:top;width:240px;}
+.InfoFloat {display:inline-block;vertical-align:top;margin-left:5px;width:210px;}
+
+
+
+
+.CalendarSet {margin:0px auto;margin-top:5px;padding:5px;width:228px;text-align:center;border:1px solid #DDD;border-radius:3px;overflow:hidden;}
+.CalendarSet .MonthSet {padding:20px 0px;background:#fba016;}
+.CalendarSet .MonthSet div {display:inline-block;vertical-align:middle;}
+.CalendarSet .MonthSet .LArrow img {width:24px;cursor:pointer;}
+.CalendarSet .MonthSet .RArrow img {width:24px;cursor:pointer;}
+.CalendarSet .MonthSet .Month {width:160px;font-size:16px;font-weight:350;color:#FFF;text-align:center;}
+.CalendarSet .MonthSet .Month span {font-size:24px;font-weight:600;}
+
+.CalendarSet .DaySet .WeekSet {padding:5px 0px;border-bottom:1px solid #EFEFEF;}
+.CalendarSet .DaySet .WeekSet > div {display:inline-block;margin:3px;width:22px;height:22px;line-height:22px;text-align:center;
+font-size:9px;font-weight:600;color:#AAA;border-radius:50%;}
+.CalendarSet .DaySet .WeekSet > .Blue {color:#FFF;background:#5eaed7;}
+.CalendarSet .DaySet .WeekSet > .Red {color:#FFF;background:#d75e5e;}
+
+.CalendarSet .DaySet .Day {padding:5px 0px;}
+.CalendarSet .DaySet .Day > div {display:inline-block;margin:3px;width:22px;height:22px;line-height:22px;text-align:center;
+font-size:11px;font-weight:600;color:#666;border-radius:50%;background:#FAFAFA;}
+.CalendarSet .DaySet .Day > .Blue {color:#5eaed7;}
+.CalendarSet .DaySet .Day > .Red {color:#d75e5e;}
+.CalendarSet .DaySet .Day > .OFF {color:#CCC;}
+.CalendarSet .DaySet .Day > div:hover {color:#FFF;background:#333;cursor:pointer;}
+
+
+
+
+.IsolationButton {padding:5px 12px 5px 10px;font-size:12px;font-weight:200;color:#333;
+background-color:#FFF;border-radius:3px;border:1px solid #DDD;cursor:pointer;}
+.IsolationButton:hover {color:#FFF;background-color:#333;border:1px solid #333;}
+
+.AgentFrameL {padding-right:30px;width:calc(100% - 660px);display:inline-block;vertical-align:top;}
+.AgentFrameR {display:inline-block;vertical-align:top;padding:10px;background-color:#FFF;}
+.PTitle {padding:0px 0px 20px 0px;font-size:24px;font-weight:600;color:#333;}
+.PTitle span {padding:0px 10px 0px 10px;font-size:16px;font-weight:300;color:#666;}
+
+.SchoolThumbnail {margin:3px;height:80px;}
+.Layout_2-1 {float:left;padding:0px 5px;width:calc(50% - 10px);}
+
+
+.DirectoryTable {margin:5px 0px;overflow:hidden;border-radius:3px;}
+.DirectoryTable table {width:100%;
+font-size:12px;line-height:16px;text-align:center;border-top:1px solid #DDD;border-right:1px solid #DDD;}
+.DirectoryTable th {padding:9px;font-weight:450;color:#FFF;background:#215670;}
+.DirectoryTable td {padding:6px;font-weight:450;color:#333;border-bottom:1px solid #DDD;border-left:1px solid #DDD;}
+.GraphgArea {padding:20px;height:400px;background:#FFF;}

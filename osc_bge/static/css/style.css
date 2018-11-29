@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600');
 @import 'global.css';
 @import "main.css";
-@import "responsive.css";
+/*@import "responsive.css";*/
 @import "form.css";
 @import "button.css";
+@import "layout.css";
+
