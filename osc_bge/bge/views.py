@@ -74,3 +74,10 @@ class BgeCollegeView(LoginRequiredMixin, View):
     def get(self, request):
 
         return render(request, 'main/colleges.html', {})
+
+class BgeAccountingView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def get(self, request):
+
+        return render(request, 'main/accounting.html', {})

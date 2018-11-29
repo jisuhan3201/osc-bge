@@ -9,4 +9,5 @@ urlpatterns = [
     path('secondary', views.SecondaryView.as_view(), name='secondary_view'),
     path('team-statistics', views.BgeTeamStatisticsView.as_view(), name='bge_team_statistics_view'),
     path('colleges', views.BgeCollegeView.as_view(), name='bge_college_view'),
+    path('accounting', views.BgeAccountingView.as_view(), name='bge_college_view'),
 ]
