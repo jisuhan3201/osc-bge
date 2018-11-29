@@ -14,6 +14,9 @@ def index(request):
         if request.user.type == 'bge_admin':
             return redirect('/statistics')
 
+        elif request.user.type == 'bge_team':
+            return redirect('/team-statistics')
+
         elif request.user.type == 'bge_branch_admin':
             return redirect('/branch/statistics')
 
@@ -55,3 +58,19 @@ class SecondaryView(LoginRequiredMixin, View):
     def get(self, request):
 
         return render(request, 'main/secondary.html', {})
+
+
+class BgeTeamStatisticsView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def get(self, request):
+
+        return render(request, 'team/statistics.html', {})
+
+
+class BgeCollegeView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def get(self, request):
+
+        return render(request, 'main/colleges.html', {})
