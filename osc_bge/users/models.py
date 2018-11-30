@@ -92,21 +92,19 @@ class BgeAdminUser(models.Model):
 #         return "{}".format(self.user)
 
 
-# class BgeBranchCoordinator(models.Model):
-#
-#     POSITION_CHOICES = (
-#         ('student_admin', 'STUDENT_ADMIN'),
-#         ('school_admin', 'SCHOOL_ADMIN'),
-#         ('host_admin', 'HOST_ADMIN'),
-#     )
-#
-#     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-#     branch_admin = models.ForeignKey(BgeBranchAdminUser, on_delete=models.SET_NULL, null=True)
-#     branch = models.ForeignKey(bge_models.BgeBranch, on_delete=models.SET_NULL, null=True)
-#     position = models.CharField(max_length=255, choices=POSITION_CHOICES, null=True)
-#
-#     def __str__(self):
-#         return "{} - {}".format(self.user, self.branch)
+class BgeBranchCoordinator(models.Model):
+
+    POSITION_CHOICES = (
+        ('admission_coordi', 'Admission coordinator'),
+        ('school_coordi', 'School coordinator'),
+    )
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='coordinator')
+    branch = models.ForeignKey(bge_models.BgeBranch, on_delete=models.SET_NULL, null=True)
+    position = models.CharField(max_length=255, choices=POSITION_CHOICES, null=True)
+
+    def __str__(self):
+        return "{} - {}".format(self.user, self.branch)
 
 
 class AgencyAdminUser(models.Model):

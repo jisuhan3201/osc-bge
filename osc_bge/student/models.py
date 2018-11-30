@@ -80,3 +80,11 @@ class StudentReport(TimeStampedModel):
 
     def __str__(self):
         return "{}".format(self.id)
+
+class CurrentStudentReview(TimeStampedModel):
+
+    student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True)
+    school = models.ForeignKey(school_models.School, on_delete=models.SET_NULL, null=True)
+    grade = models.CharField(max_length=80, null=True, blank=True)
+    homecity = models.CharField(max_length=80, null=True, blank=True)
+    comment = models.TextField(null=True, blank=True)

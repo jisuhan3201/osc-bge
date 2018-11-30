@@ -1,4 +1,6 @@
 from django.db import models
+from osc_bge.bge import models as bge_models
+from osc_bge.users import models as user_models
 
 # Create your models here.
 class TimeStampedModel(models.Model):
@@ -26,17 +28,29 @@ class School(TimeStampedModel):
         ('au', 'AU'),
         ('nz', 'NZ'),
     )
+    PROVIDER_CHOICES = (
+        ('bge', 'BGE'),
+        ('other_providers', 'Other-Provider'),
+    )
 
     name = models.CharField(max_length=80, null=True)
     type = models.CharField(max_length=80, null=True, choices=TYPE_CHOICES)
     image = models.ImageField(upload_to='school', null=True, blank=True)
+    partnership = models.IntegerField(null=True, blank=True)
+    provider = models.CharField(max_length=80, null=True, blank=True, choices=PROVIDER_CHOICES)
+    provider_branch = models.ForeignKey(bge_models.BgeBranch, on_delete=models.SET_NULL, null=True)
+    admission_coordi = models.ForeignKey(user_models.BgeBranchCoordinator, on_delete=models.SET_NULL, null=True, blank=True, related_name='admission_coordi')
+    school_coordi = models.ForeignKey(user_models.BgeBranchCoordinator, on_delete=models.SET_NULL, null=True, blank=True, related_name='school_coordi')
+    term = models.CharField(max_length=80, null=True, blank=True, choices=TERM_CHOICES)
+    transfer = models.BooleanField(default=False)
     country = models.CharField(max_length=80, null=True, choices=COUNTRY_CHOICES)
     address = models.CharField(max_length=140, null=True, blank=True)
-    contacts = models.CharField(max_length=140, null=True, blank=True)
+    phone = models.CharField(max_length=140, null=True, blank=True)
+    web_url = models.CharField(max_length=140, null=True, blank=True)
     founded = models.CharField(max_length=80, null=True, blank=True)
-    transfer = models.BooleanField(default=False)
-    term = models.CharField(max_length=80, null=True, blank=True, choices=TERM_CHOICES)
+    religion = models.CharField(max_length=80, null=True, blank=True)
     number_students = models.IntegerField(null=True, blank=True)
+
 
     def __str__(self):
         return "{}".format(self.name)
@@ -44,12 +58,10 @@ class School(TimeStampedModel):
 
 class Secondary(TimeStampedModel):
 
-    DETAIL_TYPE = (
-        ('day_school', 'Day-School'),
-        ('boarding_school', 'Boarding-School'),
-        ('only_boy', 'Only-Boy'),
-        ('only_girl', 'Only-Girl'),
-        ('co_ed', 'Co-ed'),
+    STUDENT_BODY_CHOICES = (
+        ('boys', 'Boys'),
+        ('girls', 'Girls'),
+        ('coed', 'Coed'),
     )
     STATE_CHOICES = (
         ('ma', 'MA'),
@@ -64,29 +76,38 @@ class Secondary(TimeStampedModel):
     )
 
     school = models.OneToOneField(School, on_delete=models.SET_NULL, null=True, related_name="secondary")
-    detail_type = models.CharField(max_length=80, choices=DETAIL_TYPE, null=True)
-    total_fee = models.IntegerField(null=True, blank=True)
     grade_start = models.IntegerField(null=True, blank=True)
     grade_end = models.IntegerField(null=True, blank=True)
-    toefl_requirement = models.IntegerField(null=True, blank=True)
-    state = models.CharField(max_length=80, null=True, choices=STATE_CHOICES)
-    number_i18n_students = models.IntegerField(null=True, blank=True)
+    accept_12_grade = models.BooleanField(default=False)
+    application_fee = models.IntegerField(null=True, blank=True)
     program_fee = models.IntegerField(null=True, blank=True)
-    number_ap_courses = models.IntegerField(null=True, blank=True)
-    number_honor_courses = models.IntegerField(null=True, blank=True)
-    number_clubs = models.IntegerField(null=True, blank=True)
-    number_sports = models.IntegerField(null=True, blank=True)
-    entry_requirement = models.CharField(max_length=80, null=True, blank=True)
+    admission_requirements = models.TextField(null=True, blank=True)
+    admission_documents = models.TextField(null=True, blank=True)
+    selling_point = models.TextField(null=True, blank=True)
+    state = models.CharField(max_length=80, null=True, choices=STATE_CHOICES)
+    student_body = models.CharField(max_length=80, choices=STUDENT_BODY_CHOICES, null=True, blank=True)
+    number_i18n_students = models.IntegerField(null=True, blank=True)
+    esl = models.BooleanField(default=False)
+    student_teach_ratio = models.CharField(max_length=80, null=True, blank=True)
+    class_size = models.CharField(max_length=80, null=True, blank=True)
+    uniform = models.BooleanField(default=False)
+    college_acceptance_rate = models.CharField(max_length=80, null=True, blank=True)
+    avg_sat = models.CharField(max_length=80, null=True, blank=True)
+    number_honor_courses = models.CharField(max_length=80, null=True, blank=True)
+    list_honor_courses = models.TextField(null=True, blank=True)
+    number_ap_courses = models.CharField(max_length=80, null=True, blank=True)
+    list_ap_courses = models.TextField(null=True, blank=True)
+    number_clubs = models.CharField(max_length=80, null=True, blank=True)
+    list_sports = models.TextField(null=True, blank=True)
+    number_sports = models.CharField(max_length=80, null=True, blank=True)
+    facilities = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return "{}".format(self.school)
 
+
 class College(TimeStampedModel):
 
-    DETAIL_TYPE = (
-        ('public', 'Public'),
-        ('private', 'Private'),
-    )
     LOCATION_CHOICE = (
         ('ne', 'NE'),
         ('se', 'SE'),
@@ -108,7 +129,6 @@ class College(TimeStampedModel):
     )
 
     school = models.OneToOneField(School, on_delete=models.SET_NULL, null=True, related_name="college")
-    detail_type = models.CharField(max_length=80, choices=DETAIL_TYPE, null=True)
     toefl_requirement = models.IntegerField(null=True, blank=True)
     state = models.CharField(max_length=80, null=True, choices=LOCATION_CHOICE)
     national_univ = models.CharField(max_length=80, null=True, choices=NATIONAL_CHOICE)
@@ -131,6 +151,20 @@ class College(TimeStampedModel):
     degree_offered = models.CharField(max_length=80, null=True, blank=True)
     most_popular_majors = models.CharField(max_length=255, null=True, blank=True)
     selling_point = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return "{}".format(self.school)
+
+
+class SchoolTypes(TimeStampedModel):
+
+    school = models.ForeignKey(School, on_delete=models.SET_NULL, null=True, related_name="school_type")
+    type = models.CharField(max_length=80, null=True)
+
+class SchoolPhotos(TimeStampedModel):
+
+    school = models.ForeignKey(School, on_delete=models.SET_NULL, null=True, related_name="school_photo")
+    photo = models.ImageField(upload_to='school', null=True, blank=True)
 
     def __str__(self):
         return "{}".format(self.school)
