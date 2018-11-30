@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from . import models
+from . import models, forms
 from osc_bge.users import models as user_models
 from osc_bge.bge import models as bge_models
 
@@ -18,7 +18,8 @@ class SecondaryCreateView(LoginRequiredMixin, View):
     def post(self, request):
 
         data = request.POST
-
+        print(data)
+        print(request.FILES)
         if data.get('provider_branch'):
             try:
                 found_branch = bge_models.BgeBranch.objects.get(pk=int(data.get('provider_branch')))
@@ -43,19 +44,29 @@ class SecondaryCreateView(LoginRequiredMixin, View):
         else:
             found_school_coordi = None
 
+        if request.FILES.get('image'):
+            form = forms.ImageUploadForm(request.FILES.get('image'))
+            if form.is_valid():
+                uploaded_image = form.cleaned_data.get('image')
+            else:
+                uploaded_image = None
+        else:
+            uploaded_image = None
+
         school = models.School(
             name = data.get('name'),
             type = 'secondary',
-            image = data.get('image'),
-            partnership = int(date.get('partnership')),
+            image = uploaded_image if uploaded_image else None,
+            partnership = int(data.get('partnership')) if data.get('partnership') else None,
             provider = data.get('provider'),
             provider_branch = found_branch,
             admission_coordi = found_admission_coordi,
             school_coordi = found_school_coordi,
             term = data.get('term'),
-            transfer = True if data.get('transfer') == 'yes' else False,
+            transfer = True if data.get('transfer') else False,
             country = data.get('country'),
             address = data.get('address'),
+            area_description = data.get('area_description'),
             phone = data.get('phone'),
             web_url = data.get('web_url'),
             founded = data.get('founded'),
@@ -68,18 +79,19 @@ class SecondaryCreateView(LoginRequiredMixin, View):
             school=school,
             grade_start = int(data.get('grade_start')) if data.get('grade_start') else None,
             grade_end = int(data.get('grade_end')) if data.get('grade_end') else None,
-            accept_12_grade = True if data.get('accept_12_grade') == 'yes' else False,
+            accept_12_grade = True if data.get('accept_12_grade') else False,
             application_fee = int(data.get('application_fee')) if data.get('application_fee') else None,
             program_fee = int(data.get('program_fee')) if data.get('program_fee') else None,
             admission_requirements = data.get('admission_requirements'),
+            admission_documents = data.get('admission_documents'),
             selling_point = data.get('selling_point'),
             state = data.get('state'),
             student_body = data.get('student_body'),
-            number_i18n_students = data.get('number_i18n_students'),
-            esl = data.get('esl'),
+            international_students = int(data.get('international_students')) if data.get('international_students') else None,
+            esl = True if data.get('esl') else False,
             student_teach_ratio = data.get('student_teach_ratio'),
             class_size = data.get('class_size'),
-            uniform = True if data.get('uniform') == 'yes' else False,
+            uniform = True if data.get('uniform') else False,
             college_acceptance_rate = data.get('college_acceptance_rate'),
             avg_sat = data.get('avg_sat'),
             number_honor_courses = data.get('number_honor_courses'),
@@ -87,13 +99,36 @@ class SecondaryCreateView(LoginRequiredMixin, View):
             number_ap_courses = data.get('number_ap_courses'),
             list_ap_courses = data.get('list_ap_courses'),
             number_clubs = data.get('number_clubs'),
-            list_sports = data.get('list_sports'),
             number_sports = data.get('number_sports'),
             facilities = data.get('facilities'),
         )
         secondary.save()
 
-        return redirect('/school/secondary')
+        if data.get('school_type'):
+
+            for school_type in data.getlist('school_type'):
+                school_types = models.SchoolTypes(
+                    school = school,
+                    type = school_type,
+                )
+                school_types.save()
+
+        if request.FILES.get('photo'):
+
+            for photo in request.FILES.get('photo'):
+                form = forms.ImageUploadForm(photo)
+                if form.is_valid():
+                    uploaded_image = form.cleaned_data.get('image')
+                else:
+                    uploaded_image = None
+
+                school_photo = models.SchoolPhotos(
+                    school = school,
+                    photo = uploaded_image,
+                )
+                school_photo.save()
+
+        return redirect('/branch/secondary')
 
 
 class SecondaryLogView(LoginRequiredMixin, View):

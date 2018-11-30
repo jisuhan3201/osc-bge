@@ -19,6 +19,7 @@ class SchoolAdmin(admin.ModelAdmin):
         "transfer",
         "country",
         "address",
+        "area_description",
         "phone",
         "web_url",
         "founded",
@@ -41,7 +42,7 @@ class SecondaryAdmin(admin.ModelAdmin):
         "selling_point",
         "state",
         "student_body",
-        "number_i18n_students",
+        "international_students",
         "esl",
         "student_teach_ratio",
         "class_size",
@@ -53,7 +54,6 @@ class SecondaryAdmin(admin.ModelAdmin):
         "number_ap_courses",
         "list_ap_courses",
         "number_clubs",
-        "list_sports",
         "number_sports",
         "facilities",
     )
@@ -85,4 +85,20 @@ class CollegeAdmin(admin.ModelAdmin):
         "degree_offered",
         "most_popular_majors",
         "selling_point",
+    )
+
+@admin.register(models.SchoolTypes)
+class SchoolTypesAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "school",
+        "type",
+    )
+
+@admin.register(models.SchoolPhotos)
+class SchoolPhotosAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "school",
+        "photo",
     )

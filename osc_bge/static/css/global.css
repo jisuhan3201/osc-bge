@@ -42,7 +42,7 @@ a { outline:0;text-decoration:none;}
 input[type="checkbox"] {
     display:none;
 }
-label {margin-right:10px;cursor:pointer;}
+label {margin-right:10px;margin-bottom:0;cursor:pointer;}
 input[type="checkbox"] + span {
     display:inline-block;
     width:16px;
@@ -90,3 +90,9 @@ input[type="radio"]:checked + span {
     background:url('../img/mod_radio.png') -16px top no-repeat;
     background-size:32px 16px;
 }
+
+input[type="file"] {
+    font-size:11px !important;line-height:18px;border:0px;
+}
+
+button {border:0px;}

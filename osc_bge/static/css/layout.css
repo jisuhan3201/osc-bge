@@ -2,24 +2,24 @@
 .PopCover {position:fixed;width:100%;height:100%;top:0px;left:0px;bottom:0px;right:0px;
 background:rgba(0,0,0,0.7);z-index:1000;overflow:auto;}
 .PopCover .Popup {margin:150px auto;padding:20px;width:460px;
-background:#FFF;border-radius:3px;}
-.PopCover .Popup .TitleSet {position:relative;}
+background:#FFF;border-radius:3px;overflow:hidden;}
+.PopCover .Popup .TitleSet {position:relative;overflow:hidden;}
 .PopCover .Popup .TitleSet .Title {padding-bottom:10px;line-height:18px;font-size:18px;font-weight:350;color:#333;}
 .PopCover .Popup .TitleSet .Close {position:absolute;right:0px;width:16px;height:16px;line-height:16px;
 font-size:12px;font-weight:350;color:#999;z-index:1000;cursor:pointer;}
 
 
 .PopCover .WidePopup {margin:150px auto;padding:20px;width:540px;
-background:#FFF;border-radius:3px;}
-.PopCover .WidePopup .TitleSet {position:relative;}
+background:#FFF;border-radius:3px;overflow:hidden;}
+.PopCover .WidePopup .TitleSet {position:relative;overflow:hidden;}
 .PopCover .WidePopup .TitleSet .Title {padding-bottom:10px;line-height:18px;font-size:18px;font-weight:350;color:#333;}
 .PopCover .WidePopup .TitleSet .Close {position:absolute;right:0px;width:16px;height:16px;line-height:16px;
 font-size:12px;font-weight:350;color:#999;z-index:1000;cursor:pointer;}
 
 
 .PopCover .SmallPopup {margin:150px auto;padding:20px;width:240px;
-background:#FFF;border-radius:3px;}
-.PopCover .SmallPopup .TitleSet {position:relative;}
+background:#FFF;border-radius:3px;overflow:hidden;}
+.PopCover .SmallPopup .TitleSet {position:relative;overflow:hidden;}
 .PopCover .SmallPopup .TitleSet .Title {padding-bottom:10px;line-height:18px;font-size:18px;font-weight:350;color:#333;}
 .PopCover .SmallPopup .TitleSet .Close {position:absolute;right:0px;width:16px;height:16px;line-height:16px;
 font-size:12px;font-weight:350;color:#999;z-index:1000;cursor:pointer;}
@@ -33,12 +33,14 @@ background:#084360;border-radius:3px;overflow:hidden;cursor:pointer;}
 .PopButtonLine .Close {background:#AAA;}
 .PopButtonLine div {background:#145677;}
 
-.PopButtonLine {text-align:right;}
-.PopButtonLine button {display:inline-block;margin-top:20px;padding:0px 20px;height:28px;
-font-size:9px;font-weight:600;color:#FFF;line-height:28px;text-align:center;
-background:#084360;border-radius:3px;overflow:hidden;cursor:pointer;}
-.PopButtonLine .Close {background:#AAA;}
-.PopButtonLine button {background:#145677;}
+
+
+
+
+
+
+
+
 
 
 /* LOGIN */
@@ -57,10 +59,10 @@ background-image:url('../img/left_corner.png');background-position:left top;back
 .LoginPop .LoginTitle {padding:2px 25px 0px 25px;height:24px;
 font-size:13px;line-height:24px;color:rgba(255, 255, 255, 0.8);}
 .LoginPop .Form {padding:0px 18px;}
-.LoginPop .Form .Input {margin:2px 0px;padding:0px 10px;width:calc(100% - 20px);height:50px;
+.LoginPop .Form .Input {margin:2px 0px;padding:0px 10px;width:calc(100% - 22px);height:50px;
 font-size:16px;line-height:50px;color:#AAA;
 border-radius:3px;border:1px solid #FAFAFA;}
-.LoginPop .Form .LoginButton {margin:2px 0px;padding:11px 10px;width:100%;
+.LoginPop .Form .LoginButton {margin:2px 0px;padding:11px 10px;/*width:calc(100% - 20px);height:30px;*/
 font-size:16px;line-height:30px;
 background:#fba016;border-radius:3px;cursor:pointer;overflow:hidden;}
 .LoginPop .Form .LoginButton:hover {background:#FF6600;}
@@ -113,7 +115,7 @@ border-radius:50%;background-position:center center;background-size:cover;overfl
 .TopMenuSet .Info .NameSet > li {width:180px;height:12px;font-size:11px;line-height:12px;font-weight:350;}
 .TopMenuSet .Info .NameSet .Name {color:rgba(255, 255, 255, 1);}
 .TopMenuSet .Info .NameSet .Rank {color:rgba(255, 255, 255, 0.5);}
-.TopMenuSet .Logout {width:45px;height:45px;float:right;
+.TopMenuSet .Logout {width:45px;height:45px;
 font-size:18px;font-weight:100;line-height:45px;text-align:center;color:#FFF;
 background:#fba016;cursor:pointer;}
 .TopMenuSet .Logout:hover {background:#FF6600;}
@@ -138,7 +140,7 @@ font-size:16px;font-weight:600;color:#000;text-transform:uppercase;
 background-color:#f6ecdd;background-image:url('../img/left_corner.png');
 background-position:-28px top;background-repeat:no-repeat;}
 
-.LeftTab .TabTitle {padding:0px 5px;
+.LeftTab .TabTitle {padding:0px 3px;
 background:#215670;overflow:hidden;}
 .LeftTab .TabTitle > div {float:left;margin:4px 1px 0px 1px;padding:0px 10px;
 font-size:12px;font-weight:600;line-height:32px;color:rgba(255, 255, 255, 0.5);
@@ -200,6 +202,8 @@ border-left:3px solid #dcb068;}
 .MainAFrame .MTitle {float:left;padding-left:10px;height:36px;
 font-size:16px;font-weight:600;line-height:36px;color:#333;
 border-left:3px solid #dcb068;}
+.MainFrame .MTitle span {margin-left:10px;font-size:14px;font-weight:100;color:#666;}
+.MainAFrame .MTitle span {margin-left:10px;font-size:14px;font-weight:100;color:#666;}
 
 
 .MainAFrame {padding:42px 40px 20px 40px;height:calc(100% - 62px);min-height:calc(100% - 62px);
@@ -220,16 +224,13 @@ font-size:12px;line-height:16px;border-bottom:1px solid #DDD;}
 .InfoTable tr:hover {background:#FFF;}
 .InfoTable th {padding:6px;font-weight:150;color:#999;text-align:left;border-top:1px solid #DDD;}
 .InfoTable td {font-size:12px;line-height:18px;padding:6px;font-weight:600;color:#333;border-top:1px solid #DDD;}
-.InfoTable .SchoolButton {float:right;right:40px;padding:0px 20px;height:30px;
+.InfoTable .SchoolButton {position:absolute;right:40px;padding:0px 20px;height:30px;
 font-size:12px;font-weight:600;color:#FFF;line-height:30px;text-align:center;
 background:#fba016;border-radius:3px;cursor:pointer;overflow:hidden;}
 .InfoTable .SchoolButton:hover {background:#FF6600;}
 .InfoTable .DoneIcon {margin:0px 5px;padding:0px 4px;font-weight:150;font-size:6px;color:#FFF;
 background:#FF6600;border-radius:50%;}
-.InfoTable .NotDoneIcon {margin:0px 5px;padding:0px 4px;font-weight:150;font-size:6px;color:#FFF;
-background:#215670;border-radius:50%;}
 .InfoTable .AddComment {margin-left:3px;font-weight:150;font-size:11px;color:#FF6600;}
-.InfoTable .AddComment2 {margin-left:3px;font-weight:150;font-size:11px;color:#215670;}
 .InfoTable .TitleColor {font-size:12px;font-weight:600;color:#000;background:#EFEFEF;}
 .InfoTable .TitleColor2 {font-size:11px;font-weight:600;color:#FF6600;text-align:center;background:#FAFAFA;}
 .InfoTable td .Button {padding:3px 10px;
@@ -280,9 +281,9 @@ font-size:9px;line-height:18px;color:#999;}
 .ListCounter a {margin:0px 5px;}
 
 .ListSearch {margin:10px 0px;text-align:center;}
-.ListSearch div {display:inline-block;vertical-align:middle;
+.ListSearch div {display:inline-block;vertical-align:top;
 font-size:12px;}
-.ListSearch .Hspace {display:inline-block;vertical-align:middle;padding:0px 5px;}
+.ListSearch .Hspace {display:inline-block;vertical-align:top;padding:0px 5px;}
 .ListSearch .SearchInput {padding:0px 5px;height:30px;
 font-size:12px;font-weight:350;line-height:30px;border:1px solid #DDD;}
 .ListSearch .SearchSelect {padding:0px 5px;height:30px;
@@ -330,9 +331,9 @@ border-radius:3px;background-color:rgba(255, 255, 255, 0.9);}
 
 
 
-.SchoolMFrame .InfoSet {text-align:center;}
+.SchoolMFrame .InfoSet {text-align:center;} 
 .SchoolMFrame .InfoSet > div {display:inline-block;margin:5px;width:80px;height:80px;text-align:center;
-border-radius:50%;background:rgba(0, 0, 0, 0.2);overflow:hidden;}
+border-radius:50%;background:rgba(0, 0, 0, 0.2);overflow:hidden;} 
 .SchoolMFrame .InfoSet .Value {margin-top:10px;height:40px;
 font-size:24px;font-weight:600;color:color:rgba(0, 0, 0, 0.5);line-height:40px;}
 .SchoolMFrame .InfoSet .Title {margin:0px auto;width:40px;height:20px;
@@ -477,13 +478,6 @@ background:#084360;border-radius:3px;overflow:hidden;cursor:pointer;}
 .SubmitButtonLine .Close {background:#AAA;}
 .SubmitButtonLine div {background:#145677;}
 
-.SubmitButtonLine {text-align:center;}
-.SubmitButtonLine button {display:inline-block;margin:20px 0px;padding:0px 40px;height:32px;
-font-size:14px;font-weight:600;color:#FFF;line-height:32px;text-align:center;
-background:#084360;border-radius:3px;overflow:hidden;cursor:pointer;}
-.SubmitButtonLine .Close {background:#AAA;}
-.SubmitButtonLine button {background:#145677;}
-
 
 .ChoiceSet {margin:10px 0px;width:100%;text-align:center;}
 .ChoiceSet .TitleIcon {display:inline-block;vertical-align:middle;
@@ -492,15 +486,9 @@ font-size:13px;font-weight:600;color:#FFF;text-align:center;
 background:#145677;border-radius:50%;}
 .ChoiceSet .Information {display:inline-block;vertical-align:middle;
 width:calc(100% - 160px);text-align:left;}
-#ChoiceSet1 .Information {display:inline-block;vertical-align:middle;
-width:calc(100% - 160px);text-align:left; padding-right: 81px;}
-.ChoiceSet .DeleteIcon {display:inline-block;vertical-align:middle;
+.ChoiceSet .AddIcon {display:inline-block;vertical-align:middle;
 margin-left:15px;}
-.ChoiceSet .DeleteIcon > div {margin:3px 0px;padding:4px 0px;width:60px;height:16px;line-height:16px;
-font-size:12px;font-weight:600;color:#666;text-align:center;
-background:#FFF;border-radius:3px;border:1px solid #DDD;cursor:pointer;}
-.AddIcon {display:flex;justify-content: center;align-items: center;}
-.AddIcon > div {display: inline-block;margin:3px 0px;padding:4px 0px;width:60px;height:16px;line-height:16px;
+.ChoiceSet .AddIcon > div {margin:3px 0px;padding:4px 0px;width:60px;height:16px;line-height:16px;
 font-size:12px;font-weight:600;color:#666;text-align:center;
 background:#FFF;border-radius:3px;border:1px solid #DDD;cursor:pointer;}
 
@@ -509,14 +497,14 @@ background:#FFF;border-radius:3px;border:1px solid #DDD;cursor:pointer;}
 
 .InformationSet {margin:10px 0px;width:100%;text-align:center;}
 .InformationSet .Picture {display:inline-block;vertical-align:middle;
-margin-right:15px;width:120px;height:150px;
+margin-right:15px;width:120px;height:140px;
 background-position:center center;background-size:cover;border-radius:3px;}
 .InformationSet .Information {display:inline-block;vertical-align:middle;
 width:calc(100% - 150px);text-align:left;}
 
 
 .InformationSet .HButton {display:inline-block;vertical-align:middle;
-margin-right:15px;width:120px;height:30px;line-height:30px;
+margin:5px 15px 5px 0px;width:120px;height:30px;line-height:30px;
 font-size:12px;font-weight:600;color:#FFF;text-align:center;
 background:#FF6600;border-radius:3px;cursor:pointer;}
 .InformationSet .HButton:hover {background:#FF9900;}
@@ -525,13 +513,13 @@ background:#FF6600;border-radius:3px;cursor:pointer;}
 
 /* CALENDAR */
 
-.CalendarFloat {display:inline-block;vertical-align:top;width:280px;}
+.CalendarFloat {display:inline-block;vertical-align:top;width:240px;}
 .InfoFloat {display:inline-block;vertical-align:top;margin-left:5px;width:210px;}
 
 
 
 
-.CalendarSet {margin:0px auto;margin-top:5px;padding:5px;width:280px;text-align:center;border:1px solid #DDD;border-radius:3px;}
+.CalendarSet {margin:0px auto;margin-top:5px;padding:5px;width:228px;text-align:center;border:1px solid #DDD;border-radius:3px;overflow:hidden;}
 .CalendarSet .MonthSet {padding:20px 0px;background:#fba016;}
 .CalendarSet .MonthSet div {display:inline-block;vertical-align:middle;}
 .CalendarSet .MonthSet .LArrow img {width:24px;cursor:pointer;}
@@ -554,34 +542,7 @@ font-size:11px;font-weight:600;color:#666;border-radius:50%;background:#FAFAFA;}
 .CalendarSet .DaySet .Day > div:hover {color:#FFF;background:#333;cursor:pointer;}
 
 
-/* File Input */
 
-.FileButton {
-  width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
-}
-
-.FileButton + label {display: inline-block;padding:0 8px;
-font-size:11px;font-weight:600;color:#333;line-height:22px;
-background:#FFF;border:1px solid #CCC;border-radius:3px;cursor:pointer;margin:0;}
-
-.FileButton:focus + label,
-.FileButton + label:hover {background:#FF6600;color:#FFF;}
-
-.SmallComment {width:calc(100% - 30px); margin-left:3px;font-weight:150;font-size:11px;color:#FF6600;display:none;overflow: hidden;}
-.FileSubmit {display: inline-block;padding:0 8px;
-font-size:11px;font-weight:600;color:#FFF;line-height:22px;
-background:#145677;border:1px solid #CCC;border-radius:3px;cursor:pointer;margin:0;}
-.DeleteButton {width:28px;padding:3px 5px;
-background:#FFF;border:1px solid #CCC;border-radius:3px;cursor:pointer;overflow:hidden;}
-.DeleteButton img {margin-top:-3px;height:16px;opacity:0.5;}
-.DeleteButton:hover img {opacity:1;}
-.AddFileButton {background-color: green!important; color:#FFF;}
-.DeleteFilebutton {background-color: red!important; color:#FFF;}
 
 .IsolationButton {padding:5px 12px 5px 10px;font-size:12px;font-weight:200;color:#333;
 background-color:#FFF;border-radius:3px;border:1px solid #DDD;cursor:pointer;}

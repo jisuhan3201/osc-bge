@@ -1,6 +1,31 @@
 from django.db import models
 from osc_bge.bge import models as bge_models
 from osc_bge.users import models as user_models
+import os
+import datetime
+
+def set_filename_format(now, instance, filename):
+    """ file format setting e.g)
+    {schoolname}-{date}-{microsecond}{extension}
+    schoolname-2016-07-12-158859.png """
+
+    return "{schoolname}".format(
+        schoolname=instance.name,
+        )
+
+def school_directory_path(instance, filename):
+    """
+    image upload directory setting e.g)
+    school/{year}/{month}/{day}/{schoolname}/{filename}
+    images/2016/7/12/schoolname/schoolname-2016-07-12-158859.png
+    """
+    now = datetime.datetime.now()
+    path = "school/{schoolname}/{filename}".format(
+        schoolname=instance.name,
+        filename=set_filename_format(now, instance, filename),
+    )
+    return path
+
 
 # Create your models here.
 class TimeStampedModel(models.Model):
@@ -35,7 +60,7 @@ class School(TimeStampedModel):
 
     name = models.CharField(max_length=80, null=True)
     type = models.CharField(max_length=80, null=True, choices=TYPE_CHOICES)
-    image = models.ImageField(upload_to='school', null=True, blank=True)
+    image = models.ImageField(upload_to=school_directory_path, null=True, blank=True)
     partnership = models.IntegerField(null=True, blank=True)
     provider = models.CharField(max_length=80, null=True, blank=True, choices=PROVIDER_CHOICES)
     provider_branch = models.ForeignKey(bge_models.BgeBranch, on_delete=models.SET_NULL, null=True)
@@ -45,6 +70,7 @@ class School(TimeStampedModel):
     transfer = models.BooleanField(default=False)
     country = models.CharField(max_length=80, null=True, choices=COUNTRY_CHOICES)
     address = models.CharField(max_length=140, null=True, blank=True)
+    area_description = models.TextField(null=True, blank=True)
     phone = models.CharField(max_length=140, null=True, blank=True)
     web_url = models.CharField(max_length=140, null=True, blank=True)
     founded = models.CharField(max_length=80, null=True, blank=True)
@@ -86,7 +112,7 @@ class Secondary(TimeStampedModel):
     selling_point = models.TextField(null=True, blank=True)
     state = models.CharField(max_length=80, null=True, choices=STATE_CHOICES)
     student_body = models.CharField(max_length=80, choices=STUDENT_BODY_CHOICES, null=True, blank=True)
-    number_i18n_students = models.IntegerField(null=True, blank=True)
+    international_students = models.IntegerField(null=True, blank=True)
     esl = models.BooleanField(default=False)
     student_teach_ratio = models.CharField(max_length=80, null=True, blank=True)
     class_size = models.CharField(max_length=80, null=True, blank=True)
@@ -98,7 +124,6 @@ class Secondary(TimeStampedModel):
     number_ap_courses = models.CharField(max_length=80, null=True, blank=True)
     list_ap_courses = models.TextField(null=True, blank=True)
     number_clubs = models.CharField(max_length=80, null=True, blank=True)
-    list_sports = models.TextField(null=True, blank=True)
     number_sports = models.CharField(max_length=80, null=True, blank=True)
     facilities = models.TextField(null=True, blank=True)
 
@@ -156,6 +181,22 @@ class College(TimeStampedModel):
         return "{}".format(self.school)
 
 
+def set_filename_format(now, instance, filename):
+
+    return "{schoolname}-{microsecond}".format(
+        schoolname=instance.name,
+        microsecond=now.microsecond,
+        )
+
+def school_directory_path(instance, filename):
+    now = datetime.datetime.now()
+    path = "school/{schoolname}/{filename}".format(
+        schoolname=instance.name,
+        filename=set_filename_format(now, instance, filename),
+    )
+    return path
+
+
 class SchoolTypes(TimeStampedModel):
 
     school = models.ForeignKey(School, on_delete=models.SET_NULL, null=True, related_name="school_type")
@@ -164,7 +205,7 @@ class SchoolTypes(TimeStampedModel):
 class SchoolPhotos(TimeStampedModel):
 
     school = models.ForeignKey(School, on_delete=models.SET_NULL, null=True, related_name="school_photo")
-    photo = models.ImageField(upload_to='school', null=True, blank=True)
+    photo = models.ImageField(upload_to=school_directory_path, null=True, blank=True)
 
     def __str__(self):
         return "{}".format(self.school)
