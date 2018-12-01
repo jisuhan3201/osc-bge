@@ -16,8 +16,16 @@ class SecondaryView(LoginRequiredMixin, View):
 
         all_schools = models.School.objects.all().order_by('name')
 
+        if request.GET.get('search_name'):
+            search_schools = models.School.objects.filter(name__icontains=request.GET.get('search_name'))
+        elif request.GET.get('search_id'):
+            search_schools = models.School.objects.filter(id=request.GET.get('search_id'))
+        else:
+            search_schools = None
+
         return render(request, 'school/secondary.html', {
             'all_schools':all_schools,
+            'search_schools':search_schools,
         })
 
 

@@ -23,15 +23,17 @@
 		<div class="MTitle">Search Result</div>
 			<div class="ListSearch Aright">
 				<div>
-
+				<form method="GET">
 				Search by School Name :
-               <input id="school_textbox" type="text" class="SearchInput" style="width:300px;" />
-				<select class="SearchSelect" id="school_name">
-					<option>Select School..</option>
-					{% for school in all_schools %}
-					<option value="{{school.id}}">{{school.name}}</option>
-					{% endfor %}
+	        <input id="school_textbox" type="text" class="SearchInput" style="width:300px;" name="search_name"/>
+					<select class="SearchSelect" id="school_name" name="search_id">
+						<option>Select School..</option>
+						{% for school in all_schools %}
+						<option value="{{school.id}}">{{school.name}}</option>
+						{% endfor %}
 					</select>
+					<button type="submit" class="ListSearchButton">Search</button>
+				</form>
 				</div>
 			</div>
 		<div class="ListTable">

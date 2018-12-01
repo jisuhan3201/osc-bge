@@ -2,47 +2,170 @@
 {% load static %}
 {% block content %}
 <div class="ContentsFrame">
-	<div class="MainAFrame">
+	<a href="../reg/csregister.php" target="_BLANK"><div class="CIButton">Customer Register</div></a>
 
-		<div class="MTitle">Performance Status	</div>
+
+	<div class="LeftFrame" id="LeftF">
+		<div class="SectionTitle">Agent Profile Update</div>
+		<div class="LeftTab" id="LeftTab01">
+			<div class="TabConternts" id="InnerTab0101">
+				<div class="InnerTabContents">
+					<li><a href="../agent/info.php">Meten</a></li>
+					<li><a href="../agent/info.php">Yangzhou</a></li>
+					<li><a href="../agent/info.php">AsiaUS</a></li>
+					<br />
+					<button class="IsolationButton">+ &nbsp; Add Agent List</button>
+				</div><!-- InnerTabContents -->
+
+			</div><!-- TabConternts ID:InnerTab0101 -->
+		</div><!-- LeftTab ID:LeftTab01 -->
+	</div><!-- LeftFrame -->
+
+
+	<div class="MainFrame" id="MainF">
+		<div id="CollegeTab">
+
+
+		<div class="MTitle">Agent Overview</div>
+		<div class="cdiv"></div>
+		<div class="AgentFrameL">
+			<div class="ListTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col>
+					</colgroup>
+					<tr>
+						<th rowspan="2">Agent</th>
+						<th colspan="2" class="row2">New Students</th>
+					</tr>
+					<tr>
+						<th class="row2">Inquired</th>
+						<th class="row2">Enrolled</th>
+					</tr>
+					<tr>
+						<td><a href="../agent/info.php">Meten</a></td>
+						<td>-</td>
+						<td>10</td>
+					</tr>
+					<tr>
+						<td><a href="../agent/info.php">Yangzhou</a></td>
+						<td>-</td>
+						<td>3</td>
+					</tr>
+					<tr>
+						<td><a href="../agent/info.php">AsiaUS</a></td>
+						<td>-</td>
+						<td>0</td>
+					</tr>
+					<tr>
+						<td><a href="../agent/info.php">Other(BGE Staff)</a></td>
+						<td>-</td>
+						<td>1</td>
+					</tr>
+					<tr>
+						<td class="TitleColor">Total</td>
+						<td class="TitleColor">-</td>
+						<td class="TitleColor">14</td>
+					</tr>
+				</table>
+			</div><!-- ListTable -->
+		</div><!-- AgentFrameL -->
+
+		<div class="AgentFrameR">
+			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+			<script type="text/javascript">
+			  google.charts.load('current', {'packages':['line']});
+			  google.charts.setOnLoadCallback(drawChart);
+
+			function drawChart() {
+
+			  var data = new google.visualization.DataTable();
+			  data.addColumn('number', 'year');
+			  data.addColumn('number', 'Meten');
+			  data.addColumn('number', 'Yangzhou');
+			  data.addColumn('number', 'AsiaUS');
+			  data.addColumn('number', 'Other(BGE Staff)');
+
+			  data.addRows([
+				[2018,  37.8, 80.8, 41.8, 10],
+				[2019,  30.9, 69.5, 32.4, 10],
+				[2020,  25.4,   57, 25.7, 10],
+				[2021,  11.7, 18.8, 10.5, 10],
+				[2022,  11.9, 17.6, 10.4, 10],
+			  ]);
+
+			  var options = {
+
+//				chart: {
+//				  title: 'Box Office Earnings in First Two Weeks of Opening',
+//				  subtitle: 'in millions of dollars (USD)'
+//				},
+				width: 600,
+				height: 190,
+				axes: {
+				  x: {
+					0: {side: 'bottom'}
+				  }
+				}
+			  };
+
+			  var chart = new google.charts.Line(document.getElementById('line_top_x'));
+
+			  chart.draw(data, google.charts.Line.convertOptions(options));
+			}
+		  </script>
+			<div id="line_top_x"></div>
+		</div><!-- AgentFrameR -->
+		<div class="cdiv"></div>
+		<div class="EndPart"></div>
+
+
+
+		<div class="MTitle">Agent Communication Log</div>
 		<div class="ListSearch Aright">
 			<div>
+
+
+			<select class="SearchSelect">
+				<option>Agent Presets</option>
+				<option>Meten</option>
+				<option>BGE-Yanzhou</option>
+				<option>AaisUS</option>
+				<option>Other(BGE Staff)</option>
+			</select>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+
+
 			From :
 			<select class="SearchSelect">
-				<option>December 2017</option>
-				<option>November 2017</option>
-				<option>October 2017</option>
-				<option>September 2017</option>
-				<option>August 2017</option>
-				<option>July 2017</option>
-				<option>June 2017</option>
-				<option>May 2017</option>
-				<option>April 2017</option>
-				<option>March 2017</>
-				<option>February 2017</option>
-				<option>January 2017</option>
+				<option>December</option>
+				<option>November</option>
+				<option>October</option>
+				<option>September</option>
+				<option>August</option>
+				<option>July</option>
+				<option>June</option>
+				<option>May</option>
+				<option>April</option>
+				<option>March</>
+				<option>February</option>
+				<option>January</option>
 			</select>
 			&nbsp;&nbsp;
 			To :
 			<select class="SearchSelect">
-				<option>December 2017</option>
-				<option>November 2017</option>
-				<option>October 2017</option>
-				<option>September 2017</option>
-				<option>August 2017</option>
-				<option>July 2017</option>
-				<option>June 2017</option>
-				<option>May 2017</option>
-				<option>April 2017</option>
-				<option>March 2017</>
-				<option>February 2017</option>
-				<option>January 2017</option>
-			</select>
-
-			<select class="SearchSelect">
-				<option>Country</option>
-				<option>Program</option>
-				<option>Provider</option>
+				<option>December</option>
+				<option>November</option>
+				<option>October</option>
+				<option>September</option>
+				<option>August</option>
+				<option>July</option>
+				<option>June</option>
+				<option>May</option>
+				<option>April</option>
+				<option>March</>
+				<option>February</option>
+				<option>January</option>
 			</select>
 			</div>
 		</div>
@@ -54,257 +177,75 @@
 					<col>
 				</colgroup>
 				<tr>
-					<th>Counselor Name</th>
-					<th>Counseled</th>
-					<th>Registered</th>
-					<th>Register success rate</th>
-					<th>Secondary</th>
-					<th>College</th>
-					<th>Camp</th>
-					<th>US</th>
-					<th>CA</th>
-					<th>UK</th>
-					<th>AU</th>
-					<th>NZ</th>
-					<th>BGE</th>
-					<th>NewOasis</th>
-					<th>etc.</th>
+					<th>Agent</th>
+					<th>Date</th>
+					<th>Contact Person</th>
+					<th>Category</th>
+					<th>Comment</th>
+					<th>Priority (1-5)</th>
+					<th>Writer</th>
 				</tr>
 				<tr>
-					<td>Claire</td>
-					<td>21</td>
-					<td>15</td>
-					<td>72%</td>
-					<td>10</td>
-					<td>2</td>
-					<td>3</td>
+					<td>Meten</td>
 					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
+					<td>데이비드 강</td>
+					<td>1~6</td>
+					<td>Procedure at the first counseling..</td>
 					<td>-</td>
 					<td>-</td>
 				</tr>
 				<tr>
-					<td>Helena</td>
-					<td>21</td>
-					<td>15</td>
-					<td>72%</td>
-					<td>10</td>
-					<td>2</td>
-					<td>3</td>
+					<td>BGE-Yanzhou</td>
 					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
+					<td>데이비드 강</td>
+					<td>1~6</td>
+					<td>Procedure at the first counseling..</td>
 					<td>-</td>
 					<td>-</td>
 				</tr>
 				<tr>
-					<td>James</td>
-					<td>21</td>
-					<td>15</td>
-					<td>72%</td>
-					<td>10</td>
-					<td>2</td>
-					<td>3</td>
+					<td>AaisUS</td>
 					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
+					<td>데이비드 강</td>
+					<td>1~6</td>
+					<td>Procedure at the first counseling..</td>
 					<td>-</td>
 					<td>-</td>
 				</tr>
 				<tr>
-					<td>Alex</td>
-					<td>21</td>
-					<td>15</td>
-					<td>72%</td>
-					<td>10</td>
-					<td>2</td>
-					<td>3</td>
+					<td>Other(BGE Staff)</td>
+					<td>-</td>
+					<td>데이비드 강</td>
+					<td>1~6</td>
+					<td>Procedure at the first counseling..</td>
 					<td>-</td>
 					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td>Mike</td>
-					<td>21</td>
-					<td>15</td>
-					<td>72%</td>
-					<td>10</td>
-					<td>2</td>
-					<td>3</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td class="TitleColor">Total</td>
-					<td class="TitleColor">108</td>
-					<td class="TitleColor">51</td>
-					<td class="TitleColor">47%</td>
-					<td class="TitleColor">24</td>
-					<td class="TitleColor">7</td>
-					<td class="TitleColor">8</td>
-					<td class="TitleColor">-</td>
-					<td class="TitleColor">-</td>
-					<td class="TitleColor">-</td>
-					<td class="TitleColor">-</td>
-					<td class="TitleColor">-</td>
-					<td class="TitleColor">-</td>
-					<td class="TitleColor">-</td>
-					<td class="TitleColor">-</td>
 				</tr>
 			</table>
 		</div><!-- ListTable -->
-		<div class="EndPart"></div>
 
 
 
 
 
-		<div class="ListTable">
-			<div class="ListSearch Aright">
-				<div>
-				Search :
-				<select class="SearchSelect">
-					<option>Select Period</option>
-					<option selected>Past 6months</option>
-				</select>
 
-				<select class="SearchSelect">
-					<option>Counselor</option>
-					<option>Provider</option>
-				</select>
 
-				<select class="SearchSelect">
-					<option>Secondary</option>
-					<option>College</option>
-					<option>Camp</option>
-				</select>
-
-				<select class="SearchSelect">
-					<option>Counseled</option>
-					<option>Registered</option>
-					<option>Register success rate</option>
-				</select>
-				</div>
-			</div>
-			<table cellpadding="0" cellspacing="0" border="0">
-				<colgroup>
-					<col width="180">
-					<col>
-				</colgroup>
-				<tr>
-					<th>Counselor Name</th>
-					<th>Jan</th>
-					<th>Feb</th>
-					<th>Mar</th>
-					<th>Apr</th>
-					<th>May</th>
-					<th>Jun</th>
-					<th>Jul</th>
-					<th>Aug</th>
-					<th>Sep</th>
-					<th>Oct</th>
-					<th>Nov</th>
-					<th>Dec</th>
-				</tr>
-				<tr>
-					<td>Claire</td>
-					<td>70%</td>
-					<td>50%</td>
-					<td>75%</td>
-					<td>65%</td>
-					<td>80%</td>
-					<td>55%</td>
-					<td>1%</td>
-					<td>2%</td>
-					<td>3%</td>
-					<td>4%</td>
-					<td>5%</td>
-					<td>6%</td>
-				</tr>
-				<tr>
-					<td>Helena</td>
-					<td>70%</td>
-					<td>50%</td>
-					<td>75%</td>
-					<td>65%</td>
-					<td>80%</td>
-					<td>55%</td>
-					<td>1%</td>
-					<td>2%</td>
-					<td>3%</td>
-					<td>4%</td>
-					<td>5%</td>
-					<td>6%</td>
-				</tr>
-				<tr>
-					<td>James</td>
-					<td>70%</td>
-					<td>50%</td>
-					<td>75%</td>
-					<td>65%</td>
-					<td>80%</td>
-					<td>55%</td>
-					<td>1%</td>
-					<td>2%</td>
-					<td>3%</td>
-					<td>4%</td>
-					<td>5%</td>
-					<td>6%</td>
-				</tr>
-				<tr>
-					<td>Alex</td>
-					<td>70%</td>
-					<td>50%</td>
-					<td>75%</td>
-					<td>65%</td>
-					<td>80%</td>
-					<td>55%</td>
-					<td>1%</td>
-					<td>2%</td>
-					<td>3%</td>
-					<td>4%</td>
-					<td>5%</td>
-					<td>6%</td>
-				</tr>
-				<tr>
-					<td>Mike</td>
-					<td>70%</td>
-					<td>50%</td>
-					<td>75%</td>
-					<td>65%</td>
-					<td>80%</td>
-					<td>55%</td>
-					<td>1%</td>
-					<td>2%</td>
-					<td>3%</td>
-					<td>4%</td>
-					<td>5%</td>
-					<td>6%</td>
-				</tr>
-			</table>
-		</div><!-- ListTable -->
 
 	</div><!-- MainFrame -->
 </div><!--  ContentsFrame-->
+<script>
+function MenuOpen() {
+	obj = document.getElementById('LeftF');
+
+	if (obj.style.margin == "0px 0px 0px -229px") {
+		document.getElementById('LeftF').style.margin='0px 0px 0px 0px';
+		document.getElementById('MToggle').style.transform='rotate(90deg)';
+		document.getElementById('MainF').style.width='calc(100% - 355px)';
+	} else {
+		document.getElementById('LeftF').style.margin='0px 0px 0px -229px';
+		document.getElementById('MToggle').style.transform='rotate(0deg)';
+		document.getElementById('MainF').style.width='calc(100% - 126px)';
+	}
+}
+</script>
 {% endblock %}
