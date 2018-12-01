@@ -32,16 +32,15 @@ class BgeAdminUserAdmin(admin.ModelAdmin):
 #         "bge",
 #         "branch",
 #     )
-
-# @admin.register(models.BgeBranchCoordinator)
-# class BgeBranchCoordinatorAdmin(admin.ModelAdmin):
 #
-#     list_display = (
-#         "user",
-#         "branch_admin",
-#         "branch",
-#         "position",
-#     )
+@admin.register(models.BgeBranchCoordinator)
+class BgeBranchCoordinatorAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "user",
+        "branch",
+        "position",
+    )
 
 @admin.register(models.AgencyAdminUser)
 class AgencyAdminUserAdmin(admin.ModelAdmin):

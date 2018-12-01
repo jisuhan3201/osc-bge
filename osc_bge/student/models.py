@@ -81,10 +81,26 @@ class StudentReport(TimeStampedModel):
     def __str__(self):
         return "{}".format(self.id)
 
+
 class CurrentStudentReview(TimeStampedModel):
 
-    student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True)
     school = models.ForeignKey(school_models.School, on_delete=models.SET_NULL, null=True)
+    student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True)
     grade = models.CharField(max_length=80, null=True, blank=True)
     homecity = models.CharField(max_length=80, null=True, blank=True)
     comment = models.TextField(null=True, blank=True)
+
+
+class GraduateStudentReview(TimeStampedModel):
+
+    school = models.ForeignKey(school_models.School, on_delete=models.SET_NULL, null=True)
+    student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True)
+    attended = models.CharField(max_length=80, null=True, blank=True)
+    init_eng = models.CharField(max_length=80, null=True, blank=True)
+    gpa_china = models.CharField(max_length=80, null=True, blank=True)
+    toefl = models.CharField(max_length=80, null=True, blank=True)
+    gpa = models.CharField(max_length=80, null=True, blank=True)
+    sat_act = models.CharField(max_length=80, null=True, blank=True)
+    activities = models.CharField(max_length=80, null=True, blank=True)
+    college = models.CharField(max_length=80, null=True, blank=True)
+    major = models.CharField(max_length=80, null=True, blank=True)

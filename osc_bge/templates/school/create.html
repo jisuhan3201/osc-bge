@@ -155,17 +155,9 @@
 		<div class="LeftTab" id="LeftTab01">
 			<div class="TabConternts" id="InnerTab0101">
 				<div class="InnerTabContents">
-					<li><a href="/school/secondary/test">Saint John’s High School</a></li>
-					<li><a href="/school/secondary/test">Saint Bernadette School</a></li>
-					<li><a href="/school/secondary/test">Holy Name Catholic High School</a></li>
-					<li><a href="/school/secondary/test">Lowell Catholic High School</a></li>
-					<li><a href="/school/secondary/test">Saint Mary’s Schools of Worcester</a></li>
-					<li><a href="/school/secondary/test">Whitinsville Christian High School</a></li>
-					<li><a href="/school/secondary/test">Archbishop Williams High School</a></li>
-					<li><a href="/school/secondary/test">Arlington Catholic High School</a></li>
-					<li><a href="/school/secondary/test">Boston Trinity Academy</a></li>
-					<li><a href="/school/secondary/test">Bradford Christian Academy</a></li>
-					<li><a href="/school/secondary/test">Holy Family Academy</a></li>
+					{% for school in all_schools %}
+					<li><a href="/school/secondary/update/{{school.id}}">{{school.name}}</a></li>
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts ID:InnerTab0101 -->
 
@@ -173,7 +165,7 @@
 
 
 					<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/school/secondary/test" class="IsolationButton">+ &nbsp; Add New School</a>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/school/secondary/create" class="IsolationButton">+ &nbsp; Add New School</a>
 
 
 
@@ -277,59 +269,6 @@
 							<label><input name="provider" type="radio" value="other_providers"/><span></span>Other Providers</label>
 						</td>
 					</tr>
-
-
-					<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-					<script>
-					       jQuery.fn.filterByText = function(textbox, selectSingleMatch) {
-					        return this.each(function() {
-					            var select = this;
-					            var options = [];
-					            $(select).find('option').each(function() {
-					                options.push({value: $(this).val(), text: $(this).text()});
-					            });
-					            $(select).data('options', options);
-					            $(textbox).bind('change keyup', function() {
-					                var options = $(select).empty().data('options');
-					                var search = $(this).val().trim();
-					                var regex = new RegExp(search,"gi");
-
-					                $.each(options, function(i) {
-					                    var option = options[i];
-					                    if(option.text.match(regex) !== null) {
-					                        $(select).append(
-					                           $('<option>').text(option.text).val(option.value)
-					                        );
-					                    }
-					                });
-					                if (selectSingleMatch === true && $(select).children().length === 1) {
-					                    $(select).children().get(0).selected = true;
-					                }
-					            });
-					        });
-					    };
-
-					    $(function() {
-					        $('#Provider_Branch').filterByText($('#Provider_Branch_textbox'), false);
-					      	$("select option").click(function(){
-					        alert(1);
-					      });
-					    });
-
-					    $(function() {
-					        $('#Admission_Coordinator').filterByText($('#Admission_Coordinator_textbox'), false);
-					      	$("select option").click(function(){
-					        alert(1);
-					      });
-					    });
-
-					    $(function() {
-					        $('#School_Coordinator').filterByText($('#School_Coordinator_textbox'), false);
-					      	$("select option").click(function(){
-					        alert(1);
-					      });
-					    });
-					</script>
 					<tr>
 						<th>Provider Branch : </th>
 						<td class="InnerInputTD" colspan="3">
@@ -522,104 +461,11 @@
 
 
 			<div class="SubmitButtonLine">
-				<button class="Close" OnClick="self.close();">CLOSE</button>
 				<button class="Submit" type="submit">SAVE</button>
 			</div>
 			<div class="EndPart"></div>
 		</form>
 
-
-		<div class="MTitle">Current Student Review</div>
-		<div class="ListSearch Aright">
-			<a href="Javascript:void(0);" class="IsolationButton" OnClick="document.getElementById('PopRegistReview').style.display='block';">+ &nbsp; Regist Review</a>
-		</div>
-		<div class="cdiv"></div>
-		<!-- 학교리뷰목록 -->
-		<div class="ListTable">
-			<table cellpadding="0" cellspacing="0" border="0">
-				<colgroup>
-					<col>
-				</colgroup>
-				<tr>
-					<th>No</th>
-					<th>Name</th>
-					<th>Grade</th>
-					<th>School</th>
-					<th>Home city</th>
-				</tr>
-				<tr>
-					<td>124</td>
-					<td><a href="">Yixun “Patrick” Bu</a></td>
-					<td>10th</td>
-					<td>St John’s High School</td>
-					<td>Jinan, Shandong, China</td>
-				</tr>
-				<tr>
-					<td>124</td>
-					<td><a href="">Yixun “Patrick” Bu</a></td>
-					<td>10th</td>
-					<td>St John’s High School</td>
-					<td>Jinan, Shandong, China</td>
-				</tr>
-			</table>
-		</div><!-- ListTable -->
-		<!-- 학교리뷰목록 끝 -->
-		<div class="EndPart"></div>
-
-		<div class="MTitle">Graduate Profile</div>
-		<div class="ListSearch Aright">
-			<a href="Javascript:void(0);" class="IsolationButton" OnClick="document.getElementById('PopRegistGraduateProfile').style.display='block';">+ &nbsp; Regist Graduate Profile</a>
-		</div>
-		<div class="cdiv"></div>
-		<!-- 학교리뷰목록 -->
-		<div class="ListTable">
-			<table cellpadding="0" cellspacing="0" border="0">
-				<colgroup>
-					<col>
-				</colgroup>
-				<tr>
-					<th>No</th>
-					<th>Name</th>
-					<th>Years Attended</th>
-					<th>Initial English</th>
-					<th>GPA in China</th>
-					<th>TOEFL</th>
-					<th>GPA</th>
-					<th>SAT / ACT</th>
-					<th>Activities</th>
-					<th>College</th>
-					<th>Major</th>
-				</tr>
-				<tr>
-					<td>6</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td>6</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-			</table>
-		</div><!-- ListTable -->
-		<!-- 학교리뷰목록 끝 -->
-		<div class="EndPart"></div>
 
 	</div><!-- MainFrame -->
 </div><!--  ContentsFrame-->
