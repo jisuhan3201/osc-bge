@@ -1,0 +1,410 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="ContentsFrame">
+
+	<div class="LeftFrame" id="LeftF">
+		<div class="SectionTitle">Counseling</div>
+		<div class="LeftTab" id="LeftTab01">
+			<div class="TabTitle">
+				<div OnClick="TabOpen('LeftTab01');PageOpen('SchoolTab');" class="On">Secondary</div>
+			</div><!-- TabTitle -->
+			<div class="TabConternts" id="InnerTab0101">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA OnMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'ma' %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0101 -->
+
+			<div class="TabConternts" id="InnerTab0102">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT OnCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'ct' %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0102 -->
+
+			<div class="TabConternts" id="InnerTab0103">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ OnNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'nj' %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0103 -->
+
+			<div class="TabConternts" id="InnerTab0104">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA OnFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'fa' %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0104 -->
+
+			<div class="TabConternts" id="InnerTab0105">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC OnDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'dc' %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0105 -->
+
+			<div class="TabConternts" id="InnerTab0106">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA OnCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'ca' %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0106 -->
+
+			<div class="TabConternts" id="InnerTab0107">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL OnFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'fl' %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0107 -->
+
+			<div class="TabConternts" id="InnerTab0108">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX OnTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'tx' %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0108 -->
+
+			<div class="TabConternts" id="InnerTab0109">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC OnETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'others' %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0109 -->
+		</div><!-- LeftTab ID:LeftTab01 -->
+
+
+	</div><!-- LeftFrame -->
+
+	<style>
+
+	#CollegeTab,
+
+	#LeftTab02,
+	#InnerTab0102, #InnerTab0103, #InnerTab0104, #InnerTab0105, #InnerTab0106, #InnerTab0107, #InnerTab0108, #InnerTab0109,
+	#InnerTab0202, #InnerTab0203, #InnerTab0204, #InnerTab0205, #InnerTab0206, #InnerTab0207, #InnerTab0208, #InnerTab0209 {display:none;}
+	</style>
+
+
+
+	<script>
+
+
+
+
+	function TabOpen(TabName) {
+	document.getElementById('LeftTab01').style.display='none';
+	document.getElementById('LeftTab02').style.display='none';
+
+	document.getElementById(TabName).style.display='block';
+	}
+
+	function PageOpen(PageName) {
+	document.getElementById('CollegeTab').style.display='none';
+	document.getElementById('SchoolTab').style.display='none';
+
+	document.getElementById(PageName).style.display='block';
+	}
+
+
+
+	function InnerTabOpen01(TabName) {
+	document.getElementById('InnerTab0101').style.display='none';
+	document.getElementById('InnerTab0102').style.display='none';
+	document.getElementById('InnerTab0103').style.display='none';
+	document.getElementById('InnerTab0104').style.display='none';
+	document.getElementById('InnerTab0105').style.display='none';
+	document.getElementById('InnerTab0106').style.display='none';
+	document.getElementById('InnerTab0107').style.display='none';
+	document.getElementById('InnerTab0108').style.display='none';
+	document.getElementById('InnerTab0109').style.display='none';
+
+	document.getElementById(TabName).style.display='block';
+	}
+
+
+	function InnerTabOpen02(TabName) {
+	document.getElementById('InnerTab0201').style.display='none';
+	document.getElementById('InnerTab0202').style.display='none';
+	document.getElementById('InnerTab0203').style.display='none';
+	document.getElementById('InnerTab0204').style.display='none';
+
+	document.getElementById(TabName).style.display='block';
+	}
+
+
+	</script>
+
+
+
+
+	<div class="MainFrame" id="MainF">
+
+		<div id="SchoolTab">
+
+		<div class="MTitle">Secondary search</div>
+		<form method="GET">
+			<input type="text" name="form_type" value="secondary_form" hidden>
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="130">
+						<col>
+						<col width="85">
+						<col>
+					</colgroup>
+					<tr>
+						<th>School type : </th>
+						<td>
+							<label><input type="checkbox" name="school_type" value="college_prep"/><span></span>College Prep</label>
+							<label><input type="checkbox" name="school_type" value="day"/><span></span>Day</label>
+							<label><input type="checkbox" name="school_type" value="boarding"/><span></span>Boarding</label>
+						</td>
+						<th>School body : </th>
+						<td>
+							<label><input type="checkbox" name="student_body" value="coed"/><span></span>Co-ed</label>
+							<label><input type="checkbox" name="student_body" value="boys"/><span></span>Boy</label>
+							<label><input type="checkbox" name="student_body" value="girls"/><span></span>Girl</label>
+						</td>
+					</tr>
+					<tr>
+						<th>Grade : </th>
+						<td>
+							<label><input type="checkbox" name="grade" value="7"/><span></span>7</label>
+							<label><input type="checkbox" name="grade" value="8"/><span></span>8</label>
+							<label><input type="checkbox" name="grade" value="9"/><span></span>9</label>
+							<label><input type="checkbox" name="grade" value="10"/><span></span>10</label>
+							<label><input type="checkbox" name="grade" value="11"/><span></span>11</label>
+							<label><input type="checkbox" name="grade" value="12"/><span></span>12</label>
+						</td>
+						<th>Term : </th>
+						<td>
+							<label><input type="checkbox" name="term" value="fall"/><span></span>Fall</label>
+							<label><input type="checkbox" name="term" value="spring"/><span></span>Spring</label>
+						</td>
+					</tr>
+					<tr>
+						<th>Toefl Requirement : </th>
+						<td colspan="3">
+							<label><input type="checkbox" name="toefl_requirement" value="0"/><span></span>None</label>
+							<label><input type="checkbox" name="toefl_requirement" value="55"/><span></span>55 or Less</label>
+							<label><input type="checkbox" name="toefl_requirement" value="70"/><span></span>70 or Less</label>
+							<label><input type="checkbox" name="toefl_requirement" value="80"/><span></span>80 or Less</label>
+							<label><input type="checkbox" name="toefl_requirement" value="99"/><span></span>99 or Less</label>
+							<label><input type="checkbox" name="toefl_requirement" value="100"/><span></span>100 or Over</label>
+						</td>
+					</tr>
+					<tr>
+						<th>Location : </th>
+						<td>
+							<label><input type="checkbox" name="state" value="ma"/><span></span>MA</label>
+							<label><input type="checkbox" name="state" value="ct"/><span></span>CT</label>
+							<label><input type="checkbox" name="state" value="nj"/><span></span>NJ</label>
+							<label><input type="checkbox" name="state" value="pa"/><span></span>PA</label>
+							<label><input type="checkbox" name="state" value="dc"/><span></span>DC</label>
+							<label><input type="checkbox" name="state" value="ca"/><span></span>CA</label>
+							<label><input type="checkbox" name="state" value="fl"/><span></span>FL</label>
+							<label><input type="checkbox" name="state" value="tx"/><span></span>TX</label>
+							<label><input type="checkbox" name="state" value="others"/><span></span>Others</label>
+						</td>
+						<th>Transfer : </th>
+						<td>
+							<label><input type="checkbox" name="transfer"/><span></span>Transfer student</label>
+						</td>
+					</tr>
+					<tr>
+						<th>School Size : </th>
+						<td>
+							<label><input type="checkbox" name="number_students" value="s"/><span></span>Small ~299</label>
+							<label><input type="checkbox" name="number_students" value="m"/><span></span>Medium 300~699</label>
+							<label><input type="checkbox" name="number_students" value="l"/><span></span>Large 700~</label>
+						</td>
+						<th>Program fee : </th>
+						<td>
+							<label><input type="checkbox" name="program_fee" value="xs"/><span></span>$35,000 or Less</label>
+							<label><input type="checkbox" name="program_fee" value="s"/><span></span>$45,000 or Less</label>
+							<label><input type="checkbox" name="program_fee" value="m"/><span></span>$60,000 or Less</label>
+							<label><input type="checkbox" name="program_fee" value="l"/><span></span>$60,000 or Over</label>
+						</td>
+					</tr>
+				</table>
+				<button class="SchoolButton" type="submit">Search</button>
+			</div><!-- InfoTable -->
+		</form>
+		<div class="EndPart"></div>
+
+
+		<div class="MTitle">Search Result</div>
+			<div class="ListSearch Aright">
+				<form method="get">
+					<input type="text" name="form_type" value="name_form" hidden>
+					<div>
+					Search by School Name :
+	         <input id="school_textbox" type="text" class="SearchInput" style="width:300px;" name="school_name"/>
+						<select class="SearchSelect" id="school_name" name="school_id">
+							<option value="">Select School..</option>
+							{% for secondary in secondaries %}
+								<option value="{{secondary.id}}">{{secondary.school.name}}</option>
+							{% endfor %}
+						</select>
+						<button type="submit" class="ListSearchButton">Search</button>
+					</div>
+				</form>
+			</div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>School Name</th>
+					<th>Location</th>
+					<th># of Students</th>
+					<th>Grade</th>
+					<th>Toefl Requirements</th>
+					<th>Comments</th>
+				</tr>
+				{% for secondary in search_schools %}
+				<tr>
+					<td class="Relationship"><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school.name}}</a></td>
+					<td class="Relationship">{{secondary.state}}</td>
+					<td class="Relationship">{{secondary.school.number_students}}</td>
+					<td class="Relationship">{{secondary.grade_start}} ~ {{secondary.grade_end}}</td>
+					<td class="Relationship">{{secondary.toefl_requirement}}</td>
+					<td class="Relationship">-</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div><!-- ListTable -->
+	</div><!-- ID:SchoolTab -->
+
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+{% endblock %}

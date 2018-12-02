@@ -228,7 +228,7 @@ class CounselView(LoginRequiredMixin, View):
 
             school_type = self.request.GET.getlist('school_type', None)
             if school_type:
-                queryset = queryset.filter(school__school_type__in=school_type)
+                queryset = queryset.filter(school__school_type__type__in=school_type)
 
             student_body = self.request.GET.getlist('student_body', None)
             if student_body:
@@ -309,7 +309,6 @@ class CounselView(LoginRequiredMixin, View):
 
         secondaries = school_models.Secondary.objects.all()
         colleges = school_models.College.objects.all()
-        print(request.GET)
         search_schools = self.search()
 
         return render(request, 'agent/counsel.html',

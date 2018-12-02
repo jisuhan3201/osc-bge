@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from . import models, forms
 from osc_bge.users import models as user_models
 from osc_bge.bge import models as bge_models
@@ -12,21 +13,117 @@ from osc_bge.student import models as student_models
 class SecondaryView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
+    def search(self):
+
+        if self.request.GET.get('form_type') == 'secondary_form':
+
+            queryset = models.Secondary.objects.all()
+
+            school_type = self.request.GET.getlist('school_type', None)
+            if school_type:
+                queryset = queryset.filter(school__school_type__type__in=school_type)
+
+            student_body = self.request.GET.getlist('student_body', None)
+            if student_body:
+                queryset = queryset.filter(student_body__in=student_body)
+
+            grade = self.request.GET.getlist('grade', None)
+            if grade:
+                if len(grade) != 1:
+                    queryset = queryset.filter(Q(grade_start__lte=grade[0]) | Q(grade_end__gte=grade[-1]))
+                else:
+                    queryset = queryset.filter(grade_start__lte=grade[0], grade_end__gte=grade[0])
+
+            term = self.request.GET.get('term', None)
+            if term:
+                queryset = queryset.filter(school__term=term)
+
+            toefl_requirement = self.request.GET.get('toefl_requirement', None)
+            if toefl_requirement:
+                if toefl_requirement == '100':
+                    queryset = queryset.filter(toefl_requirement__gte=int(toefl_requirement), toefl_requirement__isnull=False)
+                elif toefl_requirement == '0':
+                    queryset = queryset.filter(toefl_requirement__isnull=True)
+                else:
+                    queryset =queryset.filter(toefl_requirement__lte=int(toefl_requirement), toefl_requirement__isnull=False)
+
+            state = self.request.GET.getlist('state', None)
+            if state:
+                queryset = queryset.filter(state__in=state)
+
+
+            transfer = self.request.GET.get('transfer', None)
+            if transfer:
+                queryset = queryset.filter(school__transfer=True)
+
+            number_students = self.request.GET.getlist('number_students', None)
+            if number_students:
+
+                if not 's' in number_students:
+                    queryset = queryset.exclude(school__number_students__lte=299).exclude(school__number_students__isnull=True)
+                if not 'm' in number_students:
+                    queryset = queryset.exclude(school__number_students__gte=300, school__number_students__lte=699).exclude(school__number_students__isnull=True)
+                if not 'l' in number_students:
+                    queryset = queryset.exclude(school__number_students__gte=700).exclude(school__number_students__isnull=True)
+
+            program_fee = self.request.GET.get('program_fee', None)
+            if program_fee:
+
+                if program_fee == 'xs':
+                    queryset = queryset.filter(program_fee__lte=35000)
+                elif program_fee == 's':
+                    queryset = queryset.filter(program_fee__lte=45000)
+                elif program_fee == 'm':
+                    queryset = queryset.filter(program_fee__lte=60000)
+                elif program_fee == 'l':
+                    queryset = queryset.filter(program_fee__gt=60000)
+                else:
+                    pass
+
+        elif self.request.GET.get('form_type') == 'name_form':
+
+            queryset = models.Secondary.objects.all()
+
+            school_name = self.request.GET.get('school_name')
+            if school_name:
+                queryset = queryset.filter(school__name__icontains=school_name)
+
+            school_id = self.request.GET.get('school_id')
+            if school_id:
+                queryset = models.Secondary.objects.filter(id=int(school_id))
+
+        else:
+            queryset = None
+
+        return queryset
+
     def get(self, request):
 
-        all_schools = models.School.objects.all().order_by('name')
+        if request.user.type == 'bge_branch_admin':
+            all_schools = models.School.objects.all().order_by('name')
 
-        if request.GET.get('search_name'):
-            search_schools = models.School.objects.filter(name__icontains=request.GET.get('search_name'))
-        elif request.GET.get('search_id'):
-            search_schools = models.School.objects.filter(id=request.GET.get('search_id'))
+            if request.GET.get('search_name'):
+                search_schools = models.School.objects.filter(name__icontains=request.GET.get('search_name'))
+            elif request.GET.get('search_id'):
+                search_schools = models.School.objects.filter(id=request.GET.get('search_id'))
+            else:
+                search_schools = None
+
+            return render(request, 'school/secondary.html', {
+                'all_schools':all_schools,
+                'search_schools':search_schools,
+            })
+
         else:
-            search_schools = None
+            secondaries = models.Secondary.objects.all()
+            search_schools = self.search()
 
-        return render(request, 'school/secondary.html', {
-            'all_schools':all_schools,
-            'search_schools':search_schools,
-        })
+            return render(request, 'school/secondary2.html',
+                {
+                    "secondaries":secondaries,
+                    'search_schools':search_schools,
+                }
+            )
 
 
 class SecondaryCreateView(LoginRequiredMixin, View):
