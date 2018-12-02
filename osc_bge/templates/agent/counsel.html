@@ -417,46 +417,6 @@
 		<div class="MTitle">Search Result</div>
 			<div class="ListSearch Aright">
 				<div>
-
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-<script>
-       jQuery.fn.filterByText = function(textbox, selectSingleMatch) {
-        return this.each(function() {
-            var select = this;
-            var options = [];
-            $(select).find('option').each(function() {
-                options.push({value: $(this).val(), text: $(this).text()});
-            });
-            $(select).data('options', options);
-            $(textbox).bind('change keyup', function() {
-                var options = $(select).empty().data('options');
-                var search = $(this).val().trim();
-                var regex = new RegExp(search,"gi");
-
-                $.each(options, function(i) {
-                    var option = options[i];
-                    if(option.text.match(regex) !== null) {
-                        $(select).append(
-                           $('<option>').text(option.text).val(option.value)
-                        );
-                    }
-                });
-                if (selectSingleMatch === true && $(select).children().length === 1) {
-                    $(select).children().get(0).selected = true;
-                }
-            });
-        });
-    };
-
-    $(function() {
-        $('#college_name').filterByText($('#college_textbox'), false);
-      $("select option").click(function(){
-        alert(1);
-      });
-    });
-</script>
-
 				Search by College Name :
                <input id="college_textbox" type="text" class="SearchInput" style="width:300px;" />
 				<select class="SearchSelect" id="college_name">
@@ -529,149 +489,108 @@
 
 		<div id="SchoolTab">
 
-		<div class="MTitle">School search</div>
-		<div class="InfoTable">
-			<table cellpadding="0" cellspacing="0" border="0">
-				<colgroup>
-					<col width="130">
-					<col>
-					<col width="85">
-					<col>
-				</colgroup>
-				<tr>
-					<th>School type : </th>
-					<td colspan="3">
-						<label><input type="checkbox" checked /><span></span>Day School</label>
-						<label><input type="checkbox" /><span></span>Boarding School</label>
-						<label><input type="checkbox" /><span></span>Co-ed</label>
-						<label><input type="checkbox" /><span></span>Boy</label>
-						<label><input type="checkbox" /><span></span>Girl</label>
-					</td>
-				</tr>
-				<tr>
-					<th>Grade : </th>
-					<td>
-						<label><input type="checkbox" /><span></span>7</label>
-						<label><input type="checkbox" /><span></span>8</label>
-						<label><input type="checkbox" /><span></span>9</label>
-						<label><input type="checkbox" /><span></span>10</label>
-						<label><input type="checkbox" /><span></span>11</label>
-						<label><input type="checkbox" /><span></span>12</label>
-					</td>
-					<th>Term : </th>
-					<td>
-						<label><input type="checkbox" /><span></span>Fall</label>
-						<label><input type="checkbox" /><span></span>Spring</label>
-					</td>
-				</tr>
-				<tr>
-					<th>Toefl Requirement : </th>
-					<td colspan="3">
-						<label><input type="checkbox" /><span></span>None</label>
-						<label><input type="checkbox" /><span></span>55 or Less</label>
-						<label><input type="checkbox" /><span></span>70 or Less</label>
-						<label><input type="checkbox" /><span></span>80 or Less</label>
-						<label><input type="checkbox" /><span></span>99 or Less</label>
-						<label><input type="checkbox" /><span></span>100 or Over</label>
-					</td>
-				</tr>
-				<tr>
-					<th>Location : </th>
-					<td>
-						<label><input type="checkbox" /><span></span>MA</label>
-						<label><input type="checkbox" /><span></span>CT</label>
-						<label><input type="checkbox" /><span></span>NJ</label>
-						<label><input type="checkbox" /><span></span>PA</label>
-						<label><input type="checkbox" /><span></span>DC</label>
-						<label><input type="checkbox" /><span></span>CA</label>
-						<label><input type="checkbox" /><span></span>FL</label>
-						<label><input type="checkbox" /><span></span>TX</label>
-						<label><input type="checkbox" /><span></span>Others</label>
-					</td>
-					<th>Transfer : </th>
-					<td>
-						<label><input type="checkbox" /><span></span>Transfer student</label>
-					</td>
-				</tr>
-				<tr>
-					<th>School Size : </th>
-					<td>
-						<label><input type="checkbox" /><span></span>Small ~299</label>
-						<label><input type="checkbox" /><span></span>Medium 300~700</label>
-						<label><input type="checkbox" /><span></span>Large 700~</label>
-					</td>
-					<th>Program fee : </th>
-					<td>
-						<label><input type="checkbox" /><span></span>$35,000 or Less</label>
-						<label><input type="checkbox" /><span></span>$45,000 or Less</label>
-						<label><input type="checkbox" /><span></span>$60,000 or Less</label>
-						<label><input type="checkbox" /><span></span>$60,000 or Over</label>
-					</td>
-				</tr>
-			</table>
-			<div class="SchoolButton">Search</div>
-		</div><!-- InfoTable -->
+		<div class="MTitle">Secondary search</div>
+		<form method="GET">
+			<input type="text" name="form_type" value="secondary_form" hidden>
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="130">
+						<col>
+						<col width="85">
+						<col>
+					</colgroup>
+					<tr>
+						<th>School type : </th>
+						<td>
+							<label><input type="checkbox" name="school_type" value="college_prep"/><span></span>College Prep</label>
+							<label><input type="checkbox" name="school_type" value="day"/><span></span>Day</label>
+							<label><input type="checkbox" name="school_type" value="boarding"/><span></span>Boarding</label>
+						</td>
+						<th>School body : </th>
+						<td>
+							<label><input type="checkbox" name="student_body" value="coed"/><span></span>Co-ed</label>
+							<label><input type="checkbox" name="student_body" value="boys"/><span></span>Boy</label>
+							<label><input type="checkbox" name="student_body" value="girls"/><span></span>Girl</label>
+						</td>
+					</tr>
+					<tr>
+						<th>Grade : </th>
+						<td>
+							<label><input type="checkbox" name="grade" value="7"/><span></span>7</label>
+							<label><input type="checkbox" name="grade" value="8"/><span></span>8</label>
+							<label><input type="checkbox" name="grade" value="9"/><span></span>9</label>
+							<label><input type="checkbox" name="grade" value="10"/><span></span>10</label>
+							<label><input type="checkbox" name="grade" value="11"/><span></span>11</label>
+							<label><input type="checkbox" name="grade" value="12"/><span></span>12</label>
+						</td>
+						<th>Term : </th>
+						<td>
+							<label><input type="checkbox" name="term" value="fall"/><span></span>Fall</label>
+							<label><input type="checkbox" name="term" value="spring"/><span></span>Spring</label>
+						</td>
+					</tr>
+					<tr>
+						<th>Toefl Requirement : </th>
+						<td colspan="3">
+							<label><input type="checkbox" name="toefl_requirement" value=""/><span></span>None</label>
+							<label><input type="checkbox" name="toefl_requirement" value="55"/><span></span>55 or Less</label>
+							<label><input type="checkbox" name="toefl_requirement" value="70"/><span></span>70 or Less</label>
+							<label><input type="checkbox" name="toefl_requirement" value="80"/><span></span>80 or Less</label>
+							<label><input type="checkbox" name="toefl_requirement" value="99"/><span></span>99 or Less</label>
+							<label><input type="checkbox" name="toefl_requirement" value="100"/><span></span>100 or Over</label>
+						</td>
+					</tr>
+					<tr>
+						<th>Location : </th>
+						<td>
+							<label><input type="checkbox" name="state" value="ma"/><span></span>MA</label>
+							<label><input type="checkbox" name="state" value="ct"/><span></span>CT</label>
+							<label><input type="checkbox" name="state" value="nj"/><span></span>NJ</label>
+							<label><input type="checkbox" name="state" value="pa"/><span></span>PA</label>
+							<label><input type="checkbox" name="state" value="dc"/><span></span>DC</label>
+							<label><input type="checkbox" name="state" value="ca"/><span></span>CA</label>
+							<label><input type="checkbox" name="state" value="fl"/><span></span>FL</label>
+							<label><input type="checkbox" name="state" value="tx"/><span></span>TX</label>
+							<label><input type="checkbox" name="state" value="others"/><span></span>Others</label>
+						</td>
+						<th>Transfer : </th>
+						<td>
+							<label><input type="checkbox" name="transfer"/><span></span>Transfer student</label>
+						</td>
+					</tr>
+					<tr>
+						<th>School Size : </th>
+						<td>
+							<label><input type="checkbox" name="number_students" value="s"/><span></span>Small ~299</label>
+							<label><input type="checkbox" name="number_students" value="m"/><span></span>Medium 300~699</label>
+							<label><input type="checkbox" name="number_students" value="l"/><span></span>Large 700~</label>
+						</td>
+						<th>Program fee : </th>
+						<td>
+							<label><input type="checkbox" name="program_fee" value="xs"/><span></span>$35,000 or Less</label>
+							<label><input type="checkbox" name="program_fee" value="s"/><span></span>$45,000 or Less</label>
+							<label><input type="checkbox" name="program_fee" value="m"/><span></span>$60,000 or Less</label>
+							<label><input type="checkbox" name="program_fee" value="l"/><span></span>$60,000 or Over</label>
+						</td>
+					</tr>
+				</table>
+				<button class="SchoolButton" type="submit">Search</button>
+			</div><!-- InfoTable -->
+		</form>
 		<div class="EndPart"></div>
 
 
 		<div class="MTitle">Search Result</div>
 			<div class="ListSearch Aright">
 				<div>
-
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-<script>
-       jQuery.fn.filterByText = function(textbox, selectSingleMatch) {
-        return this.each(function() {
-            var select = this;
-            var options = [];
-            $(select).find('option').each(function() {
-                options.push({value: $(this).val(), text: $(this).text()});
-            });
-            $(select).data('options', options);
-            $(textbox).bind('change keyup', function() {
-                var options = $(select).empty().data('options');
-                var search = $(this).val().trim();
-                var regex = new RegExp(search,"gi");
-
-                $.each(options, function(i) {
-                    var option = options[i];
-                    if(option.text.match(regex) !== null) {
-                        $(select).append(
-                           $('<option>').text(option.text).val(option.value)
-                        );
-                    }
-                });
-                if (selectSingleMatch === true && $(select).children().length === 1) {
-                    $(select).children().get(0).selected = true;
-                }
-            });
-        });
-    };
-
-    $(function() {
-        $('#school_name').filterByText($('#school_textbox'), false);
-      $("select option").click(function(){
-        alert(1);
-      });
-    });
-</script>
-
 				Search by School Name :
                <input id="school_textbox" type="text" class="SearchInput" style="width:300px;" />
 				<select class="SearchSelect" id="school_name">
 					<option>Select School..</option>
-					<option>Saint John’s High School</option>
-					<option>Saint Bernadette School</option>
-					<option>Holy Name Catholic High School</option>
-					<option>Lowell Catholic High School</option>
-					<option>Saint Mary’s Schools of Worcester</option>
-					<option>Whitinsville Christian High School</option>
-					<option>Archbishop Williams High School</option>
-					<option>Arlington Catholic High School</option>
-					<option>Boston Trinity Academy</option>
-					<option>Bradford Christian Academy</option>
-					<option>Holy Family Academy</option>
+					{% for secondary in secondaries %}
+						<option value="{{secondary.id}}">{{secondary.school.name}}</option>
+					{% endfor %}
 				</select>
 				</div>
 			</div>
@@ -682,44 +601,22 @@
 				</colgroup>
 				<tr>
 					<th>School Name</th>
-					<th>Website</th>
 					<th>Location</th>
-					<th>Ranking</th>
+					<th># of Students</th>
+					<th>Grade</th>
 					<th>Toefl Requirements</th>
 					<th>Comments</th>
 				</tr>
+				{% for secondary in search_schools %}
 				<tr>
-					<td class="Relationship"><a href="/school/secondary/summary/school_id" target="_BLANK">Saint John’s High School</a></td>
-					<td class="Relationship">saintjohns.ac</td>
-					<td class="Relationship">Shrewsbury, MA</td>
-					<td class="Relationship">12</td>
+					<td class="Relationship"><a href="/school/secondary/summary/school_id" target="_BLANK">{{secondary.school.name}}</a></td>
+					<td class="Relationship">{{secondary.state}}</td>
+					<td class="Relationship">{{secondary.school.number_students}}</td>
+					<td class="Relationship">{{secondary.grade_start}} ~ {{secondary.grade_end}}</td>
 					<td class="Relationship">-</td>
 					<td class="Relationship">-</td>
 				</tr>
-				<tr>
-					<td class="Relationship"><a href="/school/secondary/summary/school_id" target="_BLANK">Saint John’s High School</a></td>
-					<td class="Relationship">saintjohns.ac</td>
-					<td class="Relationship">Shrewsbury, MA</td>
-					<td class="Relationship">12</td>
-					<td class="Relationship">-</td>
-					<td class="Relationship">-</td>
-				</tr>
-				<tr>
-					<td><a href="/school/secondary/summary/school_id" target="_BLANK">Saint John’s High School</a></td>
-					<td>saintjohns.ac</td>
-					<td>Shrewsbury, MA</td>
-					<td>12</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td><a href="/school/secondary/summary/school_id" target="_BLANK">Saint John’s High School</a></td>
-					<td>saintjohns.ac</td>
-					<td>Shrewsbury, MA</td>
-					<td>12</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
+				{% endfor %}
 			</table>
 		</div><!-- ListTable -->
 	</div><!-- ID:SchoolTab -->

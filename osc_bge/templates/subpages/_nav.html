@@ -33,8 +33,16 @@
     <a href="/branch/hosts">Host Families</a>
     <a href="/branch/resources">Resources</a>
     {% endif %}
-		<!-- Agent Branch Manager-->
+		<!-- Agent President-->
     {% if user.type == 'agency_admin' %}
+		<a href="/agent/statistics">Agent Statistics</a>
+    <a href="/agent/counsel">Counseling</a>
+    <a href="/agent/prospective">Prospective Students</a>
+    <a href="/agent/process">Application Process</a>
+    <a href="/student/current">Current Students</a>
+    {% endif %}
+    <!-- Agent Branch Manager -->
+    {% if user.type == 'agency_branch_admin' %}
 		<a href="/agent/statistics">Agent Statistics</a>
     <a href="/agent/counsel">Counseling</a>
     <a href="/agent/prospective">Prospective Students</a>

@@ -220,15 +220,81 @@ class StatisticsView(LoginRequiredMixin, View):
 class CounselView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
+    def search(self):
+
+        if self.request.GET.get('form_type') == 'secondary_form':
+
+            queryset = school_models.Secondary.objects.all()
+
+            school_type = self.request.GET.getlist('school_type', None)
+            if school_type:
+                queryset = queryset.filter(school__school_type__in=school_type)
+
+            student_body = self.request.GET.getlist('student_body', None)
+            if student_body:
+                queryset = queryset.filter(student_body__in=student_body)
+
+            grade = self.request.GET.getlist('grade', None)
+            if grade:
+                if len(grade) != 1:
+                    queryset = queryset.filter(Q(grade_start__lte=grade[0]) | Q(grade_end__gte=grade[-1]))
+                else:
+                    queryset = queryset.filter(grade_start__lte=grade[0], grade_end__gte=grade[0])
+
+            state = self.request.GET.getlist('state', None)
+            if state:
+                queryset = queryset.filter(state__in=state)
+
+            term = self.request.GET.get('term', None)
+            if term:
+                queryset = queryset.filter(school__term=term)
+
+            transfer = self.request.GET.get('transfer', None)
+            if transfer:
+                queryset = queryset.filter(school__transfer=True)
+
+            number_students = self.request.GET.getlist('number_students', None)
+            if number_students:
+
+                if not 's' in number_students:
+                    queryset = queryset.exclude(school__number_students__lte=299).exclude(school__number_students__isnull=True)
+                if not 'm' in number_students:
+                    queryset = queryset.exclude(school__number_students__gte=300, school__number_students__lte=699).exclude(school__number_students__isnull=True)
+                if not 'l' in number_students:
+                    queryset = queryset.exclude(school__number_students__gte=700).exclude(school__number_students__isnull=True)
+
+            program_fee = self.request.GET.get('program_fee', None)
+            if program_fee:
+
+                if program_fee == 'xs':
+                    queryset = queryset.filter(program_fee__lte=35000)
+                elif program_fee == 's':
+                    queryset = queryset.filter(program_fee__lte=45000)
+                elif program_fee == 'm':
+                    queryset = queryset.filter(program_fee__lte=60000)
+                elif program_fee == 'l':
+                    queryset = queryset.filter(program_fee__gt=60000)
+                else:
+                    pass
+
+        else:
+            queryset = None
+
+        return queryset
+
+
     def get(self, request):
 
         secondaries = school_models.Secondary.objects.all()
         colleges = school_models.College.objects.all()
+        print(request.GET)
+        search_schools = self.search()
 
         return render(request, 'agent/counsel.html',
             {
                 "secondaries":secondaries,
                 "colleges":colleges,
+                'search_schools':search_schools,
             }
         )
 

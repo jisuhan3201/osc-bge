@@ -113,6 +113,7 @@ class SecondaryCreateView(LoginRequiredMixin, View):
             application_fee = int(data.get('application_fee')) if data.get('application_fee') else None,
             program_fee = int(data.get('program_fee')) if data.get('program_fee') else None,
             admission_requirements = data.get('admission_requirements'),
+            toefl_requirement = int(data.get('toefl_requirement')) if data.get('toefl_requirement') else None,
             admission_documents = data.get('admission_documents'),
             selling_point = data.get('selling_point'),
             state = data.get('state'),
@@ -264,30 +265,31 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
         except models.Secondary.DoesNotExist:
             return HttpResponse(status=400)
 
-        found_secodary.grade_start = int(data.get('grade_start')) if data.get('grade_start') else None,
-        found_secodary.grade_end = int(data.get('grade_end')) if data.get('grade_end') else None,
-        found_secodary.accept_12_grade = True if data.get('accept_12_grade') else False,
-        found_secodary.application_fee = int(data.get('application_fee')) if data.get('application_fee') else None,
-        found_secodary.program_fee = int(data.get('program_fee')) if data.get('program_fee') else None,
-        found_secodary.admission_requirements = data.get('admission_requirements'),
-        found_secodary.admission_documents = data.get('admission_documents'),
-        found_secodary.selling_point = data.get('selling_point'),
-        found_secodary.state = data.get('state'),
-        found_secodary.student_body = data.get('student_body'),
-        found_secodary.international_students = int(data.get('international_students')) if data.get('international_students') else None,
-        found_secodary.esl = True if data.get('esl') else False,
-        found_secodary.student_teach_ratio = data.get('student_teach_ratio'),
-        found_secodary.class_size = data.get('class_size'),
-        found_secodary.uniform = True if data.get('uniform') else False,
-        found_secodary.college_acceptance_rate = data.get('college_acceptance_rate'),
-        found_secodary.avg_sat = data.get('avg_sat'),
-        found_secodary.number_honor_courses = data.get('number_honor_courses'),
-        found_secodary.list_honor_courses = data.get('list_honor_courses'),
-        found_secodary.number_ap_courses = data.get('number_ap_courses'),
-        found_secodary.list_ap_courses = data.get('list_ap_courses'),
-        found_secodary.number_clubs = data.get('number_clubs'),
-        found_secodary.number_sports = data.get('number_sports'),
-        found_secodary.facilities = data.get('facilities'),
+        found_secodary.grade_start = int(data.get('grade_start')) if data.get('grade_start') else None
+        found_secodary.grade_end = int(data.get('grade_end')) if data.get('grade_end') else None
+        found_secodary.accept_12_grade = True if data.get('accept_12_grade') else False
+        found_secodary.application_fee = int(data.get('application_fee')) if data.get('application_fee') else None
+        found_secodary.program_fee = int(data.get('program_fee')) if data.get('program_fee') else None
+        found_secodary.admission_requirements = data.get('admission_requirements')
+        found_secodary.toefl_requirement = int(data.get('toefl_requirement')) if data.get('toefl_requirement') else None
+        found_secodary.admission_documents = data.get('admission_documents')
+        found_secodary.selling_point = data.get('selling_point')
+        found_secodary.state = data.get('state')
+        found_secodary.student_body = data.get('student_body')
+        found_secodary.international_students = int(data.get('international_students')) if data.get('international_students') else None
+        found_secodary.esl = True if data.get('esl') else False
+        found_secodary.student_teach_ratio = data.get('student_teach_ratio')
+        found_secodary.class_size = data.get('class_size')
+        found_secodary.uniform = True if data.get('uniform') else False
+        found_secodary.college_acceptance_rate = data.get('college_acceptance_rate')
+        found_secodary.avg_sat = data.get('avg_sat')
+        found_secodary.number_honor_courses = data.get('number_honor_courses')
+        found_secodary.list_honor_courses = data.get('list_honor_courses')
+        found_secodary.number_ap_courses = data.get('number_ap_courses')
+        found_secodary.list_ap_courses = data.get('list_ap_courses')
+        found_secodary.number_clubs = data.get('number_clubs')
+        found_secodary.number_sports = data.get('number_sports')
+        found_secodary.facilities = data.get('facilities')
         found_secodary.save()
 
         if data.get('school_type'):

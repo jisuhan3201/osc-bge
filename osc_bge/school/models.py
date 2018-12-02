@@ -108,6 +108,7 @@ class Secondary(TimeStampedModel):
     application_fee = models.IntegerField(null=True, blank=True)
     program_fee = models.IntegerField(null=True, blank=True)
     admission_requirements = models.TextField(null=True, blank=True)
+    toefl_requirement = models.IntegerField(null=True, blank=True)
     admission_documents = models.TextField(null=True, blank=True)
     selling_point = models.TextField(null=True, blank=True)
     state = models.CharField(max_length=80, null=True, choices=STATE_CHOICES)
@@ -209,4 +210,3 @@ class SchoolPhotos(TimeStampedModel):
 
     def __str__(self):
         return "{}".format(self.school)
-    

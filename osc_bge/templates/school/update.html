@@ -399,7 +399,7 @@
 					</tr>
 					<tr>
 						<th>Accepting 12th Grade  : </th>
-						<td colspan="3">
+						<td>
               {% if found_school.secondary.accept_12_grade %}
 							<label><input type="radio" name="accept_12_grade" value="yes" checked/><span></span>Yes</label>
 							<label><input type="radio" name="accept_12_grade" value="" /><span></span>No</label>
@@ -407,6 +407,14 @@
               <label><input type="radio" name="accept_12_grade" value="yes"/><span></span>Yes</label>
 							<label><input type="radio" name="accept_12_grade" value="" checked/><span></span>No</label>
               {% endif %}
+						</td>
+						<th>Toefl Requirement  : </th>
+						<td>
+							{% if found_school.secondary.toefl_requirement %}
+							<label><input type="text" name="toefl_requirement" placeholder="Please Enter Only Numbers.."pattern="\d*" value="{{found_school.secondary.toefl_requirement}}"/><span></span></label>
+							{% else %}
+							<label><input type="text" name="toefl_requirement" placeholder="Please Enter Only Numbers.."pattern="\d*"/><span></span></label>
+							{% endif %}
 						</td>
 					</tr>
 					<tr>
