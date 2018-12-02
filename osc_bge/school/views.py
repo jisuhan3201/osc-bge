@@ -277,7 +277,7 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
         except models.School.DoesNotExist:
             return HttpResponse(status=400)
 
-        all_schools = models.School.objects.all().order_by('name')
+        secondaries = models.Secondary.objects.all()
         provider_branches = bge_models.BgeBranch.objects.all().order_by('name')
         admission_coordi = user_models.BgeBranchCoordinator.objects.filter(position='admission_coordi')
         school_coordi = user_models.BgeBranchCoordinator.objects.filter(position='school_coordi')
@@ -291,7 +291,7 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
 
         return render(request, 'school/update.html', {
             'found_school':found_school,
-            'all_schools':all_schools,
+            'secondaries':secondaries,
             'provider_branches':provider_branches,
             'admission_coordi':admission_coordi,
             'school_coordi':school_coordi,
