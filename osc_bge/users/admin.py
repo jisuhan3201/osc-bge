@@ -24,15 +24,14 @@ class BgeAdminUserAdmin(admin.ModelAdmin):
         "partition",
     )
 
-# @admin.register(models.BgeBranchAdminUser)
-# class BgeBranchAdminUserAdmin(admin.ModelAdmin):
-#
-#     list_display = (
-#         "user",
-#         "bge",
-#         "branch",
-#     )
-#
+@admin.register(models.BgeBranchAdminUser)
+class BgeBranchAdminUserAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "user",
+        "branch",
+    )
+
 @admin.register(models.BgeBranchCoordinator)
 class BgeBranchCoordinatorAdmin(admin.ModelAdmin):
 

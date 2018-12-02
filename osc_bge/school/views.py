@@ -100,10 +100,15 @@ class SecondaryView(LoginRequiredMixin, View):
     def get(self, request):
 
         if request.user.type == 'bge_branch_admin':
-            all_schools = models.School.objects.all().order_by('name')
+            try:
+                user_branch = bge_models.BgeBranch.objects.get(branch_admin=request.user.branch_admin)
+            except bge_models.BgeBranch.DoesNotExist:
+                return HttpResponse("User's BGE Branch is not specified...", status=400)
+
+            all_schools = models.School.objects.filter(provider_branch=user_branch).order_by('name')
 
             if request.GET.get('search_name'):
-                search_schools = models.School.objects.filter(name__icontains=request.GET.get('search_name'))
+                search_schools = models.School.objects.filter(name__icontains=request.GET.get('search_name'), provider_branch=user_branch)
             elif request.GET.get('search_id'):
                 search_schools = models.School.objects.filter(id=request.GET.get('search_id'))
             else:
@@ -256,7 +261,7 @@ class SecondaryCreateView(LoginRequiredMixin, View):
                 )
                 school_photo.save()
 
-        return redirect('/branch/secondary')
+        return redirect('/school/secondary')
 
 
 class SecondaryUpdateView(LoginRequiredMixin, View):
@@ -422,7 +427,7 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
                 )
                 school_photo.save()
 
-        return redirect('/branch/secondary')
+        return redirect('/school/secondary')
 
 
 @login_required(login_url='/accounts/login/')

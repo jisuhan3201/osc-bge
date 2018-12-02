@@ -224,7 +224,7 @@ font-size:12px;line-height:16px;border-bottom:1px solid #DDD;}
 .InfoTable tr:hover {background:#FFF;}
 .InfoTable th {padding:6px;font-weight:150;color:#999;text-align:left;border-top:1px solid #DDD;}
 .InfoTable td {font-size:12px;line-height:18px;padding:6px;font-weight:600;color:#333;border-top:1px solid #DDD;}
-.InfoTable .SchoolButton {position:absolute;right:40px;padding:0px 20px;height:30px;
+.InfoTable .SchoolButton {right:40px;padding:0px 20px;height:30px;
 font-size:12px;font-weight:600;color:#FFF;line-height:30px;text-align:center;
 background:#fba016;border-radius:3px;cursor:pointer;overflow:hidden;}
 .InfoTable .SchoolButton:hover {background:#FF6600;}
@@ -331,9 +331,9 @@ border-radius:3px;background-color:rgba(255, 255, 255, 0.9);}
 
 
 
-.SchoolMFrame .InfoSet {text-align:center;} 
+.SchoolMFrame .InfoSet {text-align:center;}
 .SchoolMFrame .InfoSet > div {display:inline-block;margin:5px;width:80px;height:80px;text-align:center;
-border-radius:50%;background:rgba(0, 0, 0, 0.2);overflow:hidden;} 
+border-radius:50%;background:rgba(0, 0, 0, 0.2);overflow:hidden;}
 .SchoolMFrame .InfoSet .Value {margin-top:10px;height:40px;
 font-size:24px;font-weight:600;color:color:rgba(0, 0, 0, 0.5);line-height:40px;}
 .SchoolMFrame .InfoSet .Title {margin:0px auto;width:40px;height:20px;

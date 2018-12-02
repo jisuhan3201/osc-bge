@@ -82,14 +82,13 @@ class BgeAdminUser(models.Model):
         return "{}".format(self.user)
 
 
-# class BgeBranchAdminUser(models.Model):
-#
-#     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-#     bge = models.ForeignKey(BgeAdminUser, on_delete=models.SET_NULL, null=True)
-#     branch = models.ForeignKey(bge_models.BgeBranch, on_delete=models.SET_NULL, null=True)
-#
-#     def __str__(self):
-#         return "{}".format(self.user)
+class BgeBranchAdminUser(models.Model):
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='branch_admin')
+    branch = models.ForeignKey(bge_models.BgeBranch, on_delete=models.SET_NULL, null=True, related_name='branch_admin')
+
+    def __str__(self):
+        return "{}".format(self.user)
 
 
 class BgeBranchCoordinator(models.Model):
@@ -100,7 +99,7 @@ class BgeBranchCoordinator(models.Model):
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='coordinator')
-    branch = models.ForeignKey(bge_models.BgeBranch, on_delete=models.SET_NULL, null=True)
+    branch = models.ForeignKey(bge_models.BgeBranch, on_delete=models.SET_NULL, null=True, related_name='branch_coordi')
     position = models.CharField(max_length=255, choices=POSITION_CHOICES, null=True)
 
     def __str__(self):
