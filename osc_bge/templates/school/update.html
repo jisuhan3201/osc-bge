@@ -327,7 +327,7 @@
 					<tr>
 						<th>Admission Coordinator  : </th>
 						<td class="InnerInputTD" colspan="3">
-							<select id="Admission_Coordinator_textbox" class="TableInnerInput">
+							<select id="Admission_Coordinator_textbox" class="TableInnerInput" name="admission_coordi">
 								<option>Select Admission Coordinator..</option>
                 {% for coordi in admission_coordi %}
                   {% if coordi.user.id == found_school.admission_coordi.user.id %}
@@ -342,7 +342,7 @@
 					<tr>
 						<th>School Coordinator  : </th>
 						<td class="InnerInputTD" colspan="3">
-							<select id="School_Coordinator_textbox" class="TableInnerInput">
+							<select id="School_Coordinator_textbox" class="TableInnerInput" name="school_coordi">
 								<option>Select School Coordinator..</option>
                 {% for coordi in school_coordi %}
                   {% if coordi.user.id == found_school.school_coordi.user.id %}
@@ -383,17 +383,17 @@
 						<th>Serving Start Grades  : </th>
 						<td class="InnerInputTD">
               {% if found_school.secondary.grade_start %}
-              <input type="text" name="grade_start" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.grade_start}}"/>
+              <input type="text" name="grade_start" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.grade_start}}" pattern="\d*"/>
               {% else %}
-              <input type="text" name="grade_start" class="TableInnerInput" style="width:calc(100% - 10px);"/>
+              <input type="text" name="grade_start" class="TableInnerInput" style="width:calc(100% - 10px);"pattern="\d*"/>
               {% endif %}
             </td>
 						<th>Serving End Grades  : </th>
             <td class="InnerInputTD">
               {% if found_school.secondary.grade_end %}
-              <input type="text" name="grade_end" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.grade_end}}"/>
+              <input type="text" name="grade_end" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.grade_end}}" pattern="\d*"/>
               {% else %}
-              <input type="text" name="grade_end" class="TableInnerInput" style="width:calc(100% - 10px);" />
+              <input type="text" name="grade_end" class="TableInnerInput" style="width:calc(100% - 10px);" pattern="\d*"/>
               {% endif %}
           </td>
 					</tr>
@@ -420,10 +420,10 @@
 					<tr>
 						<th>Application Fee : </th>
 						<td class="InnerInputTD">
-              <input type="text" name="application_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." value="{{found_school.secondary.application_fee}}"/>
+              <input type="text" name="application_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." value="{{found_school.secondary.application_fee}}" pattern="\d*"/>
             </td>
 						<th>Program Fee  : </th>
-						<td class="InnerInputTD"><input type="text" name="program_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." value="{{found_school.secondary.program_fee}}"/></td>
+						<td class="InnerInputTD"><input type="text" name="program_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." value="{{found_school.secondary.program_fee}}" pattern="\d*"/></td>
 					</tr>
 					<tr>
 						<th>Admission Requirements : </th>
@@ -649,17 +649,17 @@
 						<th>Students # : </th>
 						<td class="InnerInputTD">
               {% if found_school.number_students%}
-              <input type="text" name="number_students" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.number_students}}" />
+              <input type="text" name="number_students" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.number_students}}" pattern="\d*"/>
               {% else %}
-              <input type="text" name="number_students" class="TableInnerInput" style="width:calc(100% - 10px);" />
+              <input type="text" name="number_students" class="TableInnerInput" style="width:calc(100% - 10px);" pattern="\d*"/>
               {% endif %}
             </td>
 						<th>International Students : </th>
 						<td class="InnerInputTD">
               {% if found_school.secondary.international_students %}
-              <input type="text" name="international_students" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.international_students}}" />
+              <input type="text" name="international_students" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.international_students}}" pattern="\d*"/>
               {% else %}
-              <input type="text" name="international_students" class="TableInnerInput" style="width:calc(100% - 10px);" />
+              <input type="text" name="international_students" class="TableInnerInput" style="width:calc(100% - 10px);" pattern="\d*"/>
               {% endif %}
             </td>
 					</tr>

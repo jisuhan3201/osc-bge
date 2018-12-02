@@ -272,7 +272,7 @@
 					<tr>
 						<th>Provider Branch : </th>
 						<td class="InnerInputTD" colspan="3">
-							<select id="Provider_Branch_textbox" class="TableInnerInput">
+							<select id="Provider_Branch_textbox" class="TableInnerInput" name="provider_branch">
 								<option>Select Provider Branch..</option>
 								{% for branch in provider_branches %}
 									{% if branch.id == found_school.provider_branch.id %}
@@ -287,7 +287,7 @@
 					<tr>
 						<th>Admission Coordinator  : </th>
 						<td class="InnerInputTD" colspan="3">
-							<select id="Admission_Coordinator_textbox" class="TableInnerInput">
+							<select id="Admission_Coordinator_textbox" class="TableInnerInput" name="admission_coordi">
 								<option>Select Admission Coordinator..</option>
 								{% for coordi in admission_coordi %}
 									{% if coordi.user.id == found_school.admission_coordi.user.id %}
@@ -302,7 +302,7 @@
 					<tr>
 						<th>School Coordinator  : </th>
 						<td class="InnerInputTD" colspan="3">
-							<select id="School_Coordinator_textbox" class="TableInnerInput">
+							<select id="School_Coordinator_textbox" class="TableInnerInput" name="school_coordi">
 								<option>Select School Coordinator..</option>
 								{% for coordi in school_coordi %}
 									{% if coordi.user.id == found_school.school_coordi.user.id %}
@@ -328,9 +328,9 @@
 					</tr>
 					<tr>
 						<th>Serving Start Grades  : </th>
-						<td class="InnerInputTD"><input type="text" name="grade_start" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+						<td class="InnerInputTD"><input type="text" pattern="\d*" name="grade_start" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
 						<th>Serving End Grades  : </th>
-						<td class="InnerInputTD"><input type="text" name="grade_end" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+						<td class="InnerInputTD"><input type="text" pattern="\d*" name="grade_end" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
 					</tr>
 					<tr>
 						<th>Accepting 12th Grade  : </th>
@@ -340,14 +340,14 @@
 						</td>
 						<th>Toefl Requirement  : </th>
 						<td>
-							<label><input type="text" name="toefl_requirement" placeholder="Please Enter Only Numbers.."pattern="\d*" /><span></span></label>
+							<label><input type="text" name="toefl_requirement" placeholder="Please Enter Only Numbers.." pattern="\d*" /><span></span></label>
 						</td>
 					</tr>
 					<tr>
 						<th>Application Fee : </th>
-						<td class="InnerInputTD"><input type="text" name="application_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." /></td>
+						<td class="InnerInputTD"><input type="text" name="application_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." pattern="\d*"/></td>
 						<th>Program Fee  : </th>
-						<td class="InnerInputTD"><input type="text" name="program_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." /></td>
+						<td class="InnerInputTD"><input type="text" name="program_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." pattern="\d*"/></td>
 					</tr>
 					<tr>
 						<th>Admission Requirements : </th>
@@ -425,9 +425,9 @@
 					</tr>
 					<tr>
 						<th>Students # : </th>
-						<td class="InnerInputTD"><input type="text" name="number_students" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+						<td class="InnerInputTD"><input type="text" name="number_students" class="TableInnerInput" style="width:calc(100% - 10px);" value="" pattern="\d*"/></td>
 						<th>International Students : </th>
-						<td class="InnerInputTD"><input type="text" name="international_students" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+						<td class="InnerInputTD"><input type="text" name="international_students" class="TableInnerInput" style="width:calc(100% - 10px);" value="" pattern="\d*"/></td>
 					</tr>
 					<tr>
 						<th>ESL : </th>
