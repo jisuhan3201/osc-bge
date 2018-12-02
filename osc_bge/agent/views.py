@@ -217,6 +217,7 @@ class StatisticsView(LoginRequiredMixin, View):
             'template_date_range':template_date_range,
         })
 
+
 class CounselView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 

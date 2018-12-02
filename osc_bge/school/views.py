@@ -136,13 +136,13 @@ class SecondaryCreateView(LoginRequiredMixin, View):
 
     def get(self, request):
 
-        all_schools = models.School.objects.all().order_by('name')
+        secondaries = models.Secondary.objects.all()
         provider_branches = bge_models.BgeBranch.objects.all().order_by('name')
         admission_coordi = user_models.BgeBranchCoordinator.objects.filter(position='admission_coordi')
         school_coordi = user_models.BgeBranchCoordinator.objects.filter(position='school_coordi')
 
         return render(request, 'school/create.html', {
-            'all_schools':all_schools,
+            'secondaries':secondaries,
             'provider_branches':provider_branches,
             'admission_coordi':admission_coordi,
             'school_coordi':school_coordi,
@@ -608,7 +608,7 @@ class CollegeSchoolView(LoginRequiredMixin, View):
     def get(self, request, secondary_id=None):
 
 
-        return render(request, 'school/college.html', {})
+        return render(request, 'agent_school/colleges.html', {})
 
 
 class SecondarySummaryView(LoginRequiredMixin, View):

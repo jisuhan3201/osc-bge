@@ -2,174 +2,216 @@
 {% load static %}
 {% block content %}
 
-<style>
-#PopRegistReview {display:none;}
-</style>
-<div class="PopCover" id="PopRegistReview">
-	<div class="Popup">
-		<div class="TitleSet">
-			<div class="Close" OnClick="document.getElementById('PopRegistReview').style.display='none';">X</div>
-			<div class="Title">Review Regist</div>
-		</div>
-		<div class="Contents">
-
-
-			<div class="InfoTable">
-				<table cellpadding="0" cellspacing="0" border="0">
-					<colgroup>
-						<col width="110">
-						<col>
-					</colgroup>
-					<tr>
-						<th>Name : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" size="24" value="" />
-						</td>
-					</tr>
-					<tr>
-						<th>Grade : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" size="10" value="" />
-						</td>
-					</tr>
-					<tr>
-						<th>School : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" size="10" value="" />
-						</td>
-					</tr>
-					<tr>
-						<th>Home City : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" size="10" value="" />
-						</td>
-					</tr>
-					<tr>
-						<th>Comment : </th>
-						<td class="InnerInputTD">
-							<textarea class="TableInnerTextarea"></textarea>
-						</td>
-					</tr>
-				</table>
-			</div><!-- InfoTable -->
-
-
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopRegistReview').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopRegistReview').style.display='none';">SAVE</div>
-			</div>
-
-		</div>
-	</div>
-</div>
-
-
-
-<style>
-#PopRegistGraduateProfile {display:none;}
-</style>
-<div class="PopCover" id="PopRegistGraduateProfile">
-	<div class="Popup">
-		<div class="TitleSet">
-			<div class="Close" OnClick="document.getElementById('PopRegistGraduateProfile').style.display='none';">X</div>
-			<div class="Title">Regist Graduate Profile</div>
-		</div>
-		<div class="Contents">
-
-
-			<div class="InfoTable">
-				<table cellpadding="0" cellspacing="0" border="0">
-					<colgroup>
-						<col width="110">
-						<col>
-						<col width="110">
-						<col>
-					</colgroup>
-					<tr>
-						<th>Name : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
-						</td>
-						<th>Years Attended : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
-						</td>
-					</tr>
-					<tr>
-						<th>Initial English : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
-						</td>
-						<th>GPA in China : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
-						</td>
-					</tr>
-					<tr>
-						<th>TOEFL : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
-						</td>
-						<th>GPA : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
-						</td>
-					</tr>
-					<tr>
-						<th>SAT / ACT : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
-						</td>
-						<th>Activities : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
-						</td>
-					</tr>
-					<tr>
-						<th>College : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
-						</td>
-						<th>Major : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput"  style="width:calc(100% - 10px);" value="" />
-						</td>
-					</tr>
-				</table>
-			</div><!-- InfoTable -->
-
-
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopRegistGraduateProfile').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopRegistGraduateProfile').style.display='none';">SAVE</div>
-			</div>
-
-		</div>
-	</div>
-</div>
-
 
 <div class="ContentsFrame">
+	
 	<div class="LeftFrame" id="LeftF">
-		<div class="SectionTitle">SECONDARY SCHOOLS</div>
+		<div class="SectionTitle">Secondary Schools</div>
 		<div class="LeftTab" id="LeftTab01">
 			<div class="TabConternts" id="InnerTab0101">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA OnMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
 				<div class="InnerTabContents">
-					{% for school in all_schools %}
-					<li><a href="/school/secondary/update/{{school.id}}">{{school.name}}</a></li>
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'ma' %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
 					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts ID:InnerTab0101 -->
 
+			<div class="TabConternts" id="InnerTab0102">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT OnCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'ct' %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0102 -->
+
+			<div class="TabConternts" id="InnerTab0103">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ OnNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'nj' %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0103 -->
+
+			<div class="TabConternts" id="InnerTab0104">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA OnFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'fa' %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0104 -->
+
+			<div class="TabConternts" id="InnerTab0105">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC OnDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'dc' %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0105 -->
+
+			<div class="TabConternts" id="InnerTab0106">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA OnCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'ca' %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0106 -->
+
+			<div class="TabConternts" id="InnerTab0107">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL OnFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'fl' %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0107 -->
+
+			<div class="TabConternts" id="InnerTab0108">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX OnTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'tx' %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0108 -->
+
+			<div class="TabConternts" id="InnerTab0109">
+				<div class="InnerTab">
+					<div OnClick="InnerTabOpen01('InnerTab0101');" class="AreaColorMA">MA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0102');" class="AreaColorCT">CT</div>
+					<div OnClick="InnerTabOpen01('InnerTab0103');" class="AreaColorNJ">NJ</div>
+					<div OnClick="InnerTabOpen01('InnerTab0104');" class="AreaColorFA">FA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0105');" class="AreaColorDC">DC</div>
+					<div OnClick="InnerTabOpen01('InnerTab0106');" class="AreaColorCA">CA</div>
+					<div OnClick="InnerTabOpen01('InnerTab0107');" class="AreaColorFL">FL</div>
+					<div OnClick="InnerTabOpen01('InnerTab0108');" class="AreaColorTX">TX</div>
+					<div OnClick="InnerTabOpen01('InnerTab0109');" class="AreaColorETC OnETC">OTHERS</div>
+				</div><!-- InnerTab -->
+				<div class="InnerTabContents">
+					{% for secondary in secondaries %}
+						{% if secondary.state == 'others' %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+						{% endif %}
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0109 -->
+			<br />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/school/secondary/create" class="IsolationButton">+ &nbsp; Add New School</a>
 		</div><!-- LeftTab ID:LeftTab01 -->
 
 
-					<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/school/secondary/create" class="IsolationButton">+ &nbsp; Add New School</a>
-
-
-
 	</div><!-- LeftFrame -->
+
+	<style>
+
+	#CollegeTab,
+
+	#LeftTab02,
+	#InnerTab0102, #InnerTab0103, #InnerTab0104, #InnerTab0105, #InnerTab0106, #InnerTab0107, #InnerTab0108, #InnerTab0109,
+	#InnerTab0202, #InnerTab0203, #InnerTab0204, #InnerTab0205, #InnerTab0206, #InnerTab0207, #InnerTab0208, #InnerTab0209 {display:none;}
+	</style>
+
 	<script>
 
 
