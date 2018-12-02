@@ -241,13 +241,23 @@ class CounselView(LoginRequiredMixin, View):
                 else:
                     queryset = queryset.filter(grade_start__lte=grade[0], grade_end__gte=grade[0])
 
+            term = self.request.GET.get('term', None)
+            if term:
+                queryset = queryset.filter(school__term=term)
+
+            toefl_requirement = self.request.GET.get('toefl_requirement', None)
+            if toefl_requirement:
+                if toefl_requirement == '100':
+                    queryset = queryset.filter(toefl_requirement__gte=int(toefl_requirement), toefl_requirement__isnull=False)
+                elif toefl_requirement == '0':
+                    queryset = queryset.filter(toefl_requirement__isnull=True)
+                else:
+                    queryset =queryset.filter(toefl_requirement__lte=int(toefl_requirement), toefl_requirement__isnull=False)
+
             state = self.request.GET.getlist('state', None)
             if state:
                 queryset = queryset.filter(state__in=state)
 
-            term = self.request.GET.get('term', None)
-            if term:
-                queryset = queryset.filter(school__term=term)
 
             transfer = self.request.GET.get('transfer', None)
             if transfer:
@@ -276,6 +286,18 @@ class CounselView(LoginRequiredMixin, View):
                     queryset = queryset.filter(program_fee__gt=60000)
                 else:
                     pass
+
+        elif self.request.GET.get('form_type') == 'name_form':
+
+            queryset = school_models.Secondary.objects.all()
+
+            school_name = self.request.GET.get('school_name')
+            if school_name:
+                queryset = queryset.filter(school__name__icontains=school_name)
+
+            school_id = self.request.GET.get('school_id')
+            if school_id:
+                queryset = school_models.Secondary.objects.filter(id=int(school_id))
 
         else:
             queryset = None

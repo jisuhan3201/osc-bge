@@ -274,6 +274,13 @@
 						<td class="InnerInputTD" colspan="3">
 							<select id="Provider_Branch_textbox" class="TableInnerInput">
 								<option>Select Provider Branch..</option>
+								{% for branch in provider_branches %}
+									{% if branch.id == found_school.provider_branch.id %}
+										<option value="{{branch.id}}" selected>{{branch.name}}</option>
+									{% else %}
+										<option value="{{branch.id}}">{{branch.name}}</option>
+									{% endif %}
+								{% endfor %}
 							</select>
 						</td>
 					</tr>
@@ -282,6 +289,13 @@
 						<td class="InnerInputTD" colspan="3">
 							<select id="Admission_Coordinator_textbox" class="TableInnerInput">
 								<option>Select Admission Coordinator..</option>
+								{% for coordi in admission_coordi %}
+									{% if coordi.user.id == found_school.admission_coordi.user.id %}
+									<option value="{{coordi.user.id}}" selected>{{coordi.user.first_name}} {{coordi.user.last_name}}</option>
+									{% else %}
+									<option value="{{coordi.user.id}}">{{coordi.user.first_name}} {{coordi.user.last_name}}</option>
+									{% endif %}
+								{% endfor %}
 							</select>
 						</td>
 					</tr>
@@ -290,6 +304,13 @@
 						<td class="InnerInputTD" colspan="3">
 							<select id="School_Coordinator_textbox" class="TableInnerInput">
 								<option>Select School Coordinator..</option>
+								{% for coordi in school_coordi %}
+									{% if coordi.user.id == found_school.school_coordi.user.id %}
+										<option value="{{coordi.user.id}}" selected>{{coordi.user.first_name}} {{coordi.user.last_name}}</option>
+									{% else %}
+										<option value="{{coordi.user.id}}">{{coordi.user.first_name}} {{coordi.user.last_name}}</option>
+									{% endif %}
+								{% endfor %}
 							</select>
 						</td>
 					</tr>

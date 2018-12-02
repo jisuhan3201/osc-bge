@@ -38,6 +38,7 @@ class SecondaryAdmin(admin.ModelAdmin):
         "application_fee",
         "program_fee",
         "admission_requirements",
+        "toefl_requirement",
         "admission_documents",
         "selling_point",
         "state",
