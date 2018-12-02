@@ -170,7 +170,7 @@ class SecondaryCreateView(LoginRequiredMixin, View):
 
         if data.get('school_coordi'):
             try:
-                found_school_coordi = user_models.BgeBranchCoordinator.objects.get(pk=int(data.get('admission_coordi')))
+                found_school_coordi = user_models.BgeBranchCoordinator.objects.get(pk=int(data.get('school_coordi')))
             except user_models.BgeBranchCoordinator.DoesNotExist:
                 return HttpResponse(status=400)
         else:
@@ -330,7 +330,7 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
 
         if data.get('school_coordi'):
             try:
-                found_school_coordi = user_models.BgeBranchCoordinator.objects.get(pk=int(data.get('admission_coordi')))
+                found_school_coordi = user_models.BgeBranchCoordinator.objects.get(pk=int(data.get('school_coordi')))
             except user_models.BgeBranchCoordinator.DoesNotExist:
                 return HttpResponse(status=400)
         else:
