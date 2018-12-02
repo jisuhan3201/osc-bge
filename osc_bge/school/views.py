@@ -302,6 +302,8 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
 
     def post(self, request, school_id=None):
 
+        data = request.POST
+
         if not school_id:
             return HttpResponse(status=400)
 
@@ -396,16 +398,18 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
 
         if data.get('school_type'):
 
+
+            if models.SchoolTypes.objects.filter(school=found_school):
+                found_types = models.SchoolTypes.objects.filter(school=found_school)
+                found_types.delete()
+
             for school_type in data.getlist('school_type'):
-                try:
-                    found_school_type = models.SchoolTypes.filter(school=found_school, type=school_type)
-                    continue
-                except models.SchoolTypes.DoesNotExist:
-                    school_types = models.SchoolTypes(
-                        school = found_school,
-                        type = school_type,
-                    )
-                    school_types.save()
+
+                school_types = models.SchoolTypes(
+                    school = found_school,
+                    type = school_type,
+                )
+                school_types.save()
 
 
         if request.FILES.get('photo'):
