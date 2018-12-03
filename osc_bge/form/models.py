@@ -288,3 +288,17 @@ class FormalityFile(TimeStampedModel):
 
     def __str__(self):
         return "{}".format(self.name)
+
+
+class CounselorSellingPoint(TimeStampedModel):
+
+    school = models.ForeignKey(school_models.School, on_delete=models.SET_NULL, null=True)
+    counselor = models.ForeignKey(user_models.Counselor, on_delete=models.SET_NULL, null=True)
+    classification = models.CharField(max_length=80, null=True)
+    emphasis = models.BooleanField(default=False)
+    information = models.CharField(max_length=80, null=True, blank=True)
+    evaluation = models.CharField(max_length=80, null=True, blank=True)
+    comment = models.CharField(max_length=255, null=True, blank=True)
+
+    def __str__(self):
+        return "{}- {}".format(self.school, self.counselor)

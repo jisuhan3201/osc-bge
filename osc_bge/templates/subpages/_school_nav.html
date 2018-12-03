@@ -2,12 +2,12 @@
 <div class="TopMenuSet">
 	<div class="SchoolName"><img src="{% static 'img/m_logo.png' %}" /></div>
 	<div class="SchoolMenu">
-		<a href="/school/secondary/summary/school_id" class="On">Summary</a>
-		<a href="/school/secondary/detail/school_id" class="">Detailed Info.</a>
-		<a href="/school/secondary/service/school_id" class="">BGE Services & Benefits</a>
-		<a href="/school/secondary/review/school_id" class="">Review</a>
-		<a href="/school/secondary/estimate/school_id" class="">Estimate</a>
-		<a href="/school/secondary/photo/school_id" class="">Photo</a>
+		<a href="/school/secondary/summary/{{found_school.id}}" class="On">Summary</a>
+		<a href="/school/secondary/detail/{{found_school.id}}" class="">Detailed Info.</a>
+		<a href="/school/secondary/service/{{found_school.id}}" class="">BGE Services & Benefits</a>
+		<a href="/school/secondary/review/{{found_school.id}}" class="">Review</a>
+		<a href="/school/secondary/estimate/{{found_school.id}}" class="">Estimate</a>
+		<a href="/school/secondary/photo/{{found_school.id}}" class="">Photo</a>
 	</div>
 	<div class="ButtonLine">
 		<div class="SchoolButton">Inquiry</div>

@@ -8,6 +8,8 @@ from . import models, forms
 from osc_bge.users import models as user_models
 from osc_bge.bge import models as bge_models
 from osc_bge.student import models as student_models
+from osc_bge.school import models as school_models
+from osc_bge.form import models as form_models
 
 
 class SecondaryView(LoginRequiredMixin, View):
@@ -585,18 +587,10 @@ def graduate_profile_delete(request, profile_id=None):
         return HttpResponse(status=400)
 
 
-class SecondaryReviewView(LoginRequiredMixin, View):
-    login_url = '/accounts/login/'
-
-    def get(self, request, secondary_id=None):
-
-
-        return render(request, 'school/review.html', {})
-
 class SecondaryLogView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
-    def get(self, request, secondary_id=None):
+    def get(self, request, school_id=None):
 
 
         return render(request, 'school/testlog.html', {})
@@ -605,7 +599,7 @@ class SecondaryLogView(LoginRequiredMixin, View):
 class CollegeSchoolView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
-    def get(self, request, secondary_id=None):
+    def get(self, request, school_id=None):
 
 
         return render(request, 'agent_school/colleges.html', {})
@@ -614,43 +608,145 @@ class CollegeSchoolView(LoginRequiredMixin, View):
 class SecondarySummaryView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
-    def get(self, request, secondary_id=None):
+    def get_counselor(self):
 
+        user = self.request.user
+        try:
+            found_counselor = user_models.Counselor.objects.get(user=user)
+        except user_models.Counselor.DoesNotExist:
+            return HttpResponse(status=401)
+        return found_counselor
 
-        return render(request, 'school/summary.html', {})
+    def get(self, request, school_id=None):
+
+        found_counselor = self.get_counselor()
+
+        if school_id:
+
+            try:
+                found_school = school_models.School.objects.get(pk=school_id)
+            except school_models.School.DoesNotExist:
+                return HttpResponse("Wrong school id", status=400)
+
+            selling_points = form_models.CounselorSellingPoint.objects.filter(
+                school=found_school, counselor=found_counselor)
+        else:
+            return HttpResponse("School id is null", statue=400)
+
+        return render(request, 'school/summary.html', {
+            'found_school':found_school,
+        })
 
 
 class SecondaryDetailView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
-    def get(self, request, secondary_id=None):
+    def get_counselor(self):
 
+        user = self.request.user
+        try:
+            found_counselor = user_models.Counselor.objects.get(user=user)
+        except user_models.Counselor.DoesNotExist:
+            return HttpResponse(status=401)
+        return found_counselor
 
-        return render(request, 'school/detailed_info.html', {})
+    def get(self, request, school_id=None):
+
+        found_counselor = self.get_counselor()
+
+        if school_id:
+
+            try:
+                found_school = school_models.School.objects.get(pk=school_id)
+            except school_models.School.DoesNotExist:
+                return HttpResponse("Wrong school id", status=400)
+
+            school_types = school_models.SchoolTypes.objects.filter(school=found_school)
+        else:
+            return HttpResponse("School id is null", statue=400)
+
+        return render(request, 'school/detailed_info.html', {
+            'found_school':found_school,
+            'school_types':school_types,
+        })
 
 
 class SecondaryServiceView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
-    def get(self, request, secondary_id=None):
+    def get(self, request, school_id=None):
+
+        if school_id:
+
+            try:
+                found_school = school_models.School.objects.get(pk=school_id)
+            except school_models.School.DoesNotExist:
+                return HttpResponse("Wrong school id", status=400)
+
+        else:
+            return HttpResponse("School id is null", statue=400)
 
 
-        return render(request, 'school/service.html', {})
+        return render(request, 'school/service.html', {
+            'found_school':found_school,
+        })
+
+
+class SecondaryReviewView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def get(self, request, school_id=None):
+
+        if school_id:
+
+            try:
+                found_school = school_models.School.objects.get(pk=school_id)
+            except school_models.School.DoesNotExist:
+                return HttpResponse("Wrong school id", status=400)
+
+        else:
+            return HttpResponse("School id is null", statue=400)
+
+        return render(request, 'school/review.html', {
+            'found_school':found_school,
+        })
 
 
 class SecondaryEstimateView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
-    def get(self, request, secondary_id=None):
+    def get(self, request, school_id=None):
 
+        if school_id:
 
-        return render(request, 'school/estimate.html', {})
+            try:
+                found_school = school_models.School.objects.get(pk=school_id)
+            except school_models.School.DoesNotExist:
+                return HttpResponse("Wrong school id", status=400)
+
+        else:
+            return HttpResponse("School id is null", statue=400)
+
+        return render(request, 'school/estimate.html', {
+            'found_school':found_school,
+        })
 
 
 class SecondaryPhotoView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
-    def get(self, request, secondary_id=None):
+    def get(self, request, school_id=None):
 
+        if school_id:
 
-        return render(request, 'school/photo.html', {})
+            try:
+                found_school = school_models.School.objects.get(pk=school_id)
+            except school_models.School.DoesNotExist:
+                return HttpResponse("Wrong school id", status=400)
+
+        else:
+            return HttpResponse("School id is null", statue=400)
+
+        return render(request, 'school/photo.html', {
+            'found_school':found_school,
+        })

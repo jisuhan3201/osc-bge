@@ -5,7 +5,7 @@
 <div class="ContentsFrame">
 	<div class="SchoolName">
 	<span>School Information</span><br />
-	St. John’s High School
+	{{found_school.name}}
 	</div>
 	<div class="SchoolFrame">
 		<div class="InfoTable">
@@ -38,43 +38,47 @@
 				</colgroup>
 				<tr>
 					<th>Year Founded : </th>
-					<td>1894</td>
+					<td>{{found_school.founded}}</td>
 					<th>Religion : </th>
-					<td>Roman Catholic</td>
+					<td>{{found_school.religion}}</td>
 				</tr>
 				<tr>
 					<th>School Type : </th>
-					<td>College Prep, day school</td>
+					<td>
+						{% for type in school_types %}
+							{{type.type}},
+						{% endfor %}
+					</td>
 					<th>Grades : </th>
-					<td>9-12</td>
+					<td>{{found_school.secondary.grade_start}} - {{found_school.secondary.grade_end}}</td>
 				</tr>
 				<tr>
 					<th>Student body : </th>
-					<td>Boys</td>
+					<td>{{found_school.secondary.student_body}}</td>
 					<th>Uniforms : </th>
-					<td>Yes</td>
+					<td>{{found_school.secondary.uniform}}</td>
 				</tr>
 				<tr>
 					<th>Number of Students : </th>
-					<td>1006</td>
+					<td>{{found_school.number_students}}</td>
 					<th>International Students : </th>
-					<td>20 ( 15 Chinese )</td>
+					<td>{{found_school.secondary.international_students}}</td>
 				</tr>
 				<tr>
 					<th>Class Size : </th>
-					<td>-</td>
+					<td>{{found_school.secondary.class_size}}</td>
 					<th>ESL : </th>
-					<td>No</td>
+					<td>{{found_school.secondary.esl}}</td>
 				</tr>
 				<tr>
 					<th rowspan="2">Area : </th>
-					<td rowspan="2">Located in a residential area of Shrewsbury. Easy access to major cities in MA. Boston is about 50 minutes away.</td>
+					<td rowspan="2">{{found_school.area_description}}</td>
 					<th>Student: Teacher Ratio : </th>
-					<td>14 : 1</td>
+					<td>{{found_school.secondary.student_teach_ratio}}</td>
 				</tr>
 				<tr>
 					<th>Facility : </th>
-					<td>Wide campus, Academic/Fine Arts building, Library, Computer Lab, Science Labs, Theatre, Campus Ministry, Cafeteria, Weight Room, Locker Room, athletic fields.</td>
+					<td>{{found_school.secondary.facilities}}</td>
 				</tr>
 			</table>
 		</div><!-- InfoTable -->
@@ -90,19 +94,19 @@
 				</colgroup>
 				<tr>
 					<th>College Acceptance Rate : </th>
-					<td>96% 4 year colleges, 3% on to 2 year colleges, 1% undecided/working/military</td>
+					<td>{{found_school.secondary.college_acceptance_rate}}</td>
 				</tr>
 				<tr>
 					<th>Average SAT Scores : </th>
-					<td>Average = 1860 (Math = 650 | Reading = 610 | Writing = 600)</td>
+					<td>{{found_school.secondary.avg_sat}}</td>
 				</tr>
 				<tr>
-					<th>Honor Courses: 29 : </th>
-					<td>English I, English II, English III, English IV, Algebra I, Algebra II, Algebra II/Trigonometry, Geometry, Pre-calculus, Biology, Chemistry, Physics, Economics, U.S. History, U.S. Government and Politics, World History, World History II, Advanced Spanish I, Chinese I, Chinese II, Chinese III, Chinese IV, French I, French II, French III, French IV, Java Programming I, Java Programming II, Java Programming III.</td>
+					<th>Honor Courses: {{found_school.secondary.number_honor_courses}} : </th>
+					<td>{{found_school.secondary.list_honor_courses}}</td>
 				</tr>
 				<tr>
-					<th>AP Courses: 24 : </th>
-					<td>English Language and Composition, English Literature and Composition, Art History, Music Theory, Calculus-AB, Calculus-BC, Statistics, Biology, Chemistry, Environmental Science, Physics I, Physics C: Magnetism, and Electricity & Magnetism, Comparative Government and Politics, European History, Microeconomics, Macroeconomics, U.S. History, U.S. Government and Politics, World History, Chinese, French Language, Spanish Language, Computer Science A.</td>
+					<th>AP Courses: {{found_school.secondary.number_ap_courses}} : </th>
+					<td>{{found_school.secondary.list_ap_courses}}</td>
 				</tr>
 				<tr>
 					<th>Extra-curricular : </th>
@@ -113,12 +117,12 @@
 					<td>-</td>
 				</tr>
 				<tr>
-					<th>Application : </th>
-					<td>-</td>
+					<th>Application Fee: </th>
+					<td>{{found_school.secondary.application_fee}}</td>
 				</tr>
 				<tr>
-					<th>Fee  : </th>
-					<td>-</td>
+					<th>Program Fee  : </th>
+					<td>{{found_school.secondary.program_fee}}</td>
 				</tr>
 			</table>
 		</div><!-- InfoTable -->
