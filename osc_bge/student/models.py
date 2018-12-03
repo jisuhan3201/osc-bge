@@ -85,7 +85,7 @@ class StudentReport(TimeStampedModel):
 class CurrentStudentReview(TimeStampedModel):
 
     school = models.ForeignKey(school_models.School, on_delete=models.SET_NULL, null=True)
-    student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True)
+    student = models.CharField(max_length=80, null=True, blank=True)
     grade = models.CharField(max_length=80, null=True, blank=True)
     homecity = models.CharField(max_length=80, null=True, blank=True)
     comment = models.TextField(null=True, blank=True)
@@ -94,7 +94,7 @@ class CurrentStudentReview(TimeStampedModel):
 class GraduateStudentReview(TimeStampedModel):
 
     school = models.ForeignKey(school_models.School, on_delete=models.SET_NULL, null=True)
-    student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True)
+    student = models.CharField(max_length=80, null=True, blank=True)
     attended = models.CharField(max_length=80, null=True, blank=True)
     init_eng = models.CharField(max_length=80, null=True, blank=True)
     gpa_china = models.CharField(max_length=80, null=True, blank=True)

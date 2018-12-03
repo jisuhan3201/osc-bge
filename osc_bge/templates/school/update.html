@@ -8,57 +8,59 @@
 <div class="PopCover" id="PopRegistReview">
 	<div class="Popup">
 		<div class="TitleSet">
-			<div class="Close" OnClick="document.getElementById('PopRegistReview').style.display='none';">X</div>
+			<div class="Close">X</div>
 			<div class="Title">Review Regist</div>
 		</div>
 		<div class="Contents">
 
+			<form action="/school/current/review" method="post">
+				{% csrf_token %}
+				<input type="text" name="school_id" value="{{found_school.id}}" hidden>
+				<input type="text" name="review_id" value="" hidden>
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<colgroup>
+							<col width="110">
+							<col>
+						</colgroup>
+						<tr>
+							<th>Name : </th>
+							<td class="InnerInputTD">
+								<input type="text" class="TableInnerInput" size="24" name="student" />
+							</td>
+						</tr>
+						<tr>
+							<th>Grade : </th>
+							<td class="InnerInputTD">
+								<input type="text" class="TableInnerInput" size="10" name="grade" />
+							</td>
+						</tr>
+						<tr>
+							<th>School : </th>
+							<td class="InnerInputTD">
+								<input type="text" class="TableInnerInput" size="10" value="{{found_school.name}}" disabled readonly/>
+							</td>
+						</tr>
+						<tr>
+							<th>Home City : </th>
+							<td class="InnerInputTD">
+								<input type="text" class="TableInnerInput" size="10" name="homecity"/>
+							</td>
+						</tr>
+						<tr>
+							<th>Comment : </th>
+							<td class="InnerInputTD">
+								<textarea class="TableInnerTextarea" name="comment"></textarea>
+							</td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
 
-			<div class="InfoTable">
-				<table cellpadding="0" cellspacing="0" border="0">
-					<colgroup>
-						<col width="110">
-						<col>
-					</colgroup>
-					<tr>
-						<th>Name : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" size="24" value="" />
-						</td>
-					</tr>
-					<tr>
-						<th>Grade : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" size="10" value="" />
-						</td>
-					</tr>
-					<tr>
-						<th>School : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" size="10" value="" />
-						</td>
-					</tr>
-					<tr>
-						<th>Home City : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" size="10" value="" />
-						</td>
-					</tr>
-					<tr>
-						<th>Comment : </th>
-						<td class="InnerInputTD">
-							<textarea class="TableInnerTextarea"></textarea>
-						</td>
-					</tr>
-				</table>
-			</div><!-- InfoTable -->
 
-
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopRegistReview').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopRegistReview').style.display='none';">SAVE</div>
-			</div>
-
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -76,73 +78,77 @@
 		</div>
 		<div class="Contents">
 
+			<form action="/school/graduate/review" method="post">
+				{% csrf_token %}
+				<input type="text" name="school_id" value="{{found_school.id}}" hidden>
+				<input type="text" name="profile_id" value="" hidden>
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<colgroup>
+							<col width="110">
+							<col>
+							<col width="110">
+							<col>
+						</colgroup>
+						<tr>
+							<th>Name : </th>
+							<td class="InnerInputTD">
+								<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="student" />
+							</td>
+							<th>Years Attended : </th>
+							<td class="InnerInputTD">
+								<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="attended" />
+							</td>
+						</tr>
+						<tr>
+							<th>Initial English : </th>
+							<td class="InnerInputTD">
+								<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="init_eng" />
+							</td>
+							<th>GPA in China : </th>
+							<td class="InnerInputTD">
+								<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="gpa_china" />
+							</td>
+						</tr>
+						<tr>
+							<th>TOEFL : </th>
+							<td class="InnerInputTD">
+								<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="toefl" />
+							</td>
+							<th>GPA : </th>
+							<td class="InnerInputTD">
+								<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="gpa" />
+							</td>
+						</tr>
+						<tr>
+							<th>SAT / ACT : </th>
+							<td class="InnerInputTD">
+								<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="sat_act" />
+							</td>
+							<th>Activities : </th>
+							<td class="InnerInputTD">
+								<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="activities" />
+							</td>
+						</tr>
+						<tr>
+							<th>College : </th>
+							<td class="InnerInputTD">
+								<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="college" />
+							</td>
+							<th>Major : </th>
+							<td class="InnerInputTD">
+								<input type="text" class="TableInnerInput"  style="width:calc(100% - 10px);" name="major" />
+							</td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
 
-			<div class="InfoTable">
-				<table cellpadding="0" cellspacing="0" border="0">
-					<colgroup>
-						<col width="110">
-						<col>
-						<col width="110">
-						<col>
-					</colgroup>
-					<tr>
-						<th>Name : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
-						</td>
-						<th>Years Attended : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
-						</td>
-					</tr>
-					<tr>
-						<th>Initial English : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
-						</td>
-						<th>GPA in China : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
-						</td>
-					</tr>
-					<tr>
-						<th>TOEFL : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
-						</td>
-						<th>GPA : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
-						</td>
-					</tr>
-					<tr>
-						<th>SAT / ACT : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
-						</td>
-						<th>Activities : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
-						</td>
-					</tr>
-					<tr>
-						<th>College : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" />
-						</td>
-						<th>Major : </th>
-						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput"  style="width:calc(100% - 10px);" value="" />
-						</td>
-					</tr>
-				</table>
-			</div><!-- InfoTable -->
 
+				<div class="PopButtonLine">
+					<button class="Submit" type="submit">SAVE</button>
+				</div>
+			</form>
 
-			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopRegistGraduateProfile').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopRegistGraduateProfile').style.display='none';">SAVE</div>
-			</div>
 
 		</div>
 	</div>
@@ -972,20 +978,15 @@ document.getElementById(TabName).style.display='block';
 					<th>School</th>
 					<th>Home city</th>
 				</tr>
+				{% for review in current_student_reviews %}
 				<tr>
-					<td>124</td>
-					<td><a href="">Yixun “Patrick” Bu</a></td>
-					<td>10th</td>
-					<td>St John’s High School</td>
-					<td>Jinan, Shandong, China</td>
+					<td>{{review.id}}</td>
+					<td><p class="CurrentStudentReviewClass" id="CurrentStudentReview{{review.id}}" style="color:blue;margin-bottom:0;cursor:pointer;">{{review.student}}</p></td>
+					<td>{{review.grade}}</td>
+					<td>{{review.school.name}}</td>
+					<td>{{review.homecity}}</td>
 				</tr>
-				<tr>
-					<td>124</td>
-					<td><a href="">Yixun “Patrick” Bu</a></td>
-					<td>10th</td>
-					<td>St John’s High School</td>
-					<td>Jinan, Shandong, China</td>
-				</tr>
+				{% endfor %}
 			</table>
 		</div><!-- ListTable -->
 		<!-- 학교리뷰목록 끝 -->
@@ -1015,32 +1016,21 @@ document.getElementById(TabName).style.display='block';
 					<th>College</th>
 					<th>Major</th>
 				</tr>
+				{% for profile in graduate_profiles %}
 				<tr>
-					<td>6</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
+					<td>{{profile.id}}</td>
+					<td><p class="GraduateStudentReviewClass" id="GraduateStudentReview{{profile.id}}" style="color:blue;margin-bottom:0;cursor:pointer;">{{profile.student}}</p></td>
+					<td>{{profile.attended}}</td>
+					<td>{{profile.init_eng}}</td>
+					<td>{{profile.gpa_china}}</td>
+					<td>{{profile.toefl}}</td>
+					<td>{{profile.gpa}}</td>
+					<td>{{profile.sat_act}}</td>
+					<td>{{profile.activities}}</td>
+					<td>{{profile.college}}</td>
+					<td>{{profile.major}}</td>
 				</tr>
-				<tr>
-					<td>6</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
+				{% endfor %}
 			</table>
 		</div><!-- ListTable -->
 		<!-- 학교리뷰목록 끝 -->

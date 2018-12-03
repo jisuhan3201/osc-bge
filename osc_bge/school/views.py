@@ -4,13 +4,14 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.core import serializers
 from . import models, forms
 from osc_bge.users import models as user_models
 from osc_bge.bge import models as bge_models
 from osc_bge.student import models as student_models
 from osc_bge.school import models as school_models
 from osc_bge.form import models as form_models
-
+import json
 
 class SecondaryView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
@@ -286,6 +287,8 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
         current_student_reviews = student_models.CurrentStudentReview.objects.filter(school=found_school).order_by('-created_at')
         graduate_profiles = student_models.GraduateStudentReview.objects.filter(school=found_school).order_by('-created_at')
         school_types = models.SchoolTypes.objects.filter(school=found_school)
+        current_student_reviews = student_models.CurrentStudentReview.objects.all().order_by("-created_at")
+        graduate_profiles = student_models.GraduateStudentReview.objects.all().order_by("-created_at")
 
         school_type_list = []
         for school_type in school_types:
@@ -300,6 +303,8 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
             'current_student_reviews':current_student_reviews,
             'graduate_profiles':graduate_profiles,
             'school_type_list':school_type_list,
+            'current_student_reviews':current_student_reviews,
+            "graduate_profiles":graduate_profiles,
         })
 
     def post(self, request, school_id=None):
@@ -451,15 +456,6 @@ def current_review_create(request):
         else:
             return HttpResponse(status=400)
 
-        if data.get('student_id'):
-
-            try:
-                found_student = student_models.Student.objects.get(pk=int(data.get('student_id')))
-            except student_models.Student.DoesNotExist:
-                return HttpResponse(status=400)
-        else:
-            return HttpResponse(status=400)
-
         if data.get('review_id'):
 
             try:
@@ -467,7 +463,7 @@ def current_review_create(request):
             except student_models.CurrentStudentReview.DoesNotExist:
                 return HttpResponse(status=400)
 
-            found_review.student = found_student
+            found_review.student = data.get('student')
             found_review.grade = data.get('grade')
             found_review.homecity = data.get('homecity')
             found_review.comment = data.get('comment')
@@ -476,7 +472,7 @@ def current_review_create(request):
         else:
             review = student_models.CurrentStudentReview(
                 school=found_school,
-                student=found_student,
+                student=data.get('student'),
                 grade=data.get('grade'),
                 homecity=data.get('homecity'),
                 comment=data.get('comment'),
@@ -486,7 +482,25 @@ def current_review_create(request):
     else:
         return HttpResponse(status=400)
 
-    return HttpResponseRedirect(request.path_info)
+    return HttpResponseRedirect("/school/secondary/update/"+data.get('school_id'))
+
+
+@login_required(login_url='/accounts/login')
+def current_review_get(request, review_id=None):
+
+    if review_id:
+
+        try:
+            found_review = student_models.CurrentStudentReview.objects.filter(pk=review_id)
+        except student_models.CurrentStudentReview.DoesNotExist:
+            return HttpResponse("Review ID does not exist", status=400)
+
+        data = serializers.serialize("json", found_review)
+
+        return HttpResponse(data, content_type="application/json")
+
+    else:
+        return HttpResponse("Review ID IS NULL", statue=400)
 
 
 @login_required(login_url='/accounts/login/')
@@ -504,15 +518,6 @@ def graduate_profile_create(request):
         else:
             return HttpResponse(status=400)
 
-        if data.get('student_id'):
-
-            try:
-                found_student = student_models.Student.objects.get(pk=int(data.get('student_id')))
-            except student_models.Student.DoesNotExist:
-                return HttpResponse(status=400)
-        else:
-            return HttpResponse(status=400)
-
         if data.get('profile_id'):
 
             try:
@@ -520,7 +525,7 @@ def graduate_profile_create(request):
             except student_models.GraduateStudentReview.DoesNotExist:
                 return HttpResponse(status=400)
 
-            found_profile.student = found_student
+            found_profile.student = data.get('student')
             found_profile.attended = data.get('attended')
             found_profile.init_eng = data.get('init_eng')
             found_profile.gpa_china = data.get('gpa_china')
@@ -535,7 +540,7 @@ def graduate_profile_create(request):
         else:
             profile = student_models.GraduateStudentReview(
                 school=found_school,
-                student = found_student,
+                student = data.get('student'),
                 attended = data.get('attended'),
                 init_eng = data.get('init_eng'),
                 gpa_china = data.get('gpa_china'),
@@ -551,7 +556,24 @@ def graduate_profile_create(request):
     else:
         return HttpResponse(status=400)
 
-    return HttpResponseRedirect(request.path_info)
+    return HttpResponseRedirect("/school/secondary/update/"+data.get('school_id'))
+
+
+@login_required(login_url='/accounts/login')
+def graduate_profile_get(request, profile_id=None):
+
+    if profile_id:
+
+        try:
+            found_profile = student_models.GraduateStudentReview.objects.filter(pk=profile_id)
+        except student_models.GraduateStudentReview.DoesNotExist:
+            return HttpResponse("Profile ID does not exist", status=400)
+
+        data = serializers.serialize("json", found_profile)
+        return HttpResponse(data, content_type="application/json")
+
+    else:
+        return HttpResponse("Profile ID IS NULL", statue=400)
 
 
 @login_required(login_url='/accounts/login/')
@@ -704,11 +726,18 @@ class SecondaryReviewView(LoginRequiredMixin, View):
             except school_models.School.DoesNotExist:
                 return HttpResponse("Wrong school id", status=400)
 
+            current_student_reviews = student_models.CurrentStudentReview.objects.filter(
+                school=found_school).order_by("-created_at")
+            graduate_student_reviews = student_models.GraduateStudentReview.objects.filter(
+                school=found_school).order_by("-created_at")
+
         else:
             return HttpResponse("School id is null", statue=400)
 
         return render(request, 'school/review.html', {
             'found_school':found_school,
+            'current_student_reviews':current_student_reviews,
+            'graduate_student_reviews':graduate_student_reviews,
         })
 
 

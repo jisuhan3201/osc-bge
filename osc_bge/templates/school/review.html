@@ -12,23 +12,21 @@
 			<div class="MTitle">Current Student’s review</div>
 
 			<!-- 학교리뷰보기 -->
-			<div class="ReviewTop">
-				<li class="Name">Yixun “Patrick” Bu</li>
+			<div id="CurrentStudentReviewTop" class="ReviewTop" style="display:none;">
+				<li class="Name"></li>
 				<li class="Info">
-					<span>Grade : <b>10th</b></span>
-					<span>School : <b>St John’s High School</b></span>
-					<span>Home city in China : <b>Jinan, Shandong</b></span>
+					<span class="gradeclass">Grade : <b></b></span>
+					<span>School : <b>{{found_school.name}}</b></span>
+					<span>Home city : <b></b></span>
 				</li>
-				<li class="Contents">
-				I have been with BGE since I was in eighth grade and they were very helpful in preparing me for high school in the United States. ey sat down with me one on one and helped me map out where I needed to improve academically and provided me with TOEFL tutoring after school. Because of BGE's excellent guidance, I was able to get into my dream high school, St John's High School.
-				</li>
+				<li class="Contents"></li>
 			</div><!-- ReviewTop -->
 			<div class="EndPart"></div>
 			<!-- 학교리뷰보기 끝 -->
 
 			<!-- 학교리뷰목록 -->
 			<div class="ListTable">
-				<div class="ListSearch Aright">
+				<!-- <div class="ListSearch Aright">
 					<div>
 						<select class="SearchSelect">
 							<option>Name</option>
@@ -39,7 +37,7 @@
 					</div>
 					<div><input type="text" class="SearchInput" /></div>
 					<div><input type="submit" value="Search" class="ListSearchButton" /></div>
-				</div>
+				</div> -->
 				<table cellpadding="0" cellspacing="0" border="0">
 					<colgroup>
 						<col>
@@ -51,51 +49,18 @@
 						<th>School</th>
 						<th>Home city</th>
 					</tr>
+					{% for review in current_student_reviews %}
 					<tr>
-						<td>124</td>
-						<td><a href="">Yixun “Patrick” Bu</a></td>
-						<td>10th</td>
-						<td>St John’s High School</td>
-						<td>Jinan, Shandong, China</td>
+						<td>{{review.id}}</td>
+						<td><p class="AgentCurrentStudentReviewClass" id="AgentCurrentStudentReview{{review.id}}" style="color:blue;margin-bottom:0;cursor:pointer;">{{review.student}}</p></td>
+						<td>{{review.grade}}</td>
+						<td>{{review.school}}</td>
+						<td>{{review.homecity}}</td>
 					</tr>
-					<tr>
-						<td>124</td>
-						<td><a href="">Yixun “Patrick” Bu</a></td>
-						<td>10th</td>
-						<td>St John’s High School</td>
-						<td>Jinan, Shandong, China</td>
-					</tr>
-					<tr>
-						<td>124</td>
-						<td><a href="">Yixun “Patrick” Bu</a></td>
-						<td>10th</td>
-						<td>St John’s High School</td>
-						<td>Jinan, Shandong, China</td>
-					</tr>
-					<tr>
-						<td>124</td>
-						<td><a href="">Yixun “Patrick” Bu</a></td>
-						<td>10th</td>
-						<td>St John’s High School</td>
-						<td>Jinan, Shandong, China</td>
-					</tr>
-					<tr>
-						<td>124</td>
-						<td><a href="">Yixun “Patrick” Bu</a></td>
-						<td>10th</td>
-						<td>St John’s High School</td>
-						<td>Jinan, Shandong, China</td>
-					</tr>
-					<tr>
-						<td>124</td>
-						<td><a href="">Yixun “Patrick” Bu</a></td>
-						<td>10th</td>
-						<td>St John’s High School</td>
-						<td>Jinan, Shandong, China</td>
-					</tr>
+					{% endfor %}
 				</table>
 
-				<div class="ListCounter">
+				<!-- <div class="ListCounter">
 					<a href="">◀</a>
 					<a>...</a>
 					<a href="">1</a>
@@ -106,7 +71,7 @@
 					<a>...</a>
 					<a href="">128</a>
 					<a href="">▶</a>
-				</div>
+				</div> -->
 
 
 			</div><!-- ListTable -->
@@ -120,30 +85,27 @@
 			<div class="MTitle">Graduated Student’s review</div>
 
 			<!-- 학교리뷰보기 -->
-			<div class="ReviewTop">
-				<li class="Name">Yixun “Patrick” Bu</li>
+			<div id="GraduateStudentReviewTop" class="ReviewTop" style="display:none;">
+				<li class="Name"></li>
 				<li class="Info">
-					<span>Years Attended : <b>3years</b></span>
-					<span>College : <b>St John’s Univ.</b></span>
-					<span>Initial English : <b>-.</b></span><br />
-					<span>GPA in China : <b>Jinan, Shandong</b></span>
-					<span>TOEFL : <b>-</b></span>
-					<span>GPA : <b>-</b></span>
-					<span>SAT / ACT : <b>-</b></span>
-					<span>Activities : <b>-</b></span>
-					<span>College : <b>-</b></span>
-					<span>Major : <b>-</b></span>
+					<span>Years Attended : <b></b></span>
+					<span>College : <b></b></span>
+					<span>Initial English : <b></b><br></span>
+					<span>GPA in China : <b></b></span>
+					<span>TOEFL : <b></b></span>
+					<span>GPA : <b></b></span>
+					<span>SAT / ACT : <b></b></span>
+					<span>Activities : <b></b></span>
+					<span>Major : <b></b></span>
 				</li>
-				<li class="Contents">
-				I have been with BGE since I was in eighth grade and they were very helpful in preparing me for high school in the United States. ey sat down with me one on one and helped me map out where I needed to improve academically and provided me with TOEFL tutoring after school. Because of BGE's excellent guidance, I was able to get into my dream high school, St John's High School.
-				</li>
+				<li class="Contents"></li>
 			</div><!-- ReviewTop -->
 			<div class="EndPart"></div>
 			<!-- 학교리뷰보기 끝 -->
 
 			<!-- 학교리뷰목록 -->
 			<div class="ListTable">
-				<div class="ListSearch Aright">
+				<!-- <div class="ListSearch Aright">
 					<div>
 						<select class="SearchSelect">
 							<option>Name</option>
@@ -154,7 +116,7 @@
 					</div>
 					<div><input type="text" class="SearchInput" /></div>
 					<div><input type="submit" value="Search" class="ListSearchButton" /></div>
-				</div>
+				</div> -->
 				<table cellpadding="0" cellspacing="0" border="0">
 					<colgroup>
 						<col>
@@ -166,51 +128,18 @@
 						<th>College</th>
 						<th>GPA in China</th>
 					</tr>
+					{% for review in graduate_student_reviews %}
 					<tr>
-						<td>124</td>
-						<td><a href="">Yixun “Patrick” Bu</a></td>
-						<td>10th</td>
-						<td>St John’s High School</td>
-						<td>Jinan, Shandong, China</td>
+						<td>{{review.id}}</td>
+						<td><p class="AgentGraduateStudentReviewClass" id="AgentGraduateStudentReview{{review.id}}" style="color:blue;margin-bottom:0;cursor:pointer;">{{review.student}}</p></td>
+						<td>{{review.attended}}</td>
+						<td>{{review.college}}</td>
+						<td>{{review.gpa_china}}</td>
 					</tr>
-					<tr>
-						<td>124</td>
-						<td><a href="">Yixun “Patrick” Bu</a></td>
-						<td>10th</td>
-						<td>St John’s High School</td>
-						<td>Jinan, Shandong, China</td>
-					</tr>
-					<tr>
-						<td>124</td>
-						<td><a href="">Yixun “Patrick” Bu</a></td>
-						<td>10th</td>
-						<td>St John’s High School</td>
-						<td>Jinan, Shandong, China</td>
-					</tr>
-					<tr>
-						<td>124</td>
-						<td><a href="">Yixun “Patrick” Bu</a></td>
-						<td>10th</td>
-						<td>St John’s High School</td>
-						<td>Jinan, Shandong, China</td>
-					</tr>
-					<tr>
-						<td>124</td>
-						<td><a href="">Yixun “Patrick” Bu</a></td>
-						<td>10th</td>
-						<td>St John’s High School</td>
-						<td>Jinan, Shandong, China</td>
-					</tr>
-					<tr>
-						<td>124</td>
-						<td><a href="">Yixun “Patrick” Bu</a></td>
-						<td>10th</td>
-						<td>St John’s High School</td>
-						<td>Jinan, Shandong, China</td>
-					</tr>
+					{% endfor %}
 				</table>
 
-				<div class="ListCounter">
+				<!-- <div class="ListCounter">
 					<a href="">◀</a>
 					<a>...</a>
 					<a href="">1</a>
@@ -221,7 +150,7 @@
 					<a>...</a>
 					<a href="">128</a>
 					<a href="">▶</a>
-				</div>
+				</div> -->
 
 
 			</div><!-- ListTable -->

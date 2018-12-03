@@ -46,3 +46,31 @@ class StudentHistoryAdmin(admin.ModelAdmin):
         "sat",
         "address"
     )
+
+@admin.register(models.CurrentStudentReview)
+class CurrentStudentReviewAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "school",
+        "student",
+        "grade",
+        "homecity",
+        "comment",
+    )
+
+@admin.register(models.GraduateStudentReview)
+class GraduateStudentReviewAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "school",
+        "student",
+        "attended",
+        "init_eng",
+        "gpa_china",
+        "toefl",
+        "gpa",
+        "sat_act",
+        "activities",
+        "college",
+        "major",
+    )
