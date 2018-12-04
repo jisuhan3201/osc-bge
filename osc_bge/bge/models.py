@@ -1,6 +1,7 @@
 from django.db import models
 from django_countries.fields import CountryField
-
+from osc_bge.users import models as user_models
+from osc_bge.agent import models as agent_models
 
 class TimeStampedModel(models.Model):
 
