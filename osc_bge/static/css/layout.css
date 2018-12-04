@@ -81,7 +81,7 @@ background-image:url('../img/right_corner.png');background-position:right bottom
 
 
 /* TOP */
-.TopMenuSet {width:100%;height:45px;line-height:45px;background:#084360;overflow:hidden;}
+.TopMenuSet {min-width:1280px;width:100%;height:45px;line-height:45px;background:#084360;overflow:hidden;}
 .TopMenuSet > div {float:left;height:45px;line-height:45px;}
 .TopMenuSet .Logo {width:149px;text-align:center;
 font-size:14px;font-weight:600;color:#FFF;line-height:45px;
@@ -131,7 +131,7 @@ background:#fba016;border-radius:3px;cursor:pointer;overflow:hidden;}
 .EndPart {padding:18px;}
 
 /* LEFT */
-.LeftFrame {float:left;margin:0px;width:274px;height:100%;min-height:100%;border-right:1px solid #DDD;
+.LeftFrame {float:left;margin:0px;width:274px;height:calc(100% - 45px);min-height:calc(100% - 45px);border-right:1px solid #DDD;
 background-color:#FFF;
 background-image:url('../img/right_corner.png');background-position:right bottom;background-repeat:no-repeat;
 transition: all linear 200ms;overflow:auto;}
@@ -172,17 +172,17 @@ font-size:12px;font-weight:350;line-height:1.3em;}
 .LeftTab .TabConternts .OnNJ {color:#FFF !important;background:#6FBA2C !important;}
 .LeftTab .TabConternts .AreaColorDC:hover {background:#750069 !important;}
 .LeftTab .TabConternts .OnDC {color:#FFF !important;background:#750069 !important;}
-.LeftTab .TabConternts .AreaColorFA:hover {background:#750069 !important;}
-.LeftTab .TabConternts .OnFA {color:#FFF !important;background:#750069 !important;}
-.LeftTab .TabConternts .AreaColorCA:hover {background:#eeb636 !important;}
+.LeftTab .TabConternts .AreaColorPA:hover {background:#00B2BC !important;}
+.LeftTab .TabConternts .OnPA {color:#FFF !important;background:#00B2BC !important;}
+.LeftTab .TabConternts .AreaColorCA:hover {background:#F6AB00 !important;}
 .LeftTab .TabConternts .OnCA {color:#FFF !important;background:#F6AB00 !important;}
-.LeftTab .TabConternts .AreaColorFL:hover {background:#eeb636 !important;}
-.LeftTab .TabConternts .OnFL {color:#FFF !important;background:#F6AB00 !important;}
-.LeftTab .TabConternts .AreaColorTX:hover {background:#eeb636 !important;}
-.LeftTab .TabConternts .OnTX {color:#FFF !important;background:#F6AB00 !important;}
+.LeftTab .TabConternts .AreaColorFL:hover {background:#00A0E9 !important;}
+.LeftTab .TabConternts .OnFL {color:#FFF !important;background:#00A0E9 !important;}
+.LeftTab .TabConternts .AreaColorTX:hover {background:#EA5504 !important;}
+.LeftTab .TabConternts .OnTX {color:#FFF !important;background:#EA5504 !important;}
 .LeftTab .TabConternts .AreaColorETC {font-size:9px !important;letter-spacing:-0.05em;}
-.LeftTab .TabConternts .AreaColorETC:hover {background:#eeb636 !important;}
-.LeftTab .TabConternts .OnETC {color:#FFF !important;background:#F6AB00 !important;}
+.LeftTab .TabConternts .AreaColorETC:hover {background:#707F87 !important;}
+.LeftTab .TabConternts .OnETC {color:#FFF !important;background:#707F87 !important;}
 
 .LeftTab .TabConternts .AreaColorNE:hover {background:#e96e6a !important;}
 .LeftTab .TabConternts .OnNE {color:#FFF !important;background:#cf4641 !important;}
@@ -193,8 +193,13 @@ font-size:12px;font-weight:350;line-height:1.3em;}
 .LeftTab .TabConternts .AreaColorW:hover {background:#ffd48b !important;}
 .LeftTab .TabConternts .OnW {color:#FFF !important;background:#fdc059 !important;}
 
+
+
+
+
+
 /* MAIN */
-.MainFrame {float:left;padding:42px 40px 20px 40px;width:calc(100% - 355px);height:calc(100% - 62px);min-height:calc(100% - 62px);
+.MainFrame {float:left;padding:42px 40px 20px 40px;width:calc(100% - 275px);height:calc(100% - 62px);min-height:calc(100% - 62px);
 transition: all linear 200ms;overflow:auto;}
 .MainFrame .MTitle {float:left;margin-bottom:10px;padding-left:10px;height:36px;
 font-size:18px;font-weight:600;line-height:36px;color:#333;

@@ -2,7 +2,6 @@
 {% load static %}
 {% block content %}
 <div class="ContentsFrame">
-	<a href="../reg/csregister.php" target="_BLANK"><div class="CIButton">Customer Register</div></a>
 
 
 	<div class="LeftFrame" id="LeftF">
@@ -10,11 +9,11 @@
 		<div class="LeftTab" id="LeftTab01">
 			<div class="TabConternts" id="InnerTab0101">
 				<div class="InnerTabContents">
-					<li><a href="../agent/info.php">Meten</a></li>
-					<li><a href="../agent/info.php">Yangzhou</a></li>
-					<li><a href="../agent/info.php">AsiaUS</a></li>
+					{% for agent in all_agents %}
+					<li><a href="/agents/info/{{agent.id}}">{{agent.name}}</a></li>
+					{% endfor %}
 					<br />
-					<button class="IsolationButton">+ &nbsp; Add Agent List</button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/agents/info/create" class="IsolationButton">+ &nbsp; Add Agent List</a>
 				</div><!-- InnerTabContents -->
 
 			</div><!-- TabConternts ID:InnerTab0101 -->
@@ -42,26 +41,13 @@
 						<th class="row2">Inquired</th>
 						<th class="row2">Enrolled</th>
 					</tr>
+					{% for agent in all_agents %}
 					<tr>
-						<td><a href="../agent/info.php">Meten</a></td>
+						<td><a href="/agents/info/{{agent.id}}">{{agent.name}}</a></td>
 						<td>-</td>
 						<td>10</td>
 					</tr>
-					<tr>
-						<td><a href="../agent/info.php">Yangzhou</a></td>
-						<td>-</td>
-						<td>3</td>
-					</tr>
-					<tr>
-						<td><a href="../agent/info.php">AsiaUS</a></td>
-						<td>-</td>
-						<td>0</td>
-					</tr>
-					<tr>
-						<td><a href="../agent/info.php">Other(BGE Staff)</a></td>
-						<td>-</td>
-						<td>1</td>
-					</tr>
+					{% endfor %}
 					<tr>
 						<td class="TitleColor">Total</td>
 						<td class="TitleColor">-</td>

@@ -1,0 +1,703 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="ContentsFrame">
+
+
+	<div class="LeftFrame" id="LeftF">
+		<div class="SectionTitle">Agent Profile Update</div>
+		<div class="LeftTab" id="LeftTab01">
+			<div class="TabConternts" id="InnerTab0101">
+				<div class="InnerTabContents">
+					{% for agent in all_agents %}
+					<li><a href="/agents/info/{{agent.id}}">{{agent.name}}</a></li>
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+
+			</div><!-- TabConternts ID:InnerTab0101 -->
+		</div><!-- LeftTab ID:LeftTab01 -->
+		<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/agents/info/create" class="IsolationButton">+ &nbsp; Add Agent List</a>
+	</div><!-- LeftFrame -->
+
+
+
+
+
+	<div class="MainAFrame">
+		{% if found_agent %}
+		<div class="PTitle">{{found_agent.name}} <span>{{found_agent.location}}</span></div>
+		{% else %}
+		<div class="PTitle">Agent Regist</div>
+		{% endif %}
+
+		<form method="POST">
+		<input name="type" value="agent_information" hidden/>
+			{% csrf_token %}
+			<div class="MTitle">Agent Information</div>
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="160">
+						<col>
+						<col width="160">
+						<col>
+					</colgroup>
+					<tr>
+						<th>Location : </th>
+						<td class="InnerInputTD">
+							{% if found_agent %}
+							<input type="text" class="TableInnerInput" size="32" name="location" value="{{found_agent.location}}" />
+							{% else %}
+							<input type="text" class="TableInnerInput" size="32" name="location" value="" />
+							{% endif %}
+						</td>
+						<th>Branches : </th>
+						<td class="InnerInputTD">
+							{% if found_agent %}
+							<input type="text" class="TableInnerInput" size="3"name="number_branch"  value="{{found_agent.number_branches}}" />branches
+							{% else %}
+							<input type="text" class="TableInnerInput" size="3"name="number_branch"  value="" />branches
+							{% endif %}
+						</td>
+					</tr>
+					<tr>
+						<th>Program : </th>
+						<td colspan="3">
+							<label>
+								{% if 'secondary' in program_list %}
+								<input type="checkbox" name="program" value="secondary" checked/><span></span>Secondary
+								{% else %}
+								<input type="checkbox" name="program" value="secondary" /><span></span>Secondary
+								{% endif %}
+							</label>
+							<label>
+								{% if 'college' in program_list %}
+								<input type="checkbox" name="program" value="college" checked/><span></span>College
+								{% else %}
+								<input type="checkbox" name="program" value="college" /><span></span>College
+								{% endif %}
+							</label>
+							<label>
+								{% if 'camp' in program_list %}
+								<input type="checkbox" name="program" value="camp" checked/><span></span>Camp
+								{% else %}
+								<input type="checkbox" name="program" value="camp" /><span></span>Camp
+								{% endif %}
+							</label>
+						</td>
+					</tr>
+					<tr>
+						<th>Capacity (#of Students)  : </th>
+						<td class="InnerInputTD" colspan="3">
+							{% if found_agent %}
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="capacity_students" value="{{found_agent.capacity_students}}" />
+							{% else %}
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="capacity_students" value="" />
+							{% endif %}
+						</td>
+					</tr>
+					<tr>
+						<th>Commission  : </th>
+						<td class="InnerInputTD" colspan="3">
+							{% if found_agent %}
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="commission" value="{{found_agent.commission}}" />
+							{% else %}
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="commission" value="" />
+							{% endif %}
+						</td>
+					</tr>
+					<tr>
+						<th>Promotion  : </th>
+						<td class="InnerInputTD" colspan="3">
+							{% if found_agent.promotion %}
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="promotion" value="{{found_agent.promotion}}" />
+							{% else %}
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="promotion" value="" />
+							{% endif %}
+						</td>
+					</tr>
+					<tr>
+						<th>Others  : </th>
+						<td class="InnerInputTD" colspan="3">
+							{% if found_agent %}
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="others" value="{{found_agent.others}}" />
+							{% else %}
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="others" value="" />
+							{% endif %}
+						</td>
+
+					</tr>
+					<tr>
+						<th>Comment  : </th>
+						<td class="InnerInputTD" colspan="3">
+							{% if found_agent %}
+							<textarea class="TableInnerTextarea" style="height:80px" name="comment">{{found_agent.comment}}</textarea>
+							{% else %}
+							<textarea class="TableInnerTextarea" style="height:80px" name="comment"></textarea>
+							{% endif %}
+						</td>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+			<div class="SubmitButtonLine">
+				<button class="Submit" type="submit">SAVE</button>
+			</div>
+		</form>
+		<div class="EndPart"></div>
+
+
+
+
+
+
+		<form method="POST">
+		{% csrf_token %}
+		<input name="type" value="contact_information" hidden/>
+			<div class="MTitle">Meten Contact Information</div>
+			<div class="cdiv"></div>
+
+			{% for info in contact_infos %}
+			<div class="InformationSet">
+				<input type="text" name="info_id" value="{{info.id}}" hidden>
+				<div class="Picture" style="background-image:url('../imgsrc/person01.jpg');">&nbsp;</div>
+				<div class="Information">
+					<div class="InfoTable">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<colgroup>
+								<col width="15%">
+								<col width="35%">
+								<col width="15%">
+								<col width="35%">
+							</colgroup>
+							<tr>
+								<th>Name : </th>
+								<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="name{{info.id}}" value="{{info.name}}" /></td>
+								<th>Contracted Date : </th>
+								<td>
+									<input type="text" name="contracted_date{{info.id}}" value="{% now 'Y-m-d' %}" readonly required>
+								</td>
+							</tr>
+							<tr>
+								<th>Mobile # : </th>
+								<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="18" name="phone{{info.id}}" value="{{info.phone}}" /></td>
+								<th>Email  : </th>
+								<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="email{{info.id}}" value="{{info.email}}" /></td>
+							</tr>
+							<tr>
+								<th>Skype ID : </th>
+								<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="skype{{info.id}}" value="{{info.skype}}" /></td>
+								<th>Location : </th>
+								<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="location{{info.id}}" value="{{info.location}}" /></td>
+							</tr>
+							<tr>
+								<th>Wechat ID : </th>
+								<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="wechat{{info.id}}" value="{{info.wechat}}" /></td>
+								<th>Level : </th>
+								<td>
+									{% if info.level == "S" %}
+									<label><input type="radio" name="level{{info.id}}" value="S" checked/><span></span>S</label>
+									<label><input type="radio" name="level{{info.id}}" value="A" /><span></span>A</label>
+									<label><input type="radio" name="level{{info.id}}" value="B" /><span></span>B</label>
+									<label><input type="radio" name="level{{info.id}}" value="C" /><span></span>C</label>
+									<label><input type="radio" name="level{{info.id}}" value="D" /><span></span>D</label>
+									{% elif info.level == "A"%}
+									<label><input type="radio" name="level{{info.id}}" value="S"/><span></span>S</label>
+									<label><input type="radio" name="level{{info.id}}" value="A" checked/><span></span>A</label>
+									<label><input type="radio" name="level{{info.id}}" value="B" /><span></span>B</label>
+									<label><input type="radio" name="level{{info.id}}" value="C" /><span></span>C</label>
+									<label><input type="radio" name="level{{info.id}}" value="D" /><span></span>D</label>
+									{% elif info.level == "B"%}
+									<label><input type="radio" name="level{{info.id}}" value="S"/><span></span>S</label>
+									<label><input type="radio" name="level{{info.id}}" value="A" /><span></span>A</label>
+									<label><input type="radio" name="level{{info.id}}" value="B" checked/><span></span>B</label>
+									<label><input type="radio" name="level{{info.id}}" value="C" /><span></span>C</label>
+									<label><input type="radio" name="level{{info.id}}" value="D" /><span></span>D</label>
+									{% elif info.level == "C"%}
+									<label><input type="radio" name="level{{info.id}}" value="S"/><span></span>S</label>
+									<label><input type="radio" name="level{{info.id}}" value="A" /><span></span>A</label>
+									<label><input type="radio" name="level{{info.id}}" value="B" /><span></span>B</label>
+									<label><input type="radio" name="level{{info.id}}" value="C" checked/><span></span>C</label>
+									<label><input type="radio" name="level{{info.id}}" value="D" /><span></span>D</label>
+									{% elif info.level == "D" %}
+									<label><input type="radio" name="level{{info.id}}" value="S"/><span></span>S</label>
+									<label><input type="radio" name="level{{info.id}}" value="A" /><span></span>A</label>
+									<label><input type="radio" name="level{{info.id}}" value="B" /><span></span>B</label>
+									<label><input type="radio" name="level{{info.id}}" value="C" /><span></span>C</label>
+									<label><input type="radio" name="level{{info.id}}" value="D" checked/><span></span>D</label>
+									{% else%}
+									<label><input type="radio" name="level{{info.id}}" value="S" /><span></span>S</label>
+									<label><input type="radio" name="level{{info.id}}" value="A" /><span></span>A</label>
+									<label><input type="radio" name="level{{info.id}}" value="B" /><span></span>B</label>
+									<label><input type="radio" name="level{{info.id}}" value="C" /><span></span>C</label>
+									<label><input type="radio" name="level{{info.id}}" value="D"/><span></span>D</label>
+									{% endif %}
+								</td>
+							</tr>
+						</table>
+					</div><!-- InfoTable -->
+				</div><!-- Information -->
+
+				<div class="HButton" OnClick="document.getElementById('PopFileBox').style.display='block';">Change Image..</div>
+				<div class="Information">
+					<a class="IsolationButton" href="/agents/info/{{found_agent.id}}/delete/{{info.id}}">- &nbsp; Delete this Contact Infomation</a>
+				</div><!-- Information -->
+			</div><!-- InformationSet -->
+			{% endfor %}
+			{% for rest in rest_contact_range %}
+
+			{% if contact_infos_count == 1 %}
+				<div class="InformationSet">
+					<div class="Picture" style="background-image:url('../imgsrc/person01.jpg');">&nbsp;</div>
+					<div class="Information">
+						<div class="InfoTable">
+							<table cellpadding="0" cellspacing="0" border="0">
+								<colgroup>
+									<col width="15%">
+									<col width="35%">
+									<col width="15%">
+									<col width="35%">
+								</colgroup>
+								<tr>
+									<th>Name : </th>
+									<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="fname{{forloop.counter|add:1}}" value="{{info.name}}" /></td>
+									<th>Contracted Date : </th>
+									<td>
+										<input type="text" name="fcontracted_date{{forloop.counter|add:1}}" value="{% now 'Y-m-d' %}" readonly required>
+									</td>
+								</tr>
+								<tr>
+									<th>Mobile # : </th>
+									<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="18" name="fphone{{forloop.counter|add:1}}" value="{{info.phone}}" /></td>
+									<th>Email  : </th>
+									<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="femail{{forloop.counter|add:1}}" value="{{info.email}}" /></td>
+								</tr>
+								<tr>
+									<th>Skype ID : </th>
+									<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="fskype{{forloop.counter|add:1}}" value="{{info.skype}}" /></td>
+									<th>Location : </th>
+									<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="flocation{{forloop.counter|add:1}}" value="{{info.location}}" /></td>
+								</tr>
+								<tr>
+									<th>Wechat ID : </th>
+									<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="fwechat{{forloop.counter|add:1}}" value="{{info.wechat}}" /></td>
+									<th>Level : </th>
+									<td>
+										<label><input type="radio" name="flevel{{forloop.counter|add:1}}" value="S"/><span></span>S</label>
+										<label><input type="radio" name="flevel{{forloop.counter|add:1}}" value="A" /><span></span>A</label>
+										<label><input type="radio" name="flevel{{forloop.counter|add:1}}" value="B" /><span></span>B</label>
+										<label><input type="radio" name="flevel{{forloop.counter|add:1}}" value="C" /><span></span>C</label>
+										<label><input type="radio" name="flevel{{forloop.counter|add:1}}" value="D" /><span></span>D</label>
+									</td>
+								</tr>
+							</table>
+						</div><!-- InfoTable -->
+					</div><!-- Information -->
+
+					<div class="HButton" OnClick="document.getElementById('PopFileBox').style.display='block';">Change Image..</div>
+					<div class="Information">
+					</div><!-- Information -->
+				</div><!-- InformationSet -->
+			{% elif contact_infos_count == 2 %}
+			<div class="InformationSet">
+				<div class="Picture" style="background-image:url('../imgsrc/person01.jpg');">&nbsp;</div>
+				<div class="Information">
+					<div class="InfoTable">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<colgroup>
+								<col width="15%">
+								<col width="35%">
+								<col width="15%">
+								<col width="35%">
+							</colgroup>
+							<tr>
+								<th>Name : </th>
+								<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="fname{{forloop.counter|add:2}}" value="{{info.name}}" /></td>
+								<th>Contracted Date : </th>
+								<td>
+									<input type="text" name="fcontracted_date{{forloop.counter|add:2}}" value="{% now 'Y-m-d' %}" readonly required>
+								</td>
+							</tr>
+							<tr>
+								<th>Mobile # : </th>
+								<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="18" name="fphone{{forloop.counter|add:2}}" value="{{info.phone}}" /></td>
+								<th>Email  : </th>
+								<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="femail{{forloop.counter|add:2}}" value="{{info.email}}" /></td>
+							</tr>
+							<tr>
+								<th>Skype ID : </th>
+								<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="fskype{{forloop.counter|add:2}}" value="{{info.skype}}" /></td>
+								<th>Location : </th>
+								<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="flocation{{forloop.counter|add:2}}" value="{{info.location}}" /></td>
+							</tr>
+							<tr>
+								<th>Wechat ID : </th>
+								<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="fwechat{{forloop.counter|add:2}}" value="{{info.wechat}}" /></td>
+								<th>Level : </th>
+								<td>
+									<label><input type="radio" name="flevel{{forloop.counter|add:2}}" value="S"/><span></span>S</label>
+									<label><input type="radio" name="flevel{{forloop.counter|add:2}}" value="A" /><span></span>A</label>
+									<label><input type="radio" name="flevel{{forloop.counter|add:2}}" value="B" /><span></span>B</label>
+									<label><input type="radio" name="flevel{{forloop.counter|add:2}}" value="C" /><span></span>C</label>
+									<label><input type="radio" name="flevel{{forloop.counter|add:2}}" value="D" /><span></span>D</label>
+								</td>
+							</tr>
+						</table>
+					</div><!-- InfoTable -->
+				</div><!-- Information -->
+
+				<div class="HButton" OnClick="document.getElementById('PopFileBox').style.display='block';">Change Image..</div>
+				<div class="Information">
+				</div><!-- Information -->
+			</div><!-- InformationSet -->
+			{% else %}
+			<div class="InformationSet">
+				<div class="Picture" style="background-image:url('../imgsrc/person01.jpg');">&nbsp;</div>
+				<div class="Information">
+					<div class="InfoTable">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<colgroup>
+								<col width="15%">
+								<col width="35%">
+								<col width="15%">
+								<col width="35%">
+							</colgroup>
+							<tr>
+								<th>Name : </th>
+								<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="fname{{forloop.counter}}" value="{{info.name}}" /></td>
+								<th>Contracted Date : </th>
+								<td>
+									<input type="text" name="fcontracted_date{{forloop.counter}}" value="{% now 'Y-m-d' %}" readonly required>
+								</td>
+							</tr>
+							<tr>
+								<th>Mobile # : </th>
+								<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="18" name="fphone{{forloop.counter}}" value="{{info.phone}}" /></td>
+								<th>Email  : </th>
+								<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="femail{{forloop.counter}}" value="{{info.email}}" /></td>
+							</tr>
+							<tr>
+								<th>Skype ID : </th>
+								<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="fskype{{forloop.counter}}" value="{{info.skype}}" /></td>
+								<th>Location : </th>
+								<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="flocation{{forloop.counter}}" value="{{info.location}}" /></td>
+							</tr>
+							<tr>
+								<th>Wechat ID : </th>
+								<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="fwechat{{forloop.counter}}" value="{{info.wechat}}" /></td>
+								<th>Level : </th>
+								<td>
+									<label><input type="radio" name="flevel{{forloop.counter}}" value="S"/><span></span>S</label>
+									<label><input type="radio" name="flevel{{forloop.counter}}" value="A" /><span></span>A</label>
+									<label><input type="radio" name="flevel{{forloop.counter}}" value="B" /><span></span>B</label>
+									<label><input type="radio" name="flevel{{forloop.counter}}" value="C" /><span></span>C</label>
+									<label><input type="radio" name="flevel{{forloop.counter}}" value="D" /><span></span>D</label>
+								</td>
+							</tr>
+						</table>
+					</div><!-- InfoTable -->
+				</div><!-- Information -->
+
+				<div class="HButton" OnClick="document.getElementById('PopFileBox').style.display='block';">Change Image..</div>
+				<div class="Information">
+				</div><!-- Information -->
+			</div><!-- InformationSet -->
+			{% endif %}
+
+			{% endfor %}
+
+			<div class="SubmitButtonLine">
+				<button type="submit" class="Submit">SAVE</button>
+			</div>
+		</form>
+		<div class="EndPart"></div>
+		<div class="EndPart"></div>
+
+
+
+		<div class="MTitle">Relationship history</div>
+		<div class="ListSearch Aright">
+			<div><a href="javascript:void(0);" class="IsolationButton" OnClick="document.getElementById('PopRelationshipHistory').style.display='block';">+ &nbsp; Add New Log</a></div>
+		</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col width="600">
+					<col>
+					<col>
+				</colgroup>
+				<tr>
+					<th>Date</th>
+					<th>Contact Person</th>
+					<th>Location</th>
+					<th>Category</th>
+					<th>Comment</th>
+					<th>Priority (1-5)</th>
+					<th>Writer</th>
+				</tr>
+				<tr>
+					<td>03.27.2018</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>03.27.2018</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>03.27.2018</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>03.27.2018</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>03.27.2018</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+		<div class="EndPart"></div>
+
+
+
+		<div class="MTitle">Secondary Program</div>
+		<div class="ListSearch Aright">
+			<div><a href="javascript:void(0);" class="IsolationButton" OnClick="document.getElementById('PopRelationshipHistory').style.display='block';">Update Data</a></div>
+		</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>Period</th>
+					<th>Target</th>
+					<th>New Students in Fall</th>
+					<th>New Students in Spring</th>
+					<th>Total New Students in BGE</th>
+					<th>Total Students in BGE</th>
+					<th>Terminating Students (No Graduation)</th>
+					<th>Comments</th>
+				</tr>
+				<tr>
+					<td>2013 ~ 2014</td>
+					<td>10</td>
+					<td>5</td>
+					<td>3</td>
+					<td>-</td>
+					<td>15</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>2014 ~ 2015</td>
+					<td>10</td>
+					<td>5</td>
+					<td>3</td>
+					<td>-</td>
+					<td>15</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>2015 ~ 2016</td>
+					<td>10</td>
+					<td>5</td>
+					<td>3</td>
+					<td>-</td>
+					<td>15</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>2016 ~ 2017</td>
+					<td>10</td>
+					<td>5</td>
+					<td>3</td>
+					<td>-</td>
+					<td>15</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>2017 ~ 2018</td>
+					<td>10</td>
+					<td>5</td>
+					<td>3</td>
+					<td>-</td>
+					<td>15</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+		<div class="EndPart"></div>
+
+
+
+		<div class="MTitle">Camp</div>
+		<div class="ListSearch Aright">
+			<div><a href="javascript:void(0);" class="IsolationButton" OnClick="document.getElementById('PopRelationshipHistory').style.display='block';">Update Data</a></div>
+		</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>Period</th>
+					<th>Target</th>
+					<th>Summer Camp</th>
+					<th>Winter Camp</th>
+					<th>Comments</th>
+				</tr>
+				<tr>
+					<td>2013 ~ 2014</td>
+					<td>10</td>
+					<td>5</td>
+					<td>3</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>2014 ~ 2015</td>
+					<td>10</td>
+					<td>5</td>
+					<td>3</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>2015 ~ 2016</td>
+					<td>10</td>
+					<td>5</td>
+					<td>3</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>2016 ~ 2017</td>
+					<td>10</td>
+					<td>5</td>
+					<td>3</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>2017 ~ 2018</td>
+					<td>10</td>
+					<td>5</td>
+					<td>3</td>
+					<td>-</td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+		<div class="EndPart"></div>
+
+
+
+		<div class="MTitle">College Application and others</div>
+		<div class="ListSearch Aright">
+			<div><a href="javascript:void(0);" class="IsolationButton" OnClick="document.getElementById('PopRelationshipHistory').style.display='block';">Update Data</a></div>
+		</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+		<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>Period</th>
+					<th>Target</th>
+					<th>College Application</th>
+					<th>Other Program</th>
+					<th>Comments</th> 
+				</tr>
+				<tr>
+					<td>2013 ~ 2014</td>
+					<td>10</td>
+					<td>3</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>2014 ~ 2015</td>
+					<td>10</td>
+					<td>3</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>2015 ~ 2016</td>
+					<td>10</td>
+					<td>3</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>2016 ~ 2017</td>
+					<td>10</td>
+					<td>3</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td>2017 ~ 2018</td>
+					<td>10</td>
+					<td>3</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+		<div class="EndPart"></div>
+
+
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+<script>
+function MenuOpen() {
+	obj = document.getElementById('LeftF');
+
+	if (obj.style.margin == "0px 0px 0px -229px") {
+		document.getElementById('LeftF').style.margin='0px 0px 0px 0px';
+		document.getElementById('MToggle').style.transform='rotate(90deg)';
+		document.getElementById('MainF').style.width='calc(100% - 355px)';
+	} else {
+		document.getElementById('LeftF').style.margin='0px 0px 0px -229px';
+		document.getElementById('MToggle').style.transform='rotate(0deg)';
+		document.getElementById('MainF').style.width='calc(100% - 126px)';
+	}
+}
+</script>
+{% endblock %}

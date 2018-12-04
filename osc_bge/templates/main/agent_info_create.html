@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="ContentsFrame">
+
+
+	<div class="LeftFrame" id="LeftF">
+		<div class="SectionTitle">Agent Profile Update</div>
+		<div class="LeftTab" id="LeftTab01">
+			<div class="TabConternts" id="InnerTab0101">
+				<div class="InnerTabContents">
+					{% for agent in all_agents %}
+					<li><a href="/agents/info/{{agent.id}}">{{agent.name}}</a></li>
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+
+			</div><!-- TabConternts ID:InnerTab0101 -->
+		</div><!-- LeftTab ID:LeftTab01 -->
+		<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/agents/info/create" class="IsolationButton">+ &nbsp; Add Agent List</a>
+	</div><!-- LeftFrame -->
+
+
+
+
+
+	<div class="MainAFrame">
+		<div class="PTitle">Agent Regist</div>
+
+		<form method="POST">
+			{% csrf_token %}
+			<div class="MTitle">Agent Information</div>
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="160">
+						<col>
+						<col width="160">
+						<col>
+					</colgroup>
+					<tr>
+            <th>Name : </th>
+            <td class="InnerInputTD">
+              <input type="text" class="TableInnerInput" size="32" name="name" value="" required/>
+            </td>
+						<th>Location : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" size="32" name="location" value="" />
+						</td>
+					</tr>
+					<tr>
+						<th>Program : </th>
+						<td>
+							<label>
+								<input type="checkbox" name="program" value="secondary" /><span></span>Secondary
+							</label>
+							<label>
+								<input type="checkbox" name="program" value="college" /><span></span>College
+							</label>
+							<label>
+								<input type="checkbox" name="program" value="camp" /><span></span>Camp
+							</label>
+						</td>
+            <th>Branches : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" size="3"name="number_branches"  value="" />branches
+						</td>
+					</tr>
+					<tr>
+						<th>Capacity (#of Students)  : </th>
+						<td class="InnerInputTD" colspan="3">
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="capacity_students" value="" />
+						</td>
+					</tr>
+					<tr>
+						<th>Commission  : </th>
+						<td class="InnerInputTD" colspan="3">
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="commission" value="" />
+						</td>
+					</tr>
+					<tr>
+						<th>Promotion  : </th>
+						<td class="InnerInputTD" colspan="3">
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="promotion" value="" />
+						</td>
+					</tr>
+					<tr>
+						<th>Others  : </th>
+						<td class="InnerInputTD" colspan="3">
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="others" value="" />
+						</td>
+
+					</tr>
+					<tr>
+						<th>Comment  : </th>
+						<td class="InnerInputTD" colspan="3">
+							<textarea class="TableInnerTextarea" style="height:80px" name="comment"></textarea>
+						</td>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+			<div class="SubmitButtonLine">
+				<button class="Submit" type="submit">SAVE</button>
+			</div>
+		</form>
+		<div class="EndPart"></div>
+
+
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+<script>
+function MenuOpen() {
+	obj = document.getElementById('LeftF');
+
+	if (obj.style.margin == "0px 0px 0px -229px") {
+		document.getElementById('LeftF').style.margin='0px 0px 0px 0px';
+		document.getElementById('MToggle').style.transform='rotate(90deg)';
+		document.getElementById('MainF').style.width='calc(100% - 355px)';
+	} else {
+		document.getElementById('LeftF').style.margin='0px 0px 0px -229px';
+		document.getElementById('MToggle').style.transform='rotate(0deg)';
+		document.getElementById('MainF').style.width='calc(100% - 126px)';
+	}
+}
+</script>
+{% endblock %}

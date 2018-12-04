@@ -22,7 +22,8 @@ class AgencyHead(TimeStampedModel):
 
     name = models.CharField(max_length=80, null=True, blank=True)
     location = models.CharField(max_length=140, null=True, blank=True)
-    program = models.CharField(max_length=80, null=True, blank=True)
+    number_branches = models.CharField(max_length=80, null=True, blank=True)
+    capacity_students = models.CharField(max_length=255, null=True, blank=True)
     commission = models.CharField(max_length=140, null=True, blank=True)
     promotion = models.CharField(max_length=255, null=True, blank=True)
     others = models.CharField(max_length=255, null=True, blank=True)
@@ -32,8 +33,15 @@ class AgencyHead(TimeStampedModel):
         return "{}".format(self.name)
 
 
+class AgencyProgram(TimeStampedModel):
+
+    head = models.ForeignKey(AgencyHead, on_delete=models.CASCADE, null=True)
+    program = models.CharField(max_length=80, null=True, blank=True)
+
+
 class Agency(TimeStampedModel):
 
+    head = models.ForeignKey(AgencyHead, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=140, null=True, blank=True)
     branch = models.CharField(max_length=140, null=True, blank=True)
 
