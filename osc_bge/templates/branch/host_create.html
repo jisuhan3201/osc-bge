@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="ContentsFrame">
+	<div class="LeftFrame" id="LeftF">
+		<div class="SectionTitle">Host Families</div>
+		<div class="LeftTab">
+			<div class="TabConternts">
+				<div class="InnerTabContents">
+          {% for host in host_families %}
+					<li><a href="/branch/host/update/<int:host_id>">{{host.name}}</a></li>
+          {% endfor %}
+				</div><!-- InnerTabContents -->
+			</div>
+		</div><!-- LeftTab -->
+		<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/branch/host/create" class="IsolationButton">+ &nbsp; Add New Family</a>
+	</div><!-- LeftFrame -->
+
+
+	<div class="MainFrame" id="MainF">
+		<!-- <div class="PTitle">Host Family A <span>Host Family Profile Update</span></div> -->
+
+		<!-- 등록일 경우 -->
+		<div class="PTitle">Host Family Regist</div>
+
+
+		<div class="MTitle">Host Family information</div>
+		<div class="ListSearch Aright">
+			<a href="/branch/host/log" class="IsolationButton">Communication Log</a>
+		</div>
+    <form method="POST">
+      {% csrf_token %}
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="160">
+					<col>
+					<col width="160">
+					<col>
+				</colgroup>
+				<tr>
+					<th>Host Family Name : </th>
+					<td class="InnerInputTD" colspan="3"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="name" /></td>
+				</tr>
+				<tr>
+					<th>Host Family Photo  : </th>
+					<td class="InnerInputTD" colspan="3"><input type="file" class="TableInnerInput" value="" /><br />
+					<label>
+					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA8hCGZ69G52M0EThs-5dHEQr223RDgzasznLuBOxs4RG1cRyo" class="SchoolThumbnail" />
+					<input type="checkbox" /><span></span>delete</label>
+					</td>
+				</tr>
+				<tr>
+					<th>Status : </th>
+					<td>
+						<label><input type="radio" name="status" value="active"/><span></span>Active</label>
+						<label><input type="radio" name="status" value="inactive"/><span></span>Inactive</label>
+					</td>
+					<th>Cell Phone : </th>
+					<td class="InnerInputTD"><input name="phone" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+				</tr>
+				<tr>
+					<th>Address : </th>
+					<td class="InnerInputTD"><input name="address" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+					<th>Email : </th>
+					<td class="InnerInputTD"><input name="email" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+				</tr>
+				<tr>
+					<th>Possible School : </th>
+					<td class="InnerInputTD" colspan="3"><input name="possible_school" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>Occupation : </th>
+					<td class="InnerInputTD"><input name="occupation" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+					<th>Employer : </th>
+					<td class="InnerInputTD"><input name="employer" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+				</tr>
+				<tr>
+					<th>Marital Status : </th>
+					<td class="InnerInputTD"><input name="marital_status" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+					<th>Children : </th>
+					<td class="InnerInputTD"><input name="children" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+				</tr>
+				<tr>
+					<th>Pets : </th>
+					<td class="InnerInputTD"><input name="pets" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+					<th>Next Year Plan : </th>
+					<td>
+						<label><input type="radio" name="next_year_plan" value="same_student"/><span></span>Host same student</label>
+						<label><input type="radio" name="next_year_plan" value="change_student"/><span></span>Change student</label>
+						<label><input type="radio" name="next_year_plan" value="na"/><span></span>N/A</label>
+						<label><input type="radio" name="next_year_plan" value="a"/><span></span>A</label>
+					</td>
+				</tr>
+				<tr>
+					<th>Student Preference : </th>
+					<td>
+						<label><input type="radio" name="student_preference" value="male"/><span></span>Male</label>
+						<label><input type="radio" name="student_preference" value="female"/><span></span>Female</label>
+					</td>
+					<th>Hosting Capacity : </th>
+					<td class="InnerInputTD"><input name="hosting_capacity" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+				</tr>
+				<tr>
+					<th>Starting Date : </th>
+					<td class="InnerInputTD">
+            <input
+              name="starting_date"
+              type="text"
+              class="TableInnerInput"
+              style="width:calc(100% - 10px);"
+              placeholder="YYYY-MM-DD"
+              onfocus="this.placeholder=''"
+              onblur="this.placeholder='YYYY-MM-DD'"
+              pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"/>
+            </td>
+					<th>Last Update Date : </th>
+					<td class="InnerInputTD"><input name="last_update_date" value="{% now 'Y-m-d'%}" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" readonly/></td>
+				</tr>
+				<tr>
+					<th>Profile Attachment : </th>
+					<td class="InnerInputTD" colspan="3"><input name="profile_attachment" type="file" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>Comment : </th>
+					<td class="InnerInputTD" colspan="3"><input name="comment" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>Hosting Students : </th>
+					<td class="InnerInputTD" colspan="3"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>Host Coordinator : </th>
+					<td class="InnerInputTD" colspan="3"><input name="host_coordi" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>(Provider) Branch : </th>
+					<td class="InnerInputTD"><input name="provider_branch" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+					<th>Provider : </th>
+					<td class="InnerInputTD"><input name="provider" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+				</tr>
+			</table>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+		<div class="SubmitButtonLine">
+			<button class="Submit" type="submit" >SAVE</button>
+		</div>
+  </form>
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+{% endblock %}

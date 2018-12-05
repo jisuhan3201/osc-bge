@@ -87,6 +87,7 @@ LOCAL_APPS = [
     'osc_bge.agent.apps.AgentConfig',
     'osc_bge.bge.apps.BgeConfig',
     'osc_bge.form.apps.FormConfig',
+    'osc_bge.branch.apps.BranchConfig',
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

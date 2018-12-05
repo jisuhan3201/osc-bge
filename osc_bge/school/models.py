@@ -63,7 +63,7 @@ class School(TimeStampedModel):
     image = models.ImageField(upload_to=school_directory_path, null=True, blank=True)
     partnership = models.IntegerField(null=True, blank=True)
     provider = models.CharField(max_length=80, null=True, blank=True, choices=PROVIDER_CHOICES)
-    provider_branch = models.ForeignKey(bge_models.BgeBranch, on_delete=models.SET_NULL, null=True)
+    provider_branch = models.ForeignKey(bge_models.BgeBranch, on_delete=models.SET_NULL, null=True, related_name="schools")
     admission_coordi = models.ForeignKey(user_models.BgeBranchCoordinator, on_delete=models.SET_NULL, null=True, blank=True, related_name='admission_coordi')
     school_coordi = models.ForeignKey(user_models.BgeBranchCoordinator, on_delete=models.SET_NULL, null=True, blank=True, related_name='school_coordi')
     term = models.CharField(max_length=80, null=True, blank=True, choices=TERM_CHOICES)

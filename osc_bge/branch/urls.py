@@ -7,7 +7,7 @@ urlpatterns = [
     path('students', views.BranchStudentsView.as_view(), name='branch_students_view'),
     path('hosts', views.BranchHostsView.as_view(), name='branch_hosts_view'),
     path('resources', views.BranchResourcesView.as_view(), name='branch_resources_view'),
-    path('host/test', views.HostTestView.as_view(), name='host_test_view'),
+    path('host/create', views.HostCreateView.as_view(), name='host_create_view'),
     path('host/log', views.HostLogTestView.as_view(), name='host_log_test_view'),
     path('host/report', views.HostReportTestView.as_view(), name='host_report_test_view'),
 ]

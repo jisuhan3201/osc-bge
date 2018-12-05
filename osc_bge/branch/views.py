@@ -47,12 +47,15 @@ class BranchResourcesView(LoginRequiredMixin, View):
         return render(request, 'branch/resources.html', {})
 
 
-class HostTestView(LoginRequiredMixin, View):
+class HostCreateView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request):
 
-        return render(request, 'branch/host_info.html', {})
+
+
+
+        return render(request, 'branch/host_create.html', {})
 
 class HostLogTestView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
