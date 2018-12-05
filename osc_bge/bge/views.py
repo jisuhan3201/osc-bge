@@ -158,7 +158,6 @@ class AgentsUpdateView(LoginRequiredMixin, View):
                 except agent_models.AgencyHead.DoesNotExist:
                     return HttpResponse("Wrong Agent ID", status=400)
 
-                found_agent.name = data.get('name')
                 found_agent.contracted_date = data.get('contracted_date')
                 found_agent.location = data.get('location')
                 found_agent.number_branches = data.get('number_branches')
