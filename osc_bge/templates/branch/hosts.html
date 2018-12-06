@@ -79,23 +79,20 @@
 </div>
 
 
-
-<?php include('../inc/_top.php'); ?>
 <div class="ContentsFrame">
 	<div class="LeftFrame" id="LeftF">
 		<div class="SectionTitle">Host Families</div>
 		<div class="LeftTab">
 			<div class="TabConternts">
 				<div class="InnerTabContents">
-					<li><a href="/branch/host/test">Host Family A</a></li>
-					<li><a href="/branch/host/test">Host Family B</a></li>
-					<li><a href="/branch/host/test">Host Family C</a></li>
-					<li><a href="/branch/host/test">Host Family D</a></li>
+					{% for host in host_families %}
+					<li><a href="/branch/host/update/{{host.id}}">{{host.name}}</a></li>
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div>
 		</div><!-- LeftTab -->
 		<br />
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/branch/host/test" class="IsolationButton">+ &nbsp; Add New Family</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/branch/host/create" class="IsolationButton">+ &nbsp; Add New Family</a>
 	</div><!-- LeftFrame -->
 
 

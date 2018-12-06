@@ -29,7 +29,7 @@ class HostFamily(TimeStampedModel):
         ('male', 'Male'),
         ('female', 'Female'),
     )
-    host_coordi = models.OneToOneField(user_models.BgeBranchAdminUser, on_delete=models.SET_NULL, null=True)
+    host_coordi = models.ForeignKey(user_models.BgeBranchAdminUser, on_delete=models.SET_NULL, null=True)
     provider_branch = models.ForeignKey(bge_models.BgeBranch, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=80, null=True, blank=True)
     status = models.CharField(max_length=80, null=True, blank=True, choices=STATUS_CHOICES)
@@ -56,7 +56,7 @@ class HostFamily(TimeStampedModel):
 
 class HostStudent(TimeStampedModel):
 
-    host = models.OneToOneField(HostFamily, on_delete=models.CASCADE, null=True)
+    host = models.ForeignKey(HostFamily, on_delete=models.CASCADE, null=True)
     student = models.ForeignKey(student_models.Student, on_delete=models.SET_NULL, null=True)
 
 
@@ -74,8 +74,8 @@ class HostFile(TimeStampedModel):
 
 class CommunicationLog(TimeStampedModel):
 
-    host = models.OneToOneField(HostFamily, on_delete=models.CASCADE, null=True)
-    writer = models.OneToOneField(user_models.BgeBranchAdminUser, on_delete=models.SET_NULL, null=True)
+    host = models.ForeignKey(HostFamily, on_delete=models.CASCADE, null=True)
+    writer = models.ForeignKey(user_models.BgeBranchAdminUser, on_delete=models.SET_NULL, null=True)
     date = models.DateField(null=True, blank=True)
     category = models.CharField(max_length=80, null=True, blank=True)
     priority = models.IntegerField(null=True, blank=True)
@@ -85,8 +85,8 @@ class CommunicationLog(TimeStampedModel):
 
 class HostStudentReport(TimeStampedModel):
 
-    host = models.OneToOneField(HostFamily, on_delete=models.CASCADE, null=True)
-    student = models.OneToOneField(student_models.Student, on_delete=models.SET_NULL, null=True)
+    host = models.ForeignKey(HostFamily, on_delete=models.CASCADE, null=True)
+    student = models.ForeignKey(student_models.Student, on_delete=models.SET_NULL, null=True)
     description = models.TextField(null=True, blank=True)
     rate = models.CharField(max_length=80, null=True, blank=True)
     improvement = models.NullBooleanField(blank=True)
