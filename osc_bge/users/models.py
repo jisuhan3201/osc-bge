@@ -81,6 +81,9 @@ class BgeAdminUser(models.Model):
     def __str__(self):
         return "{}".format(self.user)
 
+# class BgeAdmissionTeamUser(models.Model):
+#
+#     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='branch_admin')
 
 class BgeBranchAdminUser(models.Model):
 
@@ -96,6 +99,8 @@ class BgeBranchCoordinator(models.Model):
     POSITION_CHOICES = (
         ('admission_coordi', 'Admission coordinator'),
         ('school_coordi', 'School coordinator'),
+        ('student_coordi', 'Student coordinator'),
+        ('host_coordi', 'Host coordinator'),
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='coordinator')

@@ -24,8 +24,9 @@
 					<th class="row2">Submitted Date</th>
 					<th class="row2">Confirmed Date</th>
 				</tr>
+				{% for student in all_students %}
 				<tr>
-					<td><a href="/student/test/report">Yuren</a></td>
+					<td><a href="/student/test/report">{{student.name}}</a></td>
 					<td>2018-03-01</td>
 					<td>2018-03-01</td>
 					<td>-</td>
@@ -42,24 +43,7 @@
 						</select>
 					</td>
 				</tr>
-				<tr>
-					<td><a href="/student/test/report">Tianyi</a></td>
-					<td>2018-03-01</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td class="InnerInputTD">
-						<select class="TableInnerInput">
-							<option>Select.. </option>
-							<option>Transfer</option>
-							<option>Graduate College</option>
-							<option>Graduate Major</option>
-							<option>Terminate</option>
-						</select>
-					</td>
-				</tr>
+				{% endfor %}
 			</table>
 		</div><!-- ListTable -->
 

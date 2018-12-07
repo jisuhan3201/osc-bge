@@ -13,7 +13,9 @@
 		</div>
 		<div class="Contents">
 
-
+		<form method="POST">
+			{% csrf_token %}
+			<input type="text" name="log_id" value="" hidden>
 			<div class="InfoTable">
 				<table cellpadding="0" cellspacing="0" border="0">
 					<colgroup>
@@ -23,83 +25,75 @@
 					<tr>
 						<th>Write : </th>
 						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" size="24" value="" />
+							<select name="writer" readonly>
+								<option value="{{request.user.id}}" selected>{{request.user.first_name}} {{request.user.last_name}}</option>
+							</select>
 						</td>
 					</tr>
 					<tr>
 						<th>Date : </th>
 						<td class="InnerInputTD">
-							<input type="text" class="TableInnerInput" size="10" value="" />
+							<input type="text" class="TableInnerInput" size="10" value="{% now 'Y-m-d'%}" name="date"/>
 						</td>
 					</tr>
 					<tr>
 						<th>Category : </th>
 						<td class="InnerInputTD">
-							<select class="TableInnerInput">
-								<option>Behavior</option>
-								<option>Academic</option>
-								<option>Activities</option>
-								<option>Host family</option>
-								<option style="background-color:red;color:#FFF;">Complaints</option>
-								<option>Other</option>
+							<select class="TableInnerInput" name="category">
+								<option value="behavior">Behavior</option>
+								<option value="academic">Academic</option>
+								<option value="activities">Activities</option>
+								<option value="host_family">Host family</option>
+								<option value="complaints" style="background-color:red;color:#FFF;">Complaints</option>
+								<option value="other">Other</option>
 							</select>
 						</td>
 					</tr>
 					<tr>
 						<th>Priority : </th>
 						<td class="InnerInputTD">
-							<select class="TableInnerInput">
+							<select class="TableInnerInput" name="priority">
 								<option>1</option>
 								<option>2</option>
 								<option>3</option>
 								<option>4</option>
 								<option>5</option>
-								<option>-</option>
 							</select>
 						</td>
 					</tr>
 					<tr>
 						<th>Comment : </th>
 						<td class="InnerInputTD">
-							<textarea class="TableInnerTextarea"></textarea>
+							<textarea name="comment" class="TableInnerTextarea"></textarea>
 						</td>
-					</tr>
-					<tr>
-						<th>File Attechment : </th>
-						<td class="InnerInputTD"><a class="Button" href="">Attechment</a></td>
 					</tr>
 				</table>
 			</div><!-- InfoTable -->
 
 
 			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopCommunicationUpdate').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopCommunicationUpdate').style.display='none';">SAVE</div>
+				<button class="Submit" type="submit">SAVE</button>
 			</div>
-
+		</form>
 		</div>
 	</div>
 </div>
 
 
-
-
-<?php include('../inc/_top.php'); ?>
 <div class="ContentsFrame">
 	<div class="LeftFrame" id="LeftF">
 		<div class="SectionTitle">Host Families</div>
 		<div class="LeftTab">
 			<div class="TabConternts">
 				<div class="InnerTabContents">
-					<li><a href="../family/info.php">Host Family A</a></li>
-					<li><a href="../family/info.php">Host Family B</a></li>
-					<li><a href="../family/info.php">Host Family C</a></li>
-					<li><a href="../family/info.php">Host Family D</a></li>
+					{% for host in all_hosts %}
+					<li><a href="/branch/host/update/{{host.id}}">{{host.name}}</a></li>
+          {% endfor %}
 				</div><!-- InnerTabContents -->
 			</div>
 		</div><!-- LeftTab -->
 		<br />
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../family/info.php" class="IsolationButton">+ &nbsp; Add New Family</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/branch/host/create" class="IsolationButton">+ &nbsp; Add New Family</a>
 	</div><!-- LeftFrame -->
 
 
@@ -107,7 +101,7 @@
 	<div class="MainFrame">
 
 
-		<div class="MTitle">Host Family A <span>Communication Log</span></div>
+		<div class="MTitle">{{found_host.name}} <span>Communication Log</span></div>
 		<div class="ListSearch Aright">
 			<div><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';" class="IsolationButton">+ &nbsp; Add New Log</a></div>
 		</div>
@@ -125,54 +119,16 @@
 					<th>Comment</th>
 					<th>Writer</th>
 				</tr>
+				{% for log in all_branch_logs %}
 				<tr>
-					<td>6</td>
-					<td>2017.10.14</td>
-					<td>Behavior</td>
-					<td>3</td>
-					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
-					<td>Mariah Chang</td>
+					<td>{{log.id}}</td>
+					<td>{{log.date|date:"Y-m-d"}}</td>
+					<td>{{log.category|capfirst}}</td>
+					<td>{{log.priority}}</td>
+					<td class="Aleft"><p class="CommunicationLogClass" id="CommunicationLog{{log.id}}" style="margin-bottom:0;color:blue;cursor:pointer;">{{log.comment}}</p></td>
+					<td>{{log.writer.first_name}} {{log.writer.last_name}}</td>
 				</tr>
-				<tr>
-					<td>5</td>
-					<td>2017.10.14</td>
-					<td>Academic</td>
-					<td>1</td>
-					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
-					<td>Mariah Chang</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>2017.10.14</td>
-					<td>Activites</td>
-					<td>2</td>
-					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
-					<td>Mariah Chang</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>2017.10.14</td>
-					<td>Host Family</td>
-					<td>4</td>
-					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
-					<td>Mariah Chang</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>2017.10.14</td>
-					<td style="background-color:red;color:#FFF;">Complaints</td>
-					<td>5</td>
-					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
-					<td>Mariah Chang</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>2017.10.14</td>
-					<td>Other</td>
-					<td>5</td>
-					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
-					<td>Mariah Chang</td>
-				</tr>
+				{% endfor %}
 			</table>
 		</div><!-- ListTable -->
 

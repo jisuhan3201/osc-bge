@@ -229,7 +229,7 @@ font-size:12px;line-height:16px;border-bottom:1px solid #DDD;}
 .InfoTable tr:hover {background:#FFF;}
 .InfoTable th {padding:6px;font-weight:150;color:#999;text-align:left;border-top:1px solid #DDD;}
 .InfoTable td {font-size:12px;line-height:18px;padding:6px;font-weight:600;color:#333;border-top:1px solid #DDD;}
-.InfoTable .SchoolButton {right:40px;padding:0px 20px;height:30px;
+.InfoTable .SchoolButton {margin-top:-5px;padding:0px 20px;height:30px;
 font-size:12px;font-weight:600;color:#FFF;line-height:30px;text-align:center;
 background:#fba016;border-radius:3px;cursor:pointer;overflow:hidden;}
 .InfoTable .SchoolButton:hover {background:#FF6600;}

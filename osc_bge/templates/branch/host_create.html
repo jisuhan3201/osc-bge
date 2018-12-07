@@ -8,8 +8,8 @@
 		<div class="LeftTab">
 			<div class="TabConternts">
 				<div class="InnerTabContents">
-          {% for host in host_families %}
-					<li><a href="/branch/host/update/<int:host_id>">{{host.name}}</a></li>
+          {% for host in all_hosts %}
+					<li><a href="/branch/host/update/{{host.id}}">{{host.name}}</a></li>
           {% endfor %}
 				</div><!-- InnerTabContents -->
 			</div>
@@ -28,7 +28,6 @@
 
 		<div class="MTitle">Host Family information</div>
 		<div class="ListSearch Aright">
-			<a href="/branch/host/log" class="IsolationButton">Communication Log</a>
 		</div>
     <form method="POST">
       {% csrf_token %}
@@ -84,15 +83,8 @@
 					<td class="InnerInputTD"><input name="children" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
 				</tr>
 				<tr>
-					<th>Pets : </th>
-					<td class="InnerInputTD"><input name="pets" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
-					<th>Next Year Plan : </th>
-					<td>
-						<label><input type="radio" name="next_year_plan" value="same_student"/><span></span>Host same student</label>
-						<label><input type="radio" name="next_year_plan" value="change_student"/><span></span>Change student</label>
-						<label><input type="radio" name="next_year_plan" value="na"/><span></span>N/A</label>
-						<label><input type="radio" name="next_year_plan" value="a"/><span></span>A</label>
-					</td>
+					<th >Pets : </th>
+					<td colspan="3" class="InnerInputTD"><input name="pets" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
 				</tr>
 				<tr>
 					<th>Student Preference : </th>
@@ -129,17 +121,38 @@
 				</tr>
 				<tr>
 					<th>Hosting Students : </th>
-					<td class="InnerInputTD" colspan="3"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD">
+							{% if all_students %}
+								{% for student in all_students %}
+								<label><input type="checkbox" name="hosting_students" value="{{student.id}}"/><span></span>{{student.name}}</label>
+								{% endfor %}
+							{% else %}
+							All Students have host..
+							{% endif %}
+					</td>
 				</tr>
 				<tr>
 					<th>Host Coordinator : </th>
-					<td class="InnerInputTD" colspan="3"><input name="host_coordi" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD" colspan="3">
+						<select name="host_coordi" required>
+							<option value="">Select Host Coordinator..</option>
+							{% for coordi in all_host_coordi %}
+							<option value="{{coordi.user.id}}">{{coordi.user.first_name}} {{coordi.user.last_name}}</option>
+							{% endfor %}
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<th>(Provider) Branch : </th>
-					<td class="InnerInputTD"><input name="provider_branch" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+					<td class="InnerInputTD">
+						<select name="provider_branch" readonly>
+							<option value="{{found_branch.id}}" selected>{{found_branch.name}}</option>
+						</select>
+					</td>
 					<th>Provider : </th>
-					<td class="InnerInputTD"><input name="provider" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+					<td class="InnerInputTD">
+						<input name="provider" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" />
+					</td>
 				</tr>
 			</table>
 		</div><!-- InfoTable -->
