@@ -323,7 +323,11 @@
 				</div><!-- InfoFloat -->
 
 				<div class="PopButtonLine">
+					{% if request.user.type == 'counselor' or request.user.type == 'agency_admin' or request.user.type == 'agency_branch_admin' %}
+					<p style="color:red;">You don't have permissions to save.</p>
+					{% else %}
 					<button class="Submit" type="submit">SAVE</button>
+					{% endif %}
 				</div>
 
 			</div>
@@ -372,8 +376,13 @@
 				</div><!-- InfoFloat -->
 
 				<div class="PopButtonLine">
+					{% if request.user.type == 'counselor' or request.user.type == 'agency_admin' or request.user.type == 'agency_branch_admin' %}
+					<p style="color:red;">You don't have permissions to save.</p>
+					{% else %}
 					<button class="Submit" type="submit">SAVE</button>
+					{% endif %}
 				</div>
+
 
 			</div>
 		</form>
@@ -405,7 +414,11 @@
 				{% endif %}
 
 				<div class="PopButtonLine">
+					{% if request.user.type == 'counselor' or request.user.type == 'agency_admin' or request.user.type == 'agency_branch_admin' %}
+					<p style="color:red;">You don't have permissions to save.</p>
+					{% else %}
 					<button class="Submit" type="submit">SAVE</button>
+					{% endif %}
 				</div>
 
 			</div>

@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from osc_bge.agent import models as agent_models
+from osc_bge.form import models as form_models
 
 
 @login_required(login_url='/accounts/login/')
@@ -34,7 +35,49 @@ class BgeStatisticsView(LoginRequiredMixin, View):
 
     def get(self, request):
 
-        return render(request, 'main/statistics.html', {})
+        all_agent_heads = agent_models.AgencyHead.objects.all()
+        total_inquired = 0
+        total_applied = 0
+        total_accepted = 0
+        total_cancelled = 0
+        total_enrolled = 0
+        for head in all_agent_heads:
+            inquired = form_models.Counsel.objects.filter(counselor__agency__head=head).count()
+            applied = form_models.Formality.objects.filter(counsel__counselor__agency__head=head).count()
+            accepted = form_models.SchoolFormality.objects.filter(
+                formality__counsel__counselor__agency__head=head,
+                acceptance_date__isnull=False).count()
+            cancelled = form_models.SchoolFormality.objects.filter(
+                formality__counsel__counselor__agency__head=head,
+                cancel_enrolment_date__isnull=False).count()
+            enrolled = form_models.SchoolFormality.objects.filter(
+                formality__counsel__counselor__agency__head=head,
+                i20_completed=True).count()
+
+            head.inquired = inquired
+            head.applied = applied
+            head.accepted = accepted
+            head.cancelled = cancelled
+            head.enrolled = enrolled
+
+            total_inquired += inquired
+            total_applied += applied
+            total_accepted += accepted
+            total_cancelled += cancelled
+            total_enrolled += enrolled
+            try:
+                total_accepted_percent = int(total_accepted * 100 / total_applied)
+            except ZeroDivisionError:
+                total_accepted_percent = 0
+
+        return render(request, 'main/statistics.html', {
+            'all_agent_heads':all_agent_heads,
+            "total_inquired":total_inquired,
+            "total_applied":total_applied,
+            "total_cancelled":total_cancelled,
+            "total_enrolled":total_enrolled,
+            "total_accepted_percent":total_accepted_percent,
+        })
 
 
 class BranchesView(LoginRequiredMixin, View):

@@ -41,6 +41,15 @@ class BgeBranchCoordinatorAdmin(admin.ModelAdmin):
         "position",
     )
 
+@admin.register(models.AgencyHeadAdminUser)
+class AgencyHeadAdminUserAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "user",
+        "agency_head",
+    )
+
+
 @admin.register(models.AgencyAdminUser)
 class AgencyAdminUserAdmin(admin.ModelAdmin):
 
@@ -49,14 +58,6 @@ class AgencyAdminUserAdmin(admin.ModelAdmin):
         "agency",
     )
 
-# @admin.register(models.AgencyBranchAdminUser)
-# class AgencyBranchAdminUserAdmin(admin.ModelAdmin):
-#
-#     list_display = (
-#         "user",
-#         "agency_branch",
-#     )
-
 @admin.register(models.Counselor)
 class CounselorAdmin(admin.ModelAdmin):
 
@@ -64,26 +65,3 @@ class CounselorAdmin(admin.ModelAdmin):
         "user",
         "agency",
     )
-
-# @admin.register(models.Host)
-# class HostAdmin(admin.ModelAdmin):
-#
-#     list_display = (
-#         "user",
-#         "coordinator",
-#         "active_status",
-#         "phone",
-#         "status",
-#         "school",
-#         "job",
-#         "employer",
-#         "is_married",
-#         "children",
-#         "pet",
-#         "plan",
-#         "gender_hope",
-#         "student_available",
-#         "start_date",
-#         "filename",
-#         "is_deleted",
-#     )

@@ -70,45 +70,23 @@
 						<th>Cancelled</th>
 						<th>Enrolled</th>
 					</tr>
+					{% for head in all_agent_heads %}
 					<tr>
-						<td>Meten</td>
-						<td>21</td>
-						<td>15</td>
-						<td>13</td>
-						<td>-</td>
-						<td>10</td>
+						<td>{{head.name}}</td>
+						<td>{{head.inquired}}</td>
+						<td>{{head.applied}}</td>
+						<td>{{head.accepted}}</td>
+						<td>{{head.cancelled}}</td>
+						<td>{{head.enrolled}}</td>
 					</tr>
-					<tr>
-						<td>BGE-Yanzhou</td>
-						<td>21</td>
-						<td>15</td>
-						<td>13</td>
-						<td>-</td>
-						<td>10</td>
-					</tr>
-					<tr>
-						<td>AaisUS</td>
-						<td>21</td>
-						<td>15</td>
-						<td>13</td>
-						<td>-</td>
-						<td>10</td>
-					</tr>
-					<tr>
-						<td>Other(BGE Staff)</td>
-						<td>21</td>
-						<td>15</td>
-						<td>13</td>
-						<td>-</td>
-						<td>10</td>
-					</tr>
+					{% endfor %}
 					<tr>
 						<td class="TitleColor">Total</td>
-						<td class="TitleColor">108</td>
-						<td class="TitleColor">51</td>
-						<td class="TitleColor">47%</td>
-						<td class="TitleColor">-</td>
-						<td class="TitleColor">24</td>
+						<td class="TitleColor">{{total_inquired}}</td>
+						<td class="TitleColor">{{total_applied}}</td>
+						<td class="TitleColor">{{total_accepted_percent}}%</td>
+						<td class="TitleColor">{{total_cancelled}}</td>
+						<td class="TitleColor">{{total_enrolled}}</td>
 					</tr>
 				</table>
 			</div><!-- ListTable -->

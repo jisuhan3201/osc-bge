@@ -192,7 +192,12 @@
 					<col>
 				</colgroup>
 				<tr>
-					<th rowspan="2">No.</th>
+					{% if request.user.type != 'agency_branch_admin' and request.user.type != 'counselor' %}
+					<th rowspan="2">Branch</th>
+					{% endif %}
+					{% if request.user.type != 'counselor' %}
+					<th rowspan="2">Counselor</th>
+					{% endif %}
 					<th rowspan="2">Date</th>
 					<th rowspan="2">Name</th>
 					<th rowspan="2">Status</th>
@@ -213,7 +218,12 @@
 				</tr>
         {% for i in data %}
 				<tr>
-					<td>{{ i.id }}</td>
+					{% if request.user.type != 'agency_branch_admin' and request.user.type != 'counselor' %}
+					<td>{{ i.counselor.agency.name }}</td>
+					{% endif %}
+					{% if request.user.type != 'counselor' %}
+					<td>{{ i.counselor.user.first_name }} {{ i.counselor.user.last_name }}</td>
+					{% endif %}
 					<td>{{ i.counseling_date.year }}-{{ i.counseling_date.month }}-{{ i.counseling_date.day }}</td>
 					<td><a href="customer/{{i.id}}/register">{{ i.student }}</a></td>
 					<td>{{ i.student.status|capfirst}}</td>

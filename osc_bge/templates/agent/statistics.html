@@ -33,6 +33,9 @@
 						<col>
 					</colgroup>
 					<tr>
+						{% if request.user.type != 'agency_branch_admin' %}
+						<th>Branch</th>
+						{% endif %}
 						<th>Counselor Name</th>
 						<th>Counseled</th>
 						<th>Registered</th>
@@ -51,6 +54,9 @@
 					</tr>
 					{% for counselor in counselors %}
 					<tr>
+						{% if request.user.type != 'agency_branch_admin' %}
+						<td>{{counselor.agency.name}}</td>
+						{% endif %}
 						<td>{{counselor.user.first_name}} {{counselor.user.last_name}}</td>
 						<td>{{counselor.counsel_count}}</td>
 						<td>{{counselor.formality_count}}</td>
@@ -69,6 +75,9 @@
 					</tr>
 					{% endfor %}
 					<tr>
+						{% if request.user.type != 'agency_branch_admin' %}
+						<td class="TitleColor">{{request.user.agency_head_admin.agency_head.name}}</td>
+						{% endif %}
 						<td class="TitleColor">Total</td>
 						<td class="TitleColor">{{total_counsel}}</td>
 						<td class="TitleColor">{{total_registered}}</td>
@@ -131,9 +140,8 @@
 						<col width="180">
 						<col>
 					</colgroup>
-
 					<tr>
-						<th>Counselor Name</th>
+						<th>Branch / Counselor Name</th>
 						{% for date in past_date_first %}
 						<th>{{date|date:"Y M"}}</th>
 						{% endfor %}

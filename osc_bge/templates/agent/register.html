@@ -46,7 +46,11 @@
 					</colgroup>
 					<tr>
 						<th>Agent-Branch / Counselor : </th>
-						<td>{{ user.counselor.agency.name }} - {{ user.counselor.agency.branch }} / {{ user.first_name }}</td>
+						{% if counsel %}
+						<td>{{ counsel.counselor.agency.name }} - {{ counsel.counselor.agency.branch }} / {{ counsel.counselor.user.first_name }} {{counsel.counselor.user.last_name}}</td>
+						{% else %}
+						<td>{{ user.counselor.agency.name }} - {{ user.counselor.agency.branch }} / {{ user.first_name }} {{user.last_name}}</td>
+						{% endif %}
 						<th>Date of Counseling : </th>
 						{% if counsel %}
 						<td><input type="text" name="date" value="{{ counsel.counseling_date|date:'Y-m-d' }}" readonly required></td>

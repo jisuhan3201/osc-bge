@@ -24,14 +24,24 @@ class StatisticsView(LoginRequiredMixin, View):
     def get(self, request):
 
         user = request.user
-        if user.type != "agency_admin":
+        agency = None
+        agency_head = None
+        if user.type == "counselor":
             return HttpResponse(status=401)
 
-        try:
-            agency_admin = user_models.AgencyAdminUser.objects.get(user=user)
-            agency = agency_admin.agency
-        except user_models.AgencyAdminUser.DoesNotExist:
-            return HttpResponse(status=401)
+        elif user.type == 'agency_branch_admin':
+            try:
+                agency_branch_admin = user_models.AgencyAdminUser.objects.get(user=user)
+                agency = agency_branch_admin.agency
+            except user_models.AgencyAdminUser.DoesNotExist:
+                return HttpResponse(status=401)
+        elif user.type == 'agency_admin':
+            try:
+                agency_admin = user_models.AgencyHeadAdminUser.objects.get(user=user)
+                agency_head = agency_admin.agency_head
+            except user_models.AgencyHeadAdminUser.DoesNotExist:
+                return HttpResponse(status=401)
+
 
         # 1st section statistics
 
@@ -66,7 +76,13 @@ class StatisticsView(LoginRequiredMixin, View):
                 past_date_range.append([past_start_date, past_end_date])
                 past_date_first.append(past_start_date)
 
-        counselors = user_models.Counselor.objects.filter(agency=agency)
+        if agency:
+            counselors = user_models.Counselor.objects.filter(agency=agency)
+        elif agency_head:
+            counselors = user_models.Counselor.objects.filter(agency__head=agency_head)
+        else:
+            counselors.Counselor.objects.all()
+
         for counselor in counselors:
 
             # For 1st Section statistics
@@ -111,7 +127,7 @@ class StatisticsView(LoginRequiredMixin, View):
                     })
                     data_list.append(data_dict)
 
-                counselor_fullname = counselor.user.first_name + " " + counselor.user.last_name
+                counselor_fullname = counselor.agency.name + " / " + counselor.user.first_name + " " + counselor.user.last_name
                 monthly_data.update({counselor_fullname:data_list})
 
             counsel_count = found_counsels.count()
@@ -342,10 +358,11 @@ class CustomerRegisterView(LoginRequiredMixin, View):
             except form_models.Counsel.DoesNotExist:
                 return HttpResponse(status=404)
 
-            found_counselor = self.get_counselor()
+            if request.user.type == 'counselor':
+                found_counselor = self.get_counselor()
 
-            if not found_counsel.counselor == found_counselor:
-                return HttpResponse(status=401)
+                if not found_counsel.counselor == found_counselor:
+                    return HttpResponse(status=401)
 
             try:
                 student_history = student_models.StudentHistory.objects.get(student=found_counsel.student)
@@ -358,7 +375,8 @@ class CustomerRegisterView(LoginRequiredMixin, View):
     def post(self, request, counsel_num=None):
 
         data = request.POST
-        found_counselor = self.get_counselor()
+        if request.user.type == 'counselor':
+            found_counselor = self.get_counselor()
 
         if counsel_num:
             try:
@@ -366,8 +384,9 @@ class CustomerRegisterView(LoginRequiredMixin, View):
             except form_models.Counsel.DoesNotExist:
                 return HttpResponse(status=404)
 
-            if not found_counselor == found_counsel.counselor:
-                return HttpResponse(status=401)
+            if request.user.type == 'counselor':
+                if not found_counselor == found_counsel.counselor:
+                    return HttpResponse(status=401)
 
             parent_info = None
             if (data.get('parentname') or data.get('parentcell') or
@@ -390,7 +409,8 @@ class CustomerRegisterView(LoginRequiredMixin, View):
                     parent_info.save()
 
             student = found_counsel.student
-            student.counselor=found_counselor
+            if request.user.type == 'counselor':
+                student.counselor=found_counselor
             student.parent_info = parent_info
             student.name = data.get('name')
             student.gender = data.get('gender')
@@ -523,8 +543,20 @@ class ProspectiveView(LoginRequiredMixin, View):
 
     def search(self):
 
-        found_counselor = self.get_counselor()
-        queryset = form_models.Counsel.objects.filter(counselor=found_counselor)
+        if self.request.user.type == 'counselor':
+            found_counselor = self.get_counselor()
+            queryset = form_models.Counsel.objects.filter(counselor=found_counselor)
+        elif self.request.user.type == 'agency_branch_admin':
+            found_agent_branch_admin = user_models.AgencyAdminUser.objects.get(user=self.request.user)
+            found_counselors = user_models.Counselor.objects.filter(agency=found_agent_branch_admin.agency)
+            queryset = form_models.Counsel.objects.filter(counselor__in=found_counselors)
+        elif self.request.user.type == 'agency_admin':
+            found_agent_admin = user_models.AgencyHeadAdminUser.objects.get(user=self.request.user)
+            found_counselors = user_models.Counselor.objects.filter(agency__head=found_agent_admin.agency_head)
+            queryset = form_models.Counsel.objects.filter(counselor__in=found_counselors)
+        else:
+            queryset = form_models.Counsel.objects.all()
+
         query = self.request.GET.get('q', None)
         if query:
             queryset = queryset.filter(Q(student__name__icontains=query) |
@@ -601,10 +633,12 @@ class ApplicationRegisterView(LoginRequiredMixin, View):
             except form_models.Counsel.DoesNotExist:
                 return HttpResponse(status=404)
 
-            found_counselor = self.get_counselor()
+            if request.user.type == 'counselor':
 
-            if not found_counsel.counselor == found_counselor:
-                return HttpResponse(status=401)
+                found_counselor = self.get_counselor()
+
+                if not found_counsel.counselor == found_counselor:
+                    return HttpResponse(status=401)
 
             try:
                 student_history = student_models.StudentHistory.objects.get(student=found_counsel.student)
@@ -645,7 +679,8 @@ class ApplicationRegisterView(LoginRequiredMixin, View):
     def post(self, request, counsel_num=None):
 
         data = request.POST
-        found_counselor = self.get_counselor()
+        if request.user.type == 'counselor':
+            found_counselor = self.get_counselor()
 
         if counsel_num:
             try:
@@ -653,8 +688,9 @@ class ApplicationRegisterView(LoginRequiredMixin, View):
             except form_models.Counsel.DoesNotExist:
                 return HttpResponse(status=404)
 
-            if not found_counselor == found_counsel.counselor:
-                return HttpResponse(status=401)
+            if request.user.type == 'counselor':
+                if not found_counselor == found_counsel.counselor:
+                    return HttpResponse(status=401)
 
             parent_info = None
             if (data.get('parentname') or data.get('parentcell') or
@@ -677,7 +713,8 @@ class ApplicationRegisterView(LoginRequiredMixin, View):
                     parent_info.save()
 
             student = found_counsel.student
-            student.counselor=found_counselor
+            if request.user.type == 'counselor':
+                student.counselor=found_counselor
             student.parent_info = parent_info
             student.name = data.get('name')
             student.gender = data.get('gender')
@@ -800,15 +837,26 @@ class ProcessView(LoginRequiredMixin, View):
 
     def get(self, request):
 
-        found_counselor = self.get_counselor()
 
-        try:
+        if request.user.type == 'counselor':
+            found_counselor = self.get_counselor()
             found_formalities = form_models.Formality.objects.filter(
-                counsel__counselor=found_counselor).filter(
-                departure_confirmed=None).filter(
-                canceled_at=None)
-        except form_models.Formality.DoesNotExist:
-            found_formalities=None
+                counsel__counselor=found_counselor)
+        elif request.user.type == 'agency_branch_admin':
+            found_agent_branch_admin = user_models.AgencyAdminUser.objects.get(user=request.user)
+            found_formalities = form_models.Formality.objects.filter(
+                counsel__counselor__agency=found_agent_branch_admin.agency)
+        elif request.user.type == 'agency_admin':
+            found_agent_admin = user_models.AgencyHeadAdminUser.objects.get(user=request.user)
+            found_formalities = form_models.Formality.objects.filter(
+                counsel__counselor__agency__head=found_agent_admin.agency_head)
+        else:
+            found_formalities = form_models.Formality.objects.all()
+
+        found_formalities = found_formalities.filter(
+            departure_confirmed=None,
+            canceled_at=None
+        )
 
         try:
             application_not_completed = found_formalities.filter(
@@ -852,16 +900,43 @@ class ProcessView(LoginRequiredMixin, View):
         except:
             departure_schedule = None
 
-        in_progress = form_models.Formality.objects.filter(
-            counsel__counselor=found_counselor).filter(
+        if request.user.type == 'counselor':
+            found_counselor = self.get_counselor()
+            in_progress = form_models.Formality.objects.filter(
+                counsel__counselor=found_counselor)
+            process_completed = form_models.Formality.objects.filter(
+                counsel__counselor=found_counselor)
+            process_canceled = form_models.Formality.objects.filter(
+                counsel__counselor=found_counselor)
+
+        elif request.user.type == 'agency_branch_admin':
+            found_agent_branch_admin = user_models.AgencyAdminUser.objects.get(user=request.user)
+            in_progress = form_models.Formality.objects.filter(
+                counsel__counselor__agency=found_agent_branch_admin.agency)
+            process_completed = form_models.Formality.objects.filter(
+                counsel__counselor__agency=found_agent_branch_admin.agency)
+            process_canceled = form_models.Formality.objects.filter(
+                counsel__counselor__agency=found_agent_branch_admin.agency)
+
+        elif request.user.type == 'agency_admin':
+            found_agent_admin = user_models.AgencyHeadAdminUser.objects.get(user=request.user)
+            in_progress = form_models.Formality.objects.filter(
+                counsel__counselor__agency__head=found_agent_admin.agency_head)
+            process_completed = form_models.Formality.objects.filter(
+                counsel__counselor__agency__head=found_agent_admin.agency_head)
+            process_canceled = form_models.Formality.objects.filter(
+                counsel__counselor__agency__head=found_agent_admin.agency_head)
+
+        else:
+            in_progress = form_models.Formality.objects.all()
+            process_completed = form_models.Formality.objects.all()
+            process_canceled = form_models.Formality.objects.all()
+
+        in_progress = in_progress.filter(
             departure_confirmed=None).filter(canceled_at=None).order_by("-created_at")
-
-        process_completed = form_models.Formality.objects.filter(
-            counsel__counselor=found_counselor).filter(canceled_at=None).exclude(
+        process_completed = process_completed.filter(canceled_at=None).exclude(
             departure_confirmed=None).order_by("-departure_confirmed")
-
-        process_canceled = form_models.Formality.objects.filter(
-            counsel__counselor=found_counselor).exclude(
+        process_canceled = process_canceled.exclude(
             canceled_at=None).order_by("-canceled_at")
 
         return render(
@@ -900,21 +975,49 @@ class ProcessApplyView(LoginRequiredMixin, View):
         except form_models.Formality.DoesNotExist:
             return HttpResponse(status=400)
 
-        found_counselor = self.get_counselor()
+        if request.user.type == 'counselor':
+            found_counselor = self.get_counselor()
 
-        if not found_formality.counsel.counselor == found_counselor:
-            return HttpResponse(status=401)
+            if not found_formality.counsel.counselor == found_counselor:
+                return HttpResponse(status=401)
 
-        in_progress = form_models.Formality.objects.filter(
-            counsel__counselor=found_counselor).filter(
+        if request.user.type == 'counselor':
+            found_counselor = self.get_counselor()
+            in_progress = form_models.Formality.objects.filter(
+                counsel__counselor=found_counselor)
+            process_completed = form_models.Formality.objects.filter(
+                counsel__counselor=found_counselor)
+            process_canceled = form_models.Formality.objects.filter(
+                counsel__counselor=found_counselor)
+
+        elif request.user.type == 'agency_branch_admin':
+            found_agent_branch_admin = user_models.AgencyAdminUser.objects.get(user=request.user)
+            in_progress = form_models.Formality.objects.filter(
+                counsel__counselor__agency=found_agent_branch_admin.agency)
+            process_completed = form_models.Formality.objects.filter(
+                counsel__counselor__agency=found_agent_branch_admin.agency)
+            process_canceled = form_models.Formality.objects.filter(
+                counsel__counselor__agency=found_agent_branch_admin.agency)
+
+        elif request.user.type == 'agency_admin':
+            found_agent_admin = user_models.AgencyHeadAdminUser.objects.get(user=request.user)
+            in_progress = form_models.Formality.objects.filter(
+                counsel__counselor__agency__head=found_agent_admin.agency_head)
+            process_completed = form_models.Formality.objects.filter(
+                counsel__counselor__agency__head=found_agent_admin.agency_head)
+            process_canceled = form_models.Formality.objects.filter(
+                counsel__counselor__agency__head=found_agent_admin.agency_head)
+
+        else:
+            in_progress = form_models.Formality.objects.all()
+            process_completed = form_models.Formality.objects.all()
+            process_canceled = form_models.Formality.objects.all()
+
+        in_progress = in_progress.filter(
             departure_confirmed=None).filter(canceled_at=None).order_by("-created_at")
-
-        process_completed = form_models.Formality.objects.filter(
-        counsel__counselor=found_counselor).filter(canceled_at=None).exclude(
+        process_completed = process_completed.filter(canceled_at=None).exclude(
             departure_confirmed=None).order_by("-departure_confirmed")
-
-        process_canceled = form_models.Formality.objects.filter(
-            counsel__counselor=found_counselor).exclude(
+        process_canceled = process_canceled.exclude(
             canceled_at=None).order_by("-canceled_at")
 
         student_info = found_formality.counsel.student
@@ -968,10 +1071,11 @@ class ProcessApplyView(LoginRequiredMixin, View):
         except form_models.AccommodationFormality.DoesNotExist:
             found_accommodation = None
 
-        found_counselor = self.get_counselor()
+        if request.user.type == 'counselor':
+            found_counselor = self.get_counselor()
 
-        if not found_formality.counsel.counselor == found_counselor:
-            return HttpResponse(status=401)
+            if not found_formality.counsel.counselor == found_counselor:
+                return HttpResponse(status=401)
 
         data = request.POST or request.FILES
         if data:
@@ -1026,8 +1130,6 @@ class ProcessApplyView(LoginRequiredMixin, View):
                 return HttpResponseRedirect(request.path_info)
 
             elif data.get('type') == "file_upload":
-                print(request.POST)
-                print(request.FILES)
                 formset = forms.FileFormset(request.POST, request.FILES)
                 if formset.is_valid():
                     for form in formset:
@@ -1065,6 +1167,9 @@ class ProcessApplyView(LoginRequiredMixin, View):
 
             elif data.get('type') == "school_interview":
 
+                if request.user.type == 'counselor' or request.user.type == 'agency_admin' or request.user.type == 'agency_branch_admin':
+                    return HttpResponse("You don't have permissions", status=401)
+
                 try:
                     found_school_formality = form_models.SchoolFormality.objects.get(pk=int(data.get('school_formality_id')))
                 except form_models.SchoolFormality.DoesNotExist:
@@ -1080,6 +1185,9 @@ class ProcessApplyView(LoginRequiredMixin, View):
 
             elif data.get('type') == "accepted":
 
+                if request.user.type == 'counselor' or request.user.type == 'agency_admin' or request.user.type == 'agency_branch_admin':
+                    return HttpResponse("You don't have permissions", status=401)
+
                 try:
                     found_school_formality = form_models.SchoolFormality.objects.get(pk=int(data.get('school_formality_id')))
                 except form_models.SchoolFormality.DoesNotExist:
@@ -1093,6 +1201,9 @@ class ProcessApplyView(LoginRequiredMixin, View):
 
             elif data.get('type') == 'cancel_enrolment':
 
+                if request.user.type == 'counselor' or request.user.type == 'agency_admin' or request.user.type == 'agency_branch_admin':
+                    return HttpResponse("You don't have permissions", status=401)
+
                 try:
                     found_school_formality = form_models.SchoolFormality.objects.get(pk=int(data.get('school_formality_id')))
                 except form_models.SchoolFormality.DoesNotExist:
@@ -1101,6 +1212,14 @@ class ProcessApplyView(LoginRequiredMixin, View):
                 found_school_formality.cancel_enrolment_date = data.get('cancel_enrolment_date') if data.get('cancel_enrolment_date') else None
                 found_school_formality.cancel_enrolment_time = data.get('cancel_enrolment_time') if data.get('cancel_enrolment_time') else None
                 found_school_formality.save()
+
+                try:
+                    found_student = student_models.Student.objects.get(counsel__formality__school_formality=found_school_formality)
+                except student_models.Student.DoesNotExist:
+                    return HttpResponse("Student school formality error", status=400)
+
+                found_student.school=None
+                found_student.save()
 
                 return HttpResponseRedirect(request.path_info)
 
@@ -1115,6 +1234,15 @@ class ProcessApplyView(LoginRequiredMixin, View):
                 found_school_formality.i20_fee = Decimal(data.get('i20_fee')) if data.get('i20_fee') else None
                 found_school_formality.i20_receipt = True if data.get('i20_receipt') else False
                 found_school_formality.save()
+
+                if found_school_formality.i20_completed:
+                    try:
+                        found_student = student_models.Student.objects.get(counsel__formality__school_formality=found_school_formality)
+                    except student_models.Student.DoesNotExist:
+                        return HttpResponse("Student school formality error", status=400)
+
+                    found_student.school=found_school_formality.school
+                    found_student.save()
 
                 return HttpResponseRedirect(request.path_info)
 

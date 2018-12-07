@@ -4,27 +4,6 @@ from osc_bge.users import models as user_models
 import os
 import datetime
 
-def set_filename_format(now, instance, filename):
-    """ file format setting e.g)
-    {schoolname}-{date}-{microsecond}{extension}
-    schoolname-2016-07-12-158859.png """
-
-    return "{schoolname}".format(
-        schoolname=instance.name,
-        )
-
-def school_directory_path(instance, filename):
-    """
-    image upload directory setting e.g)
-    school/{year}/{month}/{day}/{schoolname}/{filename}
-    images/2016/7/12/schoolname/schoolname-2016-07-12-158859.png
-    """
-    now = datetime.datetime.now()
-    path = "school/{schoolname}/{filename}".format(
-        schoolname=instance.name,
-        filename=set_filename_format(now, instance, filename),
-    )
-    return path
 
 
 # Create your models here.
@@ -35,6 +14,26 @@ class TimeStampedModel(models.Model):
 
     class Meta:
         abstract = True
+
+# def set_filename_format(now, instance, filename):
+#
+#     return "{schoolname}".format(
+#         schoolname=instance.name,
+#         )
+#
+# def school_directory_path(instance, filename):
+#     """
+#     image upload directory setting e.g)
+#     school/{year}/{month}/{day}/{schoolname}/{filename}
+#     images/2016/7/12/schoolname/schoolname-2016-07-12-158859.png
+#     """
+#     now = datetime.datetime.now()
+#     path = "school/{schoolname}/{filename}".format(
+#         schoolname=instance.name,
+#         filename=set_filename_format(now, instance, filename),
+#     )
+#     return path
+
 
 class School(TimeStampedModel):
 
@@ -60,7 +59,7 @@ class School(TimeStampedModel):
 
     name = models.CharField(max_length=80, null=True)
     type = models.CharField(max_length=80, null=True, choices=TYPE_CHOICES)
-    image = models.ImageField(upload_to=school_directory_path, null=True, blank=True)
+    image = models.ImageField(upload_to='schools', null=True, blank=True)
     partnership = models.IntegerField(null=True, blank=True)
     provider = models.CharField(max_length=80, null=True, blank=True, choices=PROVIDER_CHOICES)
     provider_branch = models.ForeignKey(bge_models.BgeBranch, on_delete=models.SET_NULL, null=True, related_name="schools")

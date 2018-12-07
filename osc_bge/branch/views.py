@@ -9,6 +9,8 @@ from osc_bge.users import models as user_models
 from osc_bge.bge import models as bge_models
 from osc_bge.school import models as school_models
 from osc_bge.student import models as student_models
+from osc_bge.agent import models as agent_models
+from osc_bge.form import models as form_models
 
 # Create your views here.
 
@@ -17,7 +19,9 @@ class BranchStatisticsView(LoginRequiredMixin, View):
 
     def get(self, request):
 
-        return render(request, 'branch/statistics.html', {})
+
+        return render(request, 'branch/statistics.html', {
+        })
 
 
 class BranchSecondaryView(LoginRequiredMixin, View):

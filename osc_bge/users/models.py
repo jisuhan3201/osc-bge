@@ -77,13 +77,9 @@ class BgeAdminUser(models.Model):
     group = models.ForeignKey(bge_models.BgeBranch, on_delete=models.SET_NULL, null=True)
     partition = models.CharField(max_length=255, choices=PARTITION_CHOICES, null=True)
 
-
     def __str__(self):
         return "{}".format(self.user)
 
-# class BgeAdmissionTeamUser(models.Model):
-#
-#     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='branch_admin')
 
 class BgeBranchAdminUser(models.Model):
 
@@ -97,7 +93,6 @@ class BgeBranchAdminUser(models.Model):
 class BgeBranchCoordinator(models.Model):
 
     POSITION_CHOICES = (
-        ('admission_coordi', 'Admission coordinator'),
         ('school_coordi', 'School coordinator'),
         ('student_coordi', 'Student coordinator'),
         ('host_coordi', 'Host coordinator'),
@@ -111,6 +106,15 @@ class BgeBranchCoordinator(models.Model):
         return "{} - {}".format(self.user, self.branch)
 
 
+class AgencyHeadAdminUser(models.Model):
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name="agency_head_admin")
+    agency_head = models.ForeignKey(agent_models.AgencyHead, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return "{} - {}".format(self.agency_head, self.user)
+
+
 class AgencyAdminUser(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name="agency_admin")
@@ -120,14 +124,6 @@ class AgencyAdminUser(models.Model):
         return "{} - {}".format(self.agency, self.user)
 
 
-# class AgencyBranchAdminUser(models.Model):
-#
-#     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-#     # agency_branch = models.ForeignKey(agent_models.AgencyBranch, on_delete=models.SET_NULL, null=True)
-#
-#     def __str__(self):
-#         return "{} - {}".format(self.agency_branch, self.user)
-
 class Counselor(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name="counselor")
@@ -135,39 +131,3 @@ class Counselor(models.Model):
 
     def __str__(self):
         return "{}".format(self.user)
-
-
-
-# class Host(models.Model):
-#
-#     ACTIVE_STATUS = (
-#         ('active', 'Active'),
-#         ('inactive', 'Inactive'),
-#         ('pending', 'Pending'),
-#     )
-#
-#     GENDER_CHOICES = (
-#         ('male', 'Male'),
-#         ('female', 'Female'),
-#     )
-#
-#     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-#     coordinator = models.ForeignKey(BgeBranchCoordinator, on_delete=models.SET_NULL, null=True)
-#     active_status = models.CharField(max_length=255, choices=ACTIVE_STATUS, null=True)
-#     phone = models.CharField(null=True, max_length=255, blank=True)
-#     status = models.CharField(null=True, max_length=255, blank=True)
-#     school = models.CharField(null=True, max_length=255, blank=True)
-#     job = models.CharField(null=True, max_length=255, blank=True)
-#     employer = models.CharField(null=True, max_length=255, blank=True)
-#     is_married = models.BooleanField()
-#     children = models.IntegerField(null=True, blank=True)
-#     pet = models.BooleanField()
-#     plan = models.TextField(null=True, blank=True)
-#     gender_hope = models.CharField(null=True, choices=GENDER_CHOICES, max_length=255, blank=True)
-#     student_available = models.IntegerField(null=True, blank=True)
-#     start_date = models.DateField(null=True, blank=True)
-#     filename = models.FileField(upload_to="host", null=True, blank=True)
-#     is_deleted = models.BooleanField()
-#
-#     def __str__(self):
-#         return "{}".format(self.user)
