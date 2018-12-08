@@ -40,54 +40,6 @@ class CounselAdmin(admin.ModelAdmin):
         "detail",
     )
 
-# @admin.register(models.HomeStay)
-# class HomeStayAdmin(admin.ModelAdmin):
-#
-#     list_display = (
-#         "student",
-#         "memo",
-#         "deadline",
-#         "culture_adapt",
-#         "culture_improve",
-#         "rule_observe",
-#         "rule_improve",
-#         "arrange_per",
-#         "arrange_improve",
-#         "conversation_per",
-#         "conversation_improve",
-#         "timestrict_per",
-#         "timestrict_improve",
-#         "class_attendancy",
-#         "class_attendancy_improve",
-#         "filename",
-#     )
-#
-# @admin.register(models.MonthlyReport)
-# class MonthlyReportAdmin(admin.ModelAdmin):
-#
-#     list_display = (
-#         "student_coordi",
-#         "school_coordi",
-#         "host_coordi",
-#         "agency_branch_admin",
-#         "counseler",
-#         "host",
-#         "form_homestay",
-#         "student",
-#         "memo",
-#         "title",
-#         "category",
-#         "priority",
-#         "status",
-#         "to_parent",
-#         "to_agency",
-#         "admin_approve",
-#         "student_coordi_at",
-#         "school_coordi_at",
-#         "host_coordi_at",
-#         "deadline",
-#         "filetype",
-#     )
 
 
 @admin.register(models.Formality)
@@ -129,6 +81,35 @@ class SchoolFormalityAdmin(admin.ModelAdmin):
         "course",
         "processing_fee",
         "processing_fee_done",
+        "enrolment_apply_fee",
+        "enrolment_apply_done",
+        "enrolment_apply_done_date",
+        "prepared_passport",
+        "prepared_transcript",
+        "prepared_eng_exams",
+        "prepared_recommendation",
+        "prepared_essay",
+        "school_interview_date",
+        "school_interview_time",
+        "mock_interview",
+        "school_interview_done",
+        "acceptance_date",
+        "acceptance_letter",
+        "cancel_enrolment_date",
+        "cancel_enrolment_time",
+        "i20_completed",
+        "i20_fee",
+        "i20_receipt",
+        "i20_received_date",
+        "i20_copy",
+        "i20_tracking",
+        "provider_application",
+        "bge_program_application",
+        "immunization",
+        "financial_support",
+        "program_fee_completed",
+        "program_fee",
+        "program_fee_receipt",
     )
 
 @admin.register(models.FormalityFile)

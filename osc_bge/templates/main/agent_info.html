@@ -1,6 +1,86 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<style>
+#PopRelationshipHistory {display:none;}
+</style>
+<div class="PopCover" id="PopRelationshipHistory">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopRelationshipHistory').style.display='none';">X</div>
+			<div class="Title">Relationship History Update</div>
+		</div>
+		<div class="Contents">
+
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="70">
+						<col>
+						<col width="70">
+						<col>
+					</colgroup>
+					<tr>
+						<td class="TitleColor" colspan="4">Contact Information</td>
+					</tr>
+					<tr>
+						<th>Writer : </th>
+						<td>Jessica, Choi</td>
+						<th>Agent : </th>
+						<td>Metan</td>
+					</tr>
+					<tr>
+						<th>Name : </th>
+						<td>Jessica, Choi</td>
+						<th>Date : </th>
+						<td>25 Aug 2017</td>
+					</tr>
+					<tr>
+						<th>Location : </th>
+						<td colspan="3">Shenzhen, China</td>
+					</tr>
+					<tr>
+						<th>Cateogry : </th>
+						<td class="InnerInputTD">
+						<select class="TableInnerInput">
+							<option>Category Select..</option>
+						</select>
+						</td>
+						<th>Priority : </th>
+						<td class="InnerInputTD">
+						<select class="TableInnerInput">
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+							<option>5</option>
+						</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="TitleColor" colspan="4">Comment</td>
+					</tr>
+					<tr>
+						<th colspan="4">
+							<textarea class="TableInnerTextarea"></textarea>
+						</td>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopRelationshipHistory').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopRelationshipHistory').style.display='none';">REGIST</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
 <div class="ContentsFrame">
 
 

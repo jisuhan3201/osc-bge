@@ -33,6 +33,7 @@ class Student(TimeStampedModel):
     STATUS_CHOICES = (
         ('unregistered', 'Unregistered'),
         ('registered', 'Registered'),
+        ('transferred', 'Transferred'),
     )
 
     agency_admin = models.ForeignKey(user_models.AgencyAdminUser, on_delete=models.SET_NULL, null=True)

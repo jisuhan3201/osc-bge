@@ -18,6 +18,7 @@ class HostFamily(TimeStampedModel):
     STATUS_CHOICES = (
         ('active', 'Active'),
         ('inactive', 'Inactive'),
+        ('prospective', 'Prospective'),
     )
     PREFERENCE_CHOICES = (
         ('male', 'Male'),

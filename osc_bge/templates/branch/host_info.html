@@ -58,12 +58,19 @@
 						{% if found_host.status == 'active' %}
 						<label><input type="radio" name="status" value="active" checked/><span></span>Active</label>
 						<label><input type="radio" name="status" value="inactive"/><span></span>Inactive</label>
+						<label><input type="radio" name="status" value="prospective"/><span></span>Prospective</label>
 						{% elif found_host.status == 'inactive' %}
 						<label><input type="radio" name="status" value="active"/><span></span>Active</label>
 						<label><input type="radio" name="status" value="inactive" checked/><span></span>Inactive</label>
+						<label><input type="radio" name="status" value="prospective"/><span></span>Prospective</label>
+						{% elif found_host.status == 'prospective' %}
+						<label><input type="radio" name="status" value="active"/><span></span>Active</label>
+						<label><input type="radio" name="status" value="inactive"/><span></span>Inactive</label>
+						<label><input type="radio" name="status" value="prospective" checked/><span></span>Prospective</label>
 						{% else %}
 						<label><input type="radio" name="status" value="active"/><span></span>Active</label>
 						<label><input type="radio" name="status" value="inactive"/><span></span>Inactive</label>
+						<label><input type="radio" name="status" value="prospective"/><span></span>Prospective</label>
 						{% endif %}
 					</td>
 					<th>Cell Phone : </th>

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static templatehelpers %}
 {% block content %}
 
 <div class="ContentsFrame">
@@ -8,51 +8,59 @@
 
 		<div class="MTitle">New Students</div>
 		<div class="ListSearch Aright">
-			<div>
-			From :
-			<select class="SearchSelect">
-				<option>December</option>
-				<option>November</option>
-				<option>October</option>
-				<option>September</option>
-				<option>August</option>
-				<option>July</option>
-				<option>June</option>
-				<option>May</option>
-				<option>April</option>
-				<option>March</>
-				<option>February</option>
-				<option>January</option>
-			</select>
-			&nbsp;&nbsp;
-			To :
-			<select class="SearchSelect">
-				<option>December</option>
-				<option>November</option>
-				<option>October</option>
-				<option>September</option>
-				<option>August</option>
-				<option>July</option>
-				<option>June</option>
-				<option>May</option>
-				<option>April</option>
-				<option>March</>
-				<option>February</option>
-				<option>January</option>
-			</select>
-			&nbsp;&nbsp;
-			<select class="SearchSelect">
-				<option>2018 ~ 2019 year</option>
-			</select>
+			<form method="GET">
+				<div>
+				From :
+				<select class="SearchSelect" name="start_month">
+					<option value="">Select Month..</option>
+					<option >Dec</option>
+					<option >Nov</option>
+					<option >Oct</option>
+					<option >Sep</option>
+					<option >Aug</option>
+					<option >Jul</option>
+					<option >Jun</option>
+					<option >May</option>
+					<option >Apr</option>
+					<option >Mar</>
+					<option >Feb</option>
+					<option >Jan</option>
+				</select>
+				&nbsp;&nbsp;
+				To :
+				<select class="SearchSelect" name="end_month">
+					<option value="">Select Month..</option>
+					<option>Dec</option>
+					<option>Nov</option>
+					<option>Oct</option>
+					<option>Sep</option>
+					<option>Aug</option>
+					<option>Jul</option>
+					<option>Jun</option>
+					<option>May</option>
+					<option>Apr</option>
+					<option>Mar</>
+					<option>Feb</option>
+					<option>Jan</option>
+				</select>
+				&nbsp;&nbsp;
+				<select class="SearchSelect" name="year">
+					<option value="">Select year..</option>
+					{% for year in year_list %}
+					<option value="{{year}}">{{year}} ~ {{year|add:1}} year</option>
+					{% endfor %}
+				</select>
 
-			<select class="SearchSelect">
-				<option>Program</option>
-				<option>New Secondary</option>
-				<option>Transferred</option>
-				<option>College</option>
-				<option>Camp</option>
-			</select>
-			</div>
+				<select class="SearchSelect" name="program_interested">
+					<option value=""> Select Program</option>
+					<option value="k12">Secondary</option>
+					<option value="college">College</option>
+					<option value="camp">Camp</option>
+					<option value="not_specified">Not specified</option>
+				</select>
+				</div>
+				<button type="submit" class="ListSearchButton">Search<button>
+			</form>
 		</div>
 
 		<div class="AgentFrameL">
@@ -140,35 +148,36 @@
 
 
 		<div class="ListTable">
-			<div class="ListSearch Aright">
-				<div>
-				<select class="SearchSelect">
-					<option>Week</option>
-					<option>03.26 ~ 03.31</option>
-					<option>03.26 ~ 03.31</option>
-					<option>03.26 ~ 03.31</option>
-					<option>03.26 ~ 03.31</option>
-					<option>03.26 ~ 03.31</option>
-				</select>
+			<form method="GET">
+				<div class="ListSearch Aright">
+					<div class="InfoTable" ><span class="AddComment">Default : {{default_start_date|date:"Y-m-d"}} ~ {{default_end_date|date:"Y-m-d"}}</span></div>
 
-				<select class="SearchSelect">
-					<option>Day</option>
-					<option>03.27</option>
-					<option>03.28</option>
-					<option>03.29</option>
-					<option>03.30</option>
-					<option>03.31</option>
-				</select>
+					<div>
+					<select class="SearchSelect" name="new_week">
+						<option value="">Week</option>
+						{% for week in week_list%}
+						<option value="{{week.0|date:'Y-m-d'}}">{{week.1|date:"Y-m-d"}} ~ {{week.0|date:"Y-m-d"}}</option>
+						{% endfor %}
+					</select>
 
-				<select class="SearchSelect">
-					<option>Program</option>
-					<option>New Secondary</option>
-					<option>Transferred</option>
-					<option>College</option>
-					<option>Camp</option>
-				</select>
+					<select class="SearchSelect" name="new_day">
+						<option value="">Day</option>
+						{% for day in day_list %}
+						<option>{{day|date:"Y-m-d"}}</option>
+						{% endfor %}
+					</select>
+
+					<select class="SearchSelect" name="new_program">
+						<option value="">Program</option>
+						<option value="k12">Secondary</option>
+						<option value="college">College</option>
+						<option value="camp">Camp</option>
+						<option value="not_specified">Not specified</option>
+					</select>
+					</div>
+					<button type="submit" class="ListSearchButton" >Search</button>
 				</div>
-			</div>
+			</form>
 			<table cellpadding="0" cellspacing="0" border="0">
 				<colgroup>
 					<col width="180">
@@ -182,52 +191,111 @@
 					<th>new Cancelled</th>
 					<th>new Enrolled</th>
 				</tr>
+				{% for head in all_agent_heads %}
 				<tr>
-					<td>Meten</td>
-					<td>21</td>
-					<td>15</td>
-					<td>13</td>
-					<td>-</td>
-					<td>10</td>
+					<td>{{head.name}}</td>
+					<td>{{head.new_inquired}}</td>
+					<td>{{head.new_applied}}</td>
+					<td>{{head.new_accepted}}</td>
+					<td>{{head.new_cancelled}}</td>
+					<td>{{head.new_enrolled}}</td>
 				</tr>
-				<tr>
-					<td>BGE-Yanzhou</td>
-					<td>21</td>
-					<td>15</td>
-					<td>13</td>
-					<td>-</td>
-					<td>10</td>
-				</tr>
-				<tr>
-					<td>AaisUS</td>
-					<td>21</td>
-					<td>15</td>
-					<td>13</td>
-					<td>-</td>
-					<td>10</td>
-				</tr>
-				<tr>
-					<td>Other(BGE Staff)</td>
-					<td>21</td>
-					<td>15</td>
-					<td>13</td>
-					<td>-</td>
-					<td>10</td>
-				</tr>
+				{% endfor %}
 				<tr>
 					<td class="TitleColor">Total</td>
-					<td class="TitleColor">108</td>
-					<td class="TitleColor">51</td>
-					<td class="TitleColor">47%</td>
-					<td class="TitleColor">-</td>
-					<td class="TitleColor">24</td>
+					<td class="TitleColor">{{new_total_inquired}}</td>
+					<td class="TitleColor">{{new_total_applied}}</td>
+					<td class="TitleColor">{{new_total_accepted_percent}}%</td>
+					<td class="TitleColor">{{new_total_cancelled}}</td>
+					<td class="TitleColor">{{new_total_enrolled}}</td>
 				</tr>
 			</table>
 		</div><!-- ListTable -->
 		<div class="EndPart"></div>
-		<div class="EndPart"></div>
 		<div class="cdiv"></div>
-		<div class="EndPart"></div>
+
+
+
+		<div class="MTitle">Customer Search</div>
+		<div class="ListSearch Aright">
+			<form method="GET">
+				<div>
+				<select class="SearchSelect" name="agent_head">
+					<option value="">Agent</option>
+					{% for head in all_agent_heads %}
+					<option value="{{head.id}}">{{head.name}}</option>
+					{% endfor %}
+				</select>
+				<select class="SearchSelect" name="customer_program">
+					<option value="">Program</option>
+					<option value="k12">Secondary</option>
+					<option value="college">College</option>
+					<option value="college">Camp</option>
+				</select>
+				<select class="SearchSelect" name="customer_country">
+					<option value="">Country</option>
+					<option value="korea">Korea</option>
+					<option value="china">China</option>
+					<option value="vietnam">Vietnam</option>
+				</select>
+				<select class="SearchSelect" name="customer_search_type">
+					<option value="name">Name</option>
+					<option value="phone">Phone</option>
+					<option value="email">E-mail</option>
+				</select>
+	        <input type="text" class="SearchInput" style="width:150px;" name="search_input"/>
+	        <button type="submit" class="ListSearchButton">Search</button>
+				</div>
+			</form>
+		</div>
+
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="180">
+					<col>
+				</colgroup>
+				<tr>
+					<th>Agent</th>
+					<th>Counselor</th>
+					<th>Student</th>
+					<th>Program</th>
+					<th>Country</th>
+					<th>Inquired</th>
+					<th>Applied</th>
+					<th>Accepted</th>
+					<th>Cancelled</th>
+					<th>Enrolled</th>
+					<th>Entrance</th>
+				</tr>
+				{% for counsel in counsels %}
+				<tr>
+					<td>{{counsel.counselor.agency.head.name}}</td>
+					<td>{{counsel.counselor.user.first_name}} {{counsel.counselor.user.last_name}}</td>
+					<td>{{counsel.student.name}}</td>
+					<td>{{counsel.program_interested}}</td>
+					<td>{{counsel.desire_country}}</td>
+					<td>{{counsel.created_at|date:"Y-m-d"}}</td>
+					<td>{{counsel.formality.apply_at|date:"Y-m-d"}}</td>
+					<td>{{counsel.acceptance_date|date:"Y-m-d"}}</td>
+					<td>{{counsel.cancel_enrolment_date|date:"Y-m-d"}}</td>
+					<td>{{counsel.i20_received_date|date:"Y-m-d"}}</td>
+					<td>{{counsel.formality.air_arrive_date|date:"Y-m-d"}}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div><!-- ListTable -->
+		<div class="ListCounter">
+      {% if counsels.has_other_pages %}
+        {% for i in counsels.paginator.page_range %}
+          {% if counsels.number == i %}
+            <span>{{ i }}</span>
+          {% else %}
+            <a href="{% relative_url i 'page' request.GET.urlencode %}">{{ i }}</a>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
 
 
 

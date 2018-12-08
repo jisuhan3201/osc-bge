@@ -837,7 +837,6 @@ class ProcessView(LoginRequiredMixin, View):
 
     def get(self, request):
 
-
         if request.user.type == 'counselor':
             found_counselor = self.get_counselor()
             found_formalities = form_models.Formality.objects.filter(

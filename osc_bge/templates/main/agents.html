@@ -44,14 +44,14 @@
 					{% for agent in all_agents %}
 					<tr>
 						<td><a href="/agents/info/{{agent.id}}">{{agent.name}}</a></td>
-						<td>-</td>
-						<td>10</td>
+						<td>{{agent.inquired}}</td>
+						<td>{{agent.enrolled}}</td>
 					</tr>
 					{% endfor %}
 					<tr>
 						<td class="TitleColor">Total</td>
-						<td class="TitleColor">-</td>
-						<td class="TitleColor">14</td>
+						<td class="TitleColor">{{total_inquired}}</td>
+						<td class="TitleColor">{{total_enrolled}}</td>
 					</tr>
 				</table>
 			</div><!-- ListTable -->

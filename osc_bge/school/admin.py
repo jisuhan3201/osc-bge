@@ -25,6 +25,8 @@ class SchoolAdmin(admin.ModelAdmin):
         "founded",
         "religion",
         "number_students",
+        "created_at",
+        "updated_at",
     )
 
 @admin.register(models.Secondary)

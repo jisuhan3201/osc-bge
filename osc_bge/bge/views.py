@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from . import models
@@ -6,7 +7,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from osc_bge.agent import models as agent_models
 from osc_bge.form import models as form_models
-
+from osc_bge.school import models as school_models
+from osc_bge.branch import models as branch_models
+from osc_bge.student import models as student_models
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 @login_required(login_url='/accounts/login/')
 def index(request):
@@ -35,48 +40,256 @@ class BgeStatisticsView(LoginRequiredMixin, View):
 
     def get(self, request):
 
+        now = datetime.now()
+        year_list = []
+        for year in range(2018, now.year+1):
+            year_list.append(year)
+        year_list = sorted(year_list, reverse=True)
+
+        week_list = []
+        for num in range(0, 4):
+            start_last_week = datetime.today() - relativedelta(weeks=num)
+            end_last_week = datetime.today() - relativedelta(weeks=num+1, days=-1)
+            week_list.append([start_last_week, end_last_week])
+
+        day_list = []
+        for num in range(0, 7):
+            day_list.append(datetime.today() - relativedelta(days=num))
+
         all_agent_heads = agent_models.AgencyHead.objects.all()
         total_inquired = 0
         total_applied = 0
         total_accepted = 0
         total_cancelled = 0
         total_enrolled = 0
+        total_accepted_percent = 0
         for head in all_agent_heads:
-            inquired = form_models.Counsel.objects.filter(counselor__agency__head=head).count()
-            applied = form_models.Formality.objects.filter(counsel__counselor__agency__head=head).count()
+            inquired = form_models.Counsel.objects.filter(counselor__agency__head=head)
+            applied = form_models.Formality.objects.filter(apply_at__isnull=False, counsel__counselor__agency__head=head)
             accepted = form_models.SchoolFormality.objects.filter(
                 formality__counsel__counselor__agency__head=head,
-                acceptance_date__isnull=False).count()
+                acceptance_date__isnull=False)
             cancelled = form_models.SchoolFormality.objects.filter(
                 formality__counsel__counselor__agency__head=head,
-                cancel_enrolment_date__isnull=False).count()
+                cancel_enrolment_date__isnull=False)
             enrolled = form_models.SchoolFormality.objects.filter(
                 formality__counsel__counselor__agency__head=head,
-                i20_completed=True).count()
+                i20_completed=True)
 
-            head.inquired = inquired
-            head.applied = applied
-            head.accepted = accepted
-            head.cancelled = cancelled
-            head.enrolled = enrolled
+            if request.GET.get('year') and request.GET.get('start_month') and request.GET.get('end_month'):
+                start_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
+                end_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
+                end_date = end_date + relativedelta(months=1)
+            elif request.GET.get('year') and not request.GET.get('start_month') and request.GET.get('end_month'):
+                start_date = datetime.strptime(request.GET.get('year') + "-" + "01" + "-01", "%Y-%m-%d")
+                end_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
+                end_date = end_date + relativedelta(months=1)
+            elif request.GET.get('year') and request.GET.get('start_month') and not request.GET.get('end_month'):
+                start_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
+                end_date = None
+            elif request.GET.get('year') and not request.GET.get('start_month') and not request.GET.get('end_month'):
+                start_date = datetime.strptime(request.GET.get('year') + "-" + "01" + "-01", "%Y-%m-%d")
+                end_date = start_date + relativedelta(years=1)
+            elif not request.GET.get('year') and request.GET.get('start_month') and request.GET.get('end_month'):
+                start_date = datetime.strptime(str(now.year) + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
+                end_date = datetime.strptime(str(now.year) + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
+                end_date = end_date + relativedelta(months=1)
+            elif not request.GET.get('year') and request.GET.get('start_month') and not request.GET.get('end_month'):
+                start_date = datetime.strptime(str(now.year) + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
+                end_date = None
+            elif not request.GET.get('year') and not request.GET.get('start_month') and request.GET.get('end_month'):
+                start_date = datetime.strptime(str(now.year) + "-" + str(now.month) + "-01", "%Y-%m-%d")
+                end_date = datetime.strptime(str(now.year) + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
+                end_date = end_date + relativedelta(months=1)
+            else:
+                start_date = None
+                end_date= None
 
-            total_inquired += inquired
-            total_applied += applied
-            total_accepted += accepted
-            total_cancelled += cancelled
-            total_enrolled += enrolled
+            if start_date:
+                inquired = inquired.filter(created_at__gte=start_date)
+                applied = applied.filter(apply_at__gte=start_date)
+                accepted = accepted.filter(acceptance_date__gte=start_date)
+                cancelled = cancelled.filter(cancel_enrolment_date__gte=start_date)
+                enrolled = enrolled.filter(i20_received_date__gte=start_date)
+
+            if end_date:
+                inquired = inquired.filter(created_at__lt=end_date)
+                applied = applied.filter(apply_at__lt=end_date)
+                accepted = accepted.filter(acceptance_date__lt=end_date)
+                cancelled = cancelled.filter(cancel_enrolment_date__lt=end_date)
+                enrolled = enrolled.filter(i20_received_date__lt=end_date)
+
+            program_interested = request.GET.get('program_interested')
+            if program_interested:
+                inquired = inquired.filter(program_interested=program_interested)
+                applied = applied.filter(counsel__program_interested=program_interested)
+                accepted = accepted.filter(formality__counsel__program_interested=program_interested)
+                cancelled = cancelled.filter(formality__counsel__program_interested=program_interested)
+                enrolled = enrolled.filter(formality__counsel__program_interested=program_interested)
+
+            head.inquired = inquired.count()
+            head.applied = applied.count()
+            head.accepted = accepted.count()
+            head.cancelled = cancelled.count()
+            head.enrolled = enrolled.count()
+
+            total_inquired += inquired.count()
+            total_applied += applied.count()
+            total_accepted += accepted.count()
+            total_cancelled += cancelled.count()
+            total_enrolled += enrolled.count()
             try:
                 total_accepted_percent = int(total_accepted * 100 / total_applied)
             except ZeroDivisionError:
                 total_accepted_percent = 0
 
+            # Second Part
+        new_total_inquired = 0
+        new_total_applied = 0
+        new_total_accepted = 0
+        new_total_cancelled = 0
+        new_total_enrolled = 0
+        new_total_accepted_percent = 0
+
+        for head in all_agent_heads:
+
+            new_inquired = form_models.Counsel.objects.filter(counselor__agency__head=head)
+            new_applied = form_models.Formality.objects.filter(apply_at__isnull=False, counsel__counselor__agency__head=head)
+            new_accepted = form_models.SchoolFormality.objects.filter(formality__counsel__counselor__agency__head=head)
+            new_cancelled = form_models.SchoolFormality.objects.filter(formality__counsel__counselor__agency__head=head)
+            new_enrolled = form_models.SchoolFormality.objects.filter(formality__counsel__counselor__agency__head=head)
+
+            # default 1 week
+            if not request.GET.get('new_week') and not request.GET.get('new_day') and not request.GET.get('new_program'):
+                new_inquired = new_inquired.filter(
+                    created_at__range=(datetime.today() - relativedelta(weeks=1, days=-1), datetime.today()))
+                new_applied = new_applied.filter(
+                    apply_at__range=(datetime.today() - relativedelta(weeks=1, days=-1), datetime.today()))
+                new_accepted = new_accepted.filter(
+                    acceptance_date__isnull=False,
+                    acceptance_date__range=(datetime.today() - relativedelta(weeks=1, days=-1), datetime.today()))
+                new_cancelled = new_cancelled.filter(
+                    cancel_enrolment_date__isnull=False,
+                    cancel_enrolment_date__range=(datetime.today() - relativedelta(weeks=1, days=-1), datetime.today()))
+                new_enrolled = new_enrolled.filter(
+                    i20_completed=True,
+                    i20_received_date__range=(datetime.today() - relativedelta(weeks=1, days=-1), datetime.today()))
+
+            if request.GET.get('new_week'):
+                new_end_date = datetime.strptime(request.GET.get('new_week'), '%Y-%m-%d')
+                new_inquired = new_inquired.filter(
+                    created_at__range=(new_end_date - relativedelta(weeks=1, days=-1), new_end_date))
+                new_applied = new_applied.filter(
+                    apply_at__range=(new_end_date - relativedelta(weeks=1, days=-1), new_end_date))
+                new_accepted = new_accepted.filter(
+                    acceptance_date__isnull=False,
+                    acceptance_date__range=(new_end_date - relativedelta(weeks=1, days=-1), new_end_date))
+                new_cancelled = new_cancelled.filter(
+                    cancel_enrolment_date__isnull=False,
+                    cancel_enrolment_date__range=(new_end_date - relativedelta(weeks=1, days=-1), new_end_date))
+                new_enrolled = new_enrolled.filter(
+                    i20_completed=True,
+                    i20_received_date__range=(new_end_date - relativedelta(weeks=1, days=-1), new_end_date))
+
+            if request.GET.get('new_day'):
+                new_day = datetime.strptime(request.GET.get('new_day'), '%Y-%m-%d')
+                new_inquired = new_inquired.filter(
+                    created_at__range=(new_day, new_day + relativedelta(days=1)))
+                new_applied = new_applied.filter(
+                    apply_at__range=(new_day, new_day + relativedelta(days=1)))
+                new_accepted = new_accepted.filter(
+                    acceptance_date__isnull=False,
+                    acceptance_date__range=(new_day, new_day + relativedelta(days=1)))
+                new_cancelled = new_cancelled.filter(
+                    cancel_enrolment_date__isnull=False,
+                    cancel_enrolment_date__range=(new_day, new_day + relativedelta(days=1)))
+                new_enrolled = new_enrolled.filter(
+                    i20_completed=True,
+                    i20_received_date__range=(new_day, new_day + relativedelta(days=1)))
+
+            new_program_interested = request.GET.get('new_program')
+            if new_program_interested:
+
+                new_inquired = new_inquired.filter(program_interested=new_program_interested)
+                new_applied = new_applied.filter(counsel__program_interested=new_program_interested)
+                new_accepted = new_accepted.filter(formality__counsel__program_interested=new_program_interested)
+                new_cancelled = new_cancelled.filter(formality__counsel__program_interested=new_program_interested)
+                new_enrolled = new_enrolled.filter(formality__counsel__program_interested=new_program_interested)
+
+            head.new_inquired = new_inquired.count()
+            head.new_applied = new_applied.count()
+            head.new_accepted = new_accepted.count()
+            head.new_cancelled = new_cancelled.count()
+            head.new_enrolled = new_enrolled.count()
+
+            new_total_inquired += new_inquired.count()
+            new_total_applied += new_applied.count()
+            new_total_accepted += new_accepted.count()
+            new_total_cancelled += new_cancelled.count()
+            new_total_enrolled += new_enrolled.count()
+            try:
+                new_total_accepted_percent = int(new_total_accepted * 100 / new_total_applied)
+            except ZeroDivisionError:
+                new_total_accepted_percent = 0
+
+        all_counsel = form_models.Counsel.objects.all()
+
+        if request.GET.get('agent_head'):
+            all_counsel = all_counsel.filter(counselor__agency__head__id=int(request.GET.get('agent_head')))
+
+        if request.GET.get('customer_program'):
+            all_counsel = all_counsel.filter(program_interested=request.GET.get('customer_program'))
+
+        if request.GET.get('customer_country'):
+            all_counsel = all_counsel.filter(student__nationality__iexact=request.GET.get('customer_country'))
+
+        if request.GET.get('customer_search_type') and request.GET.get('search_input'):
+            if request.GET.get('customer_search_type') == 'phone':
+                all_counsel = all_counsel.filter(student__phone__icontains=request.GET.get('search_input'))
+            elif request.GET.get('customer_search_type') == 'email':
+                all_counsel = all_counsel.filter(student__email__icontains=request.GET.get('search_input'))
+            else:
+                all_counsel = all_counsel.filter(student__name__icontains=request.GET.get('search_input'))
+
+        for counsel in all_counsel:
+            found_school_formalities = form_models.SchoolFormality.objects.filter(formality__counsel=counsel)
+            for school_formality in found_school_formalities:
+                if school_formality.acceptance_date:
+                    counsel.acceptance_date = school_formality.acceptance_date
+                if school_formality.cancel_enrolment_date:
+                    counsel.cancel_enrolment_date = school_formality.cancel_enrolment_date
+                if school_formality.i20_received_date:
+                    counsel.i20_received_date = school_formality.i20_received_date
+
+        paginator = Paginator(all_counsel, 10)
+        page = request.GET.get('page')
+
+        try:
+            counsels = paginator.get_page(page)
+        except PageNotAnInteger:
+            counsels = paginator.page(1)
+        except EmptyPage:
+            counsels = paginator.page(paginator.num_pages)
+
+
         return render(request, 'main/statistics.html', {
+            'year_list':year_list,
+            'week_list':week_list,
+            'day_list':day_list,
             'all_agent_heads':all_agent_heads,
             "total_inquired":total_inquired,
             "total_applied":total_applied,
             "total_cancelled":total_cancelled,
             "total_enrolled":total_enrolled,
             "total_accepted_percent":total_accepted_percent,
+            "new_total_inquired" : new_total_inquired,
+            "new_total_applied" : new_total_applied,
+            "new_total_cancelled" : new_total_cancelled,
+            "new_total_enrolled" : new_total_enrolled,
+            "new_total_accepted_percent" : new_total_accepted_percent,
+            "default_start_date": datetime.today() - relativedelta(weeks=1, days=-1),
+            "default_end_date":datetime.today(),
+            "counsels":counsels,
         })
 
 
@@ -85,7 +298,85 @@ class BranchesView(LoginRequiredMixin, View):
 
     def get(self, request):
 
-        return render(request, 'main/branches.html', {})
+        now = datetime.now()
+        year_list = []
+        for year in range(2018, now.year+1):
+            year_list.append(year)
+        year_list = sorted(year_list, reverse=True)
+
+        all_branches = models.BgeBranch.objects.all()
+        for branch in all_branches:
+
+            partner_school = school_models.School.objects.filter(provider_branch=branch)
+
+            branch_hosts = branch_models.HostFamily.objects.filter(
+                provider_branch=branch)
+            active_hosts = branch_hosts.filter(status='active')
+            inactive_hosts = branch_hosts.filter(status='inactive')
+            prospective_hosts = branch_hosts.filter(status='prospective')
+
+            current_student = student_models.Student.objects.filter(school__provider_branch=branch)
+            student_complaints = branch_models.CommunicationLog.objects.filter(
+                host__provider_branch=branch, category='Complaints')
+
+            if request.GET.get('year') or request.GET.get('start_month') or request.GET.get('end_month'):
+
+                if request.GET.get('year') and request.GET.get('start_month') and request.GET.get('end_month'):
+                    start_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
+                    end_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
+                    end_date = end_date + relativedelta(months=1)
+                elif request.GET.get('year') and not request.GET.get('start_month') and request.GET.get('end_month'):
+                    start_date = datetime.strptime(request.GET.get('year') + "-" + "01" + "-01", "%Y-%m-%d")
+                    end_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
+                    end_date = end_date + relativedelta(months=1)
+                elif request.GET.get('year') and request.GET.get('start_month') and not request.GET.get('end_month'):
+                    start_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
+                    end_date = None
+                elif request.GET.get('year') and not request.GET.get('start_month') and not request.GET.get('end_month'):
+                    start_date = datetime.strptime(request.GET.get('year') + "-" + "01" + "-01", "%Y-%m-%d")
+                    end_date = start_date + relativedelta(years=1)
+                elif not request.GET.get('year') and request.GET.get('start_month') and request.GET.get('end_month'):
+                    start_date = datetime.strptime(str(now.year) + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
+                    end_date = datetime.strptime(str(now.year) + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
+                    end_date = end_date + relativedelta(months=1)
+                elif not request.GET.get('year') and request.GET.get('start_month') and not request.GET.get('end_month'):
+                    start_date = datetime.strptime(str(now.year) + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
+                    end_date = None
+                elif not request.GET.get('year') and not request.GET.get('start_month') and request.GET.get('end_month'):
+                    start_date = datetime.strptime(str(now.year) + "-" + str(now.month) + "-01", "%Y-%m-%d")
+                    end_date = datetime.strptime(str(now.year) + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
+                    end_date = end_date + relativedelta(months=1)
+                else:
+                    start_date = None
+                    end_date= None
+
+                if start_date:
+                    partner_school = partner_school.filter(created_at__gte=start_date)
+                    active_hosts = active_hosts.filter(created_at__gte=start_date)
+                    inactive_hosts = inactive_hosts.filter(created_at__gte=start_date)
+                    prospective_hosts = prospective_hosts.filter(created_at__gte=start_date)
+                    current_student = current_student.filter(created_at__gte=start_date)
+                    student_complaints = student_complaints.filter(created_at__gte=start_date)
+
+                if end_date:
+                    partner_school = partner_school.filter(created_at__lt=end_date)
+                    active_hosts = active_hosts.filter(created_at__lt=end_date)
+                    inactive_hosts = inactive_hosts.filter(created_at__lt=end_date)
+                    prospective_hosts = prospective_hosts.filter(created_at__lt=end_date)
+                    current_student = current_student.filter(created_at__lt=end_date)
+                    student_complaints = student_complaints.filter(created_at__lt=end_date)
+
+            branch.partner_school = partner_school.count()
+            branch.active_hosts = active_hosts.count()
+            branch.inactive_hosts = inactive_hosts.count()
+            branch.prospective_hosts = prospective_hosts.count()
+            branch.current_student = current_student.count()
+            branch.student_complaints = student_complaints.count()
+
+        return render(request, 'main/branches.html', {
+            'all_branches':all_branches,
+            'year_list':year_list,
+        })
 
 
 class AgentsView(LoginRequiredMixin, View):
@@ -94,9 +385,24 @@ class AgentsView(LoginRequiredMixin, View):
     def get(self, request):
 
         all_agents = agent_models.AgencyHead.objects.all()
+        total_inquired = 0
+        total_enrolled = 0
+        for head in all_agents:
+            inquired = form_models.Counsel.objects.filter(counselor__agency__head=head)
+            enrolled = form_models.SchoolFormality.objects.filter(
+                formality__counsel__counselor__agency__head=head,
+                i20_completed=True)
+
+            head.inquired = inquired.count()
+            head.enrolled = enrolled.count()
+
+            total_inquired += inquired.count()
+            total_enrolled += enrolled.count()
 
         return render(request, 'main/agents.html', {
             'all_agents':all_agents,
+            'total_inquired':total_inquired,
+            'total_enrolled':total_enrolled,
         })
 
 
@@ -221,7 +527,7 @@ class AgentsUpdateView(LoginRequiredMixin, View):
                         )
                         agent_program.save()
 
-            if data.get('type') == 'contact_information':
+            elif data.get('type') == 'contact_information':
 
                 try:
                     found_agent = agent_models.AgencyHead.objects.get(pk=agent_id)
@@ -289,6 +595,9 @@ class AgentsUpdateView(LoginRequiredMixin, View):
                         image=data.get('fimage3'),
                     )
                     contact_info.save()
+
+            elif data.get('type') == 'relationship_history':
+                pass
 
         else:
             return HttpResponse("Id not found", status=400)
