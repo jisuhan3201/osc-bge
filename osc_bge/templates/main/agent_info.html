@@ -11,7 +11,10 @@
 			<div class="Title">Relationship History Update</div>
 		</div>
 		<div class="Contents">
-
+		<form method="POST">
+			{% csrf_token %}
+			<input type="text" name="type" value="relationship_history" hidden>
+			<input type="text" name="relationship_history_id" value="" hidden>
 			<div class="InfoTable">
 				<table cellpadding="0" cellspacing="0" border="0">
 					<colgroup>
@@ -25,30 +28,30 @@
 					</tr>
 					<tr>
 						<th>Writer : </th>
-						<td>Jessica, Choi</td>
+						<td>{{user.first_name}} {{user.last_name}}</td>
 						<th>Agent : </th>
-						<td>Metan</td>
+						<td>{{found_agent.name}}</td>
 					</tr>
 					<tr>
-						<th>Name : </th>
-						<td>Jessica, Choi</td>
-						<th>Date : </th>
-						<td>25 Aug 2017</td>
-					</tr>
-					<tr>
-						<th>Location : </th>
-						<td colspan="3">Shenzhen, China</td>
-					</tr>
-					<tr>
-						<th>Cateogry : </th>
-						<td class="InnerInputTD">
-						<select class="TableInnerInput">
-							<option>Category Select..</option>
-						</select>
+						<th>Contact Person : </th>
+						<td>
+							<input type="text" class="TableInnerInput" name="name" value="" />
 						</td>
-						<th>Priority : </th>
+						<th>Date : </th>
+						<td><input type="text" class="TableInnerInput" name="date" value="{% now 'Y-m-d'%}" readonly/></td>
+					</tr>
+					<tr>
+						<th>Location </th>
+						<td colspan="3"><input type="text" class="TableInnerInput" size="32" name="location" /></td>
+					</tr>
+					<tr>
+						<th>Cateogry </th>
 						<td class="InnerInputTD">
-						<select class="TableInnerInput">
+							<input type="text" class="TableInnerInput" name="category" value=""/>
+						</td>
+						<th>Priority </th>
+						<td class="InnerInputTD">
+						<select class="TableInnerInput" name="priority">
 							<option>1</option>
 							<option>2</option>
 							<option>3</option>
@@ -62,7 +65,7 @@
 					</tr>
 					<tr>
 						<th colspan="4">
-							<textarea class="TableInnerTextarea"></textarea>
+							<textarea class="TableInnerTextarea" name="comment"></textarea>
 						</td>
 					</tr>
 				</table>
@@ -70,10 +73,9 @@
 
 
 			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopRelationshipHistory').style.display='none';">CLOSE</div>
-				<div class="Submit" OnClick="document.getElementById('PopRelationshipHistory').style.display='none';">REGIST</div>
+				<button class="Submit" type="submit">SAVE</button>
 			</div>
-
+		</form>
 		</div>
 	</div>
 </div>
@@ -234,7 +236,7 @@
 		<form method="POST">
 		{% csrf_token %}
 		<input name="type" value="contact_information" hidden/>
-			<div class="MTitle">Meten Contact Information</div>
+			<div class="MTitle">{{found_agent.name}} Contact Information</div>
 			<div class="cdiv"></div>
 
 			{% for info in contact_infos %}
@@ -520,51 +522,17 @@
 					<th>Priority (1-5)</th>
 					<th>Writer</th>
 				</tr>
+				{% for history in relationship_histories %}
 				<tr>
-					<td>03.27.2018</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
+					<td>{{history.date|date:"Y-m-d"}}</td>
+					<td>{{history.name}}</td>
+					<td>{{history.location}}</td>
+					<td>{{history.category}}</td>
+					<td><span id="RelationshipHistorySpan{{history.id}}" class="RelationshipHistorySpanClass" style="color:blue;cursor:pointer;">{{history.comment}}</span></td>
+					<td>{{history.priority}}</td>
+					<td>{{history.writer}}</td>
 				</tr>
-				<tr>
-					<td>03.27.2018</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td>03.27.2018</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td>03.27.2018</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td>03.27.2018</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
+				{% endfor %}
 			</table>
 		</div><!-- ListTable -->
 		<div class="EndPart"></div>
@@ -573,7 +541,6 @@
 
 		<div class="MTitle">Secondary Program</div>
 		<div class="ListSearch Aright">
-			<div><a href="javascript:void(0);" class="IsolationButton" OnClick="document.getElementById('PopRelationshipHistory').style.display='block';">Update Data</a></div>
 		</div>
 		<div class="cdiv"></div>
 		<div class="ListTable">
@@ -583,64 +550,22 @@
 				</colgroup>
 				<tr>
 					<th>Period</th>
-					<th>Target</th>
 					<th>New Students in Fall</th>
 					<th>New Students in Spring</th>
 					<th>Total New Students in BGE</th>
 					<th>Total Students in BGE</th>
 					<th>Terminating Students (No Graduation)</th>
-					<th>Comments</th>
 				</tr>
+				{% for data in secondary_data%}
 				<tr>
-					<td>2013 ~ 2014</td>
-					<td>10</td>
-					<td>5</td>
-					<td>3</td>
-					<td>-</td>
-					<td>15</td>
-					<td>-</td>
-					<td>-</td>
+					<td>{{data.period|date:"Y"}}</td>
+					<td>{{data.term_fall}}</td>
+					<td>{{data.term_spring}}</td>
+					<td>{{data.total_new_students}}</td>
+					<td>{{data.total_students}}</td>
+					<td>{{data.terminated_students}}</td>
 				</tr>
-				<tr>
-					<td>2014 ~ 2015</td>
-					<td>10</td>
-					<td>5</td>
-					<td>3</td>
-					<td>-</td>
-					<td>15</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td>2015 ~ 2016</td>
-					<td>10</td>
-					<td>5</td>
-					<td>3</td>
-					<td>-</td>
-					<td>15</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td>2016 ~ 2017</td>
-					<td>10</td>
-					<td>5</td>
-					<td>3</td>
-					<td>-</td>
-					<td>15</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td>2017 ~ 2018</td>
-					<td>10</td>
-					<td>5</td>
-					<td>3</td>
-					<td>-</td>
-					<td>15</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
+				{% endfor %}
 			</table>
 		</div><!-- ListTable -->
 		<div class="EndPart"></div>

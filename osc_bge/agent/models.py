@@ -11,7 +11,7 @@ class TimeStampedModel(models.Model):
     class Meta:
         abstract = True
 
-
+#Agent Head Table
 class AgencyHead(TimeStampedModel):
 
     PROGRAM_CHOICES = (
@@ -39,14 +39,25 @@ class AgencyProgram(TimeStampedModel):
     program = models.CharField(max_length=80, null=True, blank=True)
 
 
+#Agent Branch Table
 class Agency(TimeStampedModel):
 
     head = models.ForeignKey(AgencyHead, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=140, null=True, blank=True)
-    branch = models.CharField(max_length=140, null=True, blank=True)
+    location = models.CharField(max_length=140, null=True, blank=True)
+    capacity_students = models.CharField(max_length=255, null=True, blank=True)
+    commission = models.CharField(max_length=140, null=True, blank=True)
+    promotion = models.CharField(max_length=255, null=True, blank=True)
+    others = models.CharField(max_length=255, null=True, blank=True)
+    comment = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return "{}-{}".format(self.name, self.branch)
+        return "{}".format(self.name)
+
+class AgencyBranchProgram(TimeStampedModel):
+
+    branch = models.ForeignKey(Agency, on_delete=models.CASCADE, null=True)
+    program = models.CharField(max_length=80, null=True, blank=True)
 
 def set_filename_format(now, instance, filename):
 
@@ -91,6 +102,7 @@ class AgencyHeadContactInfo(TimeStampedModel):
 
 class AgentRelationshipHistory(TimeStampedModel):
 
+    head = models.ForeignKey(AgencyHead, on_delete=models.CASCADE, null=True)
     writer = models.CharField(max_length=80, null=True, blank=True)
     name = models.CharField(max_length=80, null=True, blank=True)
     date = models.DateField(null=True, blank=True)

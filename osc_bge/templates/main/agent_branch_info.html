@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
+
+
+
+
 <div class="ContentsFrame">
 
 
@@ -12,6 +17,12 @@
 					{% for agent in all_agents %}
 					<li><a href="/agents/info/{{agent.id}}">{{agent.name}}</a></li>
 					{% endfor %}
+					<br>
+					/////////Branch/////////
+					{% for agent in all_agent_branches %}
+					<li><a href="/agents/branch/info/{{agent.id}}">{{agent.name}}</a></li>
+					{% endfor %}
+					<br />
 				</div><!-- InnerTabContents -->
 
 			</div><!-- TabConternts ID:InnerTab0101 -->
@@ -25,7 +36,7 @@
 
 
 	<div class="MainAFrame">
-		<div class="PTitle">Agent Regist</div>
+		<div class="PTitle">{{found_agent_branch.name}} <span>{{found_agent_branch.location}}</span></div>
 
 		<form method="POST">
 			{% csrf_token %}
@@ -39,34 +50,24 @@
 						<col>
 					</colgroup>
 					<tr>
-            <th>Name : </th>
-            <td class="InnerInputTD">
-              <input type="text" class="TableInnerInput" size="32" name="name" value="" required/>
-            </td>
 						<th>Location : </th>
 						<td class="InnerInputTD">
+							{% if found_agent_branch %}
+							<input type="text" class="TableInnerInput" size="32" name="location" value="{{found_agent_branch.location}}" />
+							{% else %}
 							<input type="text" class="TableInnerInput" size="32" name="location" value="" />
+							{% endif %}
 						</td>
-					</tr>
-					<tr>
-            <th>Type : </th>
-            <td class="InnerInputTD">
-							<label>
-								<input id="at1" type="radio" name="agent_type" value="head" checked required/><span></span>Head
-							</label>
-							<label>
-								<input id="at2" type="radio" name="agent_type" value="branch" /><span></span>Branch
-							</label>
-            </td>
-						<th id="ChangeByTypeThId">Branches : </th>
-						<td class="InnerInputTD" id="NumBranchesTdId">
-							<input id="NumBranchesId" type="text" class="TableInnerInput" size="3" name="number_branches"  value=""/>branches
-						</td>
-						<td class="InnerInputTD" id="SelectHeadTdId" style="display:none;">
-							<select id="AgentHeadListId" class="TableInnerInput" name="agent_head">
+						<th>Head : </th>
+						<td class="InnerInputTD">
+							<select class="TableInnerInput" name="agent_head">
 								<option value="">Select Head..</option>
 								{% for head in all_agents %}
-								<option value="{{head.id}}">{{head.name}}</option>
+									{% if head.id == found_agent_branch.head.id %}
+										<option value="{{head.id}}" selected>{{head.name}}</option>
+									{% else %}
+										<option value="{{head.id}}">{{head.name}}</option>
+									{% endif %}
 								{% endfor %}
 							</select>
 						</td>
@@ -75,45 +76,77 @@
 						<th>Program : </th>
 						<td colspan="3">
 							<label>
+								{% if 'secondary' in program_list %}
+								<input type="checkbox" name="program" value="secondary" checked/><span></span>Secondary
+								{% else %}
 								<input type="checkbox" name="program" value="secondary" /><span></span>Secondary
+								{% endif %}
 							</label>
 							<label>
+								{% if 'college' in program_list %}
+								<input type="checkbox" name="program" value="college" checked/><span></span>College
+								{% else %}
 								<input type="checkbox" name="program" value="college" /><span></span>College
+								{% endif %}
 							</label>
 							<label>
+								{% if 'camp' in program_list %}
+								<input type="checkbox" name="program" value="camp" checked/><span></span>Camp
+								{% else %}
 								<input type="checkbox" name="program" value="camp" /><span></span>Camp
+								{% endif %}
 							</label>
 						</td>
 					</tr>
 					<tr>
 						<th>Capacity (#of Students)  : </th>
 						<td class="InnerInputTD" colspan="3">
+							{% if found_agent_branch %}
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="capacity_students" value="{{found_agent_branch.capacity_students}}" />
+							{% else %}
 							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="capacity_students" value="" />
+							{% endif %}
 						</td>
 					</tr>
 					<tr>
 						<th>Commission  : </th>
 						<td class="InnerInputTD" colspan="3">
+							{% if found_agent_branch %}
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="commission" value="{{found_agent_branch.commission}}" />
+							{% else %}
 							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="commission" value="" />
+							{% endif %}
 						</td>
 					</tr>
 					<tr>
 						<th>Promotion  : </th>
 						<td class="InnerInputTD" colspan="3">
+							{% if found_agent_branch.promotion %}
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="promotion" value="{{found_agent_branch.promotion}}" />
+							{% else %}
 							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="promotion" value="" />
+							{% endif %}
 						</td>
 					</tr>
 					<tr>
 						<th>Others  : </th>
 						<td class="InnerInputTD" colspan="3">
+							{% if found_agent_branch %}
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="others" value="{{found_agent_branch.others}}" />
+							{% else %}
 							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="others" value="" />
+							{% endif %}
 						</td>
 
 					</tr>
 					<tr>
 						<th>Comment  : </th>
 						<td class="InnerInputTD" colspan="3">
+							{% if found_agent_branch %}
+							<textarea class="TableInnerTextarea" style="height:80px" name="comment">{{found_agent_branch.comment}}</textarea>
+							{% else %}
 							<textarea class="TableInnerTextarea" style="height:80px" name="comment"></textarea>
+							{% endif %}
 						</td>
 					</tr>
 				</table>

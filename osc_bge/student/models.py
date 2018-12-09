@@ -34,6 +34,7 @@ class Student(TimeStampedModel):
         ('unregistered', 'Unregistered'),
         ('registered', 'Registered'),
         ('transferred', 'Transferred'),
+        ('terminated', 'Terminated'),
     )
 
     agency_admin = models.ForeignKey(user_models.AgencyAdminUser, on_delete=models.SET_NULL, null=True)

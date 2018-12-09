@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from . import models
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core import serializers
 from django.views import View
 from osc_bge.agent import models as agent_models
 from osc_bge.form import models as form_models
@@ -399,10 +400,27 @@ class AgentsView(LoginRequiredMixin, View):
             total_inquired += inquired.count()
             total_enrolled += enrolled.count()
 
+        all_agent_branches = agent_models.Agency.objects.all()
+        all_communication_logs = agent_models.AgentRelationshipHistory.objects.all().order_by('-created_at')
+        if request.GET.get('agent_head'):
+            all_communication_logs = all_communication_logs.filter(head__id=int(request.GET.get('agent_head')))
+
+        paginator = Paginator(all_communication_logs, 10)
+        page = request.GET.get('page')
+
+        try:
+            logs = paginator.get_page(page)
+        except PageNotAnInteger:
+            logs = paginator.page(1)
+        except EmptyPage:
+            logs = paginator.page(paginator.num_pages)
+
         return render(request, 'main/agents.html', {
             'all_agents':all_agents,
+            'all_agent_branches':all_agent_branches,
             'total_inquired':total_inquired,
             'total_enrolled':total_enrolled,
+            'logs':logs,
         })
 
 
@@ -415,9 +433,11 @@ class AgentsCreateView(LoginRequiredMixin, View):
             return HttpResponse("You don't have permissions", status=400)
 
         all_agents = agent_models.AgencyHead.objects.all()
+        all_agent_branches = agent_models.Agency.objects.all()
 
         return render(request, 'main/agent_info_create.html', {
             'all_agents':all_agents,
+            'all_agent_branches':all_agent_branches,
         })
 
     def post(self, request):
@@ -427,25 +447,57 @@ class AgentsCreateView(LoginRequiredMixin, View):
 
         data = request.POST
 
-        agent = agent_models.AgencyHead(
-            name=data.get('name'),
-            location=data.get('location'),
-            number_branches=data.get('number_branches'),
-            capacity_students = data.get('capacity_students'),
-            commission=data.get('commission'),
-            promotion=data.get('promotion'),
-            others=data.get('others'),
-            comment=data.get('comment'),
-        )
-        agent.save()
+        if data.get('agent_type') == 'head':
 
-        if data.getlist('program'):
-            for program in data.getlist('program'):
-                agency_program = agent_models.AgencyProgram(
-                    head=agent,
-                    program=program
-                )
-                agency_program.save()
+            agent = agent_models.AgencyHead(
+                name=data.get('name'),
+                location=data.get('location'),
+                number_branches=data.get('number_branches'),
+                capacity_students = data.get('capacity_students'),
+                commission=data.get('commission'),
+                promotion=data.get('promotion'),
+                others=data.get('others'),
+                comment=data.get('comment'),
+            )
+            agent.save()
+
+            if data.getlist('program'):
+                for program in data.getlist('program'):
+                    agency_program = agent_models.AgencyProgram(
+                        head=agent,
+                        program=program
+                    )
+                    agency_program.save()
+
+        elif data.get('agent_type') == 'branch':
+
+            try:
+                found_head = agent_models.AgencyHead.objects.get(id=int(data.get('agent_head')))
+            except agent_models.AgencyHead.DoesNotExist:
+                return HttpResponse('Wrong head id', status=400)
+
+            agent = agent_models.Agency(
+                head=found_head,
+                name=data.get('name'),
+                location=data.get('location'),
+                capacity_students = data.get('capacity_students'),
+                commission=data.get('commission'),
+                promotion=data.get('promotion'),
+                others=data.get('others'),
+                comment=data.get('comment'),
+            )
+            agent.save()
+
+            if data.getlist('program'):
+                for program in data.getlist('program'):
+                    agency_program = agent_models.AgencyBranchProgram(
+                        branch=agent,
+                        program=program
+                    )
+                    agency_program.save()
+
+        else:
+            return HttpResponse("Something goes wrong..", status=400)
 
         return HttpResponseRedirect('/agents')
 
@@ -479,6 +531,38 @@ class AgentsUpdateView(LoginRequiredMixin, View):
                 rest_contact_range = range(1, 4)
                 contact_infos_count = 0
 
+            relationship_histories = agent_models.AgentRelationshipHistory.objects.filter(head=found_agent)
+
+            # Secondary Program
+            now = datetime.now()
+            year_list = []
+            for year in range(now.year-4, now.year+1):
+                year_list.append(year)
+            year_list = sorted(year_list, reverse=True)
+
+            all_students = student_models.Student.objects.all()
+            secondary_data = []
+            for year in year_list:
+                next_year = year+1
+                year = datetime.strptime(str(year) + '-01' + '-01', "%Y-%m-%d")
+                next_year = datetime.strptime(str(next_year) + '-01' + '-01', "%Y-%m-%d")
+                data = {}
+                term_fall = all_students.filter(school__type='secondary', school__term='fall', created_at__gte=year, created_at__lt=next_year).count()
+                term_spring = all_students.filter(school__type='secondary', school__term='spring', created_at__gte=year, created_at__lt=next_year).count()
+                total_new_students = all_students.filter(school__type='secondary', created_at__gte=year, created_at__lt=next_year).count()
+                terminated_students = all_students.filter(school__type='secondary', created_at__gte=year, created_at__lt=next_year, status='terminated').count()
+                total_students = all_students.filter(school__type='secondary', created_at__lt=next_year).count()
+
+                data.update({
+                    'period':year,
+                    'term_fall':term_fall,
+                    'term_spring':term_spring,
+                    'total_new_students':total_new_students,
+                    'terminated_students':terminated_students,
+                    'total_students':total_students
+                })
+                secondary_data.append(data)
+
         else:
             return HttpResponse("Wrong id", status=400)
 
@@ -489,6 +573,8 @@ class AgentsUpdateView(LoginRequiredMixin, View):
             'contact_infos':contact_infos,
             'contact_infos_count':contact_infos_count,
             'rest_contact_range':rest_contact_range,
+            'relationship_histories':relationship_histories,
+            'secondary_data':secondary_data,
         })
 
     def post(self, request, agent_id=None):
@@ -535,7 +621,7 @@ class AgentsUpdateView(LoginRequiredMixin, View):
                     return HttpResponse("Wrong Agent ID", status=400)
 
                 if data.getlist('info_id'):
-                    print(data)
+
                     for num in data.getlist('info_id'):
                         try:
                             found_info = agent_models.AgencyHeadContactInfo.objects.get(pk=int(num))
@@ -597,13 +683,138 @@ class AgentsUpdateView(LoginRequiredMixin, View):
                     contact_info.save()
 
             elif data.get('type') == 'relationship_history':
-                pass
+
+                if data.get('relationship_history_id'):
+
+                    try:
+                        found_history = agent_models.AgentRelationshipHistory.objects.get(id=int(data.get('relationship_history_id')))
+                    except agent_models.AgentRelationshipHistory.DoesNotExist:
+                        return HttpResponse('Wrong history id', status=400)
+
+                    user = request.user.first_name + request.user.last_name
+                    found_history.writer=user
+                    found_history.name=data.get('name')
+                    found_history.date=data.get('date')
+                    found_history.location=data.get('location')
+                    found_history.category=data.get('category')
+                    found_history.priority=int(data.get('priority'))
+                    found_history.comment=data.get('comment')
+                    found_history.save()
+
+                    return HttpResponseRedirect(request.path_info)
+                else:
+                    try:
+                        found_agent = agent_models.AgencyHead.objects.get(pk=agent_id)
+                    except agent_models.AgencyHead.DoesNotExist:
+                        return HttpResponse("Wrong Agent ID", status=400)
+                    user = request.user.first_name + request.user.last_name
+                    history = agent_models.AgentRelationshipHistory(
+                        head=found_agent,
+                        writer=user,
+                        name=data.get('name'),
+                        date=data.get('date'),
+                        location=data.get('location'),
+                        category=data.get('category'),
+                        priority=int(data.get('priority')),
+                        comment=data.get('comment'),
+                    )
+                    history.save()
+
+                    return HttpResponseRedirect(request.path_info)
 
         else:
             return HttpResponse("Id not found", status=400)
 
         return HttpResponseRedirect('/agents')
 
+
+@login_required(login_url='/accounts/login/')
+def agent_history_get(request, history_id=None):
+
+    if history_id:
+        try:
+            found_history = agent_models.AgentRelationshipHistory.objects.filter(id=int(history_id))
+        except agent_models.AgentRelationshipHistory.DoesNotExist:
+            return HttpResponse('Wrong history id', status=400)
+
+        data = serializers.serialize("json", found_history)
+        return HttpResponse(data, content_type="application/json")
+
+    else:
+        return HttpResponse('No history id', status=400)
+
+class AgentsBranchUpdateView(LoginRequiredMixin, View):
+
+    def get(self, request, agent_id=None):
+
+        if agent_id:
+
+            try:
+                found_agent_branch = agent_models.Agency.objects.get(pk=agent_id)
+            except agent_models.Agency.DoesNotExist:
+                return HttpResponse("Wrong Agent ID", status=400)
+
+            all_agents = agent_models.AgencyHead.objects.all()
+            all_agent_branches = agent_models.Agency.objects.all()
+
+            agent_branch_programs = agent_models.AgencyBranchProgram.objects.filter(branch=found_agent_branch)
+            program_list = []
+            if agent_branch_programs:
+                for program in agent_branch_programs:
+                    program_list.append(program.program)
+
+        else:
+            return HttpResponse("Wrong id", status=400)
+
+        return render(request, 'main/agent_branch_info.html', {
+            "found_agent_branch":found_agent_branch,
+            'all_agents':all_agents,
+            'all_agent_branches':all_agent_branches,
+            'program_list':program_list,
+        })
+
+    def post(self, request, agent_id=None):
+
+        if not request.user.type == 'bge_admin' or request.user.type == 'bge_team' or request.user.type == 'bge_branch_admin':
+            return HttpResponse("You don't have permissions", status=400)
+
+        data = request.POST
+
+        if agent_id:
+
+            try:
+                found_agent_branch = agent_models.Agency.objects.get(pk=agent_id)
+            except agent_models.Agency.DoesNotExist:
+                return HttpResponse("Wrong Agent Branch ID", status=400)
+
+            try:
+                found_head = agent_models.AgencyHead.objects.get(pk=int(data.get('agent_head')))
+            except agent_models.AgencyHead.DoesNotExist:
+                return HttpResponse('Wrong Head Id', status=400)
+
+            found_agent_branch.location = data.get('location')
+            found_agent_branch.head = found_head
+            found_agent_branch.capacity_students = data.get('capacity_students')
+            found_agent_branch.commission = data.get('commission')
+            found_agent_branch.promotion = data.get('promotion')
+            found_agent_branch.others = data.get('others')
+            found_agent_branch.comment = data.get('comment')
+            found_agent_branch.save()
+
+            if data.getlist('program'):
+                found_programs = agent_models.AgencyBranchProgram.objects.filter(branch=found_agent_branch)
+                found_programs.delete()
+                for program in data.getlist('program'):
+                    agent_program = agent_models.AgencyBranchProgram(
+                        branch=found_agent_branch,
+                        program=program
+                    )
+                    agent_program.save()
+
+        else:
+            return HttpResponse("Id not found", status=400)
+
+        return HttpResponseRedirect('/agents')
 
 @login_required(login_url='/accounts/login/')
 def delete_contact_info(request, agent_id=None, contact_id=None):
@@ -621,9 +832,6 @@ def delete_contact_info(request, agent_id=None, contact_id=None):
         return HttpResponse(status=400)
 
     return HttpResponseRedirect("/agents/info/"+str(agent_id))
-
-
-
 
 
 class SecondaryView(LoginRequiredMixin, View):

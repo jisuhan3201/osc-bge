@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static templatehelpers%}
 {% block content %}
 <div class="ContentsFrame">
 
@@ -11,6 +11,11 @@
 				<div class="InnerTabContents">
 					{% for agent in all_agents %}
 					<li><a href="/agents/info/{{agent.id}}">{{agent.name}}</a></li>
+					{% endfor %}
+					<br>
+					/////////Branch/////////
+					{% for agent in all_agent_branches %}
+					<li><a href="/agents/branch/info/{{agent.id}}">{{agent.name}}</a></li>
 					{% endfor %}
 					<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/agents/info/create" class="IsolationButton">+ &nbsp; Add Agent List</a>
@@ -109,51 +114,17 @@
 
 		<div class="MTitle">Agent Communication Log</div>
 		<div class="ListSearch Aright">
-			<div>
-
-
-			<select class="SearchSelect">
-				<option>Agent Presets</option>
-				<option>Meten</option>
-				<option>BGE-Yanzhou</option>
-				<option>AaisUS</option>
-				<option>Other(BGE Staff)</option>
-			</select>
-			&nbsp;&nbsp;&nbsp;&nbsp;
-
-
-			From :
-			<select class="SearchSelect">
-				<option>December</option>
-				<option>November</option>
-				<option>October</option>
-				<option>September</option>
-				<option>August</option>
-				<option>July</option>
-				<option>June</option>
-				<option>May</option>
-				<option>April</option>
-				<option>March</>
-				<option>February</option>
-				<option>January</option>
-			</select>
-			&nbsp;&nbsp;
-			To :
-			<select class="SearchSelect">
-				<option>December</option>
-				<option>November</option>
-				<option>October</option>
-				<option>September</option>
-				<option>August</option>
-				<option>July</option>
-				<option>June</option>
-				<option>May</option>
-				<option>April</option>
-				<option>March</>
-				<option>February</option>
-				<option>January</option>
-			</select>
-			</div>
+			<form method="GET">
+				<div>
+					<select class="SearchSelect" name="agent_head">
+						<option value="">Select Agent..</option>
+						{% for agent in all_agents %}
+						<option value="{{agent.id}}">{{agent.name}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<button type="submit" class="ListSearchButton">Search<button>
+			</form>
 		</div>
 
 		<div class="ListTable">
@@ -171,43 +142,29 @@
 					<th>Priority (1-5)</th>
 					<th>Writer</th>
 				</tr>
+				{% for log in logs %}
 				<tr>
-					<td>Meten</td>
-					<td>-</td>
-					<td>데이비드 강</td>
-					<td>1~6</td>
-					<td>Procedure at the first counseling..</td>
-					<td>-</td>
-					<td>-</td>
+					<td>{{log.head.name}}</td>
+					<td>{{log.date|date:"Y-m-d"}}</td>
+					<td>{{log.name}}</td>
+					<td>{{log.category}}</td>
+					<td>{{log.comment}}</td>
+					<td>{{log.priority}}</td>
+					<td>{{log.writer}}</td>
 				</tr>
-				<tr>
-					<td>BGE-Yanzhou</td>
-					<td>-</td>
-					<td>데이비드 강</td>
-					<td>1~6</td>
-					<td>Procedure at the first counseling..</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td>AaisUS</td>
-					<td>-</td>
-					<td>데이비드 강</td>
-					<td>1~6</td>
-					<td>Procedure at the first counseling..</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td>Other(BGE Staff)</td>
-					<td>-</td>
-					<td>데이비드 강</td>
-					<td>1~6</td>
-					<td>Procedure at the first counseling..</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
+				{% endfor %}
 			</table>
+			<div class="ListCounter">
+				{% if logs.has_other_pages %}
+					{% for i in logs.paginator.page_range %}
+						{% if logs.number == i %}
+							<span>{{ i }}</span>
+						{% else %}
+							<a href="{% relative_url i 'page' request.GET.urlencode %}">{{ i }}</a>
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+			</div>
 		</div><!-- ListTable -->
 
 

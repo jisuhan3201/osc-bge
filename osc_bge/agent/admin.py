@@ -24,7 +24,12 @@ class AgencyAdmin(admin.ModelAdmin):
         "id",
         "head",
         "name",
-        "branch",
+        "location",
+        "capacity_students",
+        "commission",
+        "promotion",
+        "others",
+        "comment",
     )
 
 @admin.register(models.AgencyProgram)
@@ -51,4 +56,28 @@ class AgencyHeadContactInfoAdmin(admin.ModelAdmin):
         "location",
         "level",
         "image",
+    )
+
+@admin.register(models.AgencyBranchProgram)
+class AgencyBranchProgramAdmin(admin.ModelAdmin):
+
+    list_display = (
+        'id',
+        'branch',
+        'program'
+    )
+
+
+@admin.register(models.AgentRelationshipHistory)
+class AgentRelationshipHistoryAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "head",
+        "writer",
+        "name",
+        "date",
+        "location",
+        "category",
+        "priority",
+        "comment",
     )
