@@ -23,7 +23,7 @@ def index(request):
             return redirect('/statistics')
 
         elif request.user.type == 'bge_team':
-            return redirect('/team-statistics')
+            return redirect('/statistics')
 
         elif request.user.type == 'bge_branch_admin':
             return redirect('/branch/statistics')

@@ -95,7 +95,7 @@
 							<td class="InnerInputTD">
 								<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="student" />
 							</td>
-							<th>Years Attended : </th>
+							<th>Class of : </th>
 							<td class="InnerInputTD">
 								<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="attended" />
 							</td>
@@ -613,17 +613,17 @@ document.getElementById(TabName).style.display='block';
 						<th>Application Fee : </th>
 						<td class="InnerInputTD">
 							{% if found_school.secondary.application_fee %}
-              <input type="text" name="application_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." value="{{found_school.secondary.application_fee}}" pattern="\d*"/>
+              $<input type="text" name="application_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." value="{{found_school.secondary.application_fee}}" pattern="\d*"/>
 							{% else %}
-							<input type="text" name="application_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." pattern="\d*"/>
+							$<input type="text" name="application_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." pattern="\d*"/>
 							{% endif %}
             </td>
 						<th>Program Fee  : </th>
 						<td class="InnerInputTD">
 							{% if found_school.secondary.program_fee %}
-							<input type="text" name="program_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." value="{{found_school.secondary.program_fee}}" pattern="\d*"/>
+							$<input type="text" name="program_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." value="{{found_school.secondary.program_fee}}" pattern="\d*"/>
 							{% else %}
-							<input type="text" name="program_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." pattern="\d*"/>
+							$<input type="text" name="program_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." pattern="\d*"/>
 							{% endif %}
 						</td>
 					</tr>
@@ -790,7 +790,7 @@ document.getElementById(TabName).style.display='block';
 						<td class="InnerInputTD" colspan="3"><input type="text" name="address" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.address}}"/></td>
 					</tr>
 					<tr>
-						<th>Area Description : </th>
+						<th>Area Information : </th>
 						<td class="InnerInputTD" colspan="3"><input type="text" name="area_description" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.area_description}}"/></td>
 					</tr>
 					<tr>
@@ -847,19 +847,28 @@ document.getElementById(TabName).style.display='block';
               {% if found_school.religion == 'catholic' %}
 							<label><input type="radio" name="religion" value="catholic" checked/><span></span>Catholic</label>
 							<label><input type="radio" name="religion" value="christian" /><span></span>Christian</label>
-							<label><input type="radio" name="religion" value="na" /><span></span>NA</label>
+							<label><input type="radio" name="religion" value="no_religion" /><span></span>No Religion</label>
+							<label><input type="radio" name="religion" value="not_available" /><span></span>Not Available</label>
               {% elif found_school.religion == 'christian'%}
               <label><input type="radio" name="religion" value="catholic"/><span></span>Catholic</label>
 							<label><input type="radio" name="religion" value="christian" checked/><span></span>Christian</label>
-							<label><input type="radio" name="religion" value="na" /><span></span>NA</label>
-              {% elif found_school.religion == 'na'%}
+							<label><input type="radio" name="religion" value="no_religion" /><span></span>No Religion</label>
+							<label><input type="radio" name="religion" value="not_available" /><span></span>Not Available</label>
+              {% elif found_school.religion == 'no_religion'%}
               <label><input type="radio" name="religion" value="catholic"/><span></span>Catholic</label>
 							<label><input type="radio" name="religion" value="christian" /><span></span>Christian</label>
-							<label><input type="radio" name="religion" value="na" checked/><span></span>NA</label>
+							<label><input type="radio" name="religion" value="no_religion" checked/><span></span>No Religion</label>
+							<label><input type="radio" name="religion" value="not_available" /><span></span>Not Available</label>
+							{% elif found_school.religion == 'not_available'%}
+							<label><input type="radio" name="religion" value="catholic"/><span></span>Catholic</label>
+							<label><input type="radio" name="religion" value="christian" /><span></span>Christian</label>
+							<label><input type="radio" name="religion" value="no_religion" /><span></span>No Religion</label>
+							<label><input type="radio" name="religion" value="not_available" checked/><span></span>Not Available</label>
               {% else %}
               <label><input type="radio" name="religion" value="catholic"/><span></span>Catholic</label>
 							<label><input type="radio" name="religion" value="christian" /><span></span>Christian</label>
-							<label><input type="radio" name="religion" value="na" /><span></span>NA</label>
+							<label><input type="radio" name="religion" value="no_religion" /><span></span>No Religion</label>
+							<label><input type="radio" name="religion" value="not_available" /><span></span>Not Available</label>
               {% endif %}
 						</td>
 					</tr>
@@ -941,14 +950,37 @@ document.getElementById(TabName).style.display='block';
 					<tr>
 						<th>Clubs # : </th>
 						<td class="InnerInputTD"><input type="text" name="number_clubs" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.number_clubs}}" /></td>
+						<th>Club Lists # : </th>
+						<td class="InnerInputTD"><input type="text" name="list_clubs" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.list_clubs}}" /></td>
+					</tr>
+					<tr>
 						<th>Sports # : </th>
 						<td class="InnerInputTD"><input type="text" name="number_sports" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.number_sports}}" /></td>
+						<th>Sports Lists : </th>
+						<td class="InnerInputTD"><input type="text" name="list_sports" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.list_sports}}" /></td>
 					</tr>
 
 					<tr>
 						<th>Facilities : </th>
 						<td class="InnerInputTD" colspan="3"><input type="text" name="facilities" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.facilities}}" /></td>
 					</tr>
+					<tr>
+						<th>General Impression : </th>
+						<td class="InnerInputTD" colspan="3"><input type="text" name="general_impression" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.general_impression}}" /></td>
+					</tr>
+					<tr>
+						<th>Strong Advantages : </th>
+						<td class="InnerInputTD" colspan="3"><input type="text" name="strong_advantages" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.strong_advantages}}" /></td>
+					</tr>
+					<tr>
+						<th>Extra Curricular : </th>
+						<td class="InnerInputTD" colspan="3"><input type="text" name="extra_curricular" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.extra_curricular}}" /></td>
+					</tr>
+					<tr>
+						<th>College Acceptance List : </th>
+						<td class="InnerInputTD" colspan="3"><input type="text" name="college_acceptance_list" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.college_acceptance_list}}" /></td>
+					</tr>
+
 				</table>
 			</div><!-- InfoTable -->
 
@@ -962,7 +994,7 @@ document.getElementById(TabName).style.display='block';
 
 		<div class="MTitle">Current Student Review</div>
 		<div class="ListSearch Aright">
-			<a href="Javascript:void(0);" class="IsolationButton" OnClick="document.getElementById('PopRegistReview').style.display='block';">+ &nbsp; Regist Review</a>
+			<a href="Javascript:void(0);" class="IsolationButton" OnClick="document.getElementById('PopRegistReview').style.display='block';">+ &nbsp; Current Student Review</a>
 		</div>
 		<div class="cdiv"></div>
 		<!-- 학교리뷰목록 -->
@@ -992,9 +1024,9 @@ document.getElementById(TabName).style.display='block';
 		<!-- 학교리뷰목록 끝 -->
 		<div class="EndPart"></div>
 
-		<div class="MTitle">Graduate Profile</div>
+		<div class="MTitle">Graduate Student Profile</div>
 		<div class="ListSearch Aright">
-			<a href="Javascript:void(0);" class="IsolationButton" OnClick="document.getElementById('PopRegistGraduateProfile').style.display='block';">+ &nbsp; Regist Graduate Profile</a>
+			<a href="Javascript:void(0);" class="IsolationButton" OnClick="document.getElementById('PopRegistGraduateProfile').style.display='block';">+ &nbsp; Graduated Student Profile</a>
 		</div>
 		<div class="cdiv"></div>
 		<!-- 학교리뷰목록 -->

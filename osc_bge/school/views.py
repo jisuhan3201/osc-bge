@@ -244,8 +244,14 @@ class SecondaryCreateView(LoginRequiredMixin, View):
             number_ap_courses = data.get('number_ap_courses'),
             list_ap_courses = data.get('list_ap_courses'),
             number_clubs = data.get('number_clubs'),
+            list_clubs = data.get('list_clubs'),
             number_sports = data.get('number_sports'),
+            list_sports = data.get('list_sports'),
             facilities = data.get('facilities'),
+            general_impression = data.get('general_impression'),
+            strong_advantages = data.get('strong_advantages'),
+            extra_curricular = data.get('extra_curricular'),
+            college_acceptance_list = data.get("college_acceptance_list"),
         )
         secondary.save()
 
@@ -408,8 +414,15 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
         found_secodary.number_ap_courses = data.get('number_ap_courses')
         found_secodary.list_ap_courses = data.get('list_ap_courses')
         found_secodary.number_clubs = data.get('number_clubs')
+        found_secodary.list_clubs = data.get('list_clubs')
         found_secodary.number_sports = data.get('number_sports')
+        found_secodary.list_sports = data.get('list_sports')
         found_secodary.facilities = data.get('facilities')
+        found_secodary.general_impression = data.get('general_impression')
+        found_secodary.strong_advantages = data.get('strong_advantages')
+        found_secodary.extra_curricular = data.get('extra_curricular')
+        found_secodary.college_acceptance_list = data.get("college_acceptance_list")
+
         found_secodary.save()
 
         if data.get('school_type'):

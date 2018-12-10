@@ -43,18 +43,16 @@
 						<col>
 					</colgroup>
 					<tr>
-						<th>No</th>
+						<th>Date</th>
 						<th>Name</th>
 						<th>Grade</th>
-						<th>School</th>
 						<th>Home city</th>
 					</tr>
 					{% for review in current_student_reviews %}
 					<tr>
-						<td>{{review.id}}</td>
+						<td>{{review.created_at|date:"Y-m-d"}}</td>
 						<td><p class="AgentCurrentStudentReviewClass" id="AgentCurrentStudentReview{{review.id}}" style="color:blue;margin-bottom:0;cursor:pointer;">{{review.student}}</p></td>
 						<td>{{review.grade}}</td>
-						<td>{{review.school}}</td>
 						<td>{{review.homecity}}</td>
 					</tr>
 					{% endfor %}
@@ -122,19 +120,17 @@
 						<col>
 					</colgroup>
 					<tr>
-						<th>No</th>
+						<th>Date</th>
 						<th>Name</th>
-						<th>Years Attended</th>
-						<th>College</th>
-						<th>GPA in China</th>
+						<th>Class of</th>
+						<th>Accepted Colleges</th>
 					</tr>
 					{% for review in graduate_student_reviews %}
 					<tr>
-						<td>{{review.id}}</td>
+						<td>{{review.created_at|date:"Y-m-d"}}</td>
 						<td><p class="AgentGraduateStudentReviewClass" id="AgentGraduateStudentReview{{review.id}}" style="color:blue;margin-bottom:0;cursor:pointer;">{{review.student}}</p></td>
 						<td>{{review.attended}}</td>
 						<td>{{review.college}}</td>
-						<td>{{review.gpa_china}}</td>
 					</tr>
 					{% endfor %}
 				</table>

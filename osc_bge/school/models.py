@@ -124,8 +124,14 @@ class Secondary(TimeStampedModel):
     number_ap_courses = models.CharField(max_length=80, null=True, blank=True)
     list_ap_courses = models.TextField(null=True, blank=True)
     number_clubs = models.CharField(max_length=80, null=True, blank=True)
+    list_clubs = models.TextField(null=True, blank=True)
     number_sports = models.CharField(max_length=80, null=True, blank=True)
+    list_sports = models.TextField(null=True, blank=True)
     facilities = models.TextField(null=True, blank=True)
+    general_impression = models.TextField(null=True, blank=True)
+    strong_advantages = models.TextField(null=True, blank=True)
+    extra_curricular = models.TextField(null=True, blank=True)
+    college_acceptance_list = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return "{}".format(self.school)

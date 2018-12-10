@@ -574,14 +574,14 @@ class ProspectiveView(LoginRequiredMixin, View):
 
         departure = self.request.GET.get('departure', None)
         if departure:
-            if departure == '7d':
-                queryset = queryset.filter(Q(expected_departure__lte=datetime.now()+timedelta(days=7)))
-            elif departure == '1m':
-                queryset = queryset.filter(Q(expected_departure__lte=datetime.now()+relativedelta(months=1)))
-            elif departure == '3m':
+            if departure == '3m':
                 queryset = queryset.filter(Q(expected_departure__lte=datetime.now()+relativedelta(months=3)))
-            else:
+            elif departure == '6m':
                 queryset = queryset.filter(Q(expected_departure__lte=datetime.now()+relativedelta(months=6)))
+            elif departure == '12m':
+                queryset = queryset.filter(Q(expected_departure__lte=datetime.now()+relativedelta(months=12)))
+            else:
+                queryset = queryset.filter(Q(expected_departure__gt=datetime.now()+relativedelta(years=1)))
 
         country = self.request.GET.get('country', None)
         if country:

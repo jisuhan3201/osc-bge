@@ -16,11 +16,11 @@
 				</colgroup>
 				<tr>
 					<th>General Impression : </th>
-					<td>Very famous boy school, excellent education quality, teachers very responsible, lots of  academic pressure on students; international students who excel at this school usually have a TOEFL of 90+. </td>
+					<td>{{found_school.general_impression}}</td>
 				</tr>
 				<tr>
 					<th>Strong Advantages  : </th>
-					<td>Very famous boy school, more AP courses, excellent education quality, teachers very responsible, very experienced at handling any problems that boys may have. </td>
+					<td>{{found_school.strong_advantages}}</td>
 				</tr>
 			</table>
 		</div><!-- InfoTable -->
@@ -40,13 +40,13 @@
 					<th>Year Founded : </th>
 					<td>{{found_school.founded}}</td>
 					<th>Religion : </th>
-					<td>{{found_school.religion}}</td>
+					<td>{{found_school.religion|capfirst}}</td>
 				</tr>
 				<tr>
 					<th>School Type : </th>
 					<td>
 						{% for type in school_types %}
-							{{type.type}},
+							{{type.type|capfirst}}
 						{% endfor %}
 					</td>
 					<th>Grades : </th>
@@ -54,9 +54,13 @@
 				</tr>
 				<tr>
 					<th>Student body : </th>
-					<td>{{found_school.secondary.student_body}}</td>
+					<td>{{found_school.secondary.student_body|capfirst}}</td>
 					<th>Uniforms : </th>
-					<td>{{found_school.secondary.uniform}}</td>
+					{% if found_school.secondary.uniform %}
+					<td>Yes</td>
+					{% else %}
+					<td>No</td>
+					{% endif %}
 				</tr>
 				<tr>
 					<th>Number of Students : </th>
@@ -68,10 +72,14 @@
 					<th>Class Size : </th>
 					<td>{{found_school.secondary.class_size}}</td>
 					<th>ESL : </th>
-					<td>{{found_school.secondary.esl}}</td>
+					{% if found_school.secondary.esl %}
+					<td>Yes</td>
+					{% else %}
+					<td>No</td>
+					{% endif %}
 				</tr>
 				<tr>
-					<th rowspan="2">Area : </th>
+					<th rowspan="2">Area Information : </th>
 					<td rowspan="2">{{found_school.area_description}}</td>
 					<th>Student: Teacher Ratio : </th>
 					<td>{{found_school.secondary.student_teach_ratio}}</td>
@@ -101,20 +109,20 @@
 					<td>{{found_school.secondary.avg_sat}}</td>
 				</tr>
 				<tr>
-					<th>Honor Courses: {{found_school.secondary.number_honor_courses}} : </th>
+					<th>Honor Courses : </th>
 					<td>{{found_school.secondary.list_honor_courses}}</td>
 				</tr>
 				<tr>
-					<th>AP Courses: {{found_school.secondary.number_ap_courses}} : </th>
+					<th>AP Courses : </th>
 					<td>{{found_school.secondary.list_ap_courses}}</td>
 				</tr>
 				<tr>
 					<th>Extra-curricular : </th>
-					<td>-</td>
+					<td>{{found_school.extra_curricular}}</td>
 				</tr>
 				<tr>
 					<th>College Acceptance list : </th>
-					<td>-</td>
+					<td>{{found_school.college_acceptance_list}}</td>
 				</tr>
 				<tr>
 					<th>Application Fee: </th>

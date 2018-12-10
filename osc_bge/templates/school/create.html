@@ -4,7 +4,7 @@
 
 
 <div class="ContentsFrame">
-	
+
 	<div class="LeftFrame" id="LeftF">
 		<div class="SectionTitle">Secondary Schools</div>
 		<div class="LeftTab" id="LeftTab01">
@@ -270,7 +270,7 @@
 		<!-- <div class="PTitle">Saint Peter-Marian High School <span>School Profile Update</span></div> -->
 
 		<!-- 등록일 경우 -->
-		<div class="PTitle">School Profile Regist</div>
+		<div class="PTitle">School Profile Register</div>
 
 
 		<div class="MTitle">School information</div>
@@ -387,9 +387,9 @@
 					</tr>
 					<tr>
 						<th>Application Fee : </th>
-						<td class="InnerInputTD"><input type="text" name="application_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." pattern="\d*"/></td>
+						<td class="InnerInputTD">$<input type="text" name="application_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." pattern="\d*"/></td>
 						<th>Program Fee  : </th>
-						<td class="InnerInputTD"><input type="text" name="program_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." pattern="\d*"/></td>
+						<td class="InnerInputTD">$<input type="text" name="program_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." pattern="\d*"/></td>
 					</tr>
 					<tr>
 						<th>Admission Requirements : </th>
@@ -432,7 +432,7 @@
 						<td class="InnerInputTD" colspan="3"><input type="text" name="address" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
 					</tr>
 					<tr>
-						<th>Area Description : </th>
+						<th>Area Information : </th>
 						<td class="InnerInputTD" colspan="3"><input type="text" name="area_description" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
 					</tr>
 					<tr>
@@ -462,7 +462,8 @@
 						<td class="InnerInputTD">
 							<label><input type="radio" name="religion" value="catholic" /><span></span>Catholic</label>
 							<label><input type="radio" name="religion" value="cristian" /><span></span>Christian</label>
-							<label><input type="radio" name="religion" value="na" /><span></span>NA</label>
+							<label><input type="radio" name="religion" value="no_religion" /><span></span>No Religion</label>
+							<label><input type="radio" name="religion" value="not_available" /><span></span>Not Available</label>
 						</td>
 					</tr>
 					<tr>
@@ -515,13 +516,35 @@
 					<tr>
 						<th>Clubs # : </th>
 						<td class="InnerInputTD"><input type="text" name="number_clubs" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+						<th>Club lists : </th>
+						<td class="InnerInputTD"><input type="text" name="list_clubs" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					</tr>
+					<tr>
 						<th>Sports # : </th>
 						<td class="InnerInputTD"><input type="text" name="number_sports" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+						<th>Sports lists : </th>
+						<td class="InnerInputTD"><input type="text" name="list_sports" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
 					</tr>
 
 					<tr>
 						<th>Facilities : </th>
 						<td class="InnerInputTD" colspan="3"><input type="text" name="facilities" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					</tr>
+					<tr>
+						<th>General Impression : </th>
+						<td class="InnerInputTD" colspan="3"><input type="text" name="general_impression" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					</tr>
+					<tr>
+						<th>Strong Advantages : </th>
+						<td class="InnerInputTD" colspan="3"><input type="text" name="strong_advantages" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					</tr>
+					<tr>
+						<th>Extra Curricular : </th>
+						<td class="InnerInputTD" colspan="3"><input type="text" name="extra_curricular" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					</tr>
+					<tr>
+						<th>College Acceptance List : </th>
+						<td class="InnerInputTD" colspan="3"><input type="text" name="college_acceptance_list" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
 					</tr>
 				</table>
 			</div><!-- InfoTable -->

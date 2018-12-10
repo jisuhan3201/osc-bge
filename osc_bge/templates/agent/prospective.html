@@ -62,36 +62,36 @@
   					<th>Expected departure :</th>
   					<td class="InnerInputTD">
   						<select class="TableInnerInput" name="departure">
-                {% if request.GET.departure == '7d' %}
+                {% if request.GET.departure == '3m' %}
                 <option></option>
-                <option value="7d" selected>Within 7days</option>
-                <option value="1m">Within 1month</option>
-  							<option value="3m">Within 3months</option>
-                <option value="6m">Within 6months</option>
-                {% elif request.GET.departure == '1m' %}
-                <option></option>
-                <option value="7d">Within 7days</option>
-                <option value="1m" selected>Within 1month</option>
-  							<option value="3m">Within 3months</option>
-                <option value="6m">Within 6months</option>
-                {% elif request.GET.departure == '3m' %}
-                <option></option>
-                <option value="7d">Within 7days</option>
-                <option value="1m">Within 1month</option>
   							<option value="3m" selected>Within 3months</option>
                 <option value="6m">Within 6months</option>
+								<option value="12m">Within 12months</option>
+                <option value="1y">Over a year</option>
                 {% elif request.GET.departure == '6m' %}
                 <option></option>
-                <option value="7d">Within 7days</option>
-                <option value="1m">Within 1month</option>
   							<option value="3m">Within 3months</option>
-                <option value="6m" selected>Within 6months</option>
-                {% else %}
+								<option value="6m" selected>Within 6months</option>
+								<option value="12m">Within 12months</option>
+                <option value="1y">Over a year</option>
+								{% elif request.GET.departure == '12m' %}
                 <option></option>
-                <option value="7d">Within 7days</option>
-                <option value="1m">Within 1month</option>
   							<option value="3m">Within 3months</option>
                 <option value="6m">Within 6months</option>
+								<option value="12m" selected>Within 12months</option>
+                <option value="1y">Over a year</option>
+                {% elif request.GET.departure == '1y' %}
+                <option></option>
+  							<option value="3m">Within 3months</option>
+                <option value="6m">Within 6months</option>
+								<option value="12m">Within 12months</option>
+                <option value="1y" selected>Over a year</option>
+                {% else %}
+                <option></option>
+  							<option value="3m">Within 3months</option>
+                <option value="6m">Within 6months</option>
+								<option value="12m">Within 12months</option>
+                <option value="1y">Over a year</option>
                 {% endif %}
   						</select>
               {% if request.GET.country == 'us' %}
@@ -136,27 +136,27 @@
   					<td>
               {% if request.GET.type == 'k12' %}
               <label><input type="radio" name="type" value="k12" checked/><span></span>K-12</label>
-  						<label><input type="radio" name="type" value="college"/><span></span>College</label>
+  						<label><input type="radio" name="type" value="college"/><span></span>College Consulting</label>
   						<label><input type="radio" name="type" value="camp"/><span></span>Camp</label>
               <label><input type="radio" name="type" value="not_specified"/><span></span>Not Specified</label>
               {% elif request.GET.type == 'college' %}
               <label><input type="radio" name="type" value="k12"/><span></span>K-12</label>
-  						<label><input type="radio" name="type" value="college" checked/><span></span>College</label>
+  						<label><input type="radio" name="type" value="college" checked/><span></span>College Consulting</label>
   						<label><input type="radio" name="type" value="camp"/><span></span>Camp</label>
               <label><input type="radio" name="type" value="not_specified"/><span></span>Not Specified</label>
               {% elif request.GET.type == 'camp' %}
               <label><input type="radio" name="type" value="k12"/><span></span>K-12</label>
-  						<label><input type="radio" name="type" value="college"/><span></span>College</label>
+  						<label><input type="radio" name="type" value="college"/><span></span>College Consulting</label>
   						<label><input type="radio" name="type" value="camp" checked/><span></span>Camp</label>
               <label><input type="radio" name="type" value="not_specified"/><span></span>Not Specified</label>
               {% elif request.GET.type == 'not_specified' %}
               <label><input type="radio" name="type" value="k12"/><span></span>K-12</label>
-  						<label><input type="radio" name="type" value="college"/><span></span>College</label>
+  						<label><input type="radio" name="type" value="college"/><span></span>College Consulting</label>
   						<label><input type="radio" name="type" value="camp"/><span></span>Camp</label>
               <label><input type="radio" name="type" value="not_specified" checked/><span></span>Not Specified</label>
               {% else %}
               <label><input type="radio" name="type" value="k12"/><span></span>K-12</label>
-  						<label><input type="radio" name="type" value="college"/><span></span>College</label>
+  						<label><input type="radio" name="type" value="college"/><span></span>College Consulting</label>
   						<label><input type="radio" name="type" value="camp"/><span></span>Camp</label>
               <label><input type="radio" name="type" value="not_specified"/><span></span>Not Specified</label>
               {% endif %}
@@ -227,7 +227,7 @@
 					<td>{{ i.counseling_date.year }}-{{ i.counseling_date.month }}-{{ i.counseling_date.day }}</td>
 					<td><a href="customer/{{i.id}}/register">{{ i.student }}</a></td>
 					<td>{{ i.student.status|capfirst}}</td>
-					<td>{{ i.possibility }}</td>
+					<td>{{ i.possibility|upper }}</td>
 					<td>{{ i.expected_departure.year }}-{{ i.expected_departure.month }}-{{ i.expected_departure.day }}</td>
 					<td>{{ i.program_interested|capfirst }}</td>
 					<td>{{ i.desire_country|upper }}</td>

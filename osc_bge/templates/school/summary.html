@@ -136,7 +136,7 @@
 							</tr>
 							<tr>
 								<td><label><input type="checkbox" /><span></span></label></td>
-								<td>fee Total</td>
+								<td>Total Fee</td>
 								<td class="InnerInputTD">
 									<input type="text" value="$43,130" style="width:calc(100% - 8px);" class="TableInnerInput" />
 								</td>
@@ -231,13 +231,7 @@
 							<tr>
 								<td><label><input type="checkbox" /><span></span></label></td>
 								<td>Special Comment</td>
-								<td class="InnerInputTD">
-									<input type="text" value="" style="width:calc(100% - 8px);" class="TableInnerInput" />
-								</td>
-								<td class="InnerInputTD">
-									<input type="text" value="" style="width:calc(100% - 8px);" class="TableInnerInput" />
-								</td>
-								<td class="InnerInputTD">
+								<td class="InnerInputTD" colspan="3">
 									<input type="text" value="" style="width:calc(100% - 8px);" class="TableInnerInput" />
 								</td>
 							</tr>
@@ -344,7 +338,7 @@
 			<div class="Info">
 				<li>{{found_school.address}}</li>
 				<li>{{found_school.phone}}</li>
-				<li>{{found_school.web_url}}</li>
+				<li><a href="{{found_school.web_url}}" target="_BLANK">{{found_school.web_url}}</a></li>
 			</div>
 		</div><!-- Location -->
 		<div class="cdiv"></div>
