@@ -302,8 +302,6 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
         current_student_reviews = student_models.CurrentStudentReview.objects.filter(school=found_school).order_by('-created_at')
         graduate_profiles = student_models.GraduateStudentReview.objects.filter(school=found_school).order_by('-created_at')
         school_types = models.SchoolTypes.objects.filter(school=found_school)
-        current_student_reviews = student_models.CurrentStudentReview.objects.all().order_by("-created_at")
-        graduate_profiles = student_models.GraduateStudentReview.objects.all().order_by("-created_at")
 
         school_type_list = []
         for school_type in school_types:
