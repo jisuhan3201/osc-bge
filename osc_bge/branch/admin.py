@@ -49,3 +49,22 @@ class CommunicationLogAdmin(admin.ModelAdmin):
         "priority",
         "comment",
     )
+
+@admin.register(models.HostStudentReport)
+class HostStudentReportAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "host_coordi",
+        "host",
+        "student",
+        "description",
+        "rate",
+        "improvement",
+        "cultural_fluency",
+        "house_rule_attitude",
+        "responsibility",
+        "communication",
+        "sleeping_habits",
+        "school_attendance",
+        "comment",
+    )

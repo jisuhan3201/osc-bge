@@ -60,6 +60,7 @@ class HostStudent(TimeStampedModel):
     host = models.ForeignKey(HostFamily, on_delete=models.CASCADE, null=True, related_name='students')
     student = models.ForeignKey(student_models.Student, on_delete=models.SET_NULL, null=True, related_name="host")
     next_year_plan = models.CharField(max_length=140, null=True, blank=True, choices=PLAN_CHOICES)
+    communication_log = models.TextField(null=True, blank=True)
 
 
 class HostPhoto(TimeStampedModel):
@@ -86,11 +87,18 @@ class CommunicationLog(TimeStampedModel):
 
 class HostStudentReport(TimeStampedModel):
 
+    STATUS_CHOICES = (
+        ('incomplete', 'Incomplete'),
+        ('complete', 'complete'),
+        ('submitted', 'Submitted'),
+    )
+
+    host_coordi = models.ForeignKey(user_models.BgeBranchCoordinator, on_delete=models.SET_NULL, null=True)
     host = models.ForeignKey(HostFamily, on_delete=models.CASCADE, null=True)
-    student = models.ForeignKey(student_models.Student, on_delete=models.SET_NULL, null=True)
+    student = models.ForeignKey(student_models.Student, on_delete=models.SET_NULL, null=True, related_name='host_report')
     description = models.TextField(null=True, blank=True)
     rate = models.CharField(max_length=80, null=True, blank=True)
-    improvement = models.NullBooleanField(blank=True)
+    improvement = models.CharField(max_length=80, null=True, blank=True)
     cultural_fluency = models.TextField(null=True, blank=True)
     house_rule_attitude = models.TextField(null=True, blank=True)
     responsibility = models.TextField(null=True, blank=True)
@@ -98,6 +106,9 @@ class HostStudentReport(TimeStampedModel):
     sleeping_habits = models.TextField(null=True, blank=True)
     school_attendance = models.TextField(null=True, blank=True)
     comment = models.TextField(null=True, blank=True)
+    status = models.CharField(max_length=80, null=True, blank=True, choices=STATUS_CHOICES)
+    submitted_date = models.DateField(null=True, blank=True)
+    due_date = models.DateField(null=True, blank=True)
 
 
 class ReportPhoto(TimeStampedModel):

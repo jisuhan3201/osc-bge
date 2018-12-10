@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="ContentsFrame">
+	<div class="LeftFrame" id="LeftF">
+		<div class="SectionTitle">Host Families</div>
+		<div class="LeftTab">
+			<div class="TabConternts">
+				<div class="InnerTabContents">
+					{% for host in all_hosts %}
+					<li><a href="/branch/host/update/{{host.id}}">{{host.name}}</a></li>
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div>
+		</div><!-- LeftTab -->
+		<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/branch/host/test" class="IsolationButton">+ &nbsp; Add New Family</a>
+	</div><!-- LeftFrame -->
+
+
+	<div class="MainFrame" id="MainF">
+		<div class="PTitle">{{found_report.student.name}} <span>{{found_report.host.name}}</span></div>
+
+
+		<div class="MTitle">Recent Reports</div>
+		<!-- 등록일 경우 -->
+		<!-- <div class="MTitle">Reports Regist ({% now "Y F"%})</div> -->
+
+		<form method="POST">
+			{% csrf_token %}
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="160">
+					<col>
+					<col width="160">
+					<col>
+				</colgroup>
+				<tr>
+					<th>Student Name : </th>
+					<td>{{found_report.student.name}}</td>
+					<th>Host Family Name : </th>
+					<td>{{found_report.host.name}}</td>
+				</tr>
+				<tr>
+					<th>Branch : </th>
+					<td>{{found_report.host.provider_branch}}</td>
+					<th>Last Update : </th>
+					<td>{{found_report.updated_at|date:"Y-m-d"}}</td>
+				</tr>
+        <tr>
+          <th>Due date : </th>
+          <td colspan="3"><input type="text" class="TableInnerInput" value="{{found_report.due_date|date:'Y-m-d'}}" name="due_date" disabled/></td>
+        </tr>
+				<tr>
+					<th>Photo  : </th>
+					<td class="InnerInputTD" colspan="3"><input type="file" class="TableInnerInput" value="" /><br />
+					<!-- <label>
+					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA8hCGZ69G52M0EThs-5dHEQr223RDgzasznLuBOxs4RG1cRyo" class="SchoolThumbnail" />
+					<input type="checkbox" /><span></span>delete</label> -->
+					</td>
+				</tr>
+				<tr>
+					<th>Description : </th>
+					<td class="InnerInputTD" colspan="3">
+            {% if found_report.description %}
+            <input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.description}}" name="description"/>
+            {% else %}
+						<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" name="description"/>
+            {% endif %}
+					</td>
+				</tr>
+				<tr>
+					<th>Rate : </th>
+					<td>
+            {% if found_report.rate == 'great' %}
+						<label><input type="radio" name="rate" value="great" checked/><span></span>Great</label>
+						<label><input type="radio" name="rate" value="fair"/><span></span>Fair</label>
+						<label><input type="radio" name="rate" value="needs_effort"/><span></span>Needs effort</label>
+            {% elif found_report.rate == 'fair' %}
+            <label><input type="radio" name="rate" value="great"/><span></span>Great</label>
+						<label><input type="radio" name="rate" value="fair" checked/><span></span>Fair</label>
+						<label><input type="radio" name="rate" value="needs_effort"/><span></span>Needs effort</label>
+            {% elif found_report.rate == 'needs_effort' %}
+            <label><input type="radio" name="rate" value="great"/><span></span>Great</label>
+						<label><input type="radio" name="rate" value="fair"/><span></span>Fair</label>
+						<label><input type="radio" name="rate" value="needs_effort" checked/><span></span>Needs effort</label>
+            {% else %}
+            <label><input type="radio" name="rate" value="great"/><span></span>Great</label>
+						<label><input type="radio" name="rate" value="fair"/><span></span>Fair</label>
+						<label><input type="radio" name="rate" value="needs_effort"/><span></span>Needs effort</label>
+            {% endif %}
+					</td>
+					<th>Improvement : </th>
+					<td>
+            {% if found_report.improvement == 'yes' %}
+						<label><input type="radio" name="improvement" value="yes" checked/><span></span>Yes</label>
+						<label><input type="radio" name="improvement" value="no"/><span></span>NO</label>
+            {% elif found_report.improvement == 'no' %}
+            <label><input type="radio" name="improvement" value="yes"/><span></span>Yes</label>
+						<label><input type="radio" name="improvement" value="no" checked/><span></span>NO</label>
+            {% else %}
+            <label><input type="radio" name="improvement" value="yes"/><span></span>Yes</label>
+						<label><input type="radio" name="improvement" value="no"/><span></span>NO</label>
+            {% endif %}
+					</td>
+				</tr>
+				<tr>
+					<th>Cultural Fluency : </th>
+					<td class="InnerInputTD" colspan="3">
+          {% if found_report.cultural_fluency %}
+          <textarea class="TableInnerTextarea" style="height:100px;" name="cultural_fluency">{{found_report.cultural_fluency}}</textarea>
+          {% else %}
+					<textarea class="TableInnerTextarea" style="height:100px;" name="cultural_fluency"></textarea>
+          {% endif %}
+					</td>
+				</tr>
+				<tr>
+					<th>House Rules & Attitude : </th>
+					<td class="InnerInputTD" colspan="3">
+            {% if found_report.house_rule_attitude %}
+            <textarea class="TableInnerTextarea" style="height:100px;" name="house_rule_attitude" >{{found_report.house_rule_attitude}}</textarea>
+            {% else %}
+					  <textarea class="TableInnerTextarea" style="height:100px;" name="house_rule_attitude" ></textarea>
+            {% endif %}
+					</td>
+				</tr>
+				<tr>
+					<th>Responsibility : </th>
+					<td class="InnerInputTD" colspan="3">
+            {% if found_report.responsibility %}
+            <textarea class="TableInnerTextarea" style="height:100px;" name="responsibility">{{found_report.responsibility}}</textarea>
+            {% else %}
+					  <textarea class="TableInnerTextarea" style="height:100px;" name="responsibility"></textarea>
+            {% endif %}
+					</td>
+				</tr>
+				<tr>
+					<th>Communication : </th>
+					<td class="InnerInputTD" colspan="3">
+            {% if found_report.communication %}
+            <textarea class="TableInnerTextarea" style="height:100px;" name="communication">{{found_report.communication}}</textarea>
+            {% else %}
+					  <textarea class="TableInnerTextarea" style="height:100px;" name="communication"></textarea>
+            {% endif %}
+					</td>
+				</tr>
+				<tr>
+					<th>Sleeping Habits : </th>
+					<td class="InnerInputTD" colspan="3">
+            {% if found_report.sleeping_habits %}
+            <textarea class="TableInnerTextarea" style="height:100px;" name="sleeping_habits">{{found_report.sleeping_habits}}</textarea>
+            {% else %}
+					  <textarea class="TableInnerTextarea" style="height:100px;" name="sleeping_habits"></textarea>
+            {% endif %}
+					</td>
+				</tr>
+				<tr>
+					<th>School Attendance : </th>
+					<td class="InnerInputTD" colspan="3">
+            {% if found_report.school_attendance %}
+            <textarea class="TableInnerTextarea" style="height:100px;" name="school_attendance">{{found_report.school_attendance}}</textarea>
+            {% else %}
+					  <textarea class="TableInnerTextarea" style="height:100px;" name="school_attendance"></textarea>
+            {% endif %}
+					</td>
+				</tr>
+				<tr>
+					<th>Comment : </th>
+					<td class="InnerInputTD" colspan="3">
+            {% if found_report.comment %}
+            <textarea class="TableInnerTextarea" style="height:100px;" name="comment">{{found_report.comment}}</textarea>
+            {% else %}
+					  <textarea class="TableInnerTextarea" style="height:100px;" name="comment"></textarea>
+            {% endif %}
+					</td>
+				</tr>
+				<tr>
+					<th>Photo/File Attachment : </th>
+					<td class="InnerInputTD" colspan="3">
+						<input type="file" class="TableInnerInput" style="width:calc(100% - 100px);" /><a href="" class="Button">x &nbsp; delete</a>
+						<br /><input type="file" class="TableInnerInput" style="width:calc(100% - 100px);" /><a href="" class="Button">x &nbsp; delete</a>
+						<br /><input type="file" class="TableInnerInput" style="width:calc(100% - 100px);" /><a href="" class="Button">+ &nbsp; add</a>
+					</td>
+				</tr>
+        <tr>
+          <th>Status : </th>
+          <td colspan="3">
+            {% if found_report.status == 'incomplete' %}
+            <label><input type="radio" name="status" value="incomplete" checked/><span></span>Incomplete</label>
+            <label><input type="radio" name="status" value="complete"/><span></span>Complete</label>
+            {% elif found_report.status == 'complete' %}
+            <label><input type="radio" name="status" value="incomplete"/><span></span>Incomplete</label>
+            <label><input type="radio" name="status" value="complete" checked/><span></span>Complete</label>
+            {% elif found_report.status == 'submitted' %}
+            <label><input type="radio" name="status" value="submitted" checked disabled/><span></span>Submitted</label> / Date : {{found_report.submitted_date}}
+            {% else %}
+            <label><input type="radio" name="status" value="incomplete"/><span></span>Incomplete</label>
+            <label><input type="radio" name="status" value="complete"/><span></span>Complete</label>
+            {% endif %}
+          </td>
+        </tr>
+			</table>
+		</div><!-- InfoTable -->
+
+		<div class="SubmitButtonLine">
+			<button type="submit" class="Submit">SAVE</button>
+		</div>
+		</form>
+		<div class="EndPart"></div>
+		<div class="EndPart"></div>
+
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+
+{% endblock %}

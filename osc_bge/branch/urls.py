@@ -11,5 +11,6 @@ urlpatterns = [
     path('host/update/<int:host_id>', views.HostUpdateView.as_view(), name='host_update_view'),
     path('host/log/<int:host_id>', views.HostLogsView.as_view(), name='host_log_view'),
     path('host/log/get/<int:log_id>', views.communication_log_get, name='get_log_ajax'),
-    path('host/report', views.HostReportTestView.as_view(), name='host_report_test_view'),
+    path('host/report/<int:student_id>', views.HostStudentReportView.as_view(), name='host_student_report_view'),
+    path('host/report/update/<int:report_id>', views.HostStudentReportUpdateView.as_view(), name='host_student_report_update_view'),
 ]

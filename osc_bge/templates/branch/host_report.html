@@ -8,10 +8,9 @@
 		<div class="LeftTab">
 			<div class="TabConternts">
 				<div class="InnerTabContents">
-					<li><a href="/branch/host/test">Host Family A</a></li>
-					<li><a href="/branch/host/test">Host Family B</a></li>
-					<li><a href="/branch/host/test">Host Family C</a></li>
-					<li><a href="/branch/host/test">Host Family D</a></li>
+					{% for host in all_hosts %}
+					<li><a href="/branch/host/update/{{host.id}}">{{host.name}}</a></li>
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div>
 		</div><!-- LeftTab -->
@@ -21,13 +20,15 @@
 
 
 	<div class="MainFrame" id="MainF">
-		<div class="PTitle">Yuren <span>Host Family A</span></div>
+		<div class="PTitle">{{found_student.name}} <span>{{found_host.host.name}}</span></div>
 
 
-		<div class="MTitle">Recent Reports</div>
-		<!-- 등록일 경우
-		<div class="MTitle">Reports Regist</div>
-		-->
+		<!-- <div class="MTitle">Recent Reports</div> -->
+		<!-- 등록일 경우 -->
+		<div class="MTitle">Reports Regist ({% now "Y F"%})</div>
+
+		<form method="POST">
+			{% csrf_token %}
 		<div class="InfoTable">
 			<table cellpadding="0" cellspacing="0" border="0">
 				<colgroup>
@@ -38,81 +39,87 @@
 				</colgroup>
 				<tr>
 					<th>Student Name : </th>
-					<td>Student 1</td>
+					<td>{{found_student.name}}</td>
 					<th>Host Family Name : </th>
-					<td>Host Family A</td>
+					<td>{{found_host.host.name}}</td>
 				</tr>
 				<tr>
 					<th>Branch : </th>
-					<td>Host Coordinator</td>
+					<td>{{found_host.host.provider_branch}}</td>
 					<th>Last Update : </th>
-					<td>2017.03.01</td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>Due date : </th>
+					<td colspan="3"><input type="text" class="TableInnerInput" value="{{due_date|date:'Y-m-d'}}" name="due_date" readonly/></td>
 				</tr>
 				<tr>
 					<th>Photo  : </th>
 					<td class="InnerInputTD" colspan="3"><input type="file" class="TableInnerInput" value="" /><br />
-					<label>
+					<!-- <label>
 					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA8hCGZ69G52M0EThs-5dHEQr223RDgzasznLuBOxs4RG1cRyo" class="SchoolThumbnail" />
-					<input type="checkbox" /><span></span>delete</label>
+					<input type="checkbox" /><span></span>delete</label> -->
 					</td>
 				</tr>
 				<tr>
 					<th>Description : </th>
-					<td class="InnerInputTD" colspan="3"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD" colspan="3">
+						<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" name="description"/>
+					</td>
 				</tr>
 				<tr>
 					<th>Rate : </th>
 					<td>
-						<label><input type="radio" /><span></span>Great</label>
-						<label><input type="radio" /><span></span>Fair</label>
-						<label><input type="radio" /><span></span>Needs effort</label>
+						<label><input type="radio" name="rate" value="great"/><span></span>Great</label>
+						<label><input type="radio" name="rate" value="fair"/><span></span>Fair</label>
+						<label><input type="radio" name="rate" value="needs_effort"/><span></span>Needs effort</label>
 					</td>
 					<th>Improvement : </th>
 					<td>
-						<label><input type="radio" /><span></span>Yes</label>
-						<label><input type="radio" /><span></span>NO</label>
+						<label><input type="radio" name="improvement" value="yes"/><span></span>Yes</label>
+						<label><input type="radio" name="improvement" value="no"/><span></span>NO</label>
 					</td>
 				</tr>
 				<tr>
 					<th>Cultural Fluency : </th>
 					<td class="InnerInputTD" colspan="3">
-					<textarea class="TableInnerTextarea" style="height:100px;">Understand American culture and lifestyle</textarea>
+					<textarea class="TableInnerTextarea" style="height:100px;" name="cultural_fluency"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<th>House Rules & Attitude : </th>
 					<td class="InnerInputTD" colspan="3">
-					<textarea class="TableInnerTextarea" style="height:100px;">Abide by family rules and maintain polite manners</textarea>
+					<textarea class="TableInnerTextarea" style="height:100px;" name="house_rule_attitude" ></textarea>
 					</td>
 				</tr>
 				<tr>
 					<th>Responsibility : </th>
 					<td class="InnerInputTD" colspan="3">
-					<textarea class="TableInnerTextarea" style="height:100px;">Complete required cleaning and household duties</textarea>
+					<textarea class="TableInnerTextarea" style="height:100px;" name="responsibility"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<th>Communication : </th>
 					<td class="InnerInputTD" colspan="3">
-					<textarea class="TableInnerTextarea" style="height:100px;">Provide adequate notice for rides and favors</textarea>
+					<textarea class="TableInnerTextarea" style="height:100px;" name="communication"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<th>Sleeping Habits : </th>
 					<td class="InnerInputTD" colspan="3">
-					<textarea class="TableInnerTextarea" style="height:100px;">Respect a bedtime curfew and get ready for school on time</textarea>
+					<textarea class="TableInnerTextarea" style="height:100px;" name="sleeping_habits"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<th>School Attendance : </th>
 					<td class="InnerInputTD" colspan="3">
-					<textarea class="TableInnerTextarea" style="height:100px;">Improve attendance (no unexcused absences and tardies)</textarea>
+					<textarea class="TableInnerTextarea" style="height:100px;" name="school_attendance"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<th>Comment : </th>
 					<td class="InnerInputTD" colspan="3">
-					<textarea class="TableInnerTextarea" style="height:100px;"></textarea>
+					<textarea class="TableInnerTextarea" style="height:100px;" name="comment"></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -123,13 +130,20 @@
 						<br /><input type="file" class="TableInnerInput" style="width:calc(100% - 100px);" /><a href="" class="Button">+ &nbsp; add</a>
 					</td>
 				</tr>
+				<tr>
+					<th>Status : </th>
+					<td colspan="3">
+						<label><input type="radio" name="status" value="incomplete" checked/><span></span>Incomplete</label>
+						<label><input type="radio" name="status" value="complete"/><span></span>Complete</label>
+					</td>
+				</tr>
 			</table>
 		</div><!-- InfoTable -->
 
 		<div class="SubmitButtonLine">
-			<div class="Close">RESET</div>
-			<div class="Submit">SAVE</div>
+			<button type="submit" class="Submit">SAVE</button>
 		</div>
+		</form>
 		<div class="EndPart"></div>
 		<div class="EndPart"></div>
 
@@ -143,29 +157,19 @@
 					<col>
 				</colgroup>
 				<tr>
-					<th>date</th>
+					<th>Update</th>
 					<th>branch</th>
 					<th>writer</th>
 					<th>descripton</th>
 				</tr>
+				{% for report in all_reports %}
 				<tr>
-					<td>2018-03-01</td>
-					<td>branch name</td>
-					<td>coodi name</td>
-					<td>Understand American culture and lifestyle</td>
+					<td><a href="/branch/host/report/update/{{report.id}}">{{report.updated_at|date:"Y-m-d"}}</a></td>
+					<td>{{report.host.provider_branch}}</td>
+					<td>{{report.host_coordi.user.first_name}} {{report.host_coordi.user.last_name}}</td>
+					<td>{{report.description}}</td>
 				</tr>
-				<tr>
-					<td>2018-02-29</td>
-					<td>branch name</td>
-					<td>coodi name</td>
-					<td>Understand American culture and lifestyle</td>
-				</tr>
-				<tr>
-					<td>2018-02-26</td>
-					<td>branch name</td>
-					<td>coodi name</td>
-					<td>Understand American culture and lifestyle</td>
-				</tr>
+				{% endfor %}
 			</table>
 		</div><!-- ListTable -->
 		<div class="EndPart"></div>

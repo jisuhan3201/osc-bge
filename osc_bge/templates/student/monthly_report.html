@@ -1,0 +1,650 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+#PopCommunicationUpdate {display:none;}
+</style>
+<div class="PopCover" id="PopCommunicationUpdate">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopCommunicationUpdate').style.display='none';">X</div>
+			<div class="Title">Add New Log</div>
+		</div>
+		<div class="Contents">
+
+
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="110">
+						<col>
+					</colgroup>
+					<tr>
+						<th>Write : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" size="24" value="" />
+						</td>
+					</tr>
+					<tr>
+						<th>Date : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" size="10" value="" />
+						</td>
+					</tr>
+					<tr>
+						<th>Category : </th>
+						<td class="InnerInputTD">
+							<select class="TableInnerInput">
+								<option>Behavior</option>
+								<option>Academic</option>
+								<option>Activities</option>
+								<option>Host family</option>
+								<option style="background-color:red;color:#FFF;">Complaints</option>
+								<option>Other</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Priority : </th>
+						<td class="InnerInputTD">
+							<select class="TableInnerInput">
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+								<option>-</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Comment : </th>
+						<td class="InnerInputTD">
+							<textarea class="TableInnerTextarea"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<th>File Attechment : </th>
+						<td class="InnerInputTD"><a class="Button" href="">Attechment</a></td>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopCommunicationUpdate').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopCommunicationUpdate').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+<?php include('../inc/_top.php'); ?>
+
+<div class="ContentsFrame">
+	<div class="LeftFrame" id="LeftF">
+		<div class="SectionTitle">Current Students Report</div>
+		<div class="LeftTab">
+			<div class="TabConternts">
+				<div class="InnerTabContents">
+					<li><a href="../student/report.php">Yuren</a></li>
+					<li><a href="../student/report.php">Tianyi</a></li>
+					<li><a href="../student/report.php">Jessica</a></li>
+					<li><a href="../student/report.php">Hyeongcheol</a></li>
+					<li><a href="../student/report.php">Jun</a></li>
+					<li><a href="../student/report.php">Jae</a></li>
+					<li><a href="../student/report.php">Soomin</a></li>
+					<li><a href="../student/report.php">Christine</a></li>
+					<li><a href="../student/report.php">Huashuo</a></li>
+					<li><a href="../student/report.php">Xinxiang</a></li>
+					<li><a href="../student/report.php">Eric</a></li>
+					<li><a href="../student/report.php">Jason</a></li>
+				</div><!-- InnerTabContents -->
+			</div>
+		</div><!-- LeftTab -->
+	</div><!-- LeftFrame -->
+
+
+
+	<div class="MainFrame" id="MainF">
+		<div class="PTitle">Student Monthly Report</div>
+		<div class="MTitle" style="width:100%;">
+			<div class="MTitleForm">
+				<select class="MTitleInput">
+					<option>December 2017</option>
+					<option>November 2017</option>
+					<option>October 2017</option>
+					<option>September 2017</option>
+					<option>August 2017</option>
+					<option>July 2017</option>
+					<option>June 2017</option>
+					<option>May 2017</option>
+					<option>April 2017</option>
+					<option>March 2017</option>
+					<option>February 2017</option>
+					<option>January 2017</option>
+				</select>
+			</div>
+			Student Information
+		</div>
+
+		<div class="cdiv"></div>
+		<div class="InformationSet">
+			<div class="Picture" style="background-image:url('../imgsrc/person01.jpg');">&nbsp;</div>
+			<div class="Information">
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<colgroup>
+							<col width="90">
+							<col width="100">
+							<col width="60">
+							<col width="">
+							<col width="150">
+							<col width="100">
+						</colgroup>
+						<tr>
+							<th>Name : </th>
+							<td colspan="3" class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+							<th>Counseling Date : </th>
+							<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:80px;" value="" /></td>
+						</tr>
+						<tr>
+							<th>School : </th>
+							<td colspan="3" class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+							<th>Manager Confirm Date : </th>
+							<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:80px;" value="" /></td>
+						</tr>
+						<tr>
+							<th>School year : </th>
+							<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:80px;" placeholder="2017~2018" value="" /></td>
+							<th>Garde : </th>
+							<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:30px;" value="" /></td>
+							<th>Sand to Agent Date : </th>
+							<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:80px;" value="" /></td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
+			</div><!-- Information -->
+			<div class="HButton">Image Change</div>
+			<div class="Information">
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<colgroup>
+							<col width="90">
+							<col>
+						</colgroup>
+						<tr>
+							<th>College Plan : </th>
+							<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
+			</div><!-- Information -->
+		</div><!-- InformationSet -->
+		<div class="EndPart"></div>
+
+		<div class="MTitle">Current Selection</div>
+		<div class="cdiv"></div>
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>Subject</th>
+					<td>Eng-9H</td>
+					<td>PreCal</td>
+					<td>Bio-H</td>
+					<td>Chem-H</td>
+					<td>AP-Human Geo</td>
+					<td>Computer Sci</td>
+					<td>Computer Sci</td>
+					<td>Spanish 3</td>
+					<td>Orchestra</td>
+				</tr>
+				<tr>
+					<th>Level</th>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:30px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:30px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:30px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:30px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:30px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:30px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:30px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:30px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:30px;" value="" /></td>
+				</tr>
+				<tr>
+					<th>Target</th>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:30px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:30px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:30px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:30px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:30px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:30px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:30px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:30px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:30px;" value="" /></td>
+				</tr>
+				<tr>
+					<th>Current</th>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>Comment</th>
+					<td colspan="9" class="InnerInputTD">
+					<textarea class="TableInnerTextarea" style="height:60px;width:calc(100% - 10px);" placeholder="Comment"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>Target GPA</th>
+					<td colspan="9" class="InnerInputTD">
+					<textarea class="TableInnerTextarea" style="height:60px;width:calc(100% - 10px);" placeholder=""></textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>To see current Transcript</th>
+					<td colspan="9" class="InnerInputTD">
+					<textarea class="TableInnerTextarea" style="height:60px;width:calc(100% - 10px);" placeholder=""></textarea>
+					</td>
+				</tr>
+			</table>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+
+
+		<div class="MTitle">English skills / TOEFLE</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+			<textarea class="TableInnerTextarea" style="height:60px;" placeholder="English Skill"></textarea>
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col width="100">
+				</colgroup>
+				<tr>
+					<th>TOEFL</th>
+					<th>Reading</th>
+					<th>Listening</th>
+					<th>Speaking</th>
+					<th>Writing</th>
+					<th>Total</th>
+					<th>Target</th>
+					<th>Next Test Date</th>
+				</tr>
+				<tr>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:20px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:20px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:20px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:20px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:20px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:20px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:20px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:70px;" value="" /></td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+		<div class="EndPart"></div>
+
+
+
+		<div class="MTitle">Test Scores</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col width="100">
+				</colgroup>
+				<tr>
+					<th>SAT(PSAT)</th>
+					<th>Evidence-based Reading & Writing</th>
+					<th>Math</th>
+					<th>Total</th>
+					<th>Target</th>
+					<th>Next Test Date</th>
+				</tr>
+				<tr>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:20px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:20px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:20px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:20px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:20px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:70px;" value="" /></td>
+				</tr>
+			</table>
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col width="100">
+				</colgroup>
+				<tr>
+					<th>ACT</th>
+					<th>English</th>
+					<th>Math</th>
+					<th>Reading</th>
+					<th>Science</th>
+					<th>Composite Score</th>
+					<th>Target</th>
+					<th>Next Test Date</th>
+				</tr>
+				<tr>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:20px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:20px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:20px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:20px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:20px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:20px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:20px;" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:70px;" value="" /></td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="100">
+					<col>
+				</colgroup>
+				<tr>
+					<th>AP Tests</th>
+					<td class="InnerInputTD"><textarea class="TableInnerTextarea" style="height:60px;" placeholder=""></textarea></td>
+				</tr>
+				<tr>
+					<th>SAT Subject Tests</th>
+					<td class="InnerInputTD"><textarea class="TableInnerTextarea" style="height:60px;" placeholder=""></textarea></td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+		<div class="EndPart"></div>
+
+		<div class="MTitle">Test Prep</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+		<textarea class="TableInnerTextarea" style="height:60px;" placeholder="Recommendations of Study plan, Tutoring & Practice sites etc."></textarea>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+
+		<div class="MTitle">Graph for GPA, TOEFL. SAT, ACT</div>
+		<div class="cdiv"></div>
+		<div class="Layout_2-1">
+		<div class="GraphgArea">GPA Graph</div>
+		</div><!-- Layout_2-1 -->
+		<div class="Layout_2-1">
+		<div class="GraphgArea">TOEFL Graph</div>
+		</div><!-- Layout_2-1 -->
+		<div class="EndPart"></div>
+		<div class="cdiv"></div>
+
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="90">
+					<col>
+				</colgroup>
+				<tr>
+					<th>Activities : </th>
+					<td class="InnerInputTD"><textarea class="TableInnerTextarea" style="height:60px;" placeholder=""></textarea></td>
+				</tr>
+				<tr>
+					<th>Community Services : </th>
+					<td class="InnerInputTD"><textarea class="TableInnerTextarea" style="height:60px;" placeholder=""></textarea></td>
+				</tr>
+				<tr>
+					<th>Agenda : </th>
+					<td class="InnerInputTD"><textarea class="TableInnerTextarea" style="height:60px;" placeholder=""></textarea></td>
+				</tr>
+				<tr>
+					<th>Comment : </th>
+					<td class="InnerInputTD"><textarea class="TableInnerTextarea" style="height:60px;" placeholder=""></textarea></td>
+				</tr>
+				<tr>
+					<th>Objective / Assignment : </th>
+					<td class="InnerInputTD"><textarea class="TableInnerTextarea" style="height:60px;" placeholder=""></textarea></td>
+				</tr>
+			</table>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+
+		<div class="MTitle">Host Family Monthly Report</div>
+		<div class="cdiv"></div>
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="150">
+					<col>
+					<col>
+				</colgroup>
+				<tr>
+					<th>Host Family Name : </th>
+					<td colspan="2" class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>Host Family Address : </th>
+					<td colspan="2" class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>Host Family Contact Info : </th>
+					<td colspan="2" class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>Cultural Fluency</th>
+					<td class="InnerInputTD">Date :
+						<select name="" type="text" class="TableInnerInput">
+							<option value="great">Great</option>
+							<option value="fair">fair</option>
+							<option value="needs effort">Needs effort</option>
+						</select>
+					</td>
+					<td class="InnerInputTD">Improvement :
+						<label><input type="radio" name="" value="yes" /><span></span>Yes</label>
+						<label><input type="radio" name="" value="no" /><span></span>No</label>
+					</td>
+				</tr>
+				<tr>
+					<th>House Rules & Attitude</th>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>Responsibility</th>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>Communication</th>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>Sleeping Habits</th>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<th>School Attendance</th>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+				<tr>
+					<td colspan="3" class="InnerInputTD">
+					<textarea class="TableInnerTextarea" style="height:60px;" placeholder="Comment"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>Photo/File Attachment</th>
+					<td colspan="2" class="InnerInputTD"><input type="file" /></td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+		<div class="SubmitButtonLine">
+			<div class="Submit">SAVE</div>
+		</div>
+		<div class="EndPart"></div>
+
+
+
+		<div class="MTitle">Payment & Invoice</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>Description</th>
+					<th>Expense</th>
+					<th>Due date</th>
+					<th>Payment</th>
+					<th>Paid date</th>
+					<th>Balance</th>
+					<th>Invoice attachment</th>
+				</tr>
+				<tr>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+					<td class="InnerInputTD"><input name="" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+		<div class="EndPart"></div>
+
+
+		<div class="MTitle">Communicetion Log</div>
+		<div class="ListSearch Aright">
+			<div><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';" class="IsolationButton">+ &nbsp; Add New Log</a></div>
+		</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>No</th>
+					<th>Date</th>
+					<th>Category</th>
+					<th>Prioity</th>
+					<th>Comment</th>
+					<th>Subject</th>
+					<th>Writer</th>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>2017.10.14</td>
+					<td>Behavior</td>
+					<td>3</td>
+					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
+					<td>Student</td>
+					<td>Mariah Chang</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>2017.10.14</td>
+					<td>Academic</td>
+					<td>1</td>
+					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
+					<td>Parent</td>
+					<td>Mariah Chang</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>2017.10.14</td>
+					<td>Activites</td>
+					<td>2</td>
+					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
+					<td>Student</td>
+					<td>Mariah Chang</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>2017.10.14</td>
+					<td>Host Family</td>
+					<td>4</td>
+					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
+					<td>Parents</td>
+					<td>Mariah Chang</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>2017.10.14</td>
+					<td style="background-color:red;color:#FFF;">Complaints</td>
+					<td>5</td>
+					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
+					<td>Student</td>
+					<td>Mariah Chang</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>2017.10.14</td>
+					<td>Other</td>
+					<td>5</td>
+					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
+					<td>Parents</td>
+					<td>Mariah Chang</td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+
+
+
+		<div class="EndPart"></div>
+
+
+
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+
+<script>
+function MenuOpen() {
+	obj = document.getElementById('LeftF');
+
+	if (obj.style.margin == "0px 0px 0px -229px") {
+		document.getElementById('LeftF').style.margin='0px 0px 0px 0px';
+		document.getElementById('MToggle').style.transform='rotate(90deg)';
+		document.getElementById('MainF').style.width='calc(100% - 355px)';
+	} else {
+		document.getElementById('LeftF').style.margin='0px 0px 0px -229px';
+		document.getElementById('MToggle').style.transform='rotate(0deg)';
+		document.getElementById('MainF').style.width='calc(100% - 126px)';
+	}
+}
+</script>
+{% endblock %}

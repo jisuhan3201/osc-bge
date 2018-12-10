@@ -64,7 +64,7 @@ class User(AbstractUser):
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})
 
-
+# Bge admission team
 class BgeAdminUser(models.Model):
 
     PARTITION_CHOICES = (
@@ -80,7 +80,7 @@ class BgeAdminUser(models.Model):
     def __str__(self):
         return "{}".format(self.user)
 
-
+# Bge branch manager
 class BgeBranchAdminUser(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='branch_admin')
@@ -89,7 +89,7 @@ class BgeBranchAdminUser(models.Model):
     def __str__(self):
         return "{}".format(self.user)
 
-
+# Bge branch coordi
 class BgeBranchCoordinator(models.Model):
 
     POSITION_CHOICES = (

@@ -111,11 +111,13 @@
 				<tr>
 					<th>Host Family Name</th>
 					<th>Student Name</th>
+					<th>Report<br>Status</th>
 					<th>(Newest Monthly)<br />Report Date</th>
 					<th>Report Due Date</th>
 					<th>Next Year Plan</th>
 					<th>Communication Log w/Date (with Date)</th>
 					<th>Contact Info</th>
+					<th>Save</th>
 				</tr>
 				{% for host in all_hosts %}
 					{% for student in host.students.all %}
@@ -123,42 +125,65 @@
 						{% if forloop.counter == 1 %}
 						<td rowspan="{{host.student_length}}"><a href="/branch/host/update/{{host.id}}">{{host.name}}</a></td>
 						{% endif %}
-						<td class="InnerInputTD">{{student.student.name}} &nbsp; <a href="/branch/host/report/{{student.id}}" class="IsolationButton">Report</a></td>
-						<td>2018-03-01</td>
-						<td class="InnerInputTD"><a href="JavaScript:void:(0);" OnClick="document.getElementById('PopDateInput').style.display='block';">2018-03-01</a> <a href="" class="Button">Comfirm</a></td>
-						<td class="InnerInputTD">
-							<select class="TableInnerInput" name="next_year_plan">
-								<option value="">Select.. </option>
-								{% if student.next_year_plan == 'same_student' %}
-								<option value="same_student" selected>Host same student</option>
-								<option value="change_student">Change student</option>
-								<option value="na">N/A</option>
-								<option value="a">A</option>
-								{% elif student.next_year_plan == 'change_student'%}
-								<option value="same_student">Host same student</option>
-								<option value="change_student" selected>Change student</option>
-								<option value="na">N/A</option>
-								<option value="a">A</option>
-								{% elif student.next_year_plan == 'na'%}
-								<option value="same_student">Host same student</option>
-								<option value="change_student">Change student</option>
-								<option value="na" selected>N/A</option>
-								<option value="a">A</option>
-								{% elif student.next_year_plan == 'a'%}
-								<option value="same_student">Host same student</option>
-								<option value="change_student">Change student</option>
-								<option value="na">N/A</option>
-								<option value="a" selected>A</option>
-								{% else %}
-								<option value="same_student">Host same student</option>
-								<option value="change_student">Change student</option>
-								<option value="na">N/A</option>
-								<option value="a">A</option>
+						<td class="InnerInputTD">{{student.student.name}} &nbsp; <a href="/branch/host/report/{{student.student.id}}" class="IsolationButton">Report</a></td>
+						{% if student.student.host_report.all %}
+							{% for report in student.student.host_report.all %}
+								{% if forloop.last %}
+									<td>{{report.status}}</td>
+									<td>{{report.updated_at|date:"Y-m-d"}}</td>
+									<td class="InnerInputTD">{{report.due_date|date:'Y-m-d'}}</td>
 								{% endif %}
-							</select>
+							{% endfor %}
+						{% else %}
+							<td></td>
+							<td></td>
+							<td></td>
+						{% endif %}
+						<form name="next_year_plan_form" method="POST">
+						<td class="InnerInputTD">
+								{% csrf_token %}
+								<input name="student_id" value="{{student.student.id}}" hidden />
+								<select class="TableInnerInput" name="next_year_plan">
+									<option value="">Select.. </option>
+									{% if student.next_year_plan == 'same_student' %}
+									<option value="same_student" selected>Host same student</option>
+									<option value="change_student">Change student</option>
+									<option value="na">N/A</option>
+									<option value="a">A</option>
+									{% elif student.next_year_plan == 'change_student'%}
+									<option value="same_student">Host same student</option>
+									<option value="change_student" selected>Change student</option>
+									<option value="na">N/A</option>
+									<option value="a">A</option>
+									{% elif student.next_year_plan == 'na'%}
+									<option value="same_student">Host same student</option>
+									<option value="change_student">Change student</option>
+									<option value="na" selected>N/A</option>
+									<option value="a">A</option>
+									{% elif student.next_year_plan == 'a'%}
+									<option value="same_student">Host same student</option>
+									<option value="change_student">Change student</option>
+									<option value="na">N/A</option>
+									<option value="a" selected>A</option>
+									{% else %}
+									<option value="same_student">Host same student</option>
+									<option value="change_student">Change student</option>
+									<option value="na">N/A</option>
+									<option value="a">A</option>
+									{% endif %}
+								</select>
+
 						</td>
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="Requested report 3/20/2018" /></td>
-						<td><a href="">{{student.student.phone}}</a><br /><a href="">{{student.student.email}}</a></td>
+						<td class="InnerInputTD">
+							{% if student.communication_log %}
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="communication_log" value="{{student.communication_log}}" />
+							{% else %}
+							<input type="text" class="TableInnerInput" style="width:calc(100% - 10px);" name="communication_log" />
+							{% endif %}
+						</td>
+						<td>{{student.student.phone}}<br />{{student.student.email}}</td>
+						<td><button type="submit" class="IsolationButton">SAVE</button></td>
+						</form>
 					</tr>
 					{% endfor %}
 				{% endfor %}
