@@ -670,15 +670,100 @@ class SecondarySummaryView(LoginRequiredMixin, View):
             except school_models.School.DoesNotExist:
                 return HttpResponse("Wrong school id", status=400)
 
-            selling_points = form_models.CounselorSellingPoint.objects.filter(
-                school=found_school, counselor=found_counselor)
+            try:
+                selling_point = form_models.CounselorSellingPoint.objects.get(
+                    school=found_school, counselor=found_counselor)
+            except:
+                selling_point = None
         else:
             return HttpResponse("School id is null", statue=400)
 
         return render(request, 'school/summary.html', {
             'found_school':found_school,
+            'selling_point':selling_point,
         })
 
+    def post(self, request, school_id=None):
+
+        data = request.POST
+        found_counselor = self.get_counselor()
+
+        if school_id:
+
+            try:
+                found_school = school_models.School.objects.get(pk=school_id)
+            except school_models.School.DoesNotExist:
+                return HttpResponse("Wrong school id", status=400)
+
+            if data.get('counselling_point_id'):
+
+                try:
+                    found_counselling_point = form_models.CounselorSellingPoint.objects.get(id=int(data.get('counselling_point_id')))
+                except form_models.CounselorSellingPoint.DoesNotExist:
+                    return HttpResponse(status=400)
+
+                found_counselling_point.location_ev=data.get('location_ev')
+                found_counselling_point.location_cm=data.get('location_cm')
+                found_counselling_point.admission_requirement_ev=data.get('admission_requirement_ev')
+                found_counselling_point.admission_requirement_cm=data.get('admission_requirement_cm')
+                found_counselling_point.student_number_ev=data.get('student_number_ev')
+                found_counselling_point.student_number_cm=data.get('student_number_cm')
+                found_counselling_point.intl_student_number_ev=data.get('intl_student_number_ev')
+                found_counselling_point.intl_student_number_cm=data.get('intl_student_number_cm')
+                found_counselling_point.esl_ev=data.get('esl_ev')
+                found_counselling_point.esl_cm=data.get('esl_cm')
+                found_counselling_point.student_teacher_ratio_ev=data.get('student_teacher_ratio_ev')
+                found_counselling_point.student_teacher_ratio_cm=data.get('student_teacher_ratio_cm')
+                found_counselling_point.application_fee_ev=data.get('application_fee_ev')
+                found_counselling_point.application_fee_cm=data.get('application_fee_cm')
+                found_counselling_point.program_fee_ev=data.get('program_fee_ev')
+                found_counselling_point.program_fee_cm=data.get('program_fee_cm')
+                found_counselling_point.ap_ev=data.get('ap_ev')
+                found_counselling_point.ap_cm=data.get('ap_cm')
+                found_counselling_point.honor_ev=data.get('honor_ev')
+                found_counselling_point.honor_cm=data.get('honor_cm')
+                found_counselling_point.clubs_ev=data.get('clubs_ev')
+                found_counselling_point.clubs_cm=data.get('clubs_cm')
+                found_counselling_point.sports_ev=data.get('sports_ev')
+                found_counselling_point.sports_cm=data.get('sports_cm')
+                found_counselling_point.save()
+
+            else:
+                found_counselling_point = form_models.CounselorSellingPoint(
+                    school=found_school,
+                    counselor=found_counselor,
+                    location_ev=data.get('location_ev'),
+                    location_cm=data.get('location_cm'),
+                    admission_requirement_ev=data.get('admission_requirement_ev'),
+                    admission_requirement_cm=data.get('admission_requirement_cm'),
+                    student_number_ev=data.get('student_number_ev'),
+                    student_number_cm=data.get('student_number_cm'),
+                    intl_student_number_ev=data.get('intl_student_number_ev'),
+                    intl_student_number_cm=data.get('intl_student_number_cm'),
+                    esl_ev=data.get('esl_ev'),
+                    esl_cm=data.get('esl_cm'),
+                    student_teacher_ratio_ev=data.get('student_teacher_ratio_ev'),
+                    student_teacher_ratio_cm=data.get('student_teacher_ratio_cm'),
+                    application_fee_ev=data.get('application_fee_ev'),
+                    application_fee_cm=data.get('application_fee_cm'),
+                    program_fee_ev=data.get('program_fee_ev'),
+                    program_fee_cm=data.get('program_fee_cm'),
+                    ap_ev=data.get('ap_ev'),
+                    ap_cm=data.get('ap_cm'),
+                    honor_ev=data.get('honor_ev'),
+                    honor_cm=data.get('honor_cm'),
+                    clubs_ev=data.get('clubs_ev'),
+                    clubs_cm=data.get('clubs_cm'),
+                    sports_ev=data.get('sports_ev'),
+                    sports_cm=data.get('sports_cm'),
+                )
+                found_counselling_point.save()
+
+
+        else:
+            return HttpResponse('No school id', status=400)
+
+        return HttpResponseRedirect(request.path_info)
 
 class SecondaryDetailView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'

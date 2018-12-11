@@ -27,7 +27,7 @@
 				Search by School Name :
 	        <input id="school_textbox" type="text" class="SearchInput" style="width:300px;" name="search_name"/>
 					<select class="SearchSelect" id="school_name" name="search_id">
-						<option>Select School..</option>
+						<option value="">Select School..</option>
 						{% for school in all_schools %}
 						<option value="{{school.id}}">{{school.name}}</option>
 						{% endfor %}

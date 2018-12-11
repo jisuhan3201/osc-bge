@@ -21,7 +21,11 @@
 				<div class="InnerTabContents">
 					{% for secondary in secondaries %}
 						{% if secondary.state == 'ma' %}
+							{% if secondary.school.partnership == 1 or secondary.school.partnership == 2 or secondary.school.partnership == 3%}
 							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							{% else %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							{% endif %}
 						{% endif %}
 					{% endfor %}
 				</div><!-- InnerTabContents -->
@@ -42,7 +46,11 @@
 				<div class="InnerTabContents">
 					{% for secondary in secondaries %}
 						{% if secondary.state == 'ct' %}
+							{% if secondary.school.partnership == 1 or secondary.school.partnership == 2 or secondary.school.partnership == 3%}
 							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							{% else %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							{% endif %}
 						{% endif %}
 					{% endfor %}
 				</div><!-- InnerTabContents -->
@@ -63,7 +71,11 @@
 				<div class="InnerTabContents">
 					{% for secondary in secondaries %}
 						{% if secondary.state == 'nj' %}
+							{% if secondary.school.partnership == 1 or secondary.school.partnership == 2 or secondary.school.partnership == 3%}
 							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							{% else %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							{% endif %}
 						{% endif %}
 					{% endfor %}
 				</div><!-- InnerTabContents -->
@@ -84,7 +96,11 @@
 				<div class="InnerTabContents">
 					{% for secondary in secondaries %}
 						{% if secondary.state == 'fa' %}
+							{% if secondary.school.partnership == 1 or secondary.school.partnership == 2 or secondary.school.partnership == 3%}
 							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							{% else %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							{% endif %}
 						{% endif %}
 					{% endfor %}
 				</div><!-- InnerTabContents -->
@@ -105,7 +121,11 @@
 				<div class="InnerTabContents">
 					{% for secondary in secondaries %}
 						{% if secondary.state == 'dc' %}
+							{% if secondary.school.partnership == 1 or secondary.school.partnership == 2 or secondary.school.partnership == 3%}
 							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							{% else %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							{% endif %}
 						{% endif %}
 					{% endfor %}
 				</div><!-- InnerTabContents -->
@@ -147,7 +167,11 @@
 				<div class="InnerTabContents">
 					{% for secondary in secondaries %}
 						{% if secondary.state == 'fl' %}
+							{% if secondary.school.partnership == 1 or secondary.school.partnership == 2 or secondary.school.partnership == 3%}
 							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							{% else %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							{% endif %}
 						{% endif %}
 					{% endfor %}
 				</div><!-- InnerTabContents -->
@@ -168,7 +192,11 @@
 				<div class="InnerTabContents">
 					{% for secondary in secondaries %}
 						{% if secondary.state == 'tx' %}
+							{% if secondary.school.partnership == 1 or secondary.school.partnership == 2 or secondary.school.partnership == 3%}
 							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							{% else %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							{% endif %}
 						{% endif %}
 					{% endfor %}
 				</div><!-- InnerTabContents -->
@@ -189,7 +217,11 @@
 				<div class="InnerTabContents">
 					{% for secondary in secondaries %}
 						{% if secondary.state == 'others' %}
+							{% if secondary.school.partnership == 1 or secondary.school.partnership == 2 or secondary.school.partnership == 3%}
 							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							{% else %}
+							<li><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							{% endif %}
 						{% endif %}
 					{% endfor %}
 				</div><!-- InnerTabContents -->
@@ -392,7 +424,7 @@
 				{% for secondary in search_schools %}
 				<tr>
 					<td class="Relationship"><a href="/school/secondary/update/{{secondary.school.id}}" target="_BLANK">{{secondary.school.name}}</a></td>
-					<td class="Relationship">{{secondary.state}}</td>
+					<td class="Relationship">{{secondary.state|upper}}</td>
 					<td class="Relationship">{{secondary.school.number_students}}</td>
 					<td class="Relationship">{{secondary.grade_start}} ~ {{secondary.grade_end}}</td>
 					<td class="Relationship">{{secondary.toefl_requirement}}</td>

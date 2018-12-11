@@ -324,7 +324,7 @@ class CounselView(LoginRequiredMixin, View):
 
     def get(self, request):
 
-        secondaries = school_models.Secondary.objects.all()
+        secondaries = school_models.Secondary.objects.all().order_by('school__partnership')
         colleges = school_models.College.objects.all()
         search_schools = self.search()
 

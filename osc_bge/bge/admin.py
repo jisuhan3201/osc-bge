@@ -6,6 +6,7 @@ from . import models
 class BgeBranchAdmin(admin.ModelAdmin):
 
     list_display = (
+        'id',
         "name",
         "country",
         "state",

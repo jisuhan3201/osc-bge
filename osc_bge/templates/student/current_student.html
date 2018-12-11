@@ -189,32 +189,30 @@
 					<col width="150px;">
 				</colgroup>
 				<tr>
-					<th>No.</th>
 					<th>Name</th>
 					<th>Parent Contact</th>
 					<th>US Branch</th>
 					<th>School</th>
-					<th>Coordinator</th>
 					<th>Monthly Report</th>
 					<th>Report to Parents Date</th>
-					<th>Comment </th>
 				</tr>
         {% for student in current_students %}
 				<tr>
-					<td>{{ forloop.counter }}</td>
 					<td><a href="/student/current/{{student.id}}">{{student.name}}</a></td>
 					<td>{{student.parent_info.wechat}}</td>
-					<td>{{student.coordinator.branch.name}}</td>
+					<td>{{student.school.provider_branch.name}}</td>
 					<td>{{student.school}}</td>
-					<td>{{student.coordinator.name}}</td>
+					{% if student.report_list.0.report_to_parent %}
 					<td>Complete</td>
+					{% else %}
+					<td>Incoomplete</td>
+					{% endif %}
 					<td class="InnerInputTD">
-						<a class="Button" href="#" OnClick="document.getElementById('PopParentsReportUpdate').style.display='block';">2-28 2018</a>
-						<a class="Button" href="#" OnClick="document.getElementById('PopParentsReportUpdate').style.display='block';">3-30 2018</a>
-						<a class="Button" href="#" OnClick="document.getElementById('PopParentsReportUpdate').style.display='block';">4-31 2018</a>
-					</td>
-					<td class="InnerInputTD">
-						<a class="Button" href="#" OnClick="document.getElementById('PopCommentHistory').style.display='block';">View (Last : 12-03 2017)</a>
+						{% for report in student.report_list.all|slice:":3" %}
+							{% if report.report_to_parent %}
+								{{report.report_to_parent}} /
+							{% endif %}
+						{% endfor %}
 					</td>
 				</tr>
         {% endfor %}

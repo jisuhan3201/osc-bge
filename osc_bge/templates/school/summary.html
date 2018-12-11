@@ -13,226 +13,174 @@
 
 				<form method="POST">
 					{% csrf_token %}
+					{% if selling_point %}
+					<input type="text" name="counselling_point_id" value="{{selling_point.id}}" hidden>
+					{% else %}
+					<input type="text" name="counselling_point_id" value="" hidden>
+					{% endif %}
 					<div class="MTitle">Counselor's Selling Points</div>
 					<div class="ListTable">
 						<table cellpadding="0" cellspacing="0" border="0">
 							<colgroup>
-								<col width="60">
 								<col width="150">
-								<col width="100">
+								<col width="160">
 								<col width="100">
 								<col>
 							</colgroup>
 							<tr>
-								<th>Emphasis</th>
 								<th>Classification</th>
 								<th>Information</th>
 								<th>Evaluation</th>
 								<th>Comment</th>
 							</tr>
 							<tr>
-								<td><label><input type="checkbox" name="location_emp"/><span></span></label></td>
 								<td>Location</td>
 								<td class="InnerInputTD">
 									<input type="text" value="{{found_school.secondary.state|upper}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.location_ev}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="location_ev"/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="Safe and Clean, 40 minutes to Boston" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.location_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="location_cm" />
 								</td>
 							</tr>
 							<tr>
-								<td><label><input type="checkbox" name="admission_requirements_emp"/><span></span></label></td>
-								<td>Admission Requirment</td>
+								<td>Admission Requirement</td>
 								<td class="InnerInputTD">
 									<input type="text" value="{{found_school.secondary.admission_requirements}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="TOEFL Required" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.admission_requirement_ev}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="admission_requirement_ev"/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.admission_requirement_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="admission_requirement_cm"/>
 								</td>
 							</tr>
-							<tr>
-								<td><label><input type="checkbox" /><span></span></label></td>
-								<td>Campus</td>
+							<tr>`
+								<td># of Students</td>
 								<td class="InnerInputTD">
-									<input type="text" value="" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{found_school.number_students}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled />
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.student_number_ev}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="student_number_ev"/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="" style="width:calc(100% - 8px);" class="TableInnerInput" />
-								</td>
-							</tr>
-							<tr>
-								<td><label><input type="checkbox" /><span></span></label></td>
-								<td>Agent Location</td>
-								<td class="InnerInputTD">
-									<input type="text" value="" style="width:calc(100% - 8px);" class="TableInnerInput" />
-								</td>
-								<td class="InnerInputTD">
-									<input type="text" value="Be Near" style="width:calc(100% - 8px);" class="TableInnerInput" />
-								</td>
-								<td class="InnerInputTD">
-									<input type="text" value="" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.student_number_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="student_number_cm" />
 								</td>
 							</tr>
-							<tr>
-								<td><label><input type="checkbox" /><span></span></label></td>
-								<td>#of Students</td>
+							<tr>`
+								<td># of Intl. Students</td>
 								<td class="InnerInputTD">
-									<input type="text" value="1006" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{found_school.secondary.international_students}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="Very Good" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.intl_student_number_ev}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="intl_student_number_ev"/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="" style="width:calc(100% - 8px);" class="TableInnerInput" />
-								</td>
-							</tr>
-							<tr>
-								<td><label><input type="checkbox" /><span></span></label></td>
-								<td>#of Intl. Students</td>
-								<td class="InnerInputTD">
-									<input type="text" value="20" style="width:calc(100% - 8px);" class="TableInnerInput" />
-								</td>
-								<td class="InnerInputTD">
-									<input type="text" value="Very Good" style="width:calc(100% - 8px);" class="TableInnerInput" />
-								</td>
-								<td class="InnerInputTD">
-									<input type="text" value="" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.intl_student_number_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="intl_student_number_cm"/>
 								</td>
 							</tr>
-							<tr>
-								<td><label><input type="checkbox" /><span></span></label></td>
+							<tr>`
 								<td>ESL</td>
 								<td class="InnerInputTD">
-									<input type="text" value="None" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{found_school.secondary.esl}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.esl_ev}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="esl_ev"/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.esl_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="esl_cm"/>
 								</td>
 							</tr>
-							<tr>
-								<td><label><input type="checkbox" /><span></span></label></td>
-								<td>Student : Teachet</td>
+							<tr>`
+								<td>Student : Teacher</td>
 								<td class="InnerInputTD">
-									<input type="text" value="14 : 01" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{found_school.secondary.student_teach_ratio}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="Very Good" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.student_teacher_ratio_ev}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="student_teacher_ratio_ev"/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="Must TOEFL" style="width:calc(100% - 8px);" class="TableInnerInput" />
-								</td>
-							</tr>
-							<tr>
-								<td><label><input type="checkbox" /><span></span></label></td>
-								<td>Total Fee</td>
-								<td class="InnerInputTD">
-									<input type="text" value="$43,130" style="width:calc(100% - 8px);" class="TableInnerInput" />
-								</td>
-								<td class="InnerInputTD">
-									<input type="text" value="Very Good" style="width:calc(100% - 8px);" class="TableInnerInput" />
-								</td>
-								<td class="InnerInputTD">
-									<input type="text" value="Lower than average" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.student_teacher_ratio_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="student_teacher_ratio_cm"/>
 								</td>
 							</tr>
-							<tr>
-								<td><label><input type="checkbox" /><span></span></label></td>
+							<tr>`
+								<td>Program Fee</td>
+								<td class="InnerInputTD">
+									<input type="text" value="${{found_school.secondary.program_fee}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
+								</td>
+								<td class="InnerInputTD">
+									<input type="text" value="{{selling_point.program_fee_ev}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="program_fee_ev"/>
+								</td>
+								<td class="InnerInputTD">
+									<input type="text" value="{{selling_point.program_fee_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="program_fee_cm"/>
+								</td>
+							</tr>
+							<tr>`
+								<td>Application Fee</td>
+								<td class="InnerInputTD">
+									<input type="text" value="${{found_school.secondary.application_fee}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
+								</td>
+								<td class="InnerInputTD">
+									<input type="text" value="{{selling_point.application_fee_ev}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="application_fee_ev"/>
+								</td>
+								<td class="InnerInputTD">
+									<input type="text" value="{{selling_point.application_fee_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="application_fee_cm"/>
+								</td>
+							</tr>
+							<tr>`
 								<td>AP</td>
 								<td class="InnerInputTD">
-									<input type="text" value="24" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{found_school.secondary.number_ap_courses}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="Very Good" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.ap_ev}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="ap_ev"/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="Higher than everage" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.ap_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="ap_cm"/>
 								</td>
 							</tr>
-							<tr>
-								<td><label><input type="checkbox" /><span></span></label></td>
-								<td>Honor</td>
+							<tr>`
+								<td>Honors</td>
 								<td class="InnerInputTD">
-									<input type="text" value="29" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{found_school.secondary.number_honor_courses}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="Very Good" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.honor_ev}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="honor_ev"/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="" style="width:calc(100% - 8px);" class="TableInnerInput" />
-								</td>
-							</tr>
-							<tr>
-								<td><label><input type="checkbox" /><span></span></label></td>
-								<td>Art</td>
-								<td class="InnerInputTD">
-									<input type="text" value="Hard" style="width:calc(100% - 8px);" class="TableInnerInput" />
-								</td>
-								<td class="InnerInputTD">
-									<input type="text" value="TOEFL Required" style="width:calc(100% - 8px);" class="TableInnerInput" />
-								</td>
-								<td class="InnerInputTD">
-									<input type="text" value="" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.honor_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="honor_cm"/>
 								</td>
 							</tr>
-							<tr>
-								<td><label><input type="checkbox" /><span></span></label></td>
-								<td>Music</td>
-								<td class="InnerInputTD">
-									<input type="text" value="Hard" style="width:calc(100% - 8px);" class="TableInnerInput" />
-								</td>
-								<td class="InnerInputTD">
-									<input type="text" value="TOEFL Required" style="width:calc(100% - 8px);" class="TableInnerInput" />
-								</td>
-								<td class="InnerInputTD">
-									<input type="text" value="" style="width:calc(100% - 8px);" class="TableInnerInput" />
-								</td>
-								<td>-</td>
-								<td>-</td>
-								<td>-</td>
-							</tr>
-							<tr>
-								<td><label><input type="checkbox" /><span></span></label></td>
+							<tr>`
 								<td>Clubs</td>
 								<td class="InnerInputTD">
-									<input type="text" value="39" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{found_school.secondary.number_clubs}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="Very Good" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.clubs_ev}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="clubs_ev"/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="STEM 강조" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.clubs_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="clubs_cm"/>
 								</td>
 							</tr>
-							<tr>
-								<td><label><input type="checkbox" /><span></span></label></td>
+							<tr>`
 								<td>Sports</td>
 								<td class="InnerInputTD">
-									<input type="text" value="16" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{found_school.secondary.number_sports}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="Very Good" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.sports_ev}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="sports_ev"/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="Varies" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{selling_point.sports_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="sports_cm"/>
 								</td>
 							</tr>
-							<tr>
-								<td><label><input type="checkbox" /><span></span></label></td>
+							<tr>`
 								<td>Special Comment</td>
 								<td class="InnerInputTD" colspan="3">
-									<input type="text" value="" style="width:calc(100% - 8px);" class="TableInnerInput" />
+									<input type="text" value="{{found_school.secondary.selling_point}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
 								</td>
 							</tr>
 						</table>
@@ -291,8 +239,14 @@
 				<tr>
 					<th>Grades : </th>
 					<td>{{found_school.secondary.grade_start}} ~ {{found_school.secondary.grade_end}}</td>
-					<th>Fee total : </th>
-					<td>$43,130</td>
+					<th></th>
+					<td></td>
+				</tr>
+				<tr>
+					<th>Program Fee : </th>
+					<td>{{found_school.secondary.program_fee}}</td>
+					<th>Application Fee : </th>
+					<td>{{found_school.secondary.application_fee}}</td>
 				</tr>
 				<tr>
 					<th>Entry Requirement : </th>

@@ -110,7 +110,14 @@ class GraduateStudentReview(TimeStampedModel):
 
 class StudentMonthlyReport(TimeStampedModel):
 
-    name= models.CharField(max_length=80, null=True, blank=True)
+    STATUS_CHOICES = (
+        ('incomplete', 'Incomplete'),
+        ('submitted', 'Submitted'),
+        ('manager_confirmed', 'Manager Confirmed'),
+        ('send_to_agent', 'Send to Agent'),
+        ('agent_confirmed', 'Agent Confirmed'),
+    )
+
     student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True, related_name='monthly_report')
     counseling_date = models.CharField(max_length=80, null=True, blank=True)
     manager_confirm_date = models.CharField(max_length=80, null=True, blank=True)
@@ -127,6 +134,9 @@ class StudentMonthlyReport(TimeStampedModel):
     bioh_lv = models.CharField(max_length=80, null=True, blank=True)
     bioh_tg = models.CharField(max_length=80, null=True, blank=True)
     bioh_current = models.CharField(max_length=80, null=True, blank=True)
+    chemh_lv = models.CharField(max_length=80, null=True, blank=True)
+    chemh_tg = models.CharField(max_length=80, null=True, blank=True)
+    chemh_current = models.CharField(max_length=80, null=True, blank=True)
     geo_lv = models.CharField(max_length=80, null=True, blank=True)
     geo_tg = models.CharField(max_length=80, null=True, blank=True)
     geo_current = models.CharField(max_length=80, null=True, blank=True)
@@ -180,6 +190,19 @@ class StudentMonthlyReport(TimeStampedModel):
     payment_paid_date = models.CharField(max_length=80, null=True, blank=True)
     payment_balance = models.CharField(max_length=80, null=True, blank=True)
     payment_invoice = models.CharField(max_length=80, null=True, blank=True)
+    submit_date = models.DateField(null=True, blank=True)
+    agent_confirmed = models.DateField(null=True, blank=True)
+    report_to_parent = models.DateField(null=True, blank=True)
+    status = models.CharField(max_length=80, null=True, blank=True, choices=STATUS_CHOICES)
 
     def  __str__(self):
-        return "{}".format(self.name)
+        return "{}".format(self.student)
+
+
+class StudentCommunicationLog(TimeStampedModel):
+
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
+    writer = models.ForeignKey(user_models.User, on_delete=models.SET_NULL, null=True)
+    category = models.CharField(max_length=80, null=True, blank=True)
+    priority = models.CharField(max_length=80, null=True, blank=True)
+    comment = models.TextField(null=True, blank=True)

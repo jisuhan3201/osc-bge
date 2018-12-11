@@ -67,4 +67,7 @@ class HostStudentReportAdmin(admin.ModelAdmin):
         "sleeping_habits",
         "school_attendance",
         "comment",
+        "status",
+        "submitted_date",
+        "due_date",
     )

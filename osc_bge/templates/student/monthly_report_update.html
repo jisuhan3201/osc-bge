@@ -1,0 +1,691 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+#PopCommunicationUpdate {display:none;}
+</style>
+<div class="PopCover" id="PopCommunicationUpdate">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopCommunicationUpdate').style.display='none';">X</div>
+			<div class="Title">Add New Log</div>
+		</div>
+		<div class="Contents">
+
+
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="110">
+						<col>
+					</colgroup>
+					<tr>
+						<th>Write : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" size="24" value="" />
+						</td>
+					</tr>
+					<tr>
+						<th>Date : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" size="10" value="" />
+						</td>
+					</tr>
+					<tr>
+						<th>Category : </th>
+						<td class="InnerInputTD">
+							<select class="TableInnerInput">
+								<option>Behavior</option>
+								<option>Academic</option>
+								<option>Activities</option>
+								<option>Host family</option>
+								<option style="background-color:red;color:#FFF;">Complaints</option>
+								<option>Other</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Priority : </th>
+						<td class="InnerInputTD">
+							<select class="TableInnerInput">
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+								<option>-</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Comment : </th>
+						<td class="InnerInputTD">
+							<textarea class="TableInnerTextarea"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<th>File Attechment : </th>
+						<td class="InnerInputTD"><a class="Button" href="">Attechment</a></td>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+
+
+			<div class="PopButtonLine">
+				<div class="Close" OnClick="document.getElementById('PopCommunicationUpdate').style.display='none';">CLOSE</div>
+				<div class="Submit" OnClick="document.getElementById('PopCommunicationUpdate').style.display='none';">SAVE</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+<div class="ContentsFrame">
+	<div class="LeftFrame" id="LeftF">
+		<div class="SectionTitle">Current Students Report</div>
+		<div class="LeftTab">
+			<div class="TabConternts">
+				<div class="InnerTabContents">
+					{% for student in all_students %}
+					<li><a href="/student/monthly/report/{{student.id}}">{{student.name}}</a></li>
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div>
+		</div><!-- LeftTab -->
+	</div><!-- LeftFrame -->
+
+
+
+	<div class="MainFrame" id="MainF">
+		<form method="POST">
+			{% csrf_token %}
+			<input type="text" name="post_type" value="student_monthly_report" hidden>
+			<input type="text" name="report_id" value="" hidden>
+		<div class="PTitle">Student Monthly Report {% if found_report.submit_date %}(Submitted  :  {{found_report.submit_date}}) {% endif %}</div>
+		<div class="MTitle" style="width:100%;">
+			<div class="MTitleForm">
+				<select class="MTitleInput" onchange="location=this.value;">
+          <option value="">Select Reports..</option>
+					{% for report in all_reports %}
+					<option value="/student/monthly/report/update/{{report.id}}">{{report.submit_date}}</option>
+          {% endfor %}
+				</select>
+			</div>
+			Student Information
+		</div>
+
+		<div class="cdiv"></div>
+		<div class="InformationSet">
+			<div class="Picture" style="background-image:url('../imgsrc/person01.jpg');">&nbsp;</div>
+			<div class="Information">
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<colgroup>
+							<col width="90">
+							<col width="100">
+							<col width="60">
+							<col width="">
+							<col width="150">
+							<col width="100">
+						</colgroup>
+						<tr>
+							<th>Name : </th>
+							<td colspan="3" class="InnerInputTD">{{found_report.student.name}}</td>
+							<th>Counseling Date : </th>
+							<td class="InnerInputTD"><input name="counseling_date" type="text" class="TableInnerInput" style="width:120px;" value="{{found_report.counseling_date}}" /></td>
+						</tr>
+						<tr>
+							<th>School : </th>
+							<td colspan="3" class="InnerInputTD">{{found_report.student.school.name}}</td>
+							<th style="color:red;">* Manager Confirm Date (Fill and Save to Confirm): </th>
+							<td class="InnerInputTD">
+                {% if found_report.manager_confirm_date %}
+                <input
+                  name="manager_confirm_date"
+                  type="text"
+                  class="TableInnerInput"
+                  style="width:120px;"
+                  pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+                  placeholder="YYYY-MM-DD"
+                  value="{{found_report.manager_confirm_date}}" />
+                {% else %}
+                <input
+                  name="manager_confirm_date"
+                  type="text"
+                  class="TableInnerInput"
+                  style="width:120px;"
+                  pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+                  placeholder="YYYY-MM-DD"/>
+                {% endif %}
+              </td>
+						</tr>
+						<tr>
+							<th>School year : </th>
+							<td class="InnerInputTD"><input name="school_year" type="text" class="TableInnerInput" style="width:80px;" value="{{found_report.school_year}}" /></td>
+							<th>Grade : </th>
+							<td class="InnerInputTD"><input name="grade" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.grade}}" /></td>
+							<th style="color:red;">* Send to Agent Date (Fill and Save to send) : </th>
+							<td class="InnerInputTD">
+                {% if found_report.send_to_agent_date %}
+                <input
+                  name="send_to_agent_date"
+                  type="text"
+                  class="TableInnerInput"
+                  style="width:120px;"
+                  pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+                  placeholder="YYYY-MM-DD"
+                  value="{{found_report.send_to_agent_date}}" />
+                {% else %}
+                <input
+                  name="send_to_agent_date"
+                  type="text"
+                  class="TableInnerInput"
+                  style="width:120px;"
+                  pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+                  placeholder="YYYY-MM-DD"/>
+                {% endif %}
+              </td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
+			</div><!-- Information -->
+			<div class="HButton">Image Change</div>
+			<div class="Information">
+				<div class="InfoTable">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<colgroup>
+							<col width="90">
+							<col>
+						</colgroup>
+						<tr>
+							<th>College Plan : </th>
+							<td class="InnerInputTD"><input name="college_plan" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.college_plan}}" /></td>
+						</tr>
+					</table>
+				</div><!-- InfoTable -->
+			</div><!-- Information -->
+		</div><!-- InformationSet -->
+		<div class="EndPart"></div>
+
+		<div class="MTitle">Current Selection</div>
+		<div class="cdiv"></div>
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>Subject</th>
+					<td>Eng-9H</td>
+					<td>PreCal</td>
+					<td>Bio-H</td>
+					<td>Chem-H</td>
+					<td>AP-Human Geo</td>
+					<td>Computer Sci</td>
+					<td>Spanish 3</td>
+					<td>Orchestra</td>
+				</tr>
+				<tr>
+					<th>Level</th>
+					<td class="InnerInputTD"><input name="eng9h_lv" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.eng9h_lv}}" /></td>
+					<td class="InnerInputTD"><input name="precal_lv" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.precal_lv}}" /></td>
+					<td class="InnerInputTD"><input name="bioh_lv" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.bioh_lv}}" /></td>
+					<td class="InnerInputTD"><input name="chemh_lv" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.chemh_lv}}" /></td>
+					<td class="InnerInputTD"><input name="geo_lv" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.geo_lv}}" /></td>
+					<td class="InnerInputTD"><input name="cs_lv" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.cs_lv}}" /></td>
+					<td class="InnerInputTD"><input name="sp_lv" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.sp_lv}}" /></td>
+					<td class="InnerInputTD"><input name="orch_lv" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.orch_lv}}" /></td>
+
+				</tr>
+				<tr>
+					<th>Target</th>
+					<td class="InnerInputTD"><input name="eng9h_tg" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.eng9h_tg}}" /></td>
+					<td class="InnerInputTD"><input name="precal_tg" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.precal_tg}}" /></td>
+					<td class="InnerInputTD"><input name="bioh_tg" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.bioh_tg}}" /></td>
+					<td class="InnerInputTD"><input name="chemh_tg" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.chemh_tg}}" /></td>
+					<td class="InnerInputTD"><input name="geo_tg" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.geo_tg}}" /></td>
+					<td class="InnerInputTD"><input name="cs_tg" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.cs_tg}}" /></td>
+					<td class="InnerInputTD"><input name="sp_tg" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.sp_tg}}" /></td>
+					<td class="InnerInputTD"><input name="orch_tg" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.orch_tg}}" /></td>
+				</tr>
+				<tr>
+					<th>Current</th>
+					<td class="InnerInputTD"><input name="eng9h_current" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.eng9h_current}}" /></td>
+					<td class="InnerInputTD"><input name="precal_current" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.precal_current}}" /></td>
+					<td class="InnerInputTD"><input name="bioh_current" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.bioh_current}}" /></td>
+					<td class="InnerInputTD"><input name="chemh_current" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.chemh_current}}" /></td>
+					<td class="InnerInputTD"><input name="geo_current" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.geo_current}}" /></td>
+					<td class="InnerInputTD"><input name="cs_current" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.cs_current}}" /></td>
+					<td class="InnerInputTD"><input name="sp_current" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.sp_current}}" /></td>
+					<td class="InnerInputTD"><input name="orch_current" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.orch_current}}" /></td>
+				</tr>
+				<tr>
+					<th>Comment</th>
+					<td colspan="9" class="InnerInputTD">
+					<textarea class="TableInnerTextarea" style="height:60px;width:calc(100% - 10px);" name="comment">{{found_report.comment}}</textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>Target GPA</th>
+					<td colspan="9" class="InnerInputTD">
+					<textarea class="TableInnerTextarea" style="height:60px;width:calc(100% - 10px);" name="target_gpa">{{found_report.target_gpa}}</textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>To see current Transcript</th>
+					<td colspan="9" class="InnerInputTD">
+					<textarea class="TableInnerTextarea" style="height:60px;width:calc(100% - 10px);" name="transcript">{{found_report.transcript}}</textarea>
+					</td>
+				</tr>
+			</table>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+
+
+		<div class="MTitle">English skills / TOEFLE</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+			<textarea class="TableInnerTextarea" style="height:60px;" name="eng_skill">{{found_report.eng_skill}}</textarea>
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col width="100">
+				</colgroup>
+				<tr>
+					<th>TOEFL</th>
+					<th>Reading</th>
+					<th>Listening</th>
+					<th>Speaking</th>
+					<th>Writing</th>
+					<th>Total</th>
+					<th>Target</th>
+					<th>Next Test Date</th>
+				</tr>
+				<tr>
+					<td class="InnerInputTD"><input name="toefl" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.toefl}}" /></td>
+					<td class="InnerInputTD"><input name="toefl_reading" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.toefl_reading}}" /></td>
+					<td class="InnerInputTD"><input name="toefl_listening" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.toefl_listening}}" /></td>
+					<td class="InnerInputTD"><input name="toefl_speaking" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.toefl_speaking}}" /></td>
+					<td class="InnerInputTD"><input name="toefl_writing" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.toefl_writing}}" /></td>
+					<td class="InnerInputTD"><input name="toefl_total" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.toefl_total}}" /></td>
+					<td class="InnerInputTD"><input name="toefl_target" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.toefl_target}}" /></td>
+					<td class="InnerInputTD"><input name="toefl_next_test_date" type="text" class="TableInnerInput" style="width:70px;" value="{{found_report.toefl_next_test_date}}" /></td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+		<div class="EndPart"></div>
+
+
+
+		<div class="MTitle">Test Scores</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col width="100">
+				</colgroup>
+				<tr>
+					<th>SAT(PSAT)</th>
+					<th>Evidence-based Reading & Writing</th>
+					<th>Math</th>
+					<th>Total</th>
+					<th>Target</th>
+					<th>Next Test Date</th>
+				</tr>
+				<tr>
+					<td class="InnerInputTD"><input name="sat" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.sat}}" /></td>
+					<td class="InnerInputTD"><input name="sat_evb_reading_writing" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.sat_evb_reading_writing}}" /></td>
+					<td class="InnerInputTD"><input name="sat_math" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.sat_math}}" /></td>
+					<td class="InnerInputTD"><input name="sat_total" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.sat_total}}" /></td>
+					<td class="InnerInputTD"><input name="sat_target" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.sat_target}}" /></td>
+					<td class="InnerInputTD"><input name="sat_next_test_date" type="text" class="TableInnerInput" style="width:70px;" value="{{found_report.sat_next_test_date}}" /></td>
+				</tr>
+			</table>
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col>
+					<col width="100">
+				</colgroup>
+				<tr>
+					<th>ACT</th>
+					<th>English</th>
+					<th>Math</th>
+					<th>Reading</th>
+					<th>Science</th>
+					<th>Composite Score</th>
+					<th>Target</th>
+					<th>Next Test Date</th>
+				</tr>
+				<tr>
+					<td class="InnerInputTD"><input name="act" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.act}}" /></td>
+					<td class="InnerInputTD"><input name="act_eng" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.act_eng}}" /></td>
+					<td class="InnerInputTD"><input name="act_math" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.act_math}}" /></td>
+					<td class="InnerInputTD"><input name="act_reading" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.act_reading}}" /></td>
+					<td class="InnerInputTD"><input name="act_sci" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.act_sci}}" /></td>
+					<td class="InnerInputTD"><input name="act_composition_score" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.act_composition_score}}" /></td>
+					<td class="InnerInputTD"><input name="act_target" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.act_target}}" /></td>
+					<td class="InnerInputTD"><input name="act_next_test_date" type="text" class="TableInnerInput" style="width:70px;" value="{{found_report.act_next_test_date}}" /></td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="100">
+					<col>
+				</colgroup>
+				<tr>
+					<th>AP Tests</th>
+					<td class="InnerInputTD"><textarea name="ap_tests" class="TableInnerTextarea" style="height:60px;" >{{found_report.ap_tests}}</textarea></td>
+				</tr>
+				<tr>
+					<th>SAT Subject Tests</th>
+					<td class="InnerInputTD"><textarea name="sat_subjects_tests" class="TableInnerTextarea" style="height:60px;" >{{found_report.sat_subjects_tests}}</textarea></td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+		<div class="EndPart"></div>
+
+		<div class="MTitle">Test Prep</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+		<textarea name="test_prep" class="TableInnerTextarea" style="height:60px;" >{{found_report.test_prep}}</textarea>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+
+		<div class="MTitle">Graph for GPA, TOEFL. SAT, ACT</div>
+		<div class="cdiv"></div>
+		<div class="Layout_2-1">
+		<div class="GraphgArea">GPA Graph</div>
+		</div><!-- Layout_2-1 -->
+		<div class="Layout_2-1">
+		<div class="GraphgArea">TOEFL Graph</div>
+		</div><!-- Layout_2-1 -->
+		<div class="EndPart"></div>
+		<div class="cdiv"></div>
+
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="90">
+					<col>
+				</colgroup>
+				<tr>
+					<th>Activities : </th>
+					<td class="InnerInputTD"><textarea name="activities" class="TableInnerTextarea" style="height:60px;" placeholder="">{{found_report.activities}}</textarea></td>
+				</tr>
+				<tr>
+					<th>Community Services : </th>
+					<td class="InnerInputTD"><textarea name="community_services" class="TableInnerTextarea" style="height:60px;" placeholder="">{{found_report.community_services}}</textarea></td>
+				</tr>
+				<tr>
+					<th>Agenda : </th>
+					<td class="InnerInputTD"><textarea name="agenda" class="TableInnerTextarea" style="height:60px;" placeholder="">{{found_report.agenda}}</textarea></td>
+				</tr>
+				<tr>
+					<th>Comment : </th>
+					<td class="InnerInputTD"><textarea name="comment2" class="TableInnerTextarea" style="height:60px;" placeholder="">{{found_report.comment2}}</textarea></td>
+				</tr>
+				<tr>
+					<th>Objective / Assignment : </th>
+					<td class="InnerInputTD"><textarea name="objective_assignment" class="TableInnerTextarea" style="height:60px;" placeholder="">{{found_report.objective_assignment}}</textarea></td>
+				</tr>
+			</table>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+
+		<div class="MTitle">Payment & Invoice</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>Description</th>
+					<th>Expense</th>
+					<th>Due date</th>
+					<th>Payment</th>
+					<th>Paid date</th>
+					<th>Balance</th>
+					<th>Invoice attachment</th>
+				</tr>
+				<tr>
+					<td class="InnerInputTD"><input name="payment_desc" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_desc}}" /></td>
+					<td class="InnerInputTD"><input name="payment_expense" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_expense}}" /></td>
+					<td class="InnerInputTD"><input name="payment_due_date" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_due_date}}" /></td>
+					<td class="InnerInputTD"><input name="payment_payment" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_payment}}" /></td>
+					<td class="InnerInputTD"><input name="payment_paid_date" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_paid_date}}" /></td>
+					<td class="InnerInputTD"><input name="payment_balance" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_balance}}" /></td>
+					<td class="InnerInputTD"><input name="payment_invoice" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_invoice}}" /></td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+		<div class="EndPart"></div>
+
+		<div class="MTitle">Status</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<th>Report Status : </th>
+					<td>
+            {% if found_report.status == 'incomplete' %}
+						<label><input name="status" type="radio" value="incomplete" checked required/><span></span>Incomplete</label>
+						<label><input name="status" type="radio" value="submitted"/><span></span>Complete</label>
+            {% elif found_report.status == 'submitted' %}
+            Submitted Date  :  {{found_report.submit_date|date:"Y-m-d"}}
+            {% elif found_report.status == 'manager_confirmed' %}
+            Submitted Date  :  {{found_report.submit_date|date:"Y-m-d"}} / Manager Confirmed Date  :  {{found_report.manager_confirm_date}}
+            {% elif found_report.status == 'send_to_agent' %}
+            Submitted Date  :  {{found_report.submit_date|date:"Y-m-d"}} / Manager Confirmed  :  {{found_report.manager_confirm_date}} / Send to Agent  :  {{found_report.send_to_agent_date}}
+            {% elif found_report.status == 'agent_confirmed' %}
+            Submitted Date  :  {{found_report.submit_date|date:"Y-m-d"}} / Manager Confirmed  :  {{found_report.manager_confirm_date}} / Send to Agent  :  {{found_report.send_to_agent_date}} / Agent Confirmed  :  {{found_report.agent_confirmed}}
+            {% else %}
+            <label><input name="status" type="radio" value="incomplete" required/><span></span>Incomplete</label>
+						<label><input name="status" type="radio" value="submitted"/><span></span>Complete</label>
+            {% endif %}
+					</td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+
+		<div class="SubmitButtonLine">
+			<button class="Submit" type="submit">SAVE</button>
+		</div>
+		</form>
+		<div class="EndPart"></div>
+
+
+
+    <div class="MTitle">Host Family Monthly Report</div>
+		<div class="cdiv"></div>
+		<div class="InfoTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col width="150">
+					<col>
+					<col>
+				</colgroup>
+				<tr>
+					<th>Host Family Name : </th>
+					<td colspan="2" class="InnerInputTD">{{found_host_report.host.name}}</td>
+				</tr>
+				<tr>
+					<th>Host Family Address : </th>
+					<td colspan="2" class="InnerInputTD">{{found_host_report.host.address}}</td>
+				</tr>
+				<tr>
+					<th>Host Family Contact Info : </th>
+					<td colspan="2" class="InnerInputTD">{{found_host_report.host.phone}} / {{found_host_report.host.email}}</td>
+				</tr>
+				<tr>
+					<th>Rate </th>
+					<td class="InnerInputTD">{{found_host_report.rate}}</td>
+					<td class="InnerInputTD">Improvement :  {{found_host_report.improvement}}</td>
+				</tr>
+        <tr>
+					<th>Cultural Fluency : </th>
+					<td colspan="2" class="InnerInputTD">{{found_host_report.cultural_fluency}}</td>
+				</tr>
+				<tr>
+					<th>House Rules & Attitude</th>
+					<td colspan="2" class="InnerInputTD">{{found_host_report.house_rule_attitude}}</td>
+				</tr>
+				<tr>
+					<th>Responsibility</th>
+          <td colspan="2" class="InnerInputTD">{{found_host_report.responsibility}}</td>
+				</tr>
+				<tr>
+					<th>Communication</th>
+          <td colspan="2" class="InnerInputTD">{{found_host_report.communication}}</td>
+				</tr>
+				<tr>
+					<th>Sleeping Habits</th>
+          <td colspan="2" class="InnerInputTD">{{found_host_report.sleeping_habits}}</td>
+				</tr>
+				<tr>
+					<th>School Attendance</th>
+          <td colspan="2" class="InnerInputTD">{{found_host_report.school_attendance}}</td>
+				</tr>
+				<tr>
+					<td colspan="3" class="InnerInputTD">
+					<textarea class="TableInnerTextarea" style="height:60px;" readonly>{{found_host_report.comment}}</textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>Photo/File Attachment</th>
+					<td colspan="2" class="InnerInputTD"></td>
+				</tr>
+			</table>
+		</div><!-- ListTable -->
+
+    <div class="EndPart"></div>
+
+
+		<!-- <div class="MTitle">Communicetion Log</div>
+		<div class="ListSearch Aright">
+			<div><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';" class="IsolationButton">+ &nbsp; Add New Log</a></div>
+		</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>No</th>
+					<th>Date</th>
+					<th>Category</th>
+					<th>Prioity</th>
+					<th>Comment</th>
+					<th>Subject</th>
+					<th>Writer</th>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>2017.10.14</td>
+					<td>Behavior</td>
+					<td>3</td>
+					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
+					<td>Student</td>
+					<td>Mariah Chang</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>2017.10.14</td>
+					<td>Academic</td>
+					<td>1</td>
+					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
+					<td>Parent</td>
+					<td>Mariah Chang</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>2017.10.14</td>
+					<td>Activites</td>
+					<td>2</td>
+					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
+					<td>Student</td>
+					<td>Mariah Chang</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>2017.10.14</td>
+					<td>Host Family</td>
+					<td>4</td>
+					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
+					<td>Parents</td>
+					<td>Mariah Chang</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>2017.10.14</td>
+					<td style="background-color:red;color:#FFF;">Complaints</td>
+					<td>5</td>
+					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
+					<td>Student</td>
+					<td>Mariah Chang</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>2017.10.14</td>
+					<td>Other</td>
+					<td>5</td>
+					<td class="Aleft"><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';">2017-18 Spring Semester Opening</a></td>
+					<td>Parents</td>
+					<td>Mariah Chang</td>
+				</tr>
+			</table>
+		</div> -->
+    <!-- ListTable -->
+
+
+
+		<div class="EndPart"></div>
+
+
+
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+
+<script>
+function MenuOpen() {
+	obj = document.getElementById('LeftF');
+
+	if (obj.style.margin == "0px 0px 0px -229px") {
+		document.getElementById('LeftF').style.margin='0px 0px 0px 0px';
+		document.getElementById('MToggle').style.transform='rotate(90deg)';
+		document.getElementById('MainF').style.width='calc(100% - 355px)';
+	} else {
+		document.getElementById('LeftF').style.margin='0px 0px 0px -229px';
+		document.getElementById('MToggle').style.transform='rotate(0deg)';
+		document.getElementById('MainF').style.width='calc(100% - 126px)';
+	}
+}
+</script>
+{% endblock %}

@@ -46,16 +46,16 @@
 					<th>School Type : </th>
 					<td>
 						{% for type in school_types %}
-							{{type.type|capfirst}}
+							{{type.type|capfirst}} /
 						{% endfor %}
 					</td>
 					<th>Grades : </th>
 					<td>{{found_school.secondary.grade_start}} - {{found_school.secondary.grade_end}}</td>
 				</tr>
 				<tr>
-					<th>Student body : </th>
+					<th>Student Body : </th>
 					<td>{{found_school.secondary.student_body|capfirst}}</td>
-					<th>Uniforms : </th>
+					<th>Uniform : </th>
 					{% if found_school.secondary.uniform %}
 					<td>Yes</td>
 					{% else %}
@@ -81,7 +81,7 @@
 				<tr>
 					<th rowspan="2">Area Information : </th>
 					<td rowspan="2">{{found_school.area_description}}</td>
-					<th>Student: Teacher Ratio : </th>
+					<th>Student : Teacher Ratio : </th>
 					<td>{{found_school.secondary.student_teach_ratio}}</td>
 				</tr>
 				<tr>
@@ -118,14 +118,14 @@
 				</tr>
 				<tr>
 					<th>Extra-curricular : </th>
-					<td>{{found_school.extra_curricular}}</td>
+					<td>{{found_school.secondary.extra_curricular}}</td>
 				</tr>
 				<tr>
-					<th>College Acceptance list : </th>
-					<td>{{found_school.college_acceptance_list}}</td>
+					<th>College Acceptance List : </th>
+					<td>{{found_school.secondary.college_acceptance_list}}</td>
 				</tr>
 				<tr>
-					<th>Application Fee: </th>
+					<th>Application Fee : </th>
 					<td>{{found_school.secondary.application_fee}}</td>
 				</tr>
 				<tr>

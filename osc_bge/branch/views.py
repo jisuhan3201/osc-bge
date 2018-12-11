@@ -124,8 +124,15 @@ class HostCreateView(LoginRequiredMixin, View):
         try:
             bge_branch_admin = user_models.BgeBranchAdminUser.objects.get(user=request.user)
             found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
-        except bge_models.BgeBranch.DoesNotExist:
-            return HttpResponse('Wrong Branch ID', status=400)
+        except:
+            found_branch=None
+
+        if not found_branch:
+            try:
+                bge_branch_admin = user_models.BgeBranchCoordinator.objects.get(user=request.user)
+                found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
+            except:
+                return HttpResponse('Not Branch Admin or Branch coordi', status=400)
 
         all_hosts = models.HostFamily.objects.filter(provider_branch=found_branch)
         all_host_coordi = user_models.BgeBranchCoordinator.objects.filter(branch=found_branch, position='host_coordi')
@@ -203,8 +210,15 @@ class HostUpdateView(LoginRequiredMixin, View):
             try:
                 bge_branch_admin = user_models.BgeBranchAdminUser.objects.get(user=request.user)
                 found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
-            except bge_models.BgeBranch.DoesNotExist:
-                return HttpResponse('Wrong Branch ID', status=400)
+            except:
+                found_branch=None
+
+            if not found_branch:
+                try:
+                    bge_branch_admin = user_models.BgeBranchCoordinator.objects.get(user=request.user)
+                    found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
+                except:
+                    return HttpResponse('Not Branch Admin or Branch coordi', status=400)
 
             try:
                 found_host = models.HostFamily.objects.get(pk=int(host_id))
@@ -313,8 +327,15 @@ class HostLogsView(LoginRequiredMixin, View):
             try:
                 bge_branch_admin = user_models.BgeBranchAdminUser.objects.get(user=request.user)
                 found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
-            except bge_models.BgeBranch.DoesNotExist:
-                return HttpResponse('Wrong Branch ID', status=400)
+            except:
+                found_branch=None
+
+            if not found_branch:
+                try:
+                    bge_branch_admin = user_models.BgeBranchCoordinator.objects.get(user=request.user)
+                    found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
+                except:
+                    return HttpResponse('Not Branch Admin or Branch coordi', status=400)
 
             try:
                 found_host = models.HostFamily.objects.get(pk=int(host_id))
@@ -474,9 +495,12 @@ class HostStudentReportView(LoginRequiredMixin, View):
                 comment=data.get('comment'),
                 status=data.get('status'),
                 due_date=data.get('due_date'),
-
             )
             host_report.save()
+
+            if data.get('status') == 'complete':
+                host_report.submitted_date = datetime.date.today()
+                host_report.save()
 
         else:
             return HttpResponse('No student id', status=400)
@@ -543,6 +567,10 @@ class HostStudentReportUpdateView(LoginRequiredMixin, View):
             found_report.school_attendance=data.get('school_attendance')
             found_report.comment=data.get('comment')
             found_report.status=data.get('status')
+
+            if data.get('status') == 'complete':
+                found_report.submitted_date = datetime.date.today()
+
             found_report.save()
 
         else:
