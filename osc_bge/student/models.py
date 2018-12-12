@@ -44,7 +44,7 @@ class Student(TimeStampedModel):
     name = models.CharField(max_length=80, null=True)
     gender = models.CharField(max_length=80, choices=GENDER_CHOICES, null=True)
     birthday = models.DateField(null=True, blank=True)
-    image = models.ImageField(upload_to='images', blank=True)
+    image = models.ImageField(upload_to='images/students/', blank=True)
     phone = models.CharField(null=True, max_length=140, blank=True)
     email = models.EmailField(null=True, blank=True)
     skype = models.CharField(max_length=140, null=True, blank=True)

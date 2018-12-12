@@ -34,7 +34,7 @@
 	<div class="MainAFrame">
 		<div class="MTitle">Required Field</div>
 		<!-- form field -->
-		<form method="post">
+		<form method="post" enctype="multipart/form-data">
 			{% csrf_token %}
 			<div class="InfoTable">
 				<table cellpadding="0" cellspacing="0" border="0">
@@ -270,6 +270,23 @@
 						<col>
 					</colgroup>
 					<tr>
+						<th>Image : </th>
+						<td class="InnerInputTD">
+							<input type="file" name="image" class="TableInnerInput"/><br />
+							{% if counsel.student.image %}
+								<img src="{{MEDIA_URL}}{{counsel.student.image}}" alt="student_image" width="150">
+							{% endif %}
+						</td>
+						<th>Nationality : </th>
+						{% if counsel.student.nationality %}
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="nationality" value="{{counsel.student.nationality}}"/></td>
+						{% else %}
+						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="nationality"/></td>
+						{% endif %}
+						<th></th>
+						<td></td>
+					</tr>
+					<tr>
 						<th>Student Email : </th>
 						{% if counsel.student.email %}
 						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="email" value="{{counsel.student.email}}"/></td>
@@ -282,16 +299,6 @@
 						{% else %}
 						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="skype"/></td>
 						{% endif %}
-					</tr>
-					<tr>
-						<th>Nationality : </th>
-						{% if counsel.student.nationality %}
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="nationality" value="{{counsel.student.nationality}}"/></td>
-						{% else %}
-						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="nationality"/></td>
-						{% endif %}
-						<th></th>
-						<td></td>
 					</tr>
 					<tr>
 						<th>Toefl : </th>

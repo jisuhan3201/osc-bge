@@ -225,7 +225,7 @@
 					<td>{{ i.counselor.user.first_name }} {{ i.counselor.user.last_name }}</td>
 					{% endif %}
 					<td>{{ i.counseling_date.year }}-{{ i.counseling_date.month }}-{{ i.counseling_date.day }}</td>
-					<td><a href="customer/{{i.id}}/register">{{ i.student }}</a></td>
+					<td><a href="customer/{{i.id}}/register" target="_blank">{{ i.student }}</a></td>
 					<td>{{ i.student.status|capfirst}}</td>
 					<td>{{ i.possibility|upper }}</td>
 					<td>{{ i.expected_departure.year }}-{{ i.expected_departure.month }}-{{ i.expected_departure.day }}</td>

@@ -2,11 +2,13 @@ from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput
 from django import forms
 from osc_bge.form import models as form_models
 
+
 class FormalityForm(forms.Form):
     Date = forms.DateField(
         required=False,
         widget=DatePickerInput(format="%Y-%m-%d")
     )
+
 
 class DateTimeForm(forms.ModelForm):
     class Meta:
@@ -17,6 +19,7 @@ class DateTimeForm(forms.ModelForm):
             'school_interview_time': TimePickerInput()
         }
 
+
 class CancelEnrolmentForm(forms.ModelForm):
     class Meta:
         model =form_models.SchoolFormality
@@ -25,6 +28,7 @@ class CancelEnrolmentForm(forms.ModelForm):
             'cancel_enrolment_date': DatePickerInput(format="%Y-%m-%d"),
             'cancel_enrolment_time': TimePickerInput()
         }
+
 
 class VisaReserveSchedulingForm(forms.ModelForm):
 
@@ -36,6 +40,7 @@ class VisaReserveSchedulingForm(forms.ModelForm):
             'visa_reserve_time': TimePickerInput()
         }
 
+
 class VisaGrantedForm(forms.ModelForm):
 
     class Meta:
@@ -45,6 +50,7 @@ class VisaGrantedForm(forms.ModelForm):
             'visa_granted_date': DatePickerInput(format="%Y-%m-%d"),
             'visa_granted_time':TimePickerInput()
         }
+
 
 class VisaRejectedForm(forms.ModelForm):
 
@@ -56,6 +62,7 @@ class VisaRejectedForm(forms.ModelForm):
             'visa_rejected_time': TimePickerInput()
         }
 
+
 class FlightDepartureForm(forms.ModelForm):
 
     class Meta:
@@ -66,6 +73,7 @@ class FlightDepartureForm(forms.ModelForm):
             'air_departure_time': TimePickerInput(),
         }
 
+
 class FlightArriveForm(forms.ModelForm):
 
     class Meta:
@@ -75,6 +83,7 @@ class FlightArriveForm(forms.ModelForm):
             'air_arrive_date': DatePickerInput(format="%Y-%m-%d"),
             'air_arrive_time': TimePickerInput(),
         }
+
 
 class FileForm(forms.Form):
     name = forms.CharField(

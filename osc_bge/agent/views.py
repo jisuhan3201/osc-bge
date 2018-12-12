@@ -9,7 +9,9 @@ from django.contrib.auth.decorators import login_required
 from . import models, forms
 from osc_bge.users import models as user_models
 from osc_bge.form import models as form_models
+from osc_bge.form import forms as form_forms
 from osc_bge.student import models as student_models
+from osc_bge.student import forms as student_forms
 from osc_bge.school import models as school_models
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -422,6 +424,11 @@ class CustomerRegisterView(LoginRequiredMixin, View):
             student.phone = data.get('phone')
             student.save()
 
+            image_form = student_forms.StudentImageForm(request.POST,request.FILES)
+            if image_form.is_valid():
+                student.image = image_form.cleaned_data['image']
+                student.save()
+
             counsel = found_counsel
             counsel.student = student
             counsel.program_interested = data.get('program')
@@ -490,6 +497,11 @@ class CustomerRegisterView(LoginRequiredMixin, View):
             )
             student.save()
 
+            image_form = student_forms.StudentImageForm(request.POST,request.FILES)
+            if image_form.is_valid():
+                student.image = image_form.cleaned_data['image']
+                student.save()
+
             counsel = form_models.Counsel(
                 counselor=found_counselor,
                 student=student,
@@ -525,7 +537,7 @@ class CustomerRegisterView(LoginRequiredMixin, View):
                 )
                 student_history.save()
 
-        return redirect('/agent/prospective')
+        return HttpResponseRedirect(request.path_info)
 
 
 class ProspectiveView(LoginRequiredMixin, View):
@@ -726,6 +738,12 @@ class ApplicationRegisterView(LoginRequiredMixin, View):
             student.phone = data.get('phone')
             student.save()
 
+            image_form = student_forms.StudentImageForm(request.POST,request.FILES)
+            if image_form.is_valid():
+                print(request.FILES)
+                student.image = image_form.cleaned_data['image']
+                student.save()
+
             counsel = found_counsel
             counsel.student = student
             counsel.program_interested = data.get('program')
@@ -820,7 +838,7 @@ class ApplicationRegisterView(LoginRequiredMixin, View):
         else:
             return HttpResponse(status=400)
 
-        return redirect('/agent/process')
+        return HttpResponseRedirect(request.path_info)
 
 
 class ProcessView(LoginRequiredMixin, View):
@@ -1434,44 +1452,36 @@ class ProcessApplyView(LoginRequiredMixin, View):
 # Have to solve
 @login_required(login_url='/accounts/login/')
 def upload_files(request, formality_id):
-    print(1)
+
+    data = request.POST
+
     try:
         found_formality = form_models.Formality.objects.get(pk=formality_id)
     except form_models.Formality.DoesNotExist:
         return HttpResponse(status=400)
-    print(2)
-    user = request.user
-    try:
-        found_counselor = user_models.Counselor.objects.get(user=user)
-    except user_models.Counselor.DoesNotExist:
-        return HttpResponse(status=401)
 
-    if not found_formality.counsel.counselor == found_counselor:
-        return HttpResponse(status=401)
+    if data.getlist('delete_file'):
+        for file_id in data.getlist('delete_file'):
+            found_file = form_models.FormalityFile.objects.get(id=int(file_id))
+            found_file.delete()
 
-    formset = forms.FileFormset(request.POST, request.FILES)
-    print(formset)
-    print(request.POST)
-    print(request.FILES)
-    print(3)
-    if formset.is_valid():
-        for form in formset:
-            name = form.cleaned_data.get('name')
-            file_source = request.FILES
-            print("Filee!!!!!!!")
-            print(form.cleaned_data)
-            print(file_source.cleaned_data)
-            formality_file = form_models.FormalityFile(
-                formality=found_formality,
-                name=name,
-                file_source=file_source,
-            )
-            # formality_file.save()
-        return redirect('/agent/process/' + str(formality_id))
+    if request.FILES.get('file_source1') or request.FILES.get('file_source2') or request.FILES.get('file_source3') or request.FILES.get('file_source4') or request.FILES.get('file_source5'):
+        file_form = form_forms.FileboxForm(request.POST,request.FILES)
+        if file_form.is_valid():
+            for num in range(1, 6):
+                file_source = request.FILES.get('file_source'+str(num))
+                if file_source:
+
+                    formality_file = form_models.FormalityFile()
+                    formality_file.formality = found_formality
+                    formality_file.name = request.POST.get('filebox'+str(num))
+                    formality_file.file_source = file_source
+                    formality_file.save()
 
     else:
-        print(formset.errors)
         return HttpResponse(status=400)
+
+    return HttpResponseRedirect("/agent/process/"+str(formality_id))
 
 
 @login_required(login_url='/accounts/login/')

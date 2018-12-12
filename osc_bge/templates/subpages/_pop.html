@@ -109,58 +109,78 @@
 #PopFileBox {display:none;}
 </style>
 <div class="PopCover" id="PopFileBox">
-	<div class="Popup">
+	<div class="WidePopup">
 		<div class="TitleSet">
 			<div class="Close" OnClick="document.getElementById('PopFileBox').style.display='none';">X</div>
 			<div class="Title">File Box</div>
 		</div>
 		<div class="Contents">
 			<div class="ListTable">
+				<form class="FileForm" action="/agent/upload/files/{{found_formality.id}}" method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				<input type="text" name="type" value="file_upload" hidden>
 				<table id="FileBoxTable" cellpadding="0" cellspacing="0" border="0">
 					<colgroup>
-						<col width="20">
 						<col>
-						<col width="170">
+						<col>
 					</colgroup>
 					<tr>
-						<th>No</th>
-						<th>Fiile Name</th>
+						<th>File Name</th>
 						<th>Management</th>
 					</tr>
-						<input id="FormalityId" type="text" name="formality" value="{{found_formality.id}}" hidden>
-						<input type="text" name="type" value="file_upload" hidden>
+
 						{% for data in formset_init %}
 						<tr>
-							<td>{{forloop.counter}}</td>
 							<td class="InnerInputTD">
-								<input type="text" class="TableInnerInput" style="width:100%;" name="init_data_{{data.id}}" value="{{data.name}}" disabled/>
+								<input type="text" class="TableInnerInput" style="width:100%;" value="{{data.name}}" disabled/>
 							</td>
 							<td>
-								<a class="IcoButton" href="/media/{{data.file_source}}" title="Download" download><img src="{% static 'img/ico_download.png' %}" /></a>
-								<a class="IcoButton" href="" title="Delete"><img src="{% static 'img/ico_delete.png' %}" /></a>
+								<a class="IcoButton" href="{{MEDIA_URL}}{{data.file_source}}" title="Download" download><img src="{% static 'img/ico_download.png' %}" /></a>
+								<label><input type="checkbox" name="delete_file" value="{{data.id}}"><span></span>Delete</label>
 							</td>
 						</tr>
 						{% endfor %}
 
-						<form class="FileForm" action="/agent/upload/files/{{found_formality.id}}" method="POST" enctype="multipart/form-data">
-						{% csrf_token %}
-						{{ file_formset.management_form }}
-						{% for form in file_formset %}
-						<tr class="form-tr">
-							<td>-</td>
+						<tr>
 							<td class="InnerInputTD">
-								{{ form.name }}
-								<span id="id_form-0-span" class="SmallComment"></span>
+								<input type="text" class="TableInnerInput" style="width:100%;" name="filebox1" value="{{data.name}}"/>
 							</td>
 							<td>
-								{{ form.file_source }}
-								{{ form.file_source.errors }}
-								{{ form.file_source.label_tag}}
-								<button class="IcoButton AddFileButton add-form-row">+</button>
-								<!-- <button class="DeleteButton"><img src="{% static 'img/ico_delete.png' %}" /></button> -->
+								<input type="file" name="file_source1">
 							</td>
 						</tr>
-						{% endfor %}
+						<tr>
+							<td class="InnerInputTD">
+								<input type="text" class="TableInnerInput" style="width:100%;" name="filebox2" value="{{data.name}}"/>
+							</td>
+							<td>
+								<input type="file" name="file_source2">
+							</td>
+						</tr>
+						<tr>
+							<td class="InnerInputTD">
+								<input type="text" class="TableInnerInput" style="width:100%;" name="filebox3" value="{{data.name}}"/>
+							</td>
+							<td>
+								<input type="file" name="file_source3">
+							</td>
+						</tr>
+						<tr>
+							<td class="InnerInputTD">
+								<input type="text" class="TableInnerInput" style="width:100%;" name="filebox4" value="{{data.name}}"/>
+							</td>
+							<td>
+								<input type="file" name="file_source4">
+							</td>
+						</tr>
+						<tr>
+							<td class="InnerInputTD">
+								<input type="text" class="TableInnerInput" style="width:100%;" name="filebox5" value="{{data.name}}"/>
+							</td>
+							<td>
+								<input type="file" name="file_source5">
+							</td>
+						</tr>
 				</table>
 			</div><!-- ListTable -->
 

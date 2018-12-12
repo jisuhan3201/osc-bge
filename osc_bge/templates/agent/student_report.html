@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
 
+{% if found_report %}
 <div class="ContentsFrame">
 
 
@@ -481,6 +482,10 @@
 		</div><!-- ListTable -->
 
     <div class="EndPart"></div>
-
+{% else %}
+<div style="display:flex;justify-content:center;">
+	<div style="margin-top:300px;font-size:50px;">No Report Found</div>
+</div>
+{% endif %}
 
 {% endblock %}

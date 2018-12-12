@@ -53,18 +53,24 @@ class StudentReportView(View):
                 return HttpResponse('Wrong Student Id', status=404)
 
             all_reports = models.StudentMonthlyReport.objects.filter(student=found_student, send_to_agent_date__isnull=False).order_by('-created_at')
+            if all_reports:
 
-            found_report = all_reports.latest('send_to_agent_date')
+                found_report = all_reports.latest('send_to_agent_date')
 
-            start_date = datetime.date.today().replace(day=1)
-            end_date = datetime.date.today() + relativedelta.relativedelta(months=1, day=1) - relativedelta.relativedelta(days=1)
+                start_date = datetime.date.today().replace(day=1)
+                end_date = datetime.date.today() + relativedelta.relativedelta(months=1, day=1) - relativedelta.relativedelta(days=1)
 
-            try:
-                found_host_report = branch_models.HostStudentReport.objects.filter(
-                    student=found_report.student,
-                    submitted_date__gte=start_date,
-                    submitted_date__lte=end_date).latest("submitted_date")
-            except branch_models.HostStudentReport.DoesNotExist:
+                try:
+                    found_host_report = branch_models.HostStudentReport.objects.filter(
+                        student=found_report.student,
+                        submitted_date__gte=start_date,
+                        submitted_date__lte=end_date).latest("submitted_date")
+                except branch_models.HostStudentReport.DoesNotExist:
+                    found_host_report = None
+                    
+            else:
+                all_reports = None
+                found_report = None
                 found_host_report = None
 
         else:

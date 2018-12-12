@@ -85,8 +85,8 @@
 		<div class="MTitle">Student Information</div>
 		<div class="cdiv"></div>
 		<div class="InformationSet">
-      {% if user.image %}
-        <div class="Picture" style="background-image:url('/media/{{ user.image }}');">&nbsp;</div>
+      {% if student_info.image %}
+        <div class="Picture" style="background-image:url('{{MEDIA_URL}}{{ student_info.image }}');">&nbsp;</div>
       {% else %}
         <div class="Picture" style="background-image:url('{% static 'img/no_user.png' %}');">&nbsp;</div>
       {% endif %}

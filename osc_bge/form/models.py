@@ -214,7 +214,7 @@ class FormalityFile(TimeStampedModel):
 
     formality = models.ForeignKey(Formality, on_delete=models.SET_NULL, null=True, related_name="formality_file")
     name = models.CharField(max_length=140, null=True, blank=True)
-    file_source = models.FileField(upload_to=file_directory_path, null=True, blank=True)
+    file_source = models.FileField(upload_to="filebox/students/", null=True, blank=True)
 
     def __str__(self):
         return "{}".format(self.name)
@@ -248,6 +248,6 @@ class CounselorSellingPoint(TimeStampedModel):
     clubs_cm = models.CharField(max_length=255, null=True, blank=True)
     sports_ev = models.CharField(max_length=255, null=True, blank=True)
     sports_cm = models.CharField(max_length=255, null=True, blank=True)
-    
+
     def __str__(self):
         return "{}- {}".format(self.school, self.counselor)
