@@ -12,3 +12,12 @@ class BgeBranchAdmin(admin.ModelAdmin):
         "state",
         "address",
     )
+
+
+@admin.register(models.BgeVideo)
+class BgeVideoAdmin(admin.ModelAdmin):
+
+    list_display = (
+        'id',
+        'video',
+    )

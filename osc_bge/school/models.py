@@ -59,7 +59,7 @@ class School(TimeStampedModel):
 
     name = models.CharField(max_length=80, null=True)
     type = models.CharField(max_length=80, null=True, choices=TYPE_CHOICES)
-    image = models.ImageField(upload_to='schools', null=True, blank=True)
+    image = models.ImageField(upload_to='images/schools/', null=True, blank=True)
     partnership = models.IntegerField(null=True, blank=True)
     provider = models.CharField(max_length=80, null=True, blank=True, choices=PROVIDER_CHOICES)
     provider_branch = models.ForeignKey(bge_models.BgeBranch, on_delete=models.SET_NULL, null=True, related_name="schools")
@@ -212,7 +212,7 @@ class SchoolTypes(TimeStampedModel):
 class SchoolPhotos(TimeStampedModel):
 
     school = models.ForeignKey(School, on_delete=models.SET_NULL, null=True, related_name="school_photo")
-    photo = models.ImageField(upload_to=school_directory_path, null=True, blank=True)
+    photo = models.ImageField(upload_to="images/schools/photos", null=True, blank=True)
 
     def __str__(self):
         return "{}".format(self.school)

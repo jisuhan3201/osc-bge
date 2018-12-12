@@ -21,3 +21,8 @@ class BgeBranch(TimeStampedModel):
 
     def __str__(self):
         return "{}".format(self.name)
+
+
+class BgeVideo(TimeStampedModel):
+
+    video = models.FileField(upload_to='videos/', null=True, blank=True)

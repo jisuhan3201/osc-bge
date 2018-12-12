@@ -10,61 +10,15 @@
 	<div class="SchoolFrame">
 		<div class="MTitle">BGE Services and Benefits </div>
 		<div class="MediaList">
+			{% for video in all_videos %}
 			<div class="MediaSet BOX04">
-				<div class="Media">
-					<iframe src="https://www.youtube.com/embed/XJFrMuvTPUo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-				</div>
-				<div class="Title">세계의 교육현장 - Global Education Issue_꿈의 아이비리그, 그곳에 가다_#002</div>
+					<video controls>
+						<source src="{{MEDIA_URL}}{{video.video}}" type="video/mp4">
+					</video>
+				<div class="Title">{{video.video}}</div>
 			</div>
+			{% endfor %}
 
-			<div class="MediaSet BOX04">
-				<div class="Media">
-					<iframe src="https://www.youtube.com/embed/XJFrMuvTPUo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-				</div>
-				<div class="Title">세계의 교육현장 - Global Education Issue_꿈의 아이비리그, 그곳에 가다_#002</div>
-			</div>
-
-			<div class="MediaSet BOX04">
-				<div class="Media">
-					<iframe src="https://www.youtube.com/embed/XJFrMuvTPUo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-				</div>
-				<div class="Title">세계의 교육현장 - Global Education Issue_꿈의 아이비리그, 그곳에 가다_#002</div>
-			</div>
-
-			<div class="MediaSet BOX04E">
-				<div class="Media">
-					<iframe src="https://www.youtube.com/embed/XJFrMuvTPUo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-				</div>
-				<div class="Title">세계의 교육현장 - Global Education Issue_꿈의 아이비리그, 그곳에 가다_#002</div>
-			</div>
-			<div class="cdiv"></div>
-			<div class="MediaSet BOX04">
-				<div class="Media">
-					<iframe src="https://www.youtube.com/embed/XJFrMuvTPUo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-				</div>
-				<div class="Title">세계의 교육현장 - Global Education Issue_꿈의 아이비리그, 그곳에 가다_#002</div>
-			</div>
-
-			<div class="MediaSet BOX04">
-				<div class="Media">
-					<iframe src="https://www.youtube.com/embed/XJFrMuvTPUo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-				</div>
-				<div class="Title">세계의 교육현장 - Global Education Issue_꿈의 아이비리그, 그곳에 가다_#002</div>
-			</div>
-
-			<div class="MediaSet BOX04">
-				<div class="Media">
-					<iframe src="https://www.youtube.com/embed/XJFrMuvTPUo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-				</div>
-				<div class="Title">세계의 교육현장 - Global Education Issue_꿈의 아이비리그, 그곳에 가다_#002</div>
-			</div>
-
-			<div class="MediaSet BOX04E">
-				<div class="Media">
-					<iframe src="https://www.youtube.com/embed/XJFrMuvTPUo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-				</div>
-				<div class="Title">세계의 교육현장 - Global Education Issue_꿈의 아이비리그, 그곳에 가다_#002</div>
-			</div>
 			<div class="cdiv"></div>
 		</div><!-- MediaList -->
 		<div class="EndPart"></div>

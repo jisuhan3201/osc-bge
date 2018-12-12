@@ -188,19 +188,9 @@ class SecondaryCreateView(LoginRequiredMixin, View):
         else:
             found_school_coordi = None
 
-        if request.FILES.get('image'):
-            form = forms.ImageUploadForm(request.FILES.get('image'))
-            if form.is_valid():
-                uploaded_image = form.cleaned_data.get('image')
-            else:
-                uploaded_image = None
-        else:
-            uploaded_image = None
-
         school = models.School(
             name = data.get('name'),
             type = 'secondary',
-            image = uploaded_image if uploaded_image else None,
             partnership = int(data.get('partnership')) if data.get('partnership') else None,
             provider = data.get('provider'),
             provider_branch = found_branch,
@@ -218,6 +208,21 @@ class SecondaryCreateView(LoginRequiredMixin, View):
             number_students = int(data.get('number_students')) if data.get('number_students') else None,
         )
         school.save()
+
+        image_form = forms.SchoolImageForm(request.POST,request.FILES)
+        if image_form.is_valid():
+            school.image = image_form.cleaned_data['image']
+            school.save()
+
+        if request.FILES.getlist('photo'):
+            photo_form = forms.SchoolPhotoForm(request.POST, request.FILES)
+            if photo_form.is_valid():
+                for photo in request.FILES.getlist('photo'):
+
+                    school_photo = models.SchoolPhotos()
+                    school_photo.school = found_school
+                    school_photo.photo = photo
+                    school_photo.save()
 
         secondary = models.Secondary(
             school=school,
@@ -265,20 +270,6 @@ class SecondaryCreateView(LoginRequiredMixin, View):
                 )
                 school_types.save()
 
-        if request.FILES.get('photo'):
-
-            for photo in request.FILES.get('photo'):
-                form = forms.ImageUploadForm(photo)
-                if form.is_valid():
-                    uploaded_image = form.cleaned_data.get('image')
-                else:
-                    uploaded_image = None
-
-                school_photo = models.SchoolPhotos(
-                    school = school,
-                    photo = uploaded_image,
-                )
-                school_photo.save()
 
         return redirect('/school/secondary')
 
@@ -357,17 +348,8 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
         else:
             found_school_coordi = None
 
-        if request.FILES.get('image'):
-            form = forms.ImageUploadForm(request.FILES.get('image'))
-            if form.is_valid():
-                uploaded_image = form.cleaned_data.get('image')
-            else:
-                uploaded_image = None
-        else:
-            uploaded_image = None
 
         found_school.name = data.get('name')
-        found_school.image = uploaded_image if uploaded_image else None
         found_school.partnership = int(data.get('partnership')) if data.get('partnership') else None
         found_school.provider = data.get('provider')
         found_school.provider_branch = found_branch
@@ -384,6 +366,27 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
         found_school.religion = data.get('religion')
         found_school.number_students = int(data.get('number_students')) if data.get('number_students') else None
         found_school.save()
+
+        if request.FILES.get('image'):
+            image_form = forms.SchoolImageForm(request.POST,request.FILES)
+            if image_form.is_valid():
+                found_school.image = image_form.cleaned_data['image']
+                found_school.save()
+
+        if request.FILES.getlist('photo'):
+            photo_form = forms.SchoolPhotoForm(request.POST, request.FILES)
+            if photo_form.is_valid():
+                for photo in request.FILES.getlist('photo'):
+
+                    school_photo = models.SchoolPhotos()
+                    school_photo.school = found_school
+                    school_photo.photo = photo
+                    school_photo.save()
+
+        if data.getlist('delete_photo'):
+            for photo_id in data.getlist('delete_photo'):
+                found_school_photo = models.SchoolPhotos.objects.get(id=int(photo_id))
+                found_school_photo.delete()
 
         try:
             found_secodary = models.Secondary.objects.get(school=found_school)
@@ -427,7 +430,6 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
 
         if data.get('school_type'):
 
-
             if models.SchoolTypes.objects.filter(school=found_school):
                 found_types = models.SchoolTypes.objects.filter(school=found_school)
                 found_types.delete()
@@ -440,27 +442,7 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
                 )
                 school_types.save()
 
-
-        if request.FILES.get('photo'):
-
-            if models.SchoolPhotos.objects.filter(school=found_school):
-                found_photos = models.SchoolPhotos.objects.filter(school=found_school)
-                found_photos.delete()
-
-            for photo in request.FILES.get('photo'):
-                form = forms.ImageUploadForm(photo)
-                if form.is_valid():
-                    uploaded_image = form.cleaned_data.get('image')
-                else:
-                    uploaded_image = None
-
-                school_photo = models.SchoolPhotos(
-                    school = school,
-                    photo = uploaded_image,
-                )
-                school_photo.save()
-
-        return redirect('/school/secondary')
+        return redirect(request.path_info)
 
 
 @login_required(login_url='/accounts/login/')
@@ -815,9 +797,11 @@ class SecondaryServiceView(LoginRequiredMixin, View):
         else:
             return HttpResponse("School id is null", statue=400)
 
+        all_videos = bge_models.BgeVideo.objects.all()
 
         return render(request, 'school/service.html', {
             'found_school':found_school,
+            'all_videos':all_videos,
         })
 
 

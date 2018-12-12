@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="ContentsFrame">
-	<div class="SchoolVisual" style="background-image:url('{% static 'imgsrc/school.jpg'%}');">
+	<div class="SchoolVisual" style="background-image:url('{{MEDIA_URL}}{{found_school.image}}');">
 		<div class="Cover">
 			<div class="Name">
 			<span>School Information</span><br />

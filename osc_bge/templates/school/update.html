@@ -422,7 +422,6 @@ document.getElementById(TabName).style.display='block';
 		<!-- 등록일 경우 -->
 		<!-- <div class="PTitle">School Profile Regist</div> -->
 
-
 		<div class="MTitle">School information</div>
 		<form method="post" enctype="multipart/form-data">
 			{% csrf_token %}
@@ -440,11 +439,24 @@ document.getElementById(TabName).style.display='block';
 					</tr>
 					<tr>
 						<th>School Main Photo  : </th>
-						<td class="InnerInputTD" colspan="3"><input type="file" name="image" class="TableInnerInput"/><br /></td>
+						<td class="InnerInputTD" colspan="3">
+							<input type="file" name="image" class="TableInnerInput"/><br />
+							{% if found_school.image %}
+								<img src="{{MEDIA_URL}}{{found_school.image}}" alt="school_main_image" width="150">
+							{% endif %}
+						</td>
 					</tr>
 					<tr>
 						<th>Additional Photos  : </th>
-						<td class="InnerInputTD" colspan="3"><input type="file" name="photo" class="TableInnerInput" multiple/><br /></td>
+						<td class="InnerInputTD" colspan="3">
+							<input type="file" name="photo" class="TableInnerInput" multiple/><br />
+							{% if found_school.school_photo %}
+								{% for photo in found_school.school_photo.all %}
+									<img src="{{MEDIA_URL}}{{photo.photo}}" alt="additional_school_photos" width="150">
+									<label><input type="checkbox" name="delete_photo" value="{{photo.id}}"><span></span>Delete</label>
+								{% endfor %}
+							{% endif %}
+						</td>
 					</tr>
 					<tr>
 						<th>Partnership : </th>
