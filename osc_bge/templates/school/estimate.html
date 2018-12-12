@@ -46,7 +46,13 @@
 					</td>
 					<td class="InnerInputTD"><input name="default_program_fee_qty" type="text" class="TableInnerInput" size="2" value="1" /></td>
 					<td>USD</td>
-					<td>$ <input name="default_program_fee" type="text" class="TableInnerInput" size="12" value="{{found_school.secondary.program_fee}}" readonly/></td>
+					<td>$
+						{% if found_school.secondary.program_fee %}
+						<input name="default_program_fee" type="text" class="TableInnerInput" size="12" value="{{found_school.secondary.program_fee}}" readonly/>
+						{% else %}
+						<input name="default_program_fee" type="text" class="TableInnerInput" size="12" readonly/>
+						{% endif %}
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -82,7 +88,13 @@
 					</td>
 					<td class="InnerInputTD"><input name="default_application_fee_qty" type="text" class="TableInnerInput" size="2" value="1" /></td>
 					<td>USD</td>
-					<td class="InnerInputTD">$ <input name="default_application_fee" type="text" class="TableInnerInput" size="12" value="{{found_school.secondary.application_fee}}" readonly/></td>
+					<td class="InnerInputTD">$
+						{% if found_school.secondary.application_fee %}
+						<input name="default_application_fee" type="text" class="TableInnerInput" size="12" value="{{found_school.secondary.application_fee}}" readonly/>
+						{% else %}
+						<input name="default_application_fee" type="text" class="TableInnerInput" size="12" readonly/>
+						{% endif %}
+					</td>
 				</tr>
 				<tr>
 					<td>
