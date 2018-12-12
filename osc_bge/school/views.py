@@ -252,6 +252,7 @@ class SecondaryCreateView(LoginRequiredMixin, View):
             strong_advantages = data.get('strong_advantages'),
             extra_curricular = data.get('extra_curricular'),
             college_acceptance_list = data.get("college_acceptance_list"),
+            fee_memo=data.get('fee_memo'),
         )
         secondary.save()
 
@@ -420,6 +421,7 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
         found_secodary.strong_advantages = data.get('strong_advantages')
         found_secodary.extra_curricular = data.get('extra_curricular')
         found_secodary.college_acceptance_list = data.get("college_acceptance_list")
+        found_secodary.fee_memo = data.get('fee_memo')
 
         found_secodary.save()
 

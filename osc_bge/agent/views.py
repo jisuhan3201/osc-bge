@@ -241,7 +241,7 @@ class CounselView(LoginRequiredMixin, View):
 
         if self.request.GET.get('form_type') == 'secondary_form':
 
-            queryset = school_models.Secondary.objects.all()
+            queryset = school_models.Secondary.objects.all().order_by('school__name', 'school__partnership')
 
             school_type = self.request.GET.getlist('school_type', None)
             if school_type:
@@ -306,7 +306,7 @@ class CounselView(LoginRequiredMixin, View):
 
         elif self.request.GET.get('form_type') == 'name_form':
 
-            queryset = school_models.Secondary.objects.all()
+            queryset = school_models.Secondary.objects.all().order_by('school__name', 'school__partnership')
 
             school_name = self.request.GET.get('school_name')
             if school_name:
@@ -324,7 +324,7 @@ class CounselView(LoginRequiredMixin, View):
 
     def get(self, request):
 
-        secondaries = school_models.Secondary.objects.all().order_by('school__partnership')
+        secondaries = school_models.Secondary.objects.all().order_by('school__name', 'school__partnership')
         colleges = school_models.College.objects.all()
         search_schools = self.search()
 
