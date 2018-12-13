@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+#PopStudentCommunicationUpdate {display:none;}
+</style>
+<div class="PopCover" id="PopStudentCommunicationUpdate">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopCommunicationUpdate').style.display='none';">X</div>
+			<div class="Title">Add New Log</div>
+		</div>
+		<div class="Contents">
+
+      <form method="post">
+        {% csrf_token %}
+        <input type="text" name="log_id" value="" hidden>
+  			<div class="InfoTable">
+  				<table cellpadding="0" cellspacing="0" border="0">
+  					<colgroup>
+  						<col width="110">
+  						<col>
+  					</colgroup>
+  					<tr>
+  						<th>Writer : </th>
+  						<td class="InnerInputTD">
+  							<input type="text" class="TableInnerInput" size="24" value="{{user.first_name}} {{user.last_name}}" name="writer" disabled/>
+  						</td>
+  					</tr>
+  					<tr>
+  						<th>Date : </th>
+  						<td class="InnerInputTD">
+  							<input type="text" class="TableInnerInput" size="10" value="{% now "Y-m-d"%}" disabled/>
+  						</td>
+  					</tr>
+  					<tr>
+  						<th>Category : </th>
+  						<td class="InnerInputTD">
+  							<select class="TableInnerInput" name="category">
+  								<option>Behavior</option>
+  								<option>Academic</option>
+  								<option>Activities</option>
+  								<option>Host family</option>
+  								<option style="background-color:red;color:#FFF;">Complaints</option>
+  								<option>Other</option>
+  							</select>
+  						</td>
+  					</tr>
+  					<tr>
+  						<th>Priority : </th>
+  						<td class="InnerInputTD">
+  							<select class="TableInnerInput" name="priority">
+  								<option>1</option>
+  								<option>2</option>
+  								<option>3</option>
+  								<option>4</option>
+  								<option>5</option>
+  							</select>
+  						</td>
+  					</tr>
+  					<tr>
+  						<th>Comment : </th>
+  						<td class="InnerInputTD">
+  							<textarea class="TableInnerTextarea" name="comment"></textarea>
+  						</td>
+  					</tr>
+  				</table>
+  			</div><!-- InfoTable -->
+
+
+  			<div class="PopButtonLine">
+  				<button class="Submit" type="submit">SAVE</button>
+  			</div>
+      </form>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="ContentsFrame">
+	<div class="LeftFrame" id="LeftF">
+		<div class="SectionTitle">Current Students Log</div>
+		<div class="LeftTab">
+			<div class="TabConternts">
+				<div class="InnerTabContents">
+          {% for student in all_students %}
+					<li><a href="/student/logs/{{student.id}}">{{student.name}}</a></li>
+          {% endfor %}
+				</div><!-- InnerTabContents -->
+			</div>
+		</div><!-- LeftTab -->
+	</div><!-- LeftFrame -->
+
+
+
+	<div class="MainFrame">
+
+
+		<div class="MTitle">{{found_student.name|capfirst}} <span>Communication Log</span></div>
+		<div class="ListSearch Aright">
+			<div><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';" class="IsolationButton">+ &nbsp; Add New Log</a></div>
+		</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>Updated</th>
+					<th>Category</th>
+					<th>Priority</th>
+					<th>Comment</th>
+					<th>Writer</th>
+				</tr>
+        {% for log in all_logs %}
+				<tr>
+					<td>{{log.updated_at}}</td>
+					<td>{{log.category}}</td>
+					<td>{{log.priority}}</td>
+					<td class="Aleft" style="color:blue;cursor:pointer;"><span id="UpdateLog{{log.id}}" class="UpdateLogClass">{{log.comment}}</span></td>
+					<td>{{log.writer.first_name}} {{log.writer.last_name}}</td>
+				</tr>
+        {% endfor %}
+			</table>
+		</div><!-- ListTable -->
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+
+
+
+{% endblock %}

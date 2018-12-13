@@ -34,6 +34,7 @@ class Student(TimeStampedModel):
         ('unregistered', 'Unregistered'),
         ('registered', 'Registered'),
         ('transferred', 'Transferred'),
+        ('graduated', 'Graduated'),
         ('terminated', 'Terminated'),
     )
 
@@ -120,10 +121,10 @@ class StudentMonthlyReport(TimeStampedModel):
 
     student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True, related_name='monthly_report')
     counseling_date = models.CharField(max_length=80, null=True, blank=True)
-    manager_confirm_date = models.CharField(max_length=80, null=True, blank=True)
+    manager_confirm_date = models.DateField(null=True, blank=True)
     school_year = models.CharField(max_length=80, null=True, blank=True)
     grade = models.CharField(max_length=80, null=True, blank=True)
-    send_to_agent_date = models.CharField(max_length=80, null=True, blank=True)
+    send_to_agent_date = models.DateField(null=True, blank=True)
     college_plan = models.TextField(null=True, blank=True)
     eng9h_lv = models.CharField(max_length=80, null=True, blank=True)
     eng9h_tg = models.CharField(max_length=80, null=True, blank=True)

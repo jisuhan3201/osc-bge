@@ -574,7 +574,6 @@
 
 		<div class="MTitle">Camp</div>
 		<div class="ListSearch Aright">
-			<div><a href="javascript:void(0);" class="IsolationButton" OnClick="document.getElementById('PopRelationshipHistory').style.display='block';">Update Data</a></div>
 		</div>
 		<div class="cdiv"></div>
 		<div class="ListTable">
@@ -584,46 +583,14 @@
 				</colgroup>
 				<tr>
 					<th>Period</th>
-					<th>Target</th>
-					<th>Summer Camp</th>
-					<th>Winter Camp</th>
-					<th>Comments</th>
+					<th>Camp</th>
 				</tr>
+				{% for camp in camp_data %}
 				<tr>
-					<td>2013 ~ 2014</td>
-					<td>10</td>
-					<td>5</td>
-					<td>3</td>
-					<td>-</td>
+					<td>{{camp.period|date:"Y"}}</td>
+					<td>{{camp.camp_count}}</td>
 				</tr>
-				<tr>
-					<td>2014 ~ 2015</td>
-					<td>10</td>
-					<td>5</td>
-					<td>3</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td>2015 ~ 2016</td>
-					<td>10</td>
-					<td>5</td>
-					<td>3</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td>2016 ~ 2017</td>
-					<td>10</td>
-					<td>5</td>
-					<td>3</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td>2017 ~ 2018</td>
-					<td>10</td>
-					<td>5</td>
-					<td>3</td>
-					<td>-</td>
-				</tr>
+				{% endfor %}
 			</table>
 		</div><!-- ListTable -->
 		<div class="EndPart"></div>
@@ -632,7 +599,6 @@
 
 		<div class="MTitle">College Application and others</div>
 		<div class="ListSearch Aright">
-			<div><a href="javascript:void(0);" class="IsolationButton" OnClick="document.getElementById('PopRelationshipHistory').style.display='block';">Update Data</a></div>
 		</div>
 		<div class="cdiv"></div>
 		<div class="ListTable">
@@ -642,46 +608,16 @@
 				</colgroup>
 				<tr>
 					<th>Period</th>
-					<th>Target</th>
 					<th>College Application</th>
 					<th>Other Program</th>
-					<th>Comments</th> 
 				</tr>
+				{% for college in college_other_data %}
 				<tr>
-					<td>2013 ~ 2014</td>
-					<td>10</td>
-					<td>3</td>
-					<td>-</td>
-					<td>-</td>
+					<td>{{college.period|date:"Y"}}</td>
+					<td>{{college.college_count}}</td>
+					<td>{{college.other_count}}</td>
 				</tr>
-				<tr>
-					<td>2014 ~ 2015</td>
-					<td>10</td>
-					<td>3</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td>2015 ~ 2016</td>
-					<td>10</td>
-					<td>3</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td>2016 ~ 2017</td>
-					<td>10</td>
-					<td>3</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td>2017 ~ 2018</td>
-					<td>10</td>
-					<td>3</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
+				{% endfor %}
 			</table>
 		</div><!-- ListTable -->
 		<div class="EndPart"></div>

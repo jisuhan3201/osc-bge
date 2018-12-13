@@ -194,26 +194,30 @@
 					<th>US Branch</th>
 					<th>School</th>
 					<th>Monthly Report</th>
+					<th>Sent Date</th>
 					<th>Report to Parents Date</th>
 				</tr>
         {% for student in current_students %}
 				<tr>
-					<td><a href="/student/current/{{student.id}}">{{student.name}}</a></td>
+					<td><a href="/student/current/{{student.id}}" target="_blank">{{student.name}}</a></td>
 					<td>{{student.parent_info.wechat}}</td>
 					<td>{{student.school.provider_branch.name}}</td>
 					<td>{{student.school}}</td>
-					{% if student.report_list.0.report_to_parent %}
+					{% if student.found_report.report_to_parent %}
 					<td>Complete</td>
 					{% else %}
-					<td>Incoomplete</td>
+					<td>Incomplete</td>
 					{% endif %}
-					<td class="InnerInputTD">
-						{% for report in student.report_list.all|slice:":3" %}
-							{% if report.report_to_parent %}
-								{{report.report_to_parent}} /
-							{% endif %}
-						{% endfor %}
-					</td>
+					{% if student.found_report.send_to_agent_date %}
+					<td>{{student.found_report.send_to_agent_date|date:"Y-m-d"}}</td>
+					{% else%}
+					<td></td>
+					{% endif %}
+					{% if student.found_report.report_to_parent %}
+					<td class="InnerInputTD">{{student.found_report.report_to_parent|date:"Y-m-d"}}</td>
+					{% else %}
+					<td class="InnerInputTD"></td>
+					{% endif %}
 				</tr>
         {% endfor %}
 			</table>

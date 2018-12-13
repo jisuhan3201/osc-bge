@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('statistics', views.BgeStatisticsView.as_view(), name='bge_statistics_view'),
     path('branches', views.BranchesView.as_view(), name='branches_view'),
+    path('branches/statistics/<int:branch_id>', views.BranchesStatisticView.as_view(), name='branches_statistics_view'),
     path('agents', views.AgentsView.as_view(), name='agents_view'),
     path('agents/info/create', views.AgentsCreateView.as_view(), name='agents_create_view'),
     path('agents/info/<int:agent_id>', views.AgentsUpdateView.as_view(), name='agents_udpate_view'),

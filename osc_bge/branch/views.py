@@ -189,9 +189,39 @@ class BranchStudentsView(LoginRequiredMixin, View):
         all_schools = school_models.School.objects.filter(provider_branch=found_branch)
         all_students = student_models.Student.objects.filter(school__in=all_schools)
 
+        for student in all_students:
+
+            try:
+                found_report = student_models.StudentMonthlyReport.objects.filter(student=student).latest('updated_at')
+                student.student_report = found_report
+            except student_models.StudentMonthlyReport.DoesNotExist:
+                continue
+
+        last_date = datetime.date.today() + relativedelta.relativedelta(months=1, day=1) - relativedelta.relativedelta(days=1)
+
         return render(request, 'branch/students.html', {
             "all_students":all_students,
+            'last_date':last_date,
         })
+
+    def post(self, request):
+
+        data = request.POST
+
+        if data.get('student_id'):
+
+            try:
+                found_student = student_models.Student.objects.get(id=int(data.get('student_id')))
+            except student_models.Student.DoesNotExist:
+                return HttpResponse('Wrong Student Id', status=404)
+
+            found_student.status = data.get('status')
+            found_student.save()
+
+        else:
+            return HttpResponse('No Student Id', status=400)
+
+        return HttpResponseRedirect(request.path_info)
 
 
 class BranchHostsView(LoginRequiredMixin, View):
@@ -247,41 +277,56 @@ class BranchResourcesView(LoginRequiredMixin, View):
 
     def get(self, request):
 
-        try:
-            bge_branch_admin = user_models.BgeBranchAdminUser.objects.get(user=request.user)
-            found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
-        except:
-            found_branch=None
+        if request.user.type == 'bge_admin' or request.user.type == 'bge_team':
 
-        if not found_branch:
+            all_resources = models.BgeResource.objects.all().order_by('-created_at')
+            return render(request, 'branch/resources.html', {
+                'all_resources':all_resources,
+            })
+
+        elif request.user.type == 'bge_branch_admin':
             try:
-                bge_branch_admin = user_models.BgeBranchCoordinator.objects.get(user=request.user)
+                bge_branch_admin = user_models.BgeBranchAdminUser.objects.get(user=request.user)
                 found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
             except:
-                return HttpResponse('Not Branch Admin or Branch coordi', status=400)
+                found_branch=None
 
-        all_resources = models.BgeResource.objects.filter(branch=found_branch).order_by("-created_at")
+            if not found_branch:
+                try:
+                    bge_branch_admin = user_models.BgeBranchCoordinator.objects.get(user=request.user)
+                    found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
+                except:
+                    return HttpResponse('Not Branch Admin or Branch coordi', status=400)
 
-        return render(request, 'branch/resources.html', {
-            'all_resources':all_resources,
-        })
+            all_resources = models.BgeResource.objects.filter(branch=found_branch).order_by("-created_at")
+
+            return render(request, 'branch/resources.html', {
+                'all_resources':all_resources,
+            })
+
+        else:
+            return HttpResponse("Not Authorized User", status=400)
 
     def post(self, request):
 
         data = request.POST
 
-        try:
-            bge_branch_admin = user_models.BgeBranchAdminUser.objects.get(user=request.user)
-            found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
-        except:
+        if request.user.type == 'bge_admin' or request.user.type == 'bge_team':
             found_branch=None
 
-        if not found_branch:
+        else:
             try:
-                bge_branch_admin = user_models.BgeBranchCoordinator.objects.get(user=request.user)
+                bge_branch_admin = user_models.BgeBranchAdminUser.objects.get(user=request.user)
                 found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
             except:
-                return HttpResponse('Not Branch Admin or Branch coordi', status=400)
+                found_branch=None
+
+            if not found_branch:
+                try:
+                    bge_branch_admin = user_models.BgeBranchCoordinator.objects.get(user=request.user)
+                    found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
+                except:
+                    return HttpResponse('Not Branch Admin or Branch coordi', status=400)
 
         if data.get('delete_file'):
 

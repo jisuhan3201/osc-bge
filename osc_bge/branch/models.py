@@ -93,8 +93,9 @@ class HostStudentReport(TimeStampedModel):
         ('submitted', 'Submitted'),
     )
 
+    student_report = models.OneToOneField(student_models.StudentMonthlyReport, on_delete=models.SET_NULL, null=True, blank=True, related_name="host_report")
     host_coordi = models.ForeignKey(user_models.BgeBranchCoordinator, on_delete=models.SET_NULL, null=True)
-    host = models.ForeignKey(HostFamily, on_delete=models.CASCADE, null=True)
+    host = models.ForeignKey(HostFamily, on_delete=models.CASCADE, null=True, related_name="host_report")
     student = models.ForeignKey(student_models.Student, on_delete=models.SET_NULL, null=True, related_name='host_report')
     description = models.TextField(null=True, blank=True)
     rate = models.CharField(max_length=80, null=True, blank=True)

@@ -1,15 +1,19 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.views import View
-from . import models
+from django.core import serializers
+from . import models, forms
 from osc_bge.users import models as user_models
 from osc_bge.form import models as form_models
 from osc_bge.school import models as school_models
 from osc_bge.bge import models as bge_models
 from osc_bge.branch import models as branch_models
+from osc_bge.student import models as student_models
 import datetime
 from dateutil import relativedelta
+import json
 
 # Create your views here.
 
@@ -28,22 +32,32 @@ class CurrentStudentView(View):
 
         found_counselor = self.get_counselor()
 
-        current_students = models.Student.objects.filter(
-            counselor=found_counselor).filter(
-            counsel__formality__departure_confirmed__isnull=False).order_by('-counsel__formality__departure_confirmed')
+        try:
+            current_students = models.Student.objects.filter(
+                counselor=found_counselor).filter(
+                counsel__formality__departure_confirmed__isnull=False).order_by('-counsel__formality__departure_confirmed')
+        except models.Student.DoesNotExist:
+            current_students = None
 
-        for student in current_students:
-            found_reports = models.StudentMonthlyReport.objects.filter(student=student, send_to_agent_date__isnull=False).order_by('-send_to_agent_date')
-            student.report_list = found_reports
+        if current_students:
+            for student in current_students:
 
-        return render(request, 'student/current_student.html', {'current_students':current_students})
+                try:
+                    found_reports = models.StudentMonthlyReport.objects.filter(student=student, send_to_agent_date__isnull=False).order_by('-send_to_agent_date')
+                except models.StudentMonthlyReport.DoesNotExist:
+                    found_reports = None
+
+                student.found_report = found_reports.latest('-send_to_agent_date') if found_reports else None
+
+        return render(request, 'student/current_student.html', {
+            'current_students':current_students
+        })
 
 
 # Agent Student report view
 class StudentReportView(View):
 
     def get(self, request, student_id=None):
-
 
         if student_id:
 
@@ -52,26 +66,15 @@ class StudentReportView(View):
             except models.Student.DoesNotExist:
                 return HttpResponse('Wrong Student Id', status=404)
 
-            all_reports = models.StudentMonthlyReport.objects.filter(student=found_student, send_to_agent_date__isnull=False).order_by('-created_at')
+            all_reports = models.StudentMonthlyReport.objects.filter(
+                student=found_student, send_to_agent_date__isnull=False).order_by('-send_to_agent_date')
             if all_reports:
 
                 found_report = all_reports.latest('send_to_agent_date')
 
-                start_date = datetime.date.today().replace(day=1)
-                end_date = datetime.date.today() + relativedelta.relativedelta(months=1, day=1) - relativedelta.relativedelta(days=1)
-
-                try:
-                    found_host_report = branch_models.HostStudentReport.objects.filter(
-                        student=found_report.student,
-                        submitted_date__gte=start_date,
-                        submitted_date__lte=end_date).latest("submitted_date")
-                except branch_models.HostStudentReport.DoesNotExist:
-                    found_host_report = None
-
             else:
                 all_reports = None
                 found_report = None
-                found_host_report = None
 
         else:
             return HttpResponse('No student id', status=400)
@@ -79,7 +82,6 @@ class StudentReportView(View):
         return render(request, 'agent/student_report.html', {
             'found_report':found_report,
             'all_reports':all_reports,
-            'found_host_report':found_host_report,
         })
 
     def post(self, request, student_id=None):
@@ -93,14 +95,58 @@ class StudentReportView(View):
             except models.StudentMonthlyReport.DoesNotExist:
                 return HttpResponse('Wrong report Id', status=404)
 
-            found_report.agent_confirmed = data.get('agent_confirmed')
-            found_report.report_to_parent = data.get('report_to_parent')
+            found_report.agent_confirmed = data.get('agent_confirmed') if data.get('agent_confirmed') else None
+            found_report.report_to_parent = data.get('report_to_parent') if data.get('report_to_parent') else None
             found_report.save()
 
         else:
             return HttpResponse('No report id', status=400)
 
-        return HttpResponseRedirect('/student/current')
+        return HttpResponseRedirect(request.path_info)
+
+
+class StudentPastReportView(LoginRequiredMixin, View):
+
+    def get(self, request, report_id=None):
+
+        if report_id:
+
+            try:
+                found_report = models.StudentMonthlyReport.objects.get(id=int(report_id))
+            except models.StudentMonthlyReport.DoesNotExist:
+                return HttpResponse('Wrong report Id', status=404)
+
+            all_reports = models.StudentMonthlyReport.objects.filter(
+                student=found_report.student, send_to_agent_date__isnull=False).order_by('-send_to_agent_date')
+
+        else:
+            return HttpResponse('No student id', status=400)
+
+        return render(request, 'agent/student_report.html', {
+            'found_report':found_report,
+            'all_reports':all_reports,
+        })
+
+    def post(self, request, report_id=None):
+
+        data = request.POST
+
+        if report_id:
+
+            try:
+                found_report = models.StudentMonthlyReport.objects.get(id=int(data.get('report_id')))
+            except models.StudentMonthlyReport.DoesNotExist:
+                return HttpResponse('Wrong report Id', status=404)
+
+            found_report.agent_confirmed = data.get('agent_confirmed') if data.get('agent_confirmed') else None
+            found_report.report_to_parent = data.get('report_to_parent') if data.get('report_to_parent') else None
+            found_report.save()
+
+        else:
+            return HttpResponse('No report id', status=400)
+
+        return HttpResponseRedirect(request.path_info)
+
 
 
 class StudentMonthlyReportView(LoginRequiredMixin, View):
@@ -151,6 +197,14 @@ class StudentMonthlyReportView(LoginRequiredMixin, View):
                 found_student = models.Student.objects.get(id=int(student_id))
             except models.Student.DoesNotExist:
                 return HttpResponse('Wrong Student Id', status=404)
+
+            if request.FILES.get('image'):
+
+                image_form = forms.StudentImageForm(request.POST,request.FILES)
+                if image_form.is_valid():
+                    found_student.image = image_form.cleaned_data['image']
+                    found_student.save()
+
 
             report = models.StudentMonthlyReport(
                 student=found_student,
@@ -235,7 +289,7 @@ class StudentMonthlyReportView(LoginRequiredMixin, View):
         else:
             return HttpResponse('No student id', status=400)
 
-        return HttpResponseRedirect('/branch/students')
+        return HttpResponseRedirect('/student/monthly/report/update/'+str(report.id))
 
 
 
@@ -271,13 +325,13 @@ class StudentMonthlyReportUpdateView(LoginRequiredMixin, View):
             start_date = datetime.date.today().replace(day=1)
             end_date = datetime.date.today() + relativedelta.relativedelta(months=1, day=1) - relativedelta.relativedelta(days=1)
 
+            all_host_reports = branch_models.HostStudentReport.objects.filter(
+                student=found_report.student)
+
             try:
-                found_host_report = branch_models.HostStudentReport.objects.filter(
-                    student=found_report.student,
-                    submitted_date__gte=start_date,
-                    submitted_date__lte=end_date).latest("submitted_date")
+                found_host_report = branch_models.HostStudentReport.objects.get(student_report=found_report)
             except branch_models.HostStudentReport.DoesNotExist:
-                found_host_report = None
+                found_host_report=None
 
         else:
             return HttpResponse('No student id', status=400)
@@ -286,6 +340,7 @@ class StudentMonthlyReportUpdateView(LoginRequiredMixin, View):
             'all_students':all_students,
             'all_reports':all_reports,
             'found_report':found_report,
+            'all_host_reports':all_host_reports,
             'found_host_report':found_host_report,
         })
 
@@ -300,12 +355,37 @@ class StudentMonthlyReportUpdateView(LoginRequiredMixin, View):
             except models.StudentMonthlyReport.DoesNotExist:
                 return HttpResponse('Wrong report id', status=400)
 
+            if data.get('host_form_id'):
+
+                found_report.send_to_agent_date = datetime.date.today()
+                found_report.save()
+
+                try:
+                    found_host_report = branch_models.HostStudentReport.objects.get(id=found_report.host_report.id)
+                except branch_models.HostStudentReport.DoesNotExist:
+                    found_host_report = None
+
+                if found_host_report:
+                    found_host_report.student_report=None
+                    found_host_report.save()
+
+                host_report = branch_models.HostStudentReport.objects.get(id=int(data.get('host_form_id')))
+                host_report.student_report = found_report
+                host_report.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+            if request.FILES.get('image'):
+
+                image_form = forms.StudentImageForm(request.POST,request.FILES)
+                if image_form.is_valid():
+                    found_report.student.image = image_form.cleaned_data['image']
+                    found_report.student.save()
 
             found_report.counseling_date=data.get('counseling_date')
-            found_report.manager_confirm_date=data.get('manager_confirm_date')
+            found_report.manager_confirm_date=data.get('manager_confirm_date') if data.get('manager_confirm_date') else None
             found_report.school_year=data.get('school_year')
             found_report.grade=data.get('grade')
-            found_report.send_to_agent_date=data.get('send_to_agent_date')
             found_report.college_plan=data.get('college_plan')
             found_report.eng9h_lv=data.get('eng9h_lv')
             found_report.eng9h_tg=data.get('eng9h_tg')
@@ -388,4 +468,120 @@ class StudentMonthlyReportUpdateView(LoginRequiredMixin, View):
         else:
             return HttpResponse('No student id', status=400)
 
-        return HttpResponseRedirect('/branch/students')
+        return HttpResponseRedirect(request.path_info)
+
+
+@login_required(login_url='/accounts/login/')
+def get_host_report(request, report_id=None):
+
+    if report_id:
+        try:
+            found_report = branch_models.HostStudentReport.objects.filter(id=int(report_id))
+        except models.HostStudent.DoesNotExist:
+            return HttpResponse(status=400)
+
+        found_host = branch_models.HostFamily.objects.filter(id=found_report[0].host.id)
+
+        data = list(found_report) + list(found_host)
+        data = serializers.serialize("json", data)
+    else:
+        return HttpResponse(status=400)
+
+    return HttpResponse(data, content_type="application/json")
+
+
+class StudentCommunicationLog(LoginRequiredMixin, View):
+
+    def get(self, request, student_id=None):
+
+        if student_id:
+
+            try:
+                found_student = student_models.Student.objects.get(id=int(student_id))
+            except student_models.Student.DoesNotExist:
+                return HttpResponse('Wrong Student Id', status=404)
+
+            try:
+                bge_branch_admin = user_models.BgeBranchAdminUser.objects.get(user=request.user)
+                found_branch = bge_models.BgeBranch.objects.get(id=int(bge_branch_admin.branch.id))
+            except:
+                found_branch=None
+
+            if not found_branch:
+                try:
+                    bge_branch_coordinator = user_models.BgeBranchCoordinator.objects.get(user=request.user)
+                    found_branch = bge_models.BgeBranch.objects.get(id=int(bge_branch_coordinator.branch.id))
+                except bge_models.BgeBranch.DoesNotExist:
+                    return HttpResponse('Not Branch Admin or Branch coordi', status=400)
+
+            all_schools = school_models.School.objects.filter(provider_branch=found_branch)
+            all_students = models.Student.objects.filter(school__in=all_schools)
+
+            all_logs = student_models.StudentCommunicationLog.objects.filter(student=found_student).order_by('-created_at')
+
+        else:
+            return HttpResponse('No Student id', status=400)
+
+        return render(request, 'branch/student_log.html', {
+            'found_student':found_student,
+            'all_logs':all_logs,
+            'all_students':all_students
+
+        })
+
+    def post(self, request, student_id=None):
+
+        data = request.POST
+
+        if student_id:
+
+            try:
+                found_student = student_models.Student.objects.get(id=int(student_id))
+            except student_models.Student.DoesNotExist:
+                return HttpResponse('Wrong Student Id', status=404)
+
+            if data.get('log_id'):
+
+                try:
+                    found_log = student_models.StudentCommunicationLog.objects.get(id=int(data.get('log_id')))
+                except student_models.StudentCommunicationLog.DoesNotExist:
+                    return HttpResponse('Wrong student id', status=400)
+
+                found_log.writer=request.user
+                found_log.category=data.get('category')
+                found_log.priority=data.get('priority')
+                found_log.comment=data.get('comment')
+                found_log.save()
+
+            else:
+
+                student_log = student_models.StudentCommunicationLog(
+                    student=found_student,
+                    writer=request.user,
+                    category=data.get('category'),
+                    priority=data.get('priority'),
+                    comment=data.get('comment'),
+                )
+                student_log.save()
+
+        else:
+            return HttpResponse('No Student id', status=400)
+
+        return HttpResponseRedirect(request.path_info)
+
+
+@login_required(login_url='/accounts/login/')
+def get_student_log(request, log_id=None):
+
+    if log_id:
+        try:
+            found_log = student_models.StudentCommunicationLog.objects.filter(id=int(log_id))
+        except models.StudentCommunicationLog.DoesNotExist:
+            return HttpResponse(status=400)
+
+        data = serializers.serialize("json", found_log)
+
+    else:
+        return HttpResponse(status=400)
+
+    return HttpResponse(data, content_type="application/json")

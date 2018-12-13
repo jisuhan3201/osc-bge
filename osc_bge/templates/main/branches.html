@@ -61,7 +61,6 @@
 				<tr>
 					<th>Branch</th>
 					<th>Partner Schools #</th>
-					<th>Prospective Partner Schools #</th>
 					<th>Active Host Families #</th>
 					<th>Inactive Host Families #</th>
 					<th>Prospective Host Families #</th>
@@ -70,9 +69,8 @@
 				</tr>
 				{% for branch in all_branches %}
 				<tr>
-					<td><a href="/branch/statistics">{{branch.name}}</a></td>
+					<td><a href="/branches/statistics/{{branch.id}}">{{branch.name}}</a></td>
 					<td>{{branch.partner_school}}</td>
-					<td>not yet</td>
 					<td>{{branch.active_hosts}}</td>
 					<td>{{branch.inactive_hosts}}</td>
 					<td>{{branch.prospective_hosts}}</td>

@@ -16,7 +16,7 @@
 				<select class="MTitleInput" onchange="location=this.value;">
           <option value="">Select Reports..</option>
 					{% for report in all_reports %}
-					<option value="/student/current/report/{{report.id}}">{{report.send_to_agent_date}}</option>
+					<option value="/student/current/report/{{report.id}}">{{report.send_to_agent_date|date:"Y-m-d"}}</option>
           {% endfor %}
 				</select>
 			</div>
@@ -399,12 +399,12 @@
 				<tr>
 					<th>Report Status : </th>
 					<td>
-            {% if found_report.status == 'send_to_agent' %}
-            Send to Agent  :  {{found_report.send_to_agent_date}}
-            {% elif found_report.status == 'agent_confirmed' %}
-            Send to Agent  :  {{found_report.send_to_agent_date}} / Agent Confirmed  :  {{found_report.agent_confirmed}}
+            {% if found_report.send_to_agent_date and not found_report.agent_confirmed and not found_report.report_to_parent %}
+            Send to Agent  :  {{found_report.send_to_agent_date|date:"Y-m-d"}}
+            {% elif found_report.agent_confirmed and not found_report.report_to_parent %}
+            Send to Agent  :  {{found_report.send_to_agent_date|date:"Y-m-d"}} / Agent Confirmed  :  {{found_report.agent_confirmed|date:"Y-m-d"}}
             {% elif found_report.report_to_parent %}
-            Send to Agent  :  {{found_report.send_to_agent_date}} / Agent Confirmed  :  {{found_report.agent_confirmed}} / Report to parent : {{found_report.report_to_parent}}
+            Send to Agent  :  {{found_report.send_to_agent_date|date:"Y-m-d"}} / Agent Confirmed  :  {{found_report.agent_confirmed|date:"Y-m-d"}} / Report to parent : {{found_report.report_to_parent|date:"Y-m-d"}}
             {% endif %}
 					</td>
 				</tr>
@@ -430,48 +430,48 @@
 				</colgroup>
 				<tr>
 					<th>Host Family Name : </th>
-					<td colspan="2" class="InnerInputTD">{{found_host_report.host.name}}</td>
+					<td colspan="2" class="InnerInputTD">{{found_report.host_report.host.name}}</td>
 				</tr>
 				<tr>
 					<th>Host Family Address : </th>
-					<td colspan="2" class="InnerInputTD">{{found_host_report.host.address}}</td>
+					<td colspan="2" class="InnerInputTD">{{found_report.host_report.host.address}}</td>
 				</tr>
 				<tr>
 					<th>Host Family Contact Info : </th>
-					<td colspan="2" class="InnerInputTD">{{found_host_report.host.phone}} / {{found_host_report.host.email}}</td>
+					<td colspan="2" class="InnerInputTD">{{found_report.host_report.host.phone}} / {{found_report.host_report.host.email}}</td>
 				</tr>
 				<tr>
 					<th>Rate </th>
-					<td class="InnerInputTD">{{found_host_report.rate}}</td>
-					<td class="InnerInputTD">Improvement :  {{found_host_report.improvement}}</td>
+					<td class="InnerInputTD">{{found_report.host_report.rate}}</td>
+					<td class="InnerInputTD">Improvement :  {{found_report.host_report.improvement}}</td>
 				</tr>
         <tr>
 					<th>Cultural Fluency : </th>
-					<td colspan="2" class="InnerInputTD">{{found_host_report.cultural_fluency}}</td>
+					<td colspan="2" class="InnerInputTD">{{found_report.host_report.cultural_fluency}}</td>
 				</tr>
 				<tr>
 					<th>House Rules & Attitude</th>
-					<td colspan="2" class="InnerInputTD">{{found_host_report.house_rule_attitude}}</td>
+					<td colspan="2" class="InnerInputTD">{{found_report.host_report.house_rule_attitude}}</td>
 				</tr>
 				<tr>
 					<th>Responsibility</th>
-          <td colspan="2" class="InnerInputTD">{{found_host_report.responsibility}}</td>
+          <td colspan="2" class="InnerInputTD">{{found_report.host_report.responsibility}}</td>
 				</tr>
 				<tr>
 					<th>Communication</th>
-          <td colspan="2" class="InnerInputTD">{{found_host_report.communication}}</td>
+          <td colspan="2" class="InnerInputTD">{{found_report.host_report.communication}}</td>
 				</tr>
 				<tr>
 					<th>Sleeping Habits</th>
-          <td colspan="2" class="InnerInputTD">{{found_host_report.sleeping_habits}}</td>
+          <td colspan="2" class="InnerInputTD">{{found_report.host_report.sleeping_habits}}</td>
 				</tr>
 				<tr>
 					<th>School Attendance</th>
-          <td colspan="2" class="InnerInputTD">{{found_host_report.school_attendance}}</td>
+          <td colspan="2" class="InnerInputTD">{{found_report.host_report.school_attendance}}</td>
 				</tr>
 				<tr>
 					<td colspan="3" class="InnerInputTD">
-					<textarea class="TableInnerTextarea" style="height:60px;" readonly>{{found_host_report.comment}}</textarea>
+					<textarea class="TableInnerTextarea" style="height:60px;" readonly>{{found_report.host_report.comment}}</textarea>
 					</td>
 				</tr>
 				<tr>

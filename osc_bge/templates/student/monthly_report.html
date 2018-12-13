@@ -19,7 +19,7 @@
 
 
 	<div class="MainFrame" id="MainF">
-		<form method="POST">
+		<form method="POST" enctype="multipart/form-data">
 			{% csrf_token %}
 			<input type="text" name="post_type" value="student_monthly_report" hidden>
 			<input type="text" name="report_id" value="" hidden>
@@ -38,7 +38,11 @@
 
 		<div class="cdiv"></div>
 		<div class="InformationSet">
-			<div class="Picture" style="background-image:url('../imgsrc/person01.jpg');">&nbsp;</div>
+			{% if found_student.image %}
+			<div class="Picture" style="background-image:url('{{MEDIA_URL}}{{found_student.image}}');">&nbsp;</div>
+			{% else %}
+			<div class="Picture" style="background-image:url('{% static 'img/no_user.png' %}');">&nbsp;</div>
+			{% endif %}
 			<div class="Information">
 				<div class="InfoTable">
 					<table cellpadding="0" cellspacing="0" border="0">
@@ -69,7 +73,9 @@
 					</table>
 				</div><!-- InfoTable -->
 			</div><!-- Information -->
-			<div class="HButton">Image Change</div>
+
+			<label id="ImageChangeLabelId" for="image_change" class="HButton">Image Change</label>
+			<input id="image_change" type="file" name="image" hidden>
 			<div class="Information">
 				<div class="InfoTable">
 					<table cellpadding="0" cellspacing="0" border="0">

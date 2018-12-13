@@ -11,7 +11,7 @@ from osc_bge.form import models as form_models
 from osc_bge.school import models as school_models
 from osc_bge.branch import models as branch_models
 from osc_bge.student import models as student_models
-from datetime import datetime
+from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 
 @login_required(login_url='/accounts/login/')
@@ -380,6 +380,145 @@ class BranchesView(LoginRequiredMixin, View):
         })
 
 
+class BranchesStatisticView(LoginRequiredMixin,View):
+    login_url = '/accounts/login/'
+
+    def get(self, request, branch_id=None):
+
+        if branch_id:
+
+            try:
+                found_branch = models.BgeBranch.objects.get(id=int(branch_id))
+            except models.BgeBranch.DoesNotExist:
+                return HttpResponse('Wrong branch id', status=400)
+
+            now = datetime.now()
+            year_list = []
+            for year in range(2018, now.year+1):
+                year_list.append(year)
+            year_list = sorted(year_list, reverse=True)
+
+
+            all_schools = school_models.School.objects.filter(provider_branch=found_branch)
+            all_hosts = branch_models.HostFamily.objects.filter(provider_branch=found_branch)
+
+            today = date.today()
+            next_month = today + relativedelta(months=1)
+
+            # end_date = datetime.date(next_month.year, next_month.month, 1) - relativedelta.relativedelta(days=1)
+
+            applied_students = form_models.Counsel.objects.filter(
+                student__status='registered', formality__school_formality__school__in=all_schools)
+
+            confirmed_students = form_models.SchoolFormality.objects.filter(
+                school__in=all_schools)
+
+            default_start_date = date(today.year, today.month, 1)
+
+            start_date = date(today.year, today.month, 1)
+
+            applied_students = applied_students.filter(
+                formality__created_at__gte=start_date)
+
+            confirmed_students = confirmed_students.filter(
+                acceptance_date__gte=start_date).order_by('-acceptance_date')
+
+            found_branch.school_count = school_models.School.objects.filter(provider_branch=found_branch)
+            found_branch.active_host = branch_models.HostFamily.objects.filter(provider_branch=found_branch, status='active')
+            found_branch.inactive_host = branch_models.HostFamily.objects.filter(provider_branch=found_branch, status='inactive')
+            found_branch.prospective_host = branch_models.HostFamily.objects.filter(provider_branch=found_branch, status='prospective')
+            found_branch.current_students = student_models.Student.objects.filter(school__in=all_schools)
+            found_branch.complaints = branch_models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts)
+
+            if request.GET.get('form_type'):
+
+                if request.GET.get('year') and request.GET.get('start_month') and request.GET.get('end_month'):
+                    start_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
+                    end_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
+                    end_date = end_date + relativedelta(months=1)
+                elif request.GET.get('year') and not request.GET.get('start_month') and request.GET.get('end_month'):
+                    start_date = datetime.strptime(request.GET.get('year') + "-" + "01" + "-01", "%Y-%m-%d")
+                    end_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
+                    end_date = end_date + relativedelta(months=1)
+                elif request.GET.get('year') and request.GET.get('start_month') and not request.GET.get('end_month'):
+                    start_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
+                    end_date = None
+                elif request.GET.get('year') and not request.GET.get('start_month') and not request.GET.get('end_month'):
+                    start_date = datetime.strptime(request.GET.get('year') + "-" + "01" + "-01", "%Y-%m-%d")
+                    end_date = start_date + relativedelta(years=1)
+                elif not request.GET.get('year') and request.GET.get('start_month') and request.GET.get('end_month'):
+                    start_date = datetime.strptime(str(now.year) + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
+                    end_date = datetime.strptime(str(now.year) + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
+                    end_date = end_date + relativedelta(months=1)
+                elif not request.GET.get('year') and request.GET.get('start_month') and not request.GET.get('end_month'):
+                    start_date = datetime.strptime(str(now.year) + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
+                    end_date = None
+                elif not request.GET.get('year') and not request.GET.get('start_month') and request.GET.get('end_month'):
+                    start_date = datetime.strptime(str(now.year) + "-" + str(now.month) + "-01", "%Y-%m-%d")
+                    end_date = datetime.strptime(str(now.year) + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
+                    end_date = end_date + relativedelta(months=1)
+                else:
+                    end_date= None
+
+
+                if request.GET.get('form_type') == 'applied_form':
+                    applied_students = form_models.Counsel.objects.filter(
+                        student__status='registered', formality__school_formality__school__in=all_schools)
+
+                    applied_students = applied_students.filter(
+                        formality__created_at__gte=start_date)
+
+                    if end_date:
+                        applied_students = applied_students.filter(
+                            formality__created_at__lt=end_date)
+
+                elif request.GET.get('form_type') == 'confirmed_form':
+
+                    confirmed_students = form_models.SchoolFormality.objects.filter(
+                        school__in=all_schools)
+
+                    confirmed_students = confirmed_students.filter(
+                        acceptance_date__gte=start_date).order_by('-acceptance_date')
+
+                    if end_date:
+                        confirmed_students = confirmed_students.filter(
+                            acceptance_date__lt=end_date).order_by('-acceptance_date')
+
+                else:
+                    found_branch.school_count = found_branch.school_count.filter(created_at__gte=start_date)
+                    found_branch.active_host = found_branch.active_host.filter(created_at__gte=start_date)
+                    found_branch.inactive_host = found_branch.inactive_host.filter(created_at__gte=start_date)
+                    found_branch.prospective_host = found_branch.prospective_host.filter(created_at__gte=start_date)
+                    found_branch.current_students = found_branch.current_students.filter(created_at__gte=start_date)
+                    found_branch.complaints = found_branch.complaints.filter(created_at__gte=start_date)
+
+                    if end_date:
+                        found_branch.school_count = found_branch.school_count.filter(created_at__lt=end_date)
+                        found_branch.active_host = found_branch.active_host.filter(created_at__lt=end_date)
+                        found_branch.inactive_host = found_branch.inactive_host.filter(created_at__lt=end_date)
+                        found_branch.prospective_host = found_branch.prospective_host.filter(created_at__lt=end_date)
+                        found_branch.current_students = found_branch.current_students.filter(created_at__lt=end_date)
+                        found_branch.complaints = found_branch.complaints.filter(created_at__lt=end_date)
+
+            found_branch.school_count = found_branch.school_count.count()
+            found_branch.active_host = found_branch.active_host.count()
+            found_branch.inactive_host = found_branch.inactive_host.count()
+            found_branch.prospective_host = found_branch.prospective_host.count()
+            found_branch.current_students = found_branch.current_students.count()
+            found_branch.complaints = found_branch.complaints.count()
+
+
+            return render(request, 'branch/statistics.html', {
+                'default_start_date':default_start_date,
+                'applied_students':applied_students,
+                'confirmed_students':confirmed_students,
+                'found_branch':found_branch,
+                'year_list':year_list,
+            })
+
+        else:
+            return HttpResponse('No branch id', status=400)
+
 class AgentsView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
@@ -540,18 +679,21 @@ class AgentsUpdateView(LoginRequiredMixin, View):
                 year_list.append(year)
             year_list = sorted(year_list, reverse=True)
 
-            all_students = student_models.Student.objects.all()
+            all_students = student_models.Student.objects.filter(counselor__agency__head=found_agent)
+
             secondary_data = []
+            camp_data = []
+            college_other_data = []
             for year in year_list:
                 next_year = year+1
                 year = datetime.strptime(str(year) + '-01' + '-01', "%Y-%m-%d")
                 next_year = datetime.strptime(str(next_year) + '-01' + '-01', "%Y-%m-%d")
                 data = {}
-                term_fall = all_students.filter(school__type='secondary', school__term='fall', created_at__gte=year, created_at__lt=next_year).count()
-                term_spring = all_students.filter(school__type='secondary', school__term='spring', created_at__gte=year, created_at__lt=next_year).count()
-                total_new_students = all_students.filter(school__type='secondary', created_at__gte=year, created_at__lt=next_year).count()
+                term_fall = all_students.filter(school__type='secondary', school__term='fall', created_at__gte=year, created_at__lt=next_year).exclude(status='terminated').count()
+                term_spring = all_students.filter(school__type='secondary', school__term='spring', created_at__gte=year, created_at__lt=next_year).exclude(status='terminated').count()
+                total_new_students = all_students.filter(school__type='secondary', created_at__gte=year, created_at__lt=next_year).exclude(status='terminated').count()
                 terminated_students = all_students.filter(school__type='secondary', created_at__gte=year, created_at__lt=next_year, status='terminated').count()
-                total_students = all_students.filter(school__type='secondary', created_at__lt=next_year).count()
+                total_students = all_students.filter(school__type='secondary', created_at__lt=next_year).exclude(status='terminated').count()
 
                 data.update({
                     'period':year,
@@ -562,6 +704,28 @@ class AgentsUpdateView(LoginRequiredMixin, View):
                     'total_students':total_students
                 })
                 secondary_data.append(data)
+
+                camp_dict = {}
+                camp_count = all_students.filter(counsel__program_interested='camp', created_at__gte=year, created_at__lt=next_year).exclude(status='terminated').count()
+                camp_dict.update({'period':year, "camp_count":camp_count})
+                camp_data.append(camp_dict)
+
+                college_other_dict = {}
+                college_count = all_students.filter(
+                    counsel__program_interested='college',
+                    created_at__gte=year,
+                    created_at__lt=next_year).exclude(status='terminated').count()
+                other_count = all_students.filter(
+                    counsel__program_interested='not_specified',
+                    created_at__gte=year,
+                    created_at__lt=next_year).exclude(status='terminated').count()
+                college_other_dict.update({'period':year, "college_count":college_count, "other_count":other_count})
+                college_other_data.append(college_other_dict)
+
+
+
+
+
 
         else:
             return HttpResponse("Wrong id", status=400)
@@ -575,6 +739,8 @@ class AgentsUpdateView(LoginRequiredMixin, View):
             'rest_contact_range':rest_contact_range,
             'relationship_histories':relationship_histories,
             'secondary_data':secondary_data,
+            'camp_data':camp_data,
+            'college_other_data':college_other_data,
         })
 
     def post(self, request, agent_id=None):
