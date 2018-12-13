@@ -6,106 +6,128 @@
 	<div class="MainAFrame">
 
 		<div class="Layout_2-1">
-			<div class="MTitle">Aplied Students</div>
+			<div class="InfoTable" ><span class="AddComment">Default : {{default_start_date|date:"Y-m-d"}} ~ </span></div>
+			<div class="MTitle">Applied Students</div>
 			<div class="ListSearch Aright">
-				<div>
-				From :
-				<select class="SearchSelect">
-					<option>December</option>
-					<option>November</option>
-					<option>October</option>
-					<option>September</option>
-					<option>August</option>
-					<option>July</option>
-					<option>June</option>
-					<option>May</option>
-					<option>April</option>
-					<option>March</>
-					<option>February</option>
-					<option>January</option>
-				</select>
-				&nbsp;&nbsp;
-				To :
-				<select class="SearchSelect">
-					<option>December</option>
-					<option>November</option>
-					<option>October</option>
-					<option>September</option>
-					<option>August</option>
-					<option>July</option>
-					<option>June</option>
-					<option>May</option>
-					<option>April</option>
-					<option>March</>
-					<option>February</option>
-					<option>January</option>
-				</select>
-				&nbsp;&nbsp;
-				<select class="SearchSelect">
-					<option>2018 ~ 2019 year</option>
-				</select>
-				</div>
+				<form method="GET">
+					<input type="text" name="form_type" value="applied_form" hidden>
+					<div>
+					From :
+					<select class="SearchSelect" name="start_month">
+						<option value="">Select Month..</option>
+						<option >Dec</option>
+						<option >Nov</option>
+						<option >Oct</option>
+						<option >Sep</option>
+						<option >Aug</option>
+						<option >Jul</option>
+						<option >Jun</option>
+						<option >May</option>
+						<option >Apr</option>
+						<option >Mar</>
+						<option >Feb</option>
+						<option >Jan</option>
+					</select>
+					&nbsp;&nbsp;
+					To :
+					<select class="SearchSelect" name="end_month">
+						<option value="">Select Month..</option>
+						<option>Dec</option>
+						<option>Nov</option>
+						<option>Oct</option>
+						<option>Sep</option>
+						<option>Aug</option>
+						<option>Jul</option>
+						<option>Jun</option>
+						<option>May</option>
+						<option>Apr</option>
+						<option>Mar</>
+						<option>Feb</option>
+						<option>Jan</option>
+					</select>
+					&nbsp;&nbsp;
+					<select class="SearchSelect" name="year">
+						<option value="">Select year..</option>
+						{% for year in year_list %}
+						<option value="{{year}}">{{year}} ~ {{year|add:1}} year</option>
+						{% endfor %}
+					</select>
+					<button type="submit" class="ListSearchButton">Search<button>
+					</div>
+				</form>
 			</div>
 
 			<div class="ListTable">
 				<table cellpadding="0" cellspacing="0" border="0">
-					<colgroup>
-						<col>
-					</colgroup>
 					<tr>
 						<th>Name</th>
-						<th>First School</th>
-						<th>Second School</th>
+						<th colspan="5">Schools</th>
 					</tr>
+					{% for counsel in applied_students %}
 					<tr>
-						<td>David</td>
-						<td>Saint Bernadette School</td>
-						<td>Archbishop Williams High School</td>
+						<td>{{counsel.student.name}}</td>
+						<td>
+						{% for school_formality in counsel.formality.school_formality.all %}
+							{{school_formality.school.name}} (Priority : {{school_formality.school_priority}}) /
+						{% endfor %}
+						</td>
 					</tr>
+					{% endfor %}
 				</table>
 			</div><!-- ListTable -->
 		</div><!-- Layout_2-1 -->
 
+
 		<div class="Layout_2-1">
+			<div class="InfoTable" ><span class="AddComment">Default : {{default_start_date|date:"Y-m-d"}} ~ </span></div>
 			<div class="MTitle">Confirmed Students</div>
 			<div class="ListSearch Aright">
-				<div>
-				From :
-				<select class="SearchSelect">
-					<option>December</option>
-					<option>November</option>
-					<option>October</option>
-					<option>September</option>
-					<option>August</option>
-					<option>July</option>
-					<option>June</option>
-					<option>May</option>
-					<option>April</option>
-					<option>March</>
-					<option>February</option>
-					<option>January</option>
-				</select>
-				&nbsp;&nbsp;
-				To :
-				<select class="SearchSelect">
-					<option>December</option>
-					<option>November</option>
-					<option>October</option>
-					<option>September</option>
-					<option>August</option>
-					<option>July</option>
-					<option>June</option>
-					<option>May</option>
-					<option>April</option>
-					<option>March</>
-					<option>February</option>
-					<option>January</option>
-				</select>
-				&nbsp;&nbsp;
-				<select class="SearchSelect">
-					<option>2018 ~ 2019 year</option>
-				</select>
-				</div>
+				<form method="GET">
+					<input type="text" name="form_type" value="confirmed_form" hidden>
+					<div>
+					From :
+					<select class="SearchSelect" name="start_month">
+						<option value="">Select Month..</option>
+						<option >Dec</option>
+						<option >Nov</option>
+						<option >Oct</option>
+						<option >Sep</option>
+						<option >Aug</option>
+						<option >Jul</option>
+						<option >Jun</option>
+						<option >May</option>
+						<option >Apr</option>
+						<option >Mar</>
+						<option >Feb</option>
+						<option >Jan</option>
+					</select>
+					&nbsp;&nbsp;
+					To :
+					<select class="SearchSelect" name="end_month">
+						<option value="">Select Month..</option>
+						<option>Dec</option>
+						<option>Nov</option>
+						<option>Oct</option>
+						<option>Sep</option>
+						<option>Aug</option>
+						<option>Jul</option>
+						<option>Jun</option>
+						<option>May</option>
+						<option>Apr</option>
+						<option>Mar</>
+						<option>Feb</option>
+						<option>Jan</option>
+					</select>
+					&nbsp;&nbsp;
+					<select class="SearchSelect" name="year">
+						<option value="">Select year..</option>
+						{% for year in year_list %}
+						<option value="{{year}}">{{year}} ~ {{year|add:1}} year</option>
+						{% endfor %}
+					</select>
+					<button type="submit" class="ListSearchButton">Search<button>
+					</div>
+				</form>
 			</div>
 			<div class="ListTable">
 				<table cellpadding="0" cellspacing="0" border="0">
@@ -116,10 +138,12 @@
 						<th>Name</th>
 						<th>School</th>
 					</tr>
+					{% for school_formality in confirmed_students %}
 					<tr>
-						<td>David</td>
-						<td>Saint Bernadette School</td>
+						<td>{{school_formality.formality.counsel.student.name}}</td>
+						<td>{{school_formality.school.name}}</td>
 					</tr>
+					{% endfor %}
 				</table>
 			</div><!-- ListTable -->
 		</div><!-- Layout_2-1 -->
@@ -129,43 +153,54 @@
 
 
 		<div class="ListSearch Aright">
-			<div>
-			From :
-			<select class="SearchSelect">
-				<option>December</option>
-				<option>November</option>
-				<option>October</option>
-				<option>September</option>
-				<option>August</option>
-				<option>July</option>
-				<option>June</option>
-				<option>May</option>
-				<option>April</option>
-				<option>March</>
-				<option>February</option>
-				<option>January</option>
-			</select>
-			&nbsp;&nbsp;
-			To :
-			<select class="SearchSelect">
-				<option>December</option>
-				<option>November</option>
-				<option>October</option>
-				<option>September</option>
-				<option>August</option>
-				<option>July</option>
-				<option>June</option>
-				<option>May</option>
-				<option>April</option>
-				<option>March</>
-				<option>February</option>
-				<option>January</option>
-			</select>
-			&nbsp;&nbsp;
-			<select class="SearchSelect">
-				<option>2018 ~ 2019 year</option>
-			</select>
-			</div>
+
+			<form method="GET">
+				<input type="text" name="form_type" value="data_form" hidden>
+				<div>
+				<div class="InfoTable" ><span class="AddComment">Default : {{default_start_date|date:"Y-m-d"}} ~ </span></div> | 
+				From :
+				<select class="SearchSelect" name="start_month">
+					<option value="">Select Month..</option>
+					<option >Dec</option>
+					<option >Nov</option>
+					<option >Oct</option>
+					<option >Sep</option>
+					<option >Aug</option>
+					<option >Jul</option>
+					<option >Jun</option>
+					<option >May</option>
+					<option >Apr</option>
+					<option >Mar</>
+					<option >Feb</option>
+					<option >Jan</option>
+				</select>
+				&nbsp;&nbsp;
+				To :
+				<select class="SearchSelect" name="end_month">
+					<option value="">Select Month..</option>
+					<option>Dec</option>
+					<option>Nov</option>
+					<option>Oct</option>
+					<option>Sep</option>
+					<option>Aug</option>
+					<option>Jul</option>
+					<option>Jun</option>
+					<option>May</option>
+					<option>Apr</option>
+					<option>Mar</>
+					<option>Feb</option>
+					<option>Jan</option>
+				</select>
+				&nbsp;&nbsp;
+				<select class="SearchSelect" name="year">
+					<option value="">Select year..</option>
+					{% for year in year_list %}
+					<option value="{{year}}">{{year}} ~ {{year|add:1}} year</option>
+					{% endfor %}
+				</select>
+				<button type="submit" class="ListSearchButton">Search<button>
+				</div>
+			</form>
 		</div>
 
 		<div class="ListTable">
@@ -177,7 +212,6 @@
 
 				<tr>
 					<th>Partner Schools #</th>
-					<th>Prospective Partner Schools #</th>
 					<th>Active Host Families #</th>
 					<th>Inactive Host Families #</th>
 					<th>Prospective Host Families #</th>
@@ -185,13 +219,12 @@
 					<th>Student Complaints #</th>
 				</tr>
 				<tr>
-					<td>10</td>
-					<td>4</td>
-					<td>4</td>
-					<td>3</td>
-					<td>6</td>
-					<td>6</td>
-					<td>7</td>
+					<td>{{found_branch.school_count}}</td>
+					<td>{{found_branch.active_host}}</td>
+					<td>{{found_branch.inactive_host}}</td>
+					<td>{{found_branch.prospective_host}}</td>
+					<td>{{found_branch.current_students}}</td>
+					<td>{{found_branch.complaints}}</td>
 				</tr>
 			</table>
 		</div><!-- ListTable -->

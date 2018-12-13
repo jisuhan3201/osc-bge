@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from . import models
+from . import models, forms
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
@@ -14,6 +14,7 @@ from osc_bge.form import models as form_models
 import datetime
 from dateutil import relativedelta
 
+
 # Create your views here.
 
 class BranchStatisticsView(LoginRequiredMixin, View):
@@ -21,8 +22,141 @@ class BranchStatisticsView(LoginRequiredMixin, View):
 
     def get(self, request):
 
+        try:
+            bge_branch_admin = user_models.BgeBranchAdminUser.objects.get(user=request.user)
+            found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
+        except:
+            found_branch=None
+
+        if not found_branch:
+            try:
+                bge_branch_admin = user_models.BgeBranchCoordinator.objects.get(user=request.user)
+                found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
+            except:
+                return HttpResponse('Not Branch Admin or Branch coordi', status=400)
+
+        now = datetime.datetime.now()
+        year_list = []
+        for year in range(2018, now.year+1):
+            year_list.append(year)
+        year_list = sorted(year_list, reverse=True)
+
+
+        all_schools = school_models.School.objects.filter(provider_branch=found_branch)
+        all_hosts = models.HostFamily.objects.filter(provider_branch=found_branch)
+
+        today = datetime.date.today()
+        next_month = today + relativedelta.relativedelta(months=1)
+
+        # end_date = datetime.date(next_month.year, next_month.month, 1) - relativedelta.relativedelta(days=1)
+
+        applied_students = form_models.Counsel.objects.filter(
+            student__status='registered', formality__school_formality__school__in=all_schools)
+
+        confirmed_students = form_models.SchoolFormality.objects.filter(
+            school__in=all_schools)
+
+        default_start_date = datetime.date(today.year, today.month, 1)
+
+        start_date = datetime.date(today.year, today.month, 1)
+
+        applied_students = applied_students.filter(
+            formality__created_at__gte=start_date)
+
+        confirmed_students = confirmed_students.filter(
+            acceptance_date__gte=start_date).order_by('-acceptance_date')
+
+        found_branch.school_count = school_models.School.objects.filter(provider_branch=found_branch)
+        found_branch.active_host = models.HostFamily.objects.filter(provider_branch=found_branch, status='active')
+        found_branch.inactive_host = models.HostFamily.objects.filter(provider_branch=found_branch, status='inactive')
+        found_branch.prospective_host = models.HostFamily.objects.filter(provider_branch=found_branch, status='prospective')
+        found_branch.current_students = student_models.Student.objects.filter(school__in=all_schools)
+        found_branch.complaints = models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts)
+
+        if request.GET.get('form_type'):
+
+            if request.GET.get('year') and request.GET.get('start_month') and request.GET.get('end_month'):
+                start_date = datetime.datetime.strptime(request.GET.get('year') + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
+                end_date = datetime.datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
+                end_date = end_date + relativedelta.relativedelta(months=1)
+            elif request.GET.get('year') and not request.GET.get('start_month') and request.GET.get('end_month'):
+                start_date = datetime.datetime.strptime(request.GET.get('year') + "-" + "01" + "-01", "%Y-%m-%d")
+                end_date = datetime.datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
+                end_date = end_date + relativedelta.relativedelta(months=1)
+            elif request.GET.get('year') and request.GET.get('start_month') and not request.GET.get('end_month'):
+                start_date = datetime.datetime.strptime(request.GET.get('year') + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
+                end_date = None
+            elif request.GET.get('year') and not request.GET.get('start_month') and not request.GET.get('end_month'):
+                start_date = datetime.datetime.strptime(request.GET.get('year') + "-" + "01" + "-01", "%Y-%m-%d")
+                end_date = start_date + relativedelta.relativedelta(years=1)
+            elif not request.GET.get('year') and request.GET.get('start_month') and request.GET.get('end_month'):
+                start_date = datetime.datetime.strptime(str(now.year) + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
+                end_date = datetime.datetime.strptime(str(now.year) + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
+                end_date = end_date + relativedelta.relativedelta(months=1)
+            elif not request.GET.get('year') and request.GET.get('start_month') and not request.GET.get('end_month'):
+                start_date = datetime.datetime.strptime(str(now.year) + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
+                end_date = None
+            elif not request.GET.get('year') and not request.GET.get('start_month') and request.GET.get('end_month'):
+                start_date = datetime.datetime.strptime(str(now.year) + "-" + str(now.month) + "-01", "%Y-%m-%d")
+                end_date = datetime.datetime.strptime(str(now.year) + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
+                end_date = end_date + relativedelta.relativedelta(months=1)
+            else:
+                end_date= None
+
+
+            if request.GET.get('form_type') == 'applied_form':
+                applied_students = form_models.Counsel.objects.filter(
+                    student__status='registered', formality__school_formality__school__in=all_schools)
+
+                applied_students = applied_students.filter(
+                    formality__created_at__gte=start_date)
+
+                if end_date:
+                    applied_students = applied_students.filter(
+                        formality__created_at__lt=end_date)
+
+            elif request.GET.get('form_type') == 'confirmed_form':
+
+                confirmed_students = form_models.SchoolFormality.objects.filter(
+                    school__in=all_schools)
+
+                confirmed_students = confirmed_students.filter(
+                    acceptance_date__gte=start_date).order_by('-acceptance_date')
+
+                if end_date:
+                    confirmed_students = confirmed_students.filter(
+                        acceptance_date__lt=end_date).order_by('-acceptance_date')
+
+            else:
+                found_branch.school_count = found_branch.school_count.filter(created_at__gte=start_date)
+                found_branch.active_host = found_branch.active_host.filter(created_at__gte=start_date)
+                found_branch.inactive_host = found_branch.inactive_host.filter(created_at__gte=start_date)
+                found_branch.prospective_host = found_branch.prospective_host.filter(created_at__gte=start_date)
+                found_branch.current_students = found_branch.current_students.filter(created_at__gte=start_date)
+                found_branch.complaints = found_branch.complaints.filter(created_at__gte=start_date)
+
+                if end_date:
+                    found_branch.school_count = found_branch.school_count.filter(created_at__lt=end_date)
+                    found_branch.active_host = found_branch.active_host.filter(created_at__lt=end_date)
+                    found_branch.inactive_host = found_branch.inactive_host.filter(created_at__lt=end_date)
+                    found_branch.prospective_host = found_branch.prospective_host.filter(created_at__lt=end_date)
+                    found_branch.current_students = found_branch.current_students.filter(created_at__lt=end_date)
+                    found_branch.complaints = found_branch.complaints.filter(created_at__lt=end_date)
+
+        found_branch.school_count = found_branch.school_count.count()
+        found_branch.active_host = found_branch.active_host.count()
+        found_branch.inactive_host = found_branch.inactive_host.count()
+        found_branch.prospective_host = found_branch.prospective_host.count()
+        found_branch.current_students = found_branch.current_students.count()
+        found_branch.complaints = found_branch.complaints.count()
+
 
         return render(request, 'branch/statistics.html', {
+            'default_start_date':default_start_date,
+            'applied_students':applied_students,
+            'confirmed_students':confirmed_students,
+            'found_branch':found_branch,
+            'year_list':year_list,
         })
 
 
@@ -113,8 +247,64 @@ class BranchResourcesView(LoginRequiredMixin, View):
 
     def get(self, request):
 
-        return render(request, 'branch/resources.html', {})
+        try:
+            bge_branch_admin = user_models.BgeBranchAdminUser.objects.get(user=request.user)
+            found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
+        except:
+            found_branch=None
 
+        if not found_branch:
+            try:
+                bge_branch_admin = user_models.BgeBranchCoordinator.objects.get(user=request.user)
+                found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
+            except:
+                return HttpResponse('Not Branch Admin or Branch coordi', status=400)
+
+        all_resources = models.BgeResource.objects.filter(branch=found_branch).order_by("-created_at")
+
+        return render(request, 'branch/resources.html', {
+            'all_resources':all_resources,
+        })
+
+    def post(self, request):
+
+        data = request.POST
+
+        try:
+            bge_branch_admin = user_models.BgeBranchAdminUser.objects.get(user=request.user)
+            found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
+        except:
+            found_branch=None
+
+        if not found_branch:
+            try:
+                bge_branch_admin = user_models.BgeBranchCoordinator.objects.get(user=request.user)
+                found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
+            except:
+                return HttpResponse('Not Branch Admin or Branch coordi', status=400)
+
+        if data.get('delete_file'):
+
+            found_resource = models.BgeResource.objects.get(id=int(data.get('delete_file')))
+            found_resource.delete()
+
+            return HttpResponseRedirect(request.path_info)
+
+        resource = models.BgeResource(
+            branch=found_branch,
+            writer=request.user,
+            category=data.get('category') if data.get('category') else None,
+            sub_category=data.get('sub_category') if data.get('sub_category') else None,
+            title=data.get('title') if data.get('title') else None,
+        )
+        resource.save()
+
+        resource_form = forms.BgeResourceForm(request.POST,request.FILES)
+        if resource_form.is_valid():
+            resource.file = resource_form.cleaned_data['file']
+            resource.save()
+
+        return HttpResponseRedirect(request.path_info)
 
 class HostCreateView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'

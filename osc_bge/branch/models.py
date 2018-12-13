@@ -121,3 +121,13 @@ class ReportFile(TimeStampedModel):
 
     report = models.ForeignKey(HostStudentReport, on_delete=models.CASCADE, null=True)
     file = models.FileField(upload_to='file', null=True, blank=True)
+
+
+class BgeResource(TimeStampedModel):
+
+    branch = models.ForeignKey(bge_models.BgeBranch, on_delete=models.SET_NULL, null=True)
+    writer = models.ForeignKey(user_models.User, on_delete=models.SET_NULL, null=True)
+    category = models.CharField(max_length=80, null=True, blank=True)
+    sub_category = models.CharField(max_length=80, null=True, blank=True)
+    title = models.CharField(max_length=140, null=True, blank=True)
+    file = models.FileField(upload_to='resources/', null=True, blank=True)

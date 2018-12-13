@@ -7,29 +7,33 @@
 
 		<div class="MTitle">Data Upload</div>
 		<div class="ListSearch Aright">
-			<div>
-			Date : 2018.11.30 &nbsp;&nbsp;
-			Category :
-			<select class="SearchSelect">
-				<option>For Agent</option>
-				<option>For BGE</option>
-			</select>
-			<select class="SearchSelect">
-				<option>Category select..</option>
-				<option>Agent</option>
-				<option>Forms</option>
-				<option>Schools</option>
-				<option>Sales</option>
-				<option>Others</option>
-			</select>
-			&nbsp;&nbsp;
-			Title :
-            <input type="text" class="SearchInput" style="width:250px;" />
-			&nbsp;&nbsp;
-			Resource :
-            <input type="file" class="SearchInput" />
-            <input type="button" class="ListSearchButton" value="Upload" />
-			</div>
+			<form method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div>
+				Date : {% now "Y-m-d" %} &nbsp;&nbsp;
+				Category :
+				<select class="SearchSelect" name="category">
+					<option value="">Category select..</option>
+					<option value="For Agent">For Agent</option>
+					<option value="For BGE">For BGE</option>
+				</select>
+				<select class="SearchSelect" name="sub_category">
+					<option value="">Category select..</option>
+					<option value="Agent">Agent</option>
+					<option value="Forms">Forms</option>
+					<option value="Schools">Schools</option>
+					<option value="Sales">Sales</option>
+					<option value="Others">Others</option>
+				</select>
+				&nbsp;&nbsp;
+				Title :
+	            <input type="text" class="SearchInput" style="width:250px;" name="title"/>
+				&nbsp;&nbsp;
+				Resource :
+	            <input type="file" class="SearchInput" name="file"/>
+	            <button type="submit" class="ListSearchButton" >Upload<button>
+				</div>
+			</form>
 		</div>
 
 		<div class="ListTable">
@@ -38,45 +42,33 @@
 					<col>
 				</colgroup>
 				<tr>
-					<th>No.</th>
+					<th>Title</th>
 					<th>Date</th>
 					<th>Category</th>
 					<th>Sub Category</th>
-					<th>Title</th>
+					<th>Branch</th>
 					<th>File</th>
 					<th>Writer</th>
 					<th>Management</th>
 				</tr>
+				{% for resource in all_resources %}
 				<tr>
-					<td>3</td>
-					<td>2018.11.30</td>
-					<td>For Agent</td>
-					<td>Agent</td>
-					<td>BGE Cataloge vr0.1</td>
-					<td><a href="">Cataloge.pptx</a></td>
-					<td>David Kang</td>
-					<td class="InnerInputTD"><a href="" class="Button">MOD</a><a href="" class="Button">DEL</a></td>
+					<td>{{resource.title}}</td>
+					<td>{{resource.created_at|date:"Y-m-d"}}</td>
+					<td>{{resource.category}}</td>
+					<td>{{resource.sub_category}}</td>
+					<td>{{resource.branch.name}}</td>
+					<td><a href="{{MEDIA_URL}}{{resource.file}}" download>{{resource.file}}</a></td>
+					<td>{{resource.writer.first_name}} {{resource.writer.last_name}}</td>
+					<td class="InnerInputTD">
+						<form method="POST">
+							{% csrf_token %}
+							<input type="text" name="delete_file" value="{{resource.id}}" hidden>
+							<button class="Button" type="submit">DEL</button>
+						</form>
+					</td>
 				</tr>
-				<tr>
-					<td>2</td>
-					<td>2018.11.30</td>
-					<td>For BGE</td>
-					<td>BGE Forms</td>
-					<td>BGE Estimate Test</td>
-					<td><a href="">Estimate.doc</a></td>
-					<td>Sujan</td>
-					<td class="InnerInputTD">-</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>2018.11.30</td>
-					<td>For Agent</td>
-					<td>Sales</td>
-					<td>BGE Cataloge Last</td>
-					<td><a href="">Cataloge.pptx</a></td>
-					<td>Michael</td>
-					<td class="InnerInputTD">-</td>
-				</tr>
+				{% endfor %}
 			</table>
 		</div><!-- ListTable -->
 
@@ -86,7 +78,7 @@
 
 
 
-		<div class="MTitle">Directory Map</div>
+		<!-- <div class="MTitle">Directory Map</div>
 		<div class="cdiv"></div>
 
 		<div class="Layout_2-1">
@@ -109,8 +101,8 @@
 						<td>Agent Training materials</td>
 						<td></td>
 				</table>
-			</div><!-- ListTable -->
-		</div><!-- Layout_2-1 -->
+			</div>
+		</div>
 
 		<div class="Layout_2-1">
 			<div class="DirectoryTable">
@@ -125,8 +117,9 @@
 						<td>Others</td>
 					</tr>
 				</table>
-			</div><!-- ListTable -->
-		</div><!-- Layout_2-1 -->
+			</div>
+		</div> -->
+
 
 
 

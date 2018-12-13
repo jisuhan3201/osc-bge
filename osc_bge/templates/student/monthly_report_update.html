@@ -110,7 +110,7 @@
 				<select class="MTitleInput" onchange="location=this.value;">
           <option value="">Select Reports..</option>
 					{% for report in all_reports %}
-					<option value="/student/monthly/report/update/{{report.id}}">{{report.submit_date}}</option>
+					<option value="/student/monthly/report/update/{{report.id}}">Last Updated : {{report.updated_at|date:"Y-m-d"}}</option>
           {% endfor %}
 				</select>
 			</div>

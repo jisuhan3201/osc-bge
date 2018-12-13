@@ -67,7 +67,7 @@ class StudentReportView(View):
                         submitted_date__lte=end_date).latest("submitted_date")
                 except branch_models.HostStudentReport.DoesNotExist:
                     found_host_report = None
-                    
+
             else:
                 all_reports = None
                 found_report = None
@@ -130,18 +130,8 @@ class StudentMonthlyReportView(LoginRequiredMixin, View):
 
             all_schools = school_models.School.objects.filter(provider_branch=found_branch)
             all_students = models.Student.objects.filter(school__in=all_schools)
-            all_reports = models.StudentMonthlyReport.objects.filter(student=found_student, submit_date__isnull=False).order_by('-created_at')
+            all_reports = models.StudentMonthlyReport.objects.filter(student=found_student).order_by('-updated_at')
 
-            # start_date = datetime.date.today().replace(day=1)
-            # end_date = datetime.date.today() + relativedelta.relativedelta(months=1, day=1) - relativedelta.relativedelta(days=1)
-
-            # found_report = models.StudentMonthlyReport.objects.filter(
-            #     student=found_student,
-            #     created_at__gte=start_date,
-            #     created_at__lte=end_date)
-            #
-            # if found_report:
-            #     return HttpResponseRedirect('/student/monthly/report/update/' + str(found_report[0].id))
         else:
             return HttpResponse('No student id', status=400)
 
@@ -276,7 +266,7 @@ class StudentMonthlyReportUpdateView(LoginRequiredMixin, View):
 
             all_schools = school_models.School.objects.filter(provider_branch=found_branch)
             all_students = models.Student.objects.filter(school__in=all_schools)
-            all_reports = models.StudentMonthlyReport.objects.filter(student=found_report.student, submit_date__isnull=False).order_by('-created_at')
+            all_reports = models.StudentMonthlyReport.objects.filter(student=found_report.student).order_by('-updated_at')
 
             start_date = datetime.date.today().replace(day=1)
             end_date = datetime.date.today() + relativedelta.relativedelta(months=1, day=1) - relativedelta.relativedelta(days=1)
