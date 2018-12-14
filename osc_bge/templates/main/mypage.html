@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static templatehelpers %}
+{% block content %}
+
+
+<div class="ContentsFrame">
+	<div class="MainAFrame" id="Main">
+		<div class="MTitle">Member Information</div>
+		<div class="cdiv"></div>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+  		<div class="InformationSet">
+        {% if user.image %}
+  			<div class="Picture" style="background-image:url('{{MEDIA_URL}}{{ user.image }}');">&nbsp;</div>
+        {% else %}
+  			<div class="Picture" style="background-image:url('{% static 'img/no_user.png' %}');">&nbsp;</div>
+        {% endif %}
+  			<div class="Information">
+  				<div class="InfoTable">
+  					<table cellpadding="0" cellspacing="0" border="0">
+  						<colgroup>
+  							<col width="8%">
+  							<col width="25%">
+  							<col width="12%">
+  							<col width="21%">
+  							<col width="13%">
+  							<col width="20%">
+  						</colgroup>
+  						<tr>
+  							<th>ID : </th>
+  							<td colspan="5">{{user.username}}</td>
+  						</tr>
+  						<tr>
+  							<th>Password : </th>
+  							<td class="InnerInputTD"><input type="password" class="TableInnerInput" size="18" name="password"/></td>
+  							<th>New Password : </th>
+  							<td class="InnerInputTD">
+                  <input id="password" class="TableInnerInput" name="new_password" type="password" size="18" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;" placeholder="Password">
+                </td>
+  							<th>New Password Confirm : </th>
+  							<td class="InnerInputTD">
+                  <input id="password_two" name="new_password_two" type="password" class="TableInnerInput" size="18" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" placeholder="Verify Password">
+                </td>
+  						</tr>
+  						<tr>
+  							<th>Name : </th>
+  							<td>{{user.first_name}} {{user.last_name}}</td>
+  							<th>Last Login : </th>
+  							<td colspan="3">{{user.last_login}}</td>
+  						</tr>
+              {% if user.type == 'bge_admin' %}
+              <tr>
+  							<th>Branch : </th>
+  							<td>Head</td>
+  							<th>Join : </th>
+  							<td colspan="3">{{user.date_joined}}</td>
+  						</tr>
+  						<tr>
+  							<th>Mail : </th>
+  							<td colspan="3">{{user.email}}</td>
+  						</tr>
+              {% elif user.type == 'bge_branch_admin' or user.type == 'bge_team'%}
+              <tr>
+  							<th>Branch : </th>
+  							<td>{{user.branch_admin.branch.name}}{{user.coordinator.branch.name}}</td>
+  							<th>Join : </th>
+  							<td colspan="3">{{user.date_joined}}</td>
+  						</tr>
+  						<tr>
+  							<th>Mail : </th>
+  							<td colspan="3">{{user.email}}</td>
+  						</tr>
+              {% elif user.type == 'bge_accountant'%}
+              <tr>
+  							<th>Branch : </th>
+  							<td></td>
+  							<th>Join : </th>
+  							<td colspan="3">{{user.date_joined}}</td>
+  						</tr>
+  						<tr>
+  							<th>Mail : </th>
+  							<td colspan="3">{{user.email}}</td>
+  						</tr>
+              {% elif user.type == 'agency_admin'%}
+              <tr>
+  							<th>Agent : </th>
+  							<td>{{user.agency_head_admin.agency_head.name}}</td>
+  							<th>Join : </th>
+  							<td colspan="3">{{user.date_joined}}</td>
+  						</tr>
+  						<tr>
+  							<th>Mail : </th>
+  							<td colspan="3">{{user.email}}</td>
+  						</tr>
+              {% elif user.type == 'agency_branch_admin'%}
+              <tr>
+  							<th>Agent : </th>
+  							<td>{{user.agency_admin.agency.head.name}}</td>
+  							<th>Join : </th>
+  							<td colspan="3">{{user.date_joined}}</td>
+  						</tr>
+  						<tr>
+  							<th>Branch : </th>
+  							<td>{{user.agency_admin.agency.name}}</td>
+  							<th>Mail : </th>
+  							<td colspan="3">{{user.email}}</td>
+  						</tr>
+              {% else %}
+              <tr>
+  							<th>Agent : </th>
+  							<td>{{user.counselor.agency.head.name}}</td>
+  							<th>Join : </th>
+  							<td colspan="3">{{user.date_joined}}</td>
+  						</tr>
+  						<tr>
+  							<th>Branch : </th>
+  							<td>{{user.counselor.agency.name}}</td>
+  							<th>Mail : </th>
+  							<td colspan="3">{{user.email}}</td>
+  						</tr>
+              {% endif %}
+  					</table>
+  				</div><!-- InfoTable -->
+  			</div><!-- Information -->
+
+
+
+        <label id="ImageChangeLabelId" for="image_change" class="HButton">Image Change</label>
+  			<input id="image_change" type="file" name="image" hidden>
+  			<div class="Information">
+  				<div class="InfoTable">
+  					<table cellpadding="0" cellspacing="0" border="0">
+  						<colgroup>
+  							<col width="8%">
+  							<col>
+  						</colgroup>
+  						<tr>
+  							<th>Address : </th>
+  							<td>{{user.address}}</td>
+  						</tr>
+  					</table>
+  				</div><!-- InfoTable -->
+  			</div><!-- Information -->
+  		</div><!-- InformationSet -->
+  		<div class="EndPart"></div>
+
+  		<div class="SubmitButtonLine">
+  			<button type="submit" class="Submit">SAVE</button>
+  		</div>
+  </form>
+
+
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+
+{% endblock %}

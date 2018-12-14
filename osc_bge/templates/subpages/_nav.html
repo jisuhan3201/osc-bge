@@ -56,9 +56,9 @@
   		<a href="/student/current">Current Students</a>
     {% endif %}
 	</div>
-	<div OnClick="document.location.href='../mypage/';" class="Info" >
+	<div OnClick="document.location.href='/mypage';" class="Info" >
     {% if user.image %}
-		  <div class="FaceOn" style="background-image:url('/media/{{ user.image }}');">&nbsp;</div>
+		  <div class="FaceOn" style="background-image:url('{{MEDIA_URL}}{{ user.image }}');">&nbsp;</div>
     {% else %}
       <div class="FaceOn" style="background-image:url('{% static 'img/no_user.png' %}');">&nbsp;</div>
     {% endif %}

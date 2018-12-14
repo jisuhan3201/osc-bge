@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('mypage', views.MypageView.as_view(), name='mypage_view'),
     path('statistics', views.BgeStatisticsView.as_view(), name='bge_statistics_view'),
     path('charts/bge/statistics', views.chart_bge_statistics, name='chart_bge_statistics'),
     path('branches', views.BranchesView.as_view(), name='branches_view'),

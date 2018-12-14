@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core import serializers
 from django.views import View
+from osc_bge.users import forms as user_forms
 from osc_bge.agent import models as agent_models
 from osc_bge.form import models as form_models
 from osc_bge.school import models as school_models
@@ -13,6 +14,8 @@ from osc_bge.branch import models as branch_models
 from osc_bge.student import models as student_models
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
+from django.contrib.auth import authenticate
+
 
 @login_required(login_url='/accounts/login/')
 def index(request):
@@ -34,6 +37,32 @@ def index(request):
 
         else:
             return redirect('/agent/counsel')
+
+
+class MypageView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def get(self, request):
+
+        return render(request, 'main/mypage.html', {})
+
+    def post(self, request):
+
+        if request.FILES.get('image'):
+            user_form = user_forms.UserImageForm(request.POST,request.FILES)
+            if user_form.is_valid():
+                request.user.image = user_form.cleaned_data['image']
+                request.user.save()
+
+        if request.POST.get('password'):
+            user = authenticate(username=request.user.username, password=request.POST.get('password'))
+            if user is not None:
+                user.set_password(request.POST.get('new_password'))
+                user.save()
+            else:
+                return HttpResponse('Password Not correct', status=401)
+
+        return HttpResponseRedirect(request.path_info)
 
 
 class BgeStatisticsView(LoginRequiredMixin, View):
