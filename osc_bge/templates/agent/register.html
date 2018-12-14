@@ -148,7 +148,7 @@
 						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="phone" value="{{counsel.student.phone}}"required/></td>
 					</tr>
 					<tr>
-						<th>Expected departure : </th>
+						<th>Expected Departure : </th>
 						<td class="InnerInputTD">
 							{% if counsel %}
 							<input
@@ -168,40 +168,40 @@
 							{% if counsel %}
 								{% if counsel.desire_country == 'us' %}
 								<label><input type="radio" name="country" value="us" required checked/><span></span>US</label>
-								<label><input type="radio" name="country" value="ca"/><span></span>CA</label>
+								<label><input type="radio" name="country" value="ca"/><span></span>CAN</label>
 								<label><input type="radio" name="country" value="uk"/><span></span>UK</label>
-								<label><input type="radio" name="country" value="au"/><span></span>AU</label>
+								<label><input type="radio" name="country" value="au"/><span></span>AUS</label>
 								<label><input type="radio" name="country" value="nz"/><span></span>NZ</label>
 								{% elif counsel.desire_country == 'ca' %}
 								<label><input type="radio" name="country" value="us" required/><span></span>US</label>
-								<label><input type="radio" name="country" value="ca" checked/><span></span>CA</label>
+								<label><input type="radio" name="country" value="ca" checked/><span></span>CAN</label>
 								<label><input type="radio" name="country" value="uk"/><span></span>UK</label>
-								<label><input type="radio" name="country" value="au"/><span></span>AU</label>
+								<label><input type="radio" name="country" value="au"/><span></span>AUS</label>
 								<label><input type="radio" name="country" value="nz"/><span></span>NZ</label>
 								{% elif counsel.desire_country == 'uk' %}
 								<label><input type="radio" name="country" value="us" required/><span></span>US</label>
-								<label><input type="radio" name="country" value="ca"/><span></span>CA</label>
+								<label><input type="radio" name="country" value="ca"/><span></span>CAN</label>
 								<label><input type="radio" name="country" value="uk" checked/><span></span>UK</label>
-								<label><input type="radio" name="country" value="au"/><span></span>AU</label>
+								<label><input type="radio" name="country" value="au"/><span></span>AUS</label>
 								<label><input type="radio" name="country" value="nz"/><span></span>NZ</label>
 								{% elif counsel.desire_country == 'au' %}
 								<label><input type="radio" name="country" value="us" required/><span></span>US</label>
-								<label><input type="radio" name="country" value="ca"/><span></span>CA</label>
+								<label><input type="radio" name="country" value="ca"/><span></span>CAN</label>
 								<label><input type="radio" name="country" value="uk"/><span></span>UK</label>
-								<label><input type="radio" name="country" value="au" checked/><span></span>AU</label>
+								<label><input type="radio" name="country" value="au" checked/><span></span>AUS</label>
 								<label><input type="radio" name="country" value="nz"/><span></span>NZ</label>
 								{% else %}
 								<label><input type="radio" name="country" value="us" required/><span></span>US</label>
-								<label><input type="radio" name="country" value="ca"/><span></span>CA</label>
+								<label><input type="radio" name="country" value="ca"/><span></span>CAN</label>
 								<label><input type="radio" name="country" value="uk"/><span></span>UK</label>
-								<label><input type="radio" name="country" value="au"/><span></span>AU</label>
+								<label><input type="radio" name="country" value="au"/><span></span>AUS</label>
 								<label><input type="radio" name="country" value="nz" checked/><span></span>NZ</label>
 								{% endif %}
 							{% else %}
 							<label><input type="radio" name="country" value="us" required checked/><span></span>US</label>
-							<label><input type="radio" name="country" value="ca"/><span></span>CA</label>
+							<label><input type="radio" name="country" value="ca"/><span></span>CAN</label>
 							<label><input type="radio" name="country" value="uk"/><span></span>UK</label>
-							<label><input type="radio" name="country" value="au"/><span></span>AU</label>
+							<label><input type="radio" name="country" value="au"/><span></span>AUS</label>
 							<label><input type="radio" name="country" value="nz"/><span></span>NZ</label>
 							{% endif %}
 						</td>
@@ -301,7 +301,7 @@
 						{% endif %}
 					</tr>
 					<tr>
-						<th>Toefl : </th>
+						<th>TOEFL : </th>
 						<td class="InnerInputTD">
 							{% if student_history %}
 								{% if student_history.toefl %}
@@ -357,7 +357,7 @@
 						{% endif %}
 					</tr>
 					<tr>
-						<th>Toefl jr : </th>
+						<th>TOEFL JR : </th>
 						<td class="InnerInputTD">
 							{% if student_history %}
 								{% if student_history.toefljr %}
@@ -391,7 +391,7 @@
 							</label>
 							{% endif %}
 						</td>
-						<th>English level : </th>
+						<th>English Level : </th>
 						{% if student_history.eng_level %}
 						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="englevel" value='{{ student_history.eng_level }}'/></td>
 						{% else %}
@@ -420,7 +420,7 @@
 						<td class="InnerInputTD"><input type="text" class="TableInnerInput" size="32" name="parentname"/></td>
 						{% endif %}
 
-						<th>Grade applying for : </th>
+						<th>Grade Applying for : </th>
 						{% if student_history.apply_grade %}
 						<td class="InnerInputTD"><input type="text" class="TableInnerInput" name="gradeapply" value="{{student_history.apply_grade}}"/></td>
 						{% else %}

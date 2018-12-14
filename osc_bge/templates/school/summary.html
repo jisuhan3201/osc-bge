@@ -57,7 +57,7 @@
 									<input type="text" value="{{selling_point.admission_requirement_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="admission_requirement_cm"/>
 								</td>
 							</tr>
-							<tr>`
+							<tr>
 								<td># of Students</td>
 								<td class="InnerInputTD">
 									<input type="text" value="{{found_school.number_students}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled />
@@ -69,7 +69,7 @@
 									<input type="text" value="{{selling_point.student_number_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="student_number_cm" />
 								</td>
 							</tr>
-							<tr>`
+							<tr>
 								<td># of Intl. Students</td>
 								<td class="InnerInputTD">
 									<input type="text" value="{{found_school.secondary.international_students}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
@@ -81,10 +81,14 @@
 									<input type="text" value="{{selling_point.intl_student_number_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="intl_student_number_cm"/>
 								</td>
 							</tr>
-							<tr>`
+							<tr>
 								<td>ESL</td>
 								<td class="InnerInputTD">
-									<input type="text" value="{{found_school.secondary.esl}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
+									{% if found_school.secondary.esl %}
+									<input type="text" value="Yes" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
+									{% else %}
+									<input type="text" value="No" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
+									{% endif %}
 								</td>
 								<td class="InnerInputTD">
 									<input type="text" value="{{selling_point.esl_ev}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="esl_ev"/>
@@ -93,7 +97,7 @@
 									<input type="text" value="{{selling_point.esl_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="esl_cm"/>
 								</td>
 							</tr>
-							<tr>`
+							<tr>
 								<td>Student : Teacher</td>
 								<td class="InnerInputTD">
 									<input type="text" value="{{found_school.secondary.student_teach_ratio}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
@@ -105,7 +109,7 @@
 									<input type="text" value="{{selling_point.student_teacher_ratio_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="student_teacher_ratio_cm"/>
 								</td>
 							</tr>
-							<tr>`
+							<tr>
 								<td>Program Fee</td>
 								<td class="InnerInputTD">
 									<input type="text" value="${{found_school.secondary.program_fee}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
@@ -117,7 +121,7 @@
 									<input type="text" value="{{selling_point.program_fee_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="program_fee_cm"/>
 								</td>
 							</tr>
-							<tr>`
+							<tr>
 								<td>Application Fee</td>
 								<td class="InnerInputTD">
 									<input type="text" value="${{found_school.secondary.application_fee}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
@@ -129,7 +133,7 @@
 									<input type="text" value="{{selling_point.application_fee_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="application_fee_cm"/>
 								</td>
 							</tr>
-							<tr>`
+							<tr>
 								<td>AP</td>
 								<td class="InnerInputTD">
 									<input type="text" value="{{found_school.secondary.number_ap_courses}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
@@ -141,7 +145,7 @@
 									<input type="text" value="{{selling_point.ap_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="ap_cm"/>
 								</td>
 							</tr>
-							<tr>`
+							<tr>
 								<td>Honors</td>
 								<td class="InnerInputTD">
 									<input type="text" value="{{found_school.secondary.number_honor_courses}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
@@ -153,7 +157,7 @@
 									<input type="text" value="{{selling_point.honor_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="honor_cm"/>
 								</td>
 							</tr>
-							<tr>`
+							<tr>
 								<td>Clubs</td>
 								<td class="InnerInputTD">
 									<input type="text" value="{{found_school.secondary.number_clubs}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
@@ -165,7 +169,7 @@
 									<input type="text" value="{{selling_point.clubs_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="clubs_cm"/>
 								</td>
 							</tr>
-							<tr>`
+							<tr>
 								<td>Sports</td>
 								<td class="InnerInputTD">
 									<input type="text" value="{{found_school.secondary.number_sports}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
@@ -177,7 +181,7 @@
 									<input type="text" value="{{selling_point.sports_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="sports_cm"/>
 								</td>
 							</tr>
-							<tr>`
+							<tr>
 								<td>Special Comment</td>
 								<td class="InnerInputTD" colspan="3">
 									<input type="text" value="{{found_school.secondary.selling_point}}" style="width:calc(100% - 8px);" class="TableInnerInput" disabled/>
@@ -244,9 +248,9 @@
 				</tr>
 				<tr>
 					<th>Program Fee : </th>
-					<td>{{found_school.secondary.program_fee}}</td>
+					<td>$ {{found_school.secondary.program_fee}}</td>
 					<th>Application Fee : </th>
-					<td>{{found_school.secondary.application_fee}}</td>
+					<td>$ {{found_school.secondary.application_fee}}</td>
 				</tr>
 				<tr>
 					<th>Entry Requirement : </th>
