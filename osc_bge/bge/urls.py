@@ -4,9 +4,12 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('statistics', views.BgeStatisticsView.as_view(), name='bge_statistics_view'),
+    path('charts/bge/statistics', views.chart_bge_statistics, name='chart_bge_statistics'),
     path('branches', views.BranchesView.as_view(), name='branches_view'),
     path('branches/statistics/<int:branch_id>', views.BranchesStatisticView.as_view(), name='branches_statistics_view'),
+    path('charts/branches/statistics', views.chart_branch_statistics, name='chart_branch_statistics'),
     path('agents', views.AgentsView.as_view(), name='agents_view'),
+    path('charts/agents/statistics', views.chart_agent_statistics, name='chart_agent_statistics'),
     path('agents/info/create', views.AgentsCreateView.as_view(), name='agents_create_view'),
     path('agents/info/<int:agent_id>', views.AgentsUpdateView.as_view(), name='agents_udpate_view'),
     path('agents/info/<int:agent_id>/delete/<int:contact_id>', views.delete_contact_info, name='contact_delete_view'),

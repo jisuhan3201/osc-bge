@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   <title>Boston Global Education</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 </head>
 <body>
   {% include "subpages/_nav.html" %}
@@ -15,7 +17,7 @@
   {% endblock %}
 </body>
 </html>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <!-- <script src="{% static 'js/vendor/jquery.ui.widget.js' %}"></script>
 <script src="{% static 'js/jquery.iframe-transport.js' %}"></script>
 <script src="{% static 'js/jquery.fileupload.js' %}"></script> -->
@@ -27,6 +29,7 @@
 <script type="text/javascript" src="{% static 'js/agent_update.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/image_change.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/get_host_report.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/charts.js' %}"></script>
 <script>
 function MenuOpen() {
 	obj = document.getElementById('LeftF');

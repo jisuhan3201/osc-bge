@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from . import models
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -293,6 +293,53 @@ class BgeStatisticsView(LoginRequiredMixin, View):
             "counsels":counsels,
         })
 
+@login_required(login_url='/accounts/login/')
+def chart_bge_statistics(request):
+
+    all_agents = agent_models.AgencyHead.objects.all()
+
+    data_list = []
+    for head in all_agents:
+        data = {}
+
+        today = date.today()
+        acceptance_list = []
+        for number in range(0, 12):
+
+            sd = today - relativedelta(months=number)
+            ed = today - relativedelta(months=number-1)
+
+            past_start_date = date(sd.year, sd.month, 1)
+            past_end_date = date(ed.year, ed.month, 1) - relativedelta(days=1)
+
+            acceptance_count = form_models.SchoolFormality.objects.filter(
+                acceptance_date__range=(past_start_date, past_end_date),
+                formality__counsel__counselor__agency__head=head
+            ).count()
+            acceptance_list.append(acceptance_count)
+
+        acceptance_list.reverse()
+        data.update({
+            "agent": head.name,
+            "data":acceptance_list
+        })
+        data_list.append(data)
+
+    month_list = []
+    for num in range(0, 12):
+
+        month = datetime.today() - relativedelta(months=num)
+        month = month.strftime("%Y %b")
+        month_list.append(month)
+
+    month_list.reverse()
+
+    result = {
+        'months':month_list,
+        'data':data_list,
+    }
+    return JsonResponse(result, safe=False)
+
 
 class BranchesView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
@@ -379,6 +426,39 @@ class BranchesView(LoginRequiredMixin, View):
             'year_list':year_list,
         })
 
+@login_required(login_url='/accounts/login/')
+def chart_branch_statistics(request):
+
+    all_branches = models.BgeBranch.objects.all()
+
+    data_list = []
+    for branch in all_branches:
+
+        branch_data = []
+
+        partner_school = school_models.School.objects.filter(provider_branch=branch).count()
+        branch_hosts = branch_models.HostFamily.objects.filter(
+            provider_branch=branch)
+        active_hosts = branch_hosts.filter(status='active').count()
+        inactive_hosts = branch_hosts.filter(status='inactive').count()
+        prospective_hosts = branch_hosts.filter(status='prospective').count()
+        current_student = student_models.Student.objects.filter(school__provider_branch=branch).count()
+        student_complaints = branch_models.CommunicationLog.objects.filter(
+            host__provider_branch=branch, category='Complaints').count()
+
+        branch_data.append(partner_school)
+        branch_data.append(active_hosts)
+        branch_data.append(inactive_hosts)
+        branch_data.append(prospective_hosts)
+        branch_data.append(current_student)
+        branch_data.append(student_complaints)
+
+        data_list.append({
+            'branch':branch.name,
+            'data':branch_data,
+        })
+
+    return JsonResponse(data_list, safe=False)
 
 class BranchesStatisticView(LoginRequiredMixin,View):
     login_url = '/accounts/login/'
@@ -519,6 +599,7 @@ class BranchesStatisticView(LoginRequiredMixin,View):
         else:
             return HttpResponse('No branch id', status=400)
 
+
 class AgentsView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
@@ -562,6 +643,69 @@ class AgentsView(LoginRequiredMixin, View):
             'logs':logs,
         })
 
+@login_required(login_url='/accounts/login/')
+def chart_agent_statistics(request):
+
+    all_agents = agent_models.AgencyHead.objects.all()
+
+    data_list = []
+    for head in all_agents:
+        data = {}
+
+        today = date.today()
+        inquired_list = []
+        enrolled_list = []
+        for number in range(0, 5):
+
+            sd = today - relativedelta(years=number)
+            ed = today - relativedelta(years=number-1)
+
+            past_start_date = date(sd.year, 1, 1)
+            past_end_date = date(ed.year, 1, 1) - relativedelta(days=1)
+
+            inquired_count = form_models.Counsel.objects.filter(
+                counseling_date__range=(past_start_date, past_end_date),
+                counselor__agency__head=head
+            ).count()
+
+            enrolled_count = form_models.SchoolFormality.objects.filter(
+                formality__counsel__counselor__agency__head=head,
+                i20_completed=True,
+                i20_received_date__range=(past_start_date, past_end_date),
+            ).count()
+
+            inquired_list.append(inquired_count)
+            enrolled_list.append(enrolled_count)
+
+        inquired_list.reverse()
+        enrolled_list.reverse()
+
+        data_list.append({
+            "agent": str(head.name) + " Inquired",
+            "data":inquired_list
+        })
+
+        data_list.append({
+            "agent": str(head.name) + " Enrolled",
+            "data":enrolled_list,
+        })
+
+
+    year_list = []
+    for num in range(0, 5):
+
+        year = datetime.today() - relativedelta(years=num)
+        year = year.strftime("%Y")
+        year_list.append(year)
+
+    year_list.reverse()
+
+    result = {
+        'years':year_list,
+        'data':data_list,
+    }
+
+    return JsonResponse(result, safe=False)
 
 class AgentsCreateView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'

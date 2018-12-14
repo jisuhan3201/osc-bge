@@ -470,6 +470,76 @@ class StudentMonthlyReportUpdateView(LoginRequiredMixin, View):
 
         return HttpResponseRedirect(request.path_info)
 
+@login_required(login_url='/accounts/login/')
+def student_transcript_chart(request, student_id=None):
+
+    if student_id:
+
+        try:
+            found_student = student_models.Student.objects.get(id=int(student_id))
+        except student_models.Student.DoesNotExist:
+            return HttpResponse('Wrong Student Id', status=404)
+
+        sat_list = []
+        toefl_list = []
+        today = datetime.datetime.today()
+        for number in range(0, 12):
+
+            sd = today - relativedelta.relativedelta(months=number)
+            ed = today - relativedelta.relativedelta(months=number-1)
+
+            past_start_date = datetime.date(sd.year, sd.month, 1)
+            past_end_date = datetime.date(ed.year, ed.month, 1)
+
+            try:
+                student_report = models.StudentMonthlyReport.objects.filter(
+                    student=found_student,
+                    submit_date__range=(past_start_date, past_end_date)
+                ).exclude(status='incomplete').latest('updated_at')
+                sat = student_report.sat_total
+                toefl = student_report.toefl_total
+
+            except models.StudentMonthlyReport.DoesNotExist:
+                sat = 0
+                toefl=0
+
+            try:
+                sat = float(sat)
+            except:
+                sat=0.0
+
+            try:
+                toefl = float(toefl)
+            except:
+                toefl=0.0
+
+            sat_list.append(sat)
+            toefl_list.append(toefl)
+
+        month_list = []
+        for num in range(0, 12):
+
+            month = datetime.datetime.today() - relativedelta.relativedelta(months=num)
+            month = month.strftime("%Y %b")
+            month_list.append(month)
+
+        month_list.reverse()
+
+    else:
+        return HttpResponse(status=400)
+
+    sat_list.reverse()
+    toefl_list.reverse()
+
+    result = {
+        'months':month_list,
+        'sat':sat_list,
+        'toefl':toefl_list,
+    }
+    print(result)
+    return JsonResponse(result, safe=False)
+
+
 
 @login_required(login_url='/accounts/login/')
 def get_host_report(request, report_id=None):

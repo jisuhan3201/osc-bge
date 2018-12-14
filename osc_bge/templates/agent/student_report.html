@@ -25,7 +25,11 @@
 
 		<div class="cdiv"></div>
 		<div class="InformationSet">
-			<div class="Picture" style="background-image:url('../imgsrc/person01.jpg');">&nbsp;</div>
+			{% if found_report.student.image %}
+			<div class="Picture" style="background-image:url('{{MEDIA_URL}}{{found_report.student.image}}');">&nbsp;</div>
+			{% else %}
+			<div class="Picture" style="background-image:url('{% static 'img/no_user.png' %}');">&nbsp;</div>
+			{% endif %}
 			<div class="Information">
 				<div class="InfoTable">
 					<table cellpadding="0" cellspacing="0" border="0">
@@ -98,7 +102,7 @@
 					</table>
 				</div><!-- InfoTable -->
 			</div><!-- Information -->
-			<div class="HButton">Image Change</div>
+
 			<div class="Information">
 				<div class="InfoTable">
 					<table cellpadding="0" cellspacing="0" border="0">
@@ -321,13 +325,96 @@
 		<div class="EndPart"></div>
 
 
+		<script>
+		$(document).ready(function(){
+
+			$.ajax({                       // initialize an AJAX request
+				url: "/student/transcript/statistics/{{found_report.student.id}}",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+				success: function (data) {   // `data` is the return of the `load_cities` view function
+					var months = data.months;
+					var ctx = document.getElementById("SatStatisticChart");
+					var ctx2 = document.getElementById("ToeflStatisticChart");
+					var myChart = new Chart(ctx, {
+							type: 'line',
+							data: {
+									labels: months,
+									datasets: [
+										{
+											label:"SAT",
+											data: data.sat,
+											fill:false,
+											borderColor: [
+												'rgb(' + (Math.floor(Math.random() * 256)) + ',' +
+												(Math.floor(Math.random() * 256)) + ',' +
+												(Math.floor(Math.random() * 256)) + ',1' + ')',
+											],
+											borderWidth: 2
+										},
+									],
+							},
+							options: {
+									title: {
+										display:true,
+										text: "SAT"
+									},
+									scales: {
+											yAxes: [{
+													ticks: {
+															beginAtZero:true
+													}
+											}]
+									}
+							}
+					});
+
+					var myChart2 = new Chart(ctx2, {
+							type: 'line',
+							data: {
+									labels: months,
+									datasets: [
+										{
+											label:"Toefl",
+											data: data.toefl,
+											fill:false,
+											borderColor: [
+												'rgb(' + (Math.floor(Math.random() * 256)) + ',' +
+												(Math.floor(Math.random() * 256)) + ',' +
+												(Math.floor(Math.random() * 256)) + ',1' + ')',
+											],
+											borderWidth: 2
+										},
+									],
+							},
+							options: {
+									title: {
+										display:true,
+										text: "TOEFL"
+									},
+									scales: {
+											yAxes: [{
+													ticks: {
+															beginAtZero:true
+													}
+											}]
+									}
+							}
+					});
+				}
+			});
+		})
+		</script>
+
 		<div class="MTitle">Graph for GPA, TOEFL. SAT, ACT</div>
 		<div class="cdiv"></div>
 		<div class="Layout_2-1">
-		<div class="GraphgArea">GPA Graph</div>
+		<div class="GraphgArea">
+			<canvas id="SatStatisticChart" width="636" height="300"></canvas>
+		</div>
 		</div><!-- Layout_2-1 -->
 		<div class="Layout_2-1">
-		<div class="GraphgArea">TOEFL Graph</div>
+		<div class="GraphgArea">
+			<canvas id="ToeflStatisticChart" width="636" height="300"></canvas>
+		</div>
 		</div><!-- Layout_2-1 -->
 		<div class="EndPart"></div>
 		<div class="cdiv"></div>

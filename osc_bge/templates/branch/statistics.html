@@ -157,7 +157,7 @@
 			<form method="GET">
 				<input type="text" name="form_type" value="data_form" hidden>
 				<div>
-				<div class="InfoTable" ><span class="AddComment">Default : {{default_start_date|date:"Y-m-d"}} ~ </span></div> | 
+				<div class="InfoTable" ><span class="AddComment">Default : {{default_start_date|date:"Y-m-d"}} ~ </span></div> |
 				From :
 				<select class="SearchSelect" name="start_month">
 					<option value="">Select Month..</option>
@@ -229,8 +229,106 @@
 			</table>
 		</div><!-- ListTable -->
 		<div class="EndPart"></div>
+
+
+
+
+		<select class="SearchSelect" id="ChartSelectBox">
+			<option value="current_student">Current Student</option>
+			<option value="partner">Partner School</option>
+			<option value="active_host">Active Host Families</option>
+			<option value="inactive_host">Inactive Host Families</option>
+			<option value="prospective_host">Prospective Host Families</option>
+			<option value="student_complaints">Student Complaints</option>
+		</select>
+		<script>
+
+			$.ajax({                       // initialize an AJAX request
+			  url: "/branch/chart/statistics?branch_id={{found_branch.id}}",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+			  success: function (data) {   // `data` is the return of the `load_cities` view function
+			    var months = data.months;
+			    var ctx = document.getElementById("BranchPartStatisticChart");
+			    var myChart = new Chart(ctx, {
+			        type: 'line',
+			        data: {
+			            labels: months,
+			            datasets: [
+			              {
+			                label:data.chart_name,
+			                data: data.data,
+			                fill:false,
+			                borderColor: [
+			                  'rgb(' + (Math.floor(Math.random() * 256)) + ',' +
+			                  (Math.floor(Math.random() * 256)) + ',' +
+			                  (Math.floor(Math.random() * 256)) + ',1' + ')',
+			                ],
+			                borderWidth: 2
+			              },
+			            ],
+			        },
+			        options: {
+									title: {
+										display:true,
+										text: data.chart_name
+									},
+			            scales: {
+			                yAxes: [{
+			                    ticks: {
+			                        beginAtZero:true
+			                    }
+			                }]
+			            }
+			        }
+			    });
+			  }
+			});
+
+			$("#ChartSelectBox").on('change', function(){
+				$.ajax({                       // initialize an AJAX request
+				  url: "/branch/chart/statistics?branch_id={{found_branch.id}}&chart_type="+this.value,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+				  success: function (data) {   // `data` is the return of the `load_cities` view function
+				    var months = data.months;
+				    var ctx = document.getElementById("BranchPartStatisticChart");
+				    var myChart = new Chart(ctx, {
+				        type: 'line',
+				        data: {
+				            labels: months,
+				            datasets: [
+				              {
+				                label:data.chart_name,
+				                data: data.data,
+				                fill:false,
+				                borderColor: [
+				                  'rgb(' + (Math.floor(Math.random() * 256)) + ',' +
+				                  (Math.floor(Math.random() * 256)) + ',' +
+				                  (Math.floor(Math.random() * 256)) + ',1' + ')',
+				                ],
+				                borderWidth: 2
+				              },
+				            ],
+				        },
+				        options: {
+										title: {
+											display:true,
+											text: data.chart_name
+										},
+				            scales: {
+				                yAxes: [{
+				                    ticks: {
+				                        beginAtZero:true
+				                    }
+				                }]
+				            }
+				        }
+				    });
+				  }
+				});
+			})
+
+		</script>
+
 		<div class="GraphgArea">
-		Graph
+			<canvas id="BranchPartStatisticChart" width="636" height="300"></canvas>
 		</div>
 	</div><!-- MainAFrame -->
 </div><!--  ContentsFrame-->

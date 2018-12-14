@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from . import models, forms
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -158,6 +158,96 @@ class BranchStatisticsView(LoginRequiredMixin, View):
             'found_branch':found_branch,
             'year_list':year_list,
         })
+
+@login_required(login_url='/accounts/login/')
+def branch_chart_statistics(request):
+
+    if request.GET.get('branch_id'):
+        found_branch = bge_models.BgeBranch.objects.get(id=int(request.GET.get('branch_id')))
+    else:
+        return HttpResponse(status=400)
+
+    all_schools = school_models.School.objects.filter(provider_branch=found_branch)
+    all_hosts = models.HostFamily.objects.filter(provider_branch=found_branch)
+
+    today = datetime.date.today()
+    month_list = []
+    data = []
+    chart_type = request.GET.get('chart_type')
+
+    for number in range(0, 12):
+
+        month = datetime.datetime.today() - relativedelta.relativedelta(months=number)
+        month = month.strftime("%Y %b")
+        month_list.append(month)
+        sd = today - relativedelta.relativedelta(months=number, day=1)
+        ed = today - relativedelta.relativedelta(months=number-1, day=1)
+
+        if chart_type:
+
+            if chart_type == 'partner':
+                schools = all_schools.filter(
+                    created_at__range=(sd, ed)
+                ).count()
+                data.append(schools)
+                chart_name = 'Partner Schools'
+
+            elif chart_type == 'active_host':
+                hosts = models.HostFamily.objects.filter(
+                    provider_branch=found_branch,
+                    status="active",
+                    created_at__range=(sd, ed)).count()
+                data.append(hosts)
+                chart_name = 'Active Host Families'
+
+            elif chart_type == 'inactive_host':
+                hosts = models.HostFamily.objects.filter(
+                    provider_branch=found_branch,
+                    status="inactive",
+                    created_at__range=(sd, ed)).count()
+                data.append(hosts)
+                chart_name = 'Inactive Host Families'
+
+            elif chart_type == 'prospective_host':
+                hosts = models.HostFamily.objects.filter(
+                    provider_branch=found_branch,
+                    status="prospective",
+                    created_at__range=(sd, ed)).count()
+                data.append(hosts)
+                chart_name = 'Prospective Host Families'
+
+            elif chart_type == 'student_complaints':
+                complaints = models.CommunicationLog.objects.filter(
+                    category='complaints', host__in=all_hosts, created_at__range=(sd,ed)).count()
+                data.append(complaints)
+                chart_name = 'Complaints'
+
+            else:
+                current_students = student_models.Student.objects.filter(
+                    school__in=all_schools,
+                    counsel__formality__school_formality__i20_received_date__range=(sd, ed),
+                ).count()
+                data.append(current_students)
+                chart_name = 'Current Students'
+
+        else:
+            current_students = student_models.Student.objects.filter(
+                school__in=all_schools,
+                counsel__formality__school_formality__i20_received_date__range=(sd, ed),
+            ).count()
+            data.append(current_students)
+            chart_name = 'Current Students'
+
+    month_list.reverse()
+    data.reverse()
+
+    result = {
+        'months':month_list,
+        'chart_name':chart_name,
+        'data':data,
+    }
+
+    return JsonResponse(result, safe=False)
 
 
 class BranchSecondaryView(LoginRequiredMixin, View):

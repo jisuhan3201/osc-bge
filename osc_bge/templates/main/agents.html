@@ -62,49 +62,53 @@
 			</div><!-- ListTable -->
 		</div><!-- AgentFrameL -->
 
-		<div class="AgentFrameR">
-			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-			<script type="text/javascript">
-			  google.charts.load('current', {'packages':['line']});
-			  google.charts.setOnLoadCallback(drawChart);
-
-			function drawChart() {
-
-			  var data = new google.visualization.DataTable();
-			  data.addColumn('number', 'year');
-			  data.addColumn('number', 'Meten');
-			  data.addColumn('number', 'Yangzhou');
-			  data.addColumn('number', 'AsiaUS');
-			  data.addColumn('number', 'Other(BGE Staff)');
-
-			  data.addRows([
-				[2018,  37.8, 80.8, 41.8, 10],
-				[2019,  30.9, 69.5, 32.4, 10],
-				[2020,  25.4,   57, 25.7, 10],
-				[2021,  11.7, 18.8, 10.5, 10],
-				[2022,  11.9, 17.6, 10.4, 10],
-			  ]);
-
-			  var options = {
-
-//				chart: {
-//				  title: 'Box Office Earnings in First Two Weeks of Opening',
-//				  subtitle: 'in millions of dollars (USD)'
-//				},
-				width: 600,
-				height: 190,
-				axes: {
-				  x: {
-					0: {side: 'bottom'}
-				  }
+		<script>
+			$.ajax({                       // initialize an AJAX request
+				url: "/charts/agents/statistics",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+				success: function (data) {   // `data` is the return of the `load_cities` view function
+					var years = data.years;
+					var result = data.data;
+					var array = []
+					result.forEach(function(element){
+						array.push(
+							{
+								label: element.agent,
+								data: element.data,
+								fill:false,
+								borderColor: [
+									'rgb(' + (Math.floor(Math.random() * 256)) + ',' +
+									(Math.floor(Math.random() * 256)) + ',' +
+									(Math.floor(Math.random() * 256)) + ',1' + ')',
+								],
+								borderWidth: 2
+							}
+						)
+					})
+					var ctx = document.getElementById("AgentStatisticChart");
+					var myChart = new Chart(ctx, {
+							type: 'line',
+							data: {
+									labels: years,
+									datasets: array
+							},
+							options: {
+									scales: {
+											yAxes: [{
+													ticks: {
+															beginAtZero:true
+													}
+											}]
+									}
+							}
+					});
 				}
-			  };
+			});
 
-			  var chart = new google.charts.Line(document.getElementById('line_top_x'));
+		</script>
 
-			  chart.draw(data, google.charts.Line.convertOptions(options));
-			}
-		  </script>
+		<div class="AgentFrameR">
+			<span>New students per year</span>
+			<canvas id="AgentStatisticChart" width="636" height="300"></canvas>
 			<div id="line_top_x"></div>
 		</div><!-- AgentFrameR -->
 		<div class="cdiv"></div>

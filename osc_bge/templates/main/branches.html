@@ -81,8 +81,49 @@
 			</table>
 		</div><!-- ListTable -->
 		<div class="EndPart"></div>
+
+		<script>
+			$.ajax({                       // initialize an AJAX request
+			  url: "/charts/branches/statistics",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+			  success: function (data) {   // `data` is the return of the `load_cities` view function
+			    var array = []
+			    data.forEach(function(element){
+			      var random_color = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' +
+			      (Math.floor(Math.random() * 256)) + ',' +
+			      (Math.floor(Math.random() * 256))
+			      array.push(
+			        {
+			          label: element.branch,
+			          data: element.data,
+			          backgroundColor: random_color + ',0.6' + ')',
+			          borderColor : random_color + ',1' + ')',
+			        }
+			      )
+			    })
+			    var ctx = document.getElementById("BranchStatisticChart");
+			    var myChart = new Chart(ctx, {
+			        type: 'bar',
+			        data: {
+			            labels: ["Partner Schools", "Active Host Families", "Inactive Host Families", "Prospective Host Families", "Current Students", "Student Complaints"],
+			            datasets: array
+			        },
+			        options: {
+			            scales: {
+			                yAxes: [{
+			                    ticks: {
+			                        beginAtZero:true
+			                    }
+			                }]
+			            }
+			        }
+			    });
+			  }
+			});
+		</script>
+
+
 		<div class="GraphgArea">
-		Graph
+			<canvas id="BranchStatisticChart" width="636" height="300"></canvas>
 		</div>
 	</div><!-- MainAFrame -->
 </div><!--  ContentsFrame-->
