@@ -895,11 +895,6 @@ class AgentsUpdateView(LoginRequiredMixin, View):
                 college_other_dict.update({'period':year, "college_count":college_count, "other_count":other_count})
                 college_other_data.append(college_other_dict)
 
-
-
-
-
-
         else:
             return HttpResponse("Wrong id", status=400)
 

@@ -30,7 +30,7 @@
 		<div class="ListSearch Aright">
 			<a href="/branch/host/log/{{found_host.id}}" class="IsolationButton">Communication Log</a>
 		</div>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
 		<div class="InfoTable">
 			<table cellpadding="0" cellspacing="0" border="0">
@@ -46,7 +46,7 @@
 				</tr>
 				<tr>
 					<th>Host Family Photo  : </th>
-					<td class="InnerInputTD" colspan="3"><input type="file" class="TableInnerInput" value="" /><br />
+					<td class="InnerInputTD" colspan="3"><input name="photo" type="file" class="TableInnerInput" value="" multiple/><br />
 					<!-- <label>
 					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA8hCGZ69G52M0EThs-5dHEQr223RDgzasznLuBOxs4RG1cRyo" class="SchoolThumbnail" />
 					<input type="checkbox" /><span></span>delete</label> -->
