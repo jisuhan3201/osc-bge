@@ -9,7 +9,11 @@
 			<div class="TabConternts" id="InnerTab0101">
 				<div class="InnerTabContents">
 					{% for school in all_schools %}
+					{% if secondary.school.partnership == 1 or secondary.school.partnership == 2 or secondary.school.partnership == 3 %}
+					<li><a href="/school/secondary/update/{{school.id}}"><strong style="color:orange;">{{school.name}}</strong></a></li>
+					{% else %}
 					<li><a href="/school/secondary/update/{{school.id}}">{{school.name}}</a></li>
+					{% endif %}
 					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts ID:InnerTab0101 -->
@@ -50,7 +54,11 @@
 				</tr>
 				{% for school in search_schools %}
 				<tr>
+					{% if school.partnership == 1 or school.partnership == 2 or school.partnership == 3 %}
+					<td class="Relationship"><a href="/school/secondary/update/{{school.id}}" style="color:orange;font-weight:700;">{{school.name}}</a></td>
+					{% else %}
 					<td class="Relationship"><a href="/school/secondary/update/{{school.id}}">{{school.name}}</a></td>
+					{% endif %}
 					<td class="Relationship">{{school.partnership}}</td>
 					<td class="Relationship">2018.02.14</td>
 					<td class="Relationship Aleft">PTO Fundraising</td>

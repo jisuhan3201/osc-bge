@@ -417,7 +417,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>Tofel Requirement : </th>
+					<th>TOEFL Requirement : </th>
 					<td colspan="3">
 						<label><input type="checkbox" /><span></span>less than 60</label>
 						<label><input type="checkbox" /><span></span>less than 80</label>
@@ -574,7 +574,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>Toefl Requirement : </th>
+						<th>TOEFL Requirement : </th>
 						<td colspan="3">
 							<label><input type="checkbox" name="toefl_requirement" value="0"/><span></span>None</label>
 							<label><input type="checkbox" name="toefl_requirement" value="55"/><span></span>55 or Less</label>
@@ -651,12 +651,16 @@
 					<th>Location</th>
 					<th># of Students</th>
 					<th>Grade</th>
-					<th>Toefl Requirements</th>
+					<th>TOEFL Requirements</th>
 					<th>Comments</th>
 				</tr>
 				{% for secondary in search_schools %}
 				<tr>
+					{% if secondary.school.partnership == 1 or secondary.school.partnership == 2 or secondary.school.partnership == 3 %}
+					<td class="Relationship"><a href="/school/secondary/summary/{{secondary.school.id}}" style="color:orange;font-weight:700;" target="_BLANK">{{secondary.school.name}}</a></td>
+					{% else %}
 					<td class="Relationship"><a href="/school/secondary/summary/{{secondary.school.id}}" target="_BLANK">{{secondary.school.name}}</a></td>
+					{% endif %}
 					<td class="Relationship">{{secondary.state|upper}}</td>
 					<td class="Relationship">{{secondary.school.number_students}}</td>
 					<td class="Relationship">{{secondary.grade_start}} ~ {{secondary.grade_end}}</td>

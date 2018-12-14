@@ -132,7 +132,7 @@ class SecondaryView(LoginRequiredMixin, View):
             })
 
         else:
-            secondaries = models.Secondary.objects.all()
+            secondaries = models.Secondary.objects.all().order_by("school__partnership", "school__name")
             search_schools = self.search()
 
             return render(request, 'school/secondary2.html',
