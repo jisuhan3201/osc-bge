@@ -158,7 +158,7 @@ class College(TimeStampedModel):
     school = models.OneToOneField(School, on_delete=models.SET_NULL, null=True, related_name="college")
     toefl_requirement = models.IntegerField(null=True, blank=True)
     state = models.CharField(max_length=80, null=True, choices=LOCATION_CHOICE)
-    partition = models.CharField(max_length=80, null=True, choices=TYPE_CHOICES)
+    college_type = models.CharField(max_length=80, null=True, choices=TYPE_CHOICES)
     tuition = models.IntegerField(null=True, blank=True)
     room_and_board = models.IntegerField(null=True, blank=True)
     sat_act_requirement = models.CharField(max_length=80, null=True, blank=True)

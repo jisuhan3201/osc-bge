@@ -326,7 +326,7 @@ class CounselView(LoginRequiredMixin, View):
 
             partition = self.request.GET.getlist('partition', None)
             if partition:
-                queryset = queryset.filter(partition__in=partition)
+                queryset = queryset.filter(college_type__in=partition)
 
         elif self.request.GET.get('form_type') == 'name_form':
 
