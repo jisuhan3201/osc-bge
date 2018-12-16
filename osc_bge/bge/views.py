@@ -35,6 +35,10 @@ def index(request):
 
             return redirect('/agent/statistics')
 
+        elif request.user.type == 'bge_accountant':
+
+            return redirect('/accounting')
+
         else:
             return redirect('/agent/counsel')
 

@@ -362,6 +362,7 @@ class BranchHostsView(LoginRequiredMixin, View):
 
         return HttpResponseRedirect(request.path_info)
 
+
 class BranchResourcesView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
@@ -390,21 +391,19 @@ class BranchResourcesView(LoginRequiredMixin, View):
 
             all_resources = models.BgeResource.objects.filter(branch=found_branch).order_by("-created_at")
 
-            return render(request, 'branch/resources.html', {
-                'all_resources':all_resources,
-            })
-
         else:
-            return HttpResponse("Not Authorized User", status=400)
+
+            all_resources = models.BgeResource.objects.all().order_by('-created_at')
+
+        return render(request, 'branch/resources.html', {
+            'all_resources':all_resources,
+        })
 
     def post(self, request):
 
         data = request.POST
 
-        if request.user.type == 'bge_admin' or request.user.type == 'bge_team':
-            found_branch=None
-
-        else:
+        if request.user.type == 'bge_branch_admin':
             try:
                 bge_branch_admin = user_models.BgeBranchAdminUser.objects.get(user=request.user)
                 found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
@@ -417,6 +416,8 @@ class BranchResourcesView(LoginRequiredMixin, View):
                     found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
                 except:
                     return HttpResponse('Not Branch Admin or Branch coordi', status=400)
+        else:
+            found_branch=None
 
         if data.get('delete_file'):
 
