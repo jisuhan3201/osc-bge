@@ -80,7 +80,7 @@ class CollegeAdmin(admin.ModelAdmin):
         "asian_percent",
         "high_school_10",
         "full_time_faculty",
-        "student_faculty_ration",
+        "student_faculty_ratio",
         "class_under_20",
         "ed_ea_deadline",
         "ed_ea_noticedate",

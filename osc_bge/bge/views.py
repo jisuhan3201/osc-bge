@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from . import models
+from . import models, forms
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core import serializers
@@ -1184,16 +1184,75 @@ class BgeTeamStatisticsView(LoginRequiredMixin, View):
         return render(request, 'team/statistics.html', {})
 
 
-class BgeCollegeView(LoginRequiredMixin, View):
+class AccountingView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request):
 
-        return render(request, 'school/colleges.html', {})
+        all_students = student_models.Student.objects.filter(status='registered')
+        all_branches = models.BgeBranch.objects.all()
+        overdue_students = all_students.filter(accounting__balance__lt=0).distinct()
 
-class BgeAccountingView(LoginRequiredMixin, View):
+        return render(request, 'main/accounting.html', {
+            'all_students':all_students,
+            'all_branches':all_branches,
+            'overdue_students':overdue_students,
+        })
+
+class AccountingStudentView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
-    def get(self, request):
+    def get(self, request, student_id):
 
-        return render(request, 'main/accounting.html', {})
+        if student_id:
+
+            all_students = student_models.Student.objects.filter(status='registered')
+            all_branches = models.BgeBranch.objects.all()
+            overdue_students = all_students.filter(accounting__balance__lt=0).distinct()
+            found_student = student_models.Student.objects.get(id=int(student_id))
+
+        else:
+            return HttpResponse('No Student id', status=400)
+
+        return render(request, 'main/accounting.html', {
+            'all_students':all_students,
+            'all_branches':all_branches,
+            'overdue_students':overdue_students,
+            'found_student':found_student,
+        })
+
+    def post(self, request, student_id=None):
+
+        data = request.POST
+
+        if student_id:
+
+            found_student = student_models.Student.objects.get(id=int(student_id))
+            accounting = student_models.StudentAccounting(
+                student=found_student,
+                description=data.get('description'),
+                expense=data.get('expense'),
+                due_date=data.get('due_date'),
+                payment=int(data.get('payment')) if data.get('payment') else None,
+                paid_date=data.get('paid_date'),
+                balance=int(data.get('balance')) if data.get('balance') else None,
+            )
+            accounting.save()
+
+            if accounting.expense and accounting.payment:
+                accounting.balance = int(accounting.payment) - int(accounting.expense)
+                accounting.save()
+
+            accounting_form = forms.AccountingForm(request.POST, request.FILES)
+            if accounting_form.is_valid():
+                accounting.invoice = accounting_form.cleaned_data['invoice']
+                accounting.save()
+
+            if data.get('delete_invoice'):
+                found_accounting = student_models.StudentAccounting.objects.get(id=int(data.get('delete_invoice')))
+                found_accounting.delete()
+
+        else:
+            return HttpResponse('No student id', status=400)
+
+        return HttpResponseRedirect(request.path_info)

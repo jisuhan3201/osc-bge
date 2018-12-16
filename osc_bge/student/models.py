@@ -207,3 +207,15 @@ class StudentCommunicationLog(TimeStampedModel):
     category = models.CharField(max_length=80, null=True, blank=True)
     priority = models.CharField(max_length=80, null=True, blank=True)
     comment = models.TextField(null=True, blank=True)
+
+
+class StudentAccounting(TimeStampedModel):
+
+    student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True, related_name='accounting')
+    description = models.TextField(null=True, blank=True)
+    expense = models.IntegerField(null=True, blank=True)
+    due_date = models.DateField(null=True, blank=True)
+    payment = models.IntegerField(null=True, blank=True)
+    paid_date = models.DateField(null=True, blank=True)
+    balance = models.IntegerField(null=True, blank=True)
+    invoice = models.FileField(upload_to='invoices/', null=True, blank=True)

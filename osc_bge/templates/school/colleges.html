@@ -15,56 +15,9 @@
 			</div><!-- TabTitle -->
 			<div class="TabConternts">
 				<div class="InnerTabContents">
-					<li><a href="/school/college/school_id">1. Saint John’s College</a></li>
-					<li><a href="/school/college/school_id">2. Saint Bernadette College</a></li>
-					<li><a href="/school/college/school_id">3. Holy Name Catholic College</a></li>
-					<li><a href="/school/college/school_id">4. Lowell Catholic College</a></li>
-					<li><a href="/school/college/school_id">5. Saint Mary’s College of Worcester</a></li>
-					<li><a href="/school/college/school_id">6. Whitinsville Christian College</a></li>
-					<li><a href="/school/college/school_id">7. Archbishop Williams College</a></li>
-					<li><a href="/school/college/school_id">8. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">9. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">10. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">11. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">12. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">13. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">14. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">15. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">16. Saint John’s College</a></li>
-					<li><a href="/school/college/school_id">17. Saint Bernadette College</a></li>
-					<li><a href="/school/college/school_id">18. Holy Name Catholic College</a></li>
-					<li><a href="/school/college/school_id">19. Lowell Catholic College</a></li>
-					<li><a href="/school/college/school_id">20. Saint Mary’s College of Worcester</a></li>
-					<li><a href="/school/college/school_id">21. Whitinsville Christian College</a></li>
-					<li><a href="/school/college/school_id">22. Archbishop Williams College</a></li>
-					<li><a href="/school/college/school_id">23. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">24. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">25. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">26. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">27. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">28. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">29. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">30. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">31. Saint John’s College</a></li>
-					<li><a href="/school/college/school_id">32. Saint Bernadette College</a></li>
-					<li><a href="/school/college/school_id">33. Holy Name Catholic College</a></li>
-					<li><a href="/school/college/school_id">34. Lowell Catholic College</a></li>
-					<li><a href="/school/college/school_id">35. Saint Mary’s College of Worcester</a></li>
-					<li><a href="/school/college/school_id">36. Whitinsville Christian College</a></li>
-					<li><a href="/school/college/school_id">37. Archbishop Williams College</a></li>
-					<li><a href="/school/college/school_id">38. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">39. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">40. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">41. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">42. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">43. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">44. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">45. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">46. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">47. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">48. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">49. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">50. Holy Family College</a></li>
+					{% for college in first_schools %}
+					<li><a href="/school/college/{{school.id}}">{{college.ranking}}. {{college.school.name}}</a></li>
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts -->
 		</div><!-- LeftTab ID:LeftTab01 -->
@@ -78,56 +31,9 @@
 			</div><!-- TabTitle -->
 			<div class="TabConternts">
 				<div class="InnerTabContents">
-					<li><a href="/school/college/school_id">1. Saint John’s College</a></li>
-					<li><a href="/school/college/school_id">2. Saint Bernadette College</a></li>
-					<li><a href="/school/college/school_id">3. Holy Name Catholic College</a></li>
-					<li><a href="/school/college/school_id">4. Lowell Catholic College</a></li>
-					<li><a href="/school/college/school_id">5. Saint Mary’s College of Worcester</a></li>
-					<li><a href="/school/college/school_id">6. Whitinsville Christian College</a></li>
-					<li><a href="/school/college/school_id">7. Archbishop Williams College</a></li>
-					<li><a href="/school/college/school_id">8. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">9. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">10. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">11. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">12. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">13. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">14. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">15. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">16. Saint John’s College</a></li>
-					<li><a href="/school/college/school_id">17. Saint Bernadette College</a></li>
-					<li><a href="/school/college/school_id">18. Holy Name Catholic College</a></li>
-					<li><a href="/school/college/school_id">19. Lowell Catholic College</a></li>
-					<li><a href="/school/college/school_id">20. Saint Mary’s College of Worcester</a></li>
-					<li><a href="/school/college/school_id">21. Whitinsville Christian College</a></li>
-					<li><a href="/school/college/school_id">22. Archbishop Williams College</a></li>
-					<li><a href="/school/college/school_id">23. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">24. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">25. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">26. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">27. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">28. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">29. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">30. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">31. Saint John’s College</a></li>
-					<li><a href="/school/college/school_id">32. Saint Bernadette College</a></li>
-					<li><a href="/school/college/school_id">33. Holy Name Catholic College</a></li>
-					<li><a href="/school/college/school_id">34. Lowell Catholic College</a></li>
-					<li><a href="/school/college/school_id">35. Saint Mary’s College of Worcester</a></li>
-					<li><a href="/school/college/school_id">36. Whitinsville Christian College</a></li>
-					<li><a href="/school/college/school_id">37. Archbishop Williams College</a></li>
-					<li><a href="/school/college/school_id">38. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">39. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">40. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">41. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">42. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">43. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">44. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">45. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">46. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">47. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">48. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">49. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">50. Holy Family College</a></li>
+					{% for college in second_schools %}
+					<li><a href="/school/college/{{school.id}}">{{college.ranking}}. {{college.school.name}}</a></li>
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts -->
 		</div><!-- LeftTab ID:LeftTab02 -->
@@ -141,56 +47,10 @@
 			</div><!-- TabTitle -->
 			<div class="TabConternts">
 				<div class="InnerTabContents">
-					<li><a href="/school/college/school_id">1. Saint John’s College</a></li>
-					<li><a href="/school/college/school_id">2. Saint Bernadette College</a></li>
-					<li><a href="/school/college/school_id">3. Holy Name Catholic College</a></li>
-					<li><a href="/school/college/school_id">4. Lowell Catholic College</a></li>
-					<li><a href="/school/college/school_id">5. Saint Mary’s College of Worcester</a></li>
-					<li><a href="/school/college/school_id">6. Whitinsville Christian College</a></li>
-					<li><a href="/school/college/school_id">7. Archbishop Williams College</a></li>
-					<li><a href="/school/college/school_id">8. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">9. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">10. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">11. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">12. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">13. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">14. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">15. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">16. Saint John’s College</a></li>
-					<li><a href="/school/college/school_id">17. Saint Bernadette College</a></li>
-					<li><a href="/school/college/school_id">18. Holy Name Catholic College</a></li>
-					<li><a href="/school/college/school_id">19. Lowell Catholic College</a></li>
-					<li><a href="/school/college/school_id">20. Saint Mary’s College of Worcester</a></li>
-					<li><a href="/school/college/school_id">21. Whitinsville Christian College</a></li>
-					<li><a href="/school/college/school_id">22. Archbishop Williams College</a></li>
-					<li><a href="/school/college/school_id">23. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">24. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">25. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">26. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">27. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">28. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">29. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">30. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">31. Saint John’s College</a></li>
-					<li><a href="/school/college/school_id">32. Saint Bernadette College</a></li>
-					<li><a href="/school/college/school_id">33. Holy Name Catholic College</a></li>
-					<li><a href="/school/college/school_id">34. Lowell Catholic College</a></li>
-					<li><a href="/school/college/school_id">35. Saint Mary’s College of Worcester</a></li>
-					<li><a href="/school/college/school_id">36. Whitinsville Christian College</a></li>
-					<li><a href="/school/college/school_id">37. Archbishop Williams College</a></li>
-					<li><a href="/school/college/school_id">38. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">39. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">40. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">41. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">42. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">43. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">44. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">45. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">46. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">47. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">48. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">49. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">50. Holy Family College</a></li>
+					{% for college in third_schools %}
+					<li><a href="/school/college/{{school.id}}">{{college.ranking}}. {{college.school.name}}</a></li>
+					{% endfor %}
+
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts -->
 		</div><!-- LeftTab ID:LeftTab03 -->
@@ -204,56 +64,9 @@
 			</div><!-- TabTitle -->
 			<div class="TabConternts">
 				<div class="InnerTabContents">
-					<li><a href="/school/college/school_id">1. Saint John’s College</a></li>
-					<li><a href="/school/college/school_id">2. Saint Bernadette College</a></li>
-					<li><a href="/school/college/school_id">3. Holy Name Catholic College</a></li>
-					<li><a href="/school/college/school_id">4. Lowell Catholic College</a></li>
-					<li><a href="/school/college/school_id">5. Saint Mary’s College of Worcester</a></li>
-					<li><a href="/school/college/school_id">6. Whitinsville Christian College</a></li>
-					<li><a href="/school/college/school_id">7. Archbishop Williams College</a></li>
-					<li><a href="/school/college/school_id">8. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">9. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">10. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">11. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">12. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">13. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">14. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">15. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">16. Saint John’s College</a></li>
-					<li><a href="/school/college/school_id">17. Saint Bernadette College</a></li>
-					<li><a href="/school/college/school_id">18. Holy Name Catholic College</a></li>
-					<li><a href="/school/college/school_id">19. Lowell Catholic College</a></li>
-					<li><a href="/school/college/school_id">20. Saint Mary’s College of Worcester</a></li>
-					<li><a href="/school/college/school_id">21. Whitinsville Christian College</a></li>
-					<li><a href="/school/college/school_id">22. Archbishop Williams College</a></li>
-					<li><a href="/school/college/school_id">23. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">24. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">25. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">26. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">27. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">28. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">29. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">30. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">31. Saint John’s College</a></li>
-					<li><a href="/school/college/school_id">32. Saint Bernadette College</a></li>
-					<li><a href="/school/college/school_id">33. Holy Name Catholic College</a></li>
-					<li><a href="/school/college/school_id">34. Lowell Catholic College</a></li>
-					<li><a href="/school/college/school_id">35. Saint Mary’s College of Worcester</a></li>
-					<li><a href="/school/college/school_id">36. Whitinsville Christian College</a></li>
-					<li><a href="/school/college/school_id">37. Archbishop Williams College</a></li>
-					<li><a href="/school/college/school_id">38. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">39. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">40. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">41. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">42. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">43. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">44. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">45. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">46. Holy Family College</a></li>
-					<li><a href="/school/college/school_id">47. Arlington Catholic College</a></li>
-					<li><a href="/school/college/school_id">48. Boston Trinity College</a></li>
-					<li><a href="/school/college/school_id">49. Bradford Christian College</a></li>
-					<li><a href="/school/college/school_id">50. Holy Family College</a></li>
+					{% for college in fourth_schools %}
+					<li><a href="/school/college/{{school.id}}">{{college.ranking}}. {{college.school.name}}</a></li>
+					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts -->
 		</div><!-- LeftTab ID:LeftTab04 -->
@@ -290,6 +103,8 @@
 	<div class="MainFrame" id="MainF">
 
 		<div class="MTitle">College Search</div>
+		<form method="GET">
+			<input type="text" name="form_type" value="college_form" hidden>
 		<div class="InfoTable">
 			<table cellpadding="0" cellspacing="0" border="0">
 				<colgroup>
@@ -301,122 +116,69 @@
 				<tr>
 					<th>College Type : </th>
 					<td>
-						<label><input type="checkbox" checked /><span></span>Public College</label>
-						<label><input type="checkbox" /><span></span>Private College</label>
-					</td>
-					<th>Term : </th>
-					<td>
-						<label><input type="checkbox" /><span></span>Fall</label>
-						<label><input type="checkbox" /><span></span>Spring</label>
+						<label><input type="checkbox" name="school_type" value="public" /><span></span>Public College</label>
+						<label><input type="checkbox" name="school_type" value="private"/><span></span>Private College</label>
 					</td>
 				</tr>
 				<tr>
 					<th>TOEFL Requirement : </th>
 					<td colspan="3">
-						<label><input type="checkbox" /><span></span>None</label>
-						<label><input type="checkbox" /><span></span>55 or Less</label>
-						<label><input type="checkbox" /><span></span>70 or Less</label>
-						<label><input type="checkbox" /><span></span>80 or Less</label>
-						<label><input type="checkbox" /><span></span>99 or Less</label>
-						<label><input type="checkbox" /><span></span>100 or Over</label>
+						<label><input type="checkbox" name="toefl_requirement" value="60"/><span></span>less than 60</label>
+						<label><input type="checkbox" name="toefl_requirement" value="80"/><span></span>less than 80</label>
+						<label><input type="checkbox" name="toefl_requirement" value="99"/><span></span>less than 100</label>
+						<label><input type="checkbox" name="toefl_requirement" value="100"/><span></span>over 100</label>
 					</td>
 				</tr>
 				<tr>
 					<th>Location : </th>
 					<td>
-						<label><input type="checkbox" /><span></span>Northeast</label>
-						<label><input type="checkbox" /><span></span>Southeast</label>
-						<label><input type="checkbox" /><span></span>Midwest</label>
-						<label><input type="checkbox" /><span></span>West</label>
-					</td>
-					<th>Transfer : </th>
-					<td>
-						<label><input type="checkbox" /><span></span>Transfer student</label>
+						<label><input type="checkbox" name="state" value="ne"/><span></span>Northeast</label>
+						<label><input type="checkbox" name="state" value="se"/><span></span>Southeast</label>
+						<label><input type="checkbox" name="state" value="mw"/><span></span>Midwest</label>
+						<label><input type="checkbox" name="state" value="w"/><span></span>West</label>
 					</td>
 				</tr>
 				<tr>
 					<th>National Universities  : </th>
 					<td colspan="3">
-						<label><input type="checkbox" /><span></span>Good Engineering school </label>
-						<label><input type="checkbox" /><span></span>Good Business school </label>
-						<label><input type="checkbox" /><span></span>Good Art school </label>
-						<label><input type="checkbox" /><span></span>Good Science school</label>
+						<label><input type="checkbox" name="national_univ" value="es" /><span></span>Top Engineering school </label>
+						<label><input type="checkbox" name="national_univ" value="bs" /><span></span>Top Business school </label>
+						<label><input type="checkbox" name="national_univ" value="as" /><span></span>Top Art school </label>
+						<label><input type="checkbox" name="national_univ" value="ss" /><span></span>Top Science school</label>
 					</td>
 				</tr>
 				<tr>
 					<th> </th>
 					<td colspan="3">
-						<label><input type="checkbox" /><span></span>Liberal Arts Colleges </label>
-						<label><input type="checkbox" /><span></span>Local colleges </label>
-						<label><input type="checkbox" /><span></span>Pathway Universities</label>
+						<label><input type="checkbox" name="national_univ" value="lac" /><span></span>Liberal Arts Colleges </label>
+						<label><input type="checkbox" name="national_univ" value="lc" /><span></span>Local colleges </label>
+						<label><input type="checkbox" name="national_univ" value="pu" /><span></span>Pathway Universities</label>
 					</td>
 				</tr>
 			</table>
-			<div class="SchoolButton">Search</div>
+			<button class="SchoolButton" type="submit">Search</button>
 		</div><!-- InfoTable -->
+		</form>
 		<div class="EndPart"></div>
 
 
 		<div class="MTitle">Search Result</div>
 			<div class="ListSearch Aright">
-				<div>
+				<form method="get">
+					<input type="text" name="form_type" value="name_form" hidden>
+					<div>
+					Search by School Name :
+					 <input id="school_textbox" type="text" class="SearchInput" style="width:300px;" name="school_name"/>
+						<select class="SearchSelect" id="school_name" name="school_id">
+							<option value="">Select School..</option>
+							{% for college in all_schools %}
+								<option value="{{college.id}}">{{college.school.name}}</option>
+							{% endfor %}
+						</select>
+						<button type="submit" class="ListSearchButton">Search</button>
+					</div>
+				</form>
 
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-<script>
-       jQuery.fn.filterByText = function(textbox, selectSingleMatch) {
-        return this.each(function() {
-            var select = this;
-            var options = [];
-            $(select).find('option').each(function() {
-                options.push({value: $(this).val(), text: $(this).text()});
-            });
-            $(select).data('options', options);
-            $(textbox).bind('change keyup', function() {
-                var options = $(select).empty().data('options');
-                var search = $(this).val().trim();
-                var regex = new RegExp(search,"gi");
-
-                $.each(options, function(i) {
-                    var option = options[i];
-                    if(option.text.match(regex) !== null) {
-                        $(select).append(
-                           $('<option>').text(option.text).val(option.value)
-                        );
-                    }
-                });
-                if (selectSingleMatch === true && $(select).children().length === 1) {
-                    $(select).children().get(0).selected = true;
-                }
-            });
-        });
-    };
-
-    $(function() {
-        $('#college_name').filterByText($('#college_textbox'), false);
-      $("select option").click(function(){
-        alert(1);
-      });
-    });
-</script>
-
-				Search by College Name :
-               <input id="college_textbox" type="text" class="SearchInput" style="width:300px;" />
-				<select class="SearchSelect" id="college_name">
-
-				<option>Saint John’s College</option>
-				<option>Saint Bernadette College</option>
-				<option>Holy Name Catholic College</option>
-				<option>Lowell Catholic College</option>
-				<option>Saint Mary’s College of Worcester</option>
-				<option>Whitinsville Christian College</option>
-				<option>Archbishop Williams College</option>
-				<option>Arlington Catholic College</option>
-				<option>Boston Trinity College</option>
-				<option>Bradford Christian College</option>
-				<option>Holy Family College</option>
-				</select>
-				</div>
 			</div>
 		<div class="ListTable">
 			<table cellpadding="0" cellspacing="0" border="0">
@@ -425,44 +187,25 @@
 				</colgroup>
 				<tr>
 					<th>College Name</th>
-					<th>Website</th>
 					<th>Location</th>
+					<th>Website</th>
 					<th>Ranking</th>
 					<th>Requirements</th>
-					<th>Comments</th>
 				</tr>
+				{% for college in search_schools %}
 				<tr>
-					<td class="Relationship"><a href="/school/college/school_id">Saint John’s College</a></td>
-					<td class="Relationship">saintjohns.ac</td>
-					<td class="Relationship">Shrewsbury, MA</td>
-					<td class="Relationship">12</td>
-					<td class="Relationship">-</td>
-					<td class="Relationship">-</td>
+					{% if college.school.partnership == 1 or college.school.partnership == 2 or college.school.partnership == 3 %}
+					<td class="Relationship"><a href="/school/college/summary/{{college.school.id}}" target="_BLANK" style="color:orange;font-weight:700;">{{college.school.name}}</a></td>
+					{% else %}
+					<td class="Relationship"><a href="/school/college/summary/{{college.school.id}}" target="_BLANK">{{college.school.name}}</a></td>
+					{% endif %}
+					<td class="Relationship">{{college.state|upper}}</td>
+					<td class="Relationship">{{college.school.web_url}}</td>
+					<td class="Relationship">{{college.ranking}}</td>
+					<td class="Relationship">TOEFL : {{college.toefl_requirement}} / SAT/ACT : {{college.sat_act_requirement}} / GPA : {{college.gpa_requirement}}</td>
 				</tr>
-				<tr>
-					<td><a href="/school/college/school_id">Saint John’s College</a></td>
-					<td>saintjohns.ac</td>
-					<td>Shrewsbury, MA</td>
-					<td>12</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td><a href="/school/college/school_id">Saint John’s College</a></td>
-					<td>saintjohns.ac</td>
-					<td>Shrewsbury, MA</td>
-					<td>12</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td><a href="/school/college/school_id">Saint John’s College</a></td>
-					<td>saintjohns.ac</td>
-					<td>Shrewsbury, MA</td>
-					<td>12</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
+				{% endfor %}
+
 			</table>
 		</div><!-- ListTable -->
 

@@ -11,8 +11,13 @@
 		<div class="SectionTitle">Counseling</div>
 		<div class="LeftTab" id="LeftTab01">
 			<div class="TabTitle">
+				{% if request.GET.form_type == 'college_form' or request.GET.form_type == 'college_name_form' %}
+				<div OnClick="TabOpen('LeftTab01');PageOpen('SchoolTab');" >Secondary</div>
+				<div OnClick="TabOpen('LeftTab02');PageOpen('CollegeTab');" class="On">College</div>
+				{% else %}
 				<div OnClick="TabOpen('LeftTab01');PageOpen('SchoolTab');" class="On">Secondary</div>
 				<div OnClick="TabOpen('LeftTab02');PageOpen('CollegeTab');">College</div>
+				{% endif %}
 			</div><!-- TabTitle -->
 			<div class="TabConternts" id="InnerTab0101">
 				<div class="InnerTab">
@@ -255,11 +260,11 @@
 				<div class="USAMap"><img src="{% static 'img/usa.png'%}" /></div>
 				<div class="InnerTabContents">
 					{% for college in colleges %}
-						{% if college.location == 'ne' %}
-							{% if secondary.school.partnership == 1 or secondary.school.partnership == 2 or secondary.school.partnership == 3%}
-							<li><a href="/school/secondary/summary/{{secondary.school.id}}" target="_BLANK"><strong style="color:orange;">{{secondary.school}}</strong></a></li>
+						{% if college.state == 'ne' %}
+							{% if college.school.partnership == 1 or college.school.partnership == 2 or college.school.partnership == 3%}
+							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK"><strong style="color:orange;">{{college.school}}</strong></a></li>
 							{% else %}
-							<li><a href="/school/secondary/summary/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK">{{college.school}}</a></li>
 							{% endif %}
 						{% endif %}
 					{% endfor %}
@@ -276,11 +281,11 @@
 				<div class="USAMap"><img src="{% static 'img/usa.png'%}" /></div>
 				<div class="InnerTabContents">
 					{% for college in colleges %}
-						{% if college.location == 'se' %}
-							{% if secondary.school.partnership == 1 or secondary.school.partnership == 2 or secondary.school.partnership == 3%}
-							<li><a href="/school/secondary/summary/{{secondary.school.id}}" target="_BLANK"><strong style="color:orange;">{{secondary.school}}</strong></a></li>
+						{% if college.state == 'se' %}
+							{% if college.school.partnership == 1 or college.school.partnership == 2 or college.school.partnership == 3%}
+							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK"><strong style="color:orange;">{{college.school}}</strong></a></li>
 							{% else %}
-							<li><a href="/school/secondary/summary/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK">{{college.school}}</a></li>
 							{% endif %}
 						{% endif %}
 					{% endfor %}
@@ -297,11 +302,11 @@
 				<div class="USAMap"><img src="{% static 'img/usa.png'%}" /></div>
 				<div class="InnerTabContents">
 					{% for college in colleges %}
-						{% if college.location == 'mw' %}
-							{% if secondary.school.partnership == 1 or secondary.school.partnership == 2 or secondary.school.partnership == 3%}
-							<li><a href="/school/secondary/summary/{{secondary.school.id}}" target="_BLANK"><strong style="color:orange;">{{secondary.school}}</strong></a></li>
+						{% if college.state == 'mw' %}
+							{% if college.school.partnership == 1 or college.school.partnership == 2 or college.school.partnership == 3%}
+							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK"><strong style="color:orange;">{{college.school}}</strong></a></li>
 							{% else %}
-							<li><a href="/school/secondary/summary/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK">{{college.school}}</a></li>
 							{% endif %}
 						{% endif %}
 					{% endfor %}
@@ -318,11 +323,11 @@
 				<div class="USAMap"><img src="{% static 'img/usa.png'%}" /></div>
 				<div class="InnerTabContents">
 					{% for college in colleges %}
-						{% if college.location == 'w' %}
-							{% if secondary.school.partnership == 1 or secondary.school.partnership == 2 or secondary.school.partnership == 3%}
-							<li><a href="/school/secondary/summary/{{secondary.school.id}}" target="_BLANK"><strong style="color:orange;">{{secondary.school}}</strong></a></li>
+						{% if college.state == 'w' %}
+							{% if college.school.partnership == 1 or college.school.partnership == 2 or college.school.partnership == 3%}
+							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK"><strong style="color:orange;">{{college.school}}</strong></a></li>
 							{% else %}
-							<li><a href="/school/secondary/summary/{{secondary.school.id}}" target="_BLANK">{{secondary.school}}</a></li>
+							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK">{{college.school}}</a></li>
 							{% endif %}
 						{% endif %}
 					{% endfor %}
@@ -401,6 +406,8 @@
 		<div id="CollegeTab">
 
 		<div class="MTitle">College Search</div>
+		<form method="GET">
+			<input type="text" name="form_type" value="college_form" hidden>
 		<div class="InfoTable">
 			<table cellpadding="0" cellspacing="0" border="0">
 				<colgroup>
@@ -412,71 +419,68 @@
 				<tr>
 					<th>College Type : </th>
 					<td>
-						<label><input type="checkbox" checked /><span></span>Public College</label>
-						<label><input type="checkbox" /><span></span>Private College</label>
+						<label><input type="checkbox" name="school_type" value="public" /><span></span>Public College</label>
+						<label><input type="checkbox" name="school_type" value="private"/><span></span>Private College</label>
 					</td>
 				</tr>
 				<tr>
 					<th>TOEFL Requirement : </th>
 					<td colspan="3">
-						<label><input type="checkbox" /><span></span>less than 60</label>
-						<label><input type="checkbox" /><span></span>less than 80</label>
-						<label><input type="checkbox" /><span></span>less than 100</label>
-						<label><input type="checkbox" /><span></span>over 100</label>
+						<label><input type="checkbox" name="toefl_requirement" value="60"/><span></span>less than 60</label>
+						<label><input type="checkbox" name="toefl_requirement" value="80"/><span></span>less than 80</label>
+						<label><input type="checkbox" name="toefl_requirement" value="99"/><span></span>less than 100</label>
+						<label><input type="checkbox" name="toefl_requirement" value="100"/><span></span>over 100</label>
 					</td>
 				</tr>
 				<tr>
 					<th>Location : </th>
 					<td>
-						<label><input type="checkbox" /><span></span>Northeast</label>
-						<label><input type="checkbox" /><span></span>Southeast</label>
-						<label><input type="checkbox" /><span></span>Midwest</label>
-						<label><input type="checkbox" /><span></span>West</label>
+						<label><input type="checkbox" name="state" value="ne"/><span></span>Northeast</label>
+						<label><input type="checkbox" name="state" value="se"/><span></span>Southeast</label>
+						<label><input type="checkbox" name="state" value="mw"/><span></span>Midwest</label>
+						<label><input type="checkbox" name="state" value="w"/><span></span>West</label>
 					</td>
 				</tr>
 				<tr>
 					<th>National Universities  : </th>
 					<td colspan="3">
-						<label><input type="checkbox" /><span></span>Top Engineering schools </label>
-						<label><input type="checkbox" /><span></span>Top Business schools </label>
-						<label><input type="checkbox" /><span></span>Top Art schools </label>
-						<label><input type="checkbox" /><span></span>Top Science schools</label>
+						<label><input type="checkbox" name="national_univ" value="es" /><span></span>Top Engineering school </label>
+						<label><input type="checkbox" name="national_univ" value="bs" /><span></span>Top Business school </label>
+						<label><input type="checkbox" name="national_univ" value="as" /><span></span>Top Art school </label>
+						<label><input type="checkbox" name="national_univ" value="ss" /><span></span>Top Science school</label>
 					</td>
 				</tr>
 				<tr>
 					<th> </th>
 					<td colspan="3">
-						<label><input type="checkbox" /><span></span>Liberal Arts Colleges </label>
-						<label><input type="checkbox" /><span></span>Local colleges </label>
-						<label><input type="checkbox" /><span></span>Pathway Universities</label>
+						<label><input type="checkbox" name="national_univ" value="lac" /><span></span>Liberal Arts Colleges </label>
+						<label><input type="checkbox" name="national_univ" value="lc" /><span></span>Local colleges </label>
+						<label><input type="checkbox" name="national_univ" value="pu" /><span></span>Pathway Universities</label>
 					</td>
 				</tr>
 			</table>
-			<div class="SchoolButton">Search</div>
+			<button class="SchoolButton" type="submit">Search</button>
 		</div><!-- InfoTable -->
+		</form>
 		<div class="EndPart"></div>
 
 
 		<div class="MTitle">Search Result</div>
 			<div class="ListSearch Aright">
-				<div>
-				Search by College Name :
-               <input id="college_textbox" type="text" class="SearchInput" style="width:300px;" />
-				<select class="SearchSelect" id="college_name">
-
-				<option>Saint John’s College</option>
-				<option>Saint Bernadette College</option>
-				<option>Holy Name Catholic College</option>
-				<option>Lowell Catholic College</option>
-				<option>Saint Mary’s College of Worcester</option>
-				<option>Whitinsville Christian College</option>
-				<option>Archbishop Williams College</option>
-				<option>Arlington Catholic College</option>
-				<option>Boston Trinity College</option>
-				<option>Bradford Christian College</option>
-				<option>Holy Family College</option>
-				</select>
-				</div>
+				<form method="get">
+					<input type="text" name="form_type" value="college_name_form" hidden>
+					<div>
+					Search by School Name :
+					 <input id="school_textbox" type="text" class="SearchInput" style="width:300px;" name="school_name"/>
+						<select class="SearchSelect" id="school_name" name="school_id">
+							<option value="">Select School..</option>
+							{% for college in colleges %}
+								<option value="{{college.id}}">{{college.school.name}}</option>
+							{% endfor %}
+						</select>
+						<button type="submit" class="ListSearchButton">Search</button>
+					</div>
+				</form>
 			</div>
 		<div class="ListTable">
 			<table cellpadding="0" cellspacing="0" border="0">
@@ -489,40 +493,20 @@
 					<th>Location</th>
 					<th>Ranking</th>
 					<th>Requirements</th>
-					<th>Comments</th>
 				</tr>
+				{% for college in search_schools %}
 				<tr>
-					<td class="Relationship"><a href="/school/college/school_id" target="_BLANK">Saint John’s College</a></td>
-					<td class="Relationship">saintjohns.ac</td>
-					<td class="Relationship">Shrewsbury, MA</td>
-					<td class="Relationship">12</td>
-					<td class="Relationship">-</td>
-					<td class="Relationship">-</td>
+					{% if college.school.partnership == 1 or college.school.partnership == 2 or college.school.partnership == 3 %}
+					<td class="Relationship"><a href="/school/college/summary/{{college.school.id}}" target="_BLANK" style="color:orange;font-weight:700;">{{college.school.name}}</a></td>
+					{% else %}
+					<td class="Relationship"><a href="/school/college/summary/{{college.school.id}}" target="_BLANK">{{college.school.name}}</a></td>
+					{% endif %}
+					<td class="Relationship">{{college.state|upper}}</td>
+					<td class="Relationship">{{college.school.web_url}}</td>
+					<td class="Relationship">{{college.ranking}}</td>
+					<td class="Relationship">TOEFL : {{college.toefl_requirement}} / SAT/ACT : {{college.sat_act_requirement}} / GPA : {{college.gpa_requirement}}</td>
 				</tr>
-				<tr>
-					<td><a href="/school/college/school_id" target="_BLANK">Saint John’s College</a></td>
-					<td>saintjohns.ac</td>
-					<td>Shrewsbury, MA</td>
-					<td>12</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td><a href="/school/college/school_id" target="_BLANK">Saint John’s College</a></td>
-					<td>saintjohns.ac</td>
-					<td>Shrewsbury, MA</td>
-					<td>12</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
-				<tr>
-					<td><a href="/school/college/school_id" target="_BLANK">Saint John’s College</a></td>
-					<td>saintjohns.ac</td>
-					<td>Shrewsbury, MA</td>
-					<td>12</td>
-					<td>-</td>
-					<td>-</td>
-				</tr>
+				{% endfor %}
 			</table>
 		</div><!-- ListTable -->
 		</div><!-- ID:CollegeTab -->

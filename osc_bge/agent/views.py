@@ -306,6 +306,28 @@ class CounselView(LoginRequiredMixin, View):
                 else:
                     pass
 
+        elif self.request.GET.get('form_type') == 'college_form':
+            queryset = school_models.College.objects.all().order_by('ranking')
+
+            school_type = self.request.GET.getlist('school_type', None)
+            if school_type:
+                queryset = queryset.filter(school__school_type__type__in=school_type)
+
+            toefl_requirement = self.request.GET.get('toefl_requirement', None)
+            if toefl_requirement:
+                if toefl_requirement == '100':
+                    queryset = queryset.filter(toefl_requirement__gte=int(toefl_requirement), toefl_requirement__isnull=False)
+                else:
+                    queryset =queryset.filter(toefl_requirement__lte=int(toefl_requirement), toefl_requirement__isnull=False)
+
+            state = self.request.GET.getlist('state', None)
+            if state:
+                queryset = queryset.filter(state__in=state)
+
+            national_univ = self.request.GET.getlist('national_univ', None)
+            if national_univ:
+                queryset = queryset.filter(national_univ__in=national_univ)
+
         elif self.request.GET.get('form_type') == 'name_form':
 
             queryset = school_models.Secondary.objects.all().order_by('school__name', 'school__partnership')
@@ -318,6 +340,18 @@ class CounselView(LoginRequiredMixin, View):
             if school_id:
                 queryset = school_models.Secondary.objects.filter(id=int(school_id))
 
+        elif self.request.GET.get('form_type') == 'college_name_form':
+
+            queryset = school_models.College.objects.all()
+
+            school_name = self.request.GET.get('school_name')
+            if school_name:
+                queryset = queryset.filter(school__name__icontains=school_name)
+
+            school_id = self.request.GET.get('school_id')
+            if school_id:
+                queryset = models.College.objects.filter(id=int(school_id))
+
         else:
             queryset = None
 
@@ -327,7 +361,7 @@ class CounselView(LoginRequiredMixin, View):
     def get(self, request):
 
         secondaries = school_models.Secondary.objects.all().order_by('school__name', 'school__partnership')
-        colleges = school_models.College.objects.all()
+        colleges = school_models.College.objects.all().order_by('ranking')
         search_schools = self.search()
 
         return render(request, 'agent/counsel.html',
@@ -740,7 +774,6 @@ class ApplicationRegisterView(LoginRequiredMixin, View):
 
             image_form = student_forms.StudentImageForm(request.POST,request.FILES)
             if image_form.is_valid():
-                print(request.FILES)
                 student.image = image_form.cleaned_data['image']
                 student.save()
 

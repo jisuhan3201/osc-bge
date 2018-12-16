@@ -263,6 +263,7 @@
 				</colgroup>
 				<tr>
 					<th>Agent</th>
+					<th>Branch</th>
 					<th>Counselor</th>
 					<th>Student</th>
 					<th>Program</th>
@@ -272,11 +273,12 @@
 					<th>Accepted</th>
 					<th>Cancelled</th>
 					<th>Enrolled</th>
-					<th>Entrance</th>
+					<th>Arrived</th>
 				</tr>
 				{% for counsel in counsels %}
 				<tr>
 					<td>{{counsel.counselor.agency.head.name}}</td>
+					<td>{{counsel.counselor.agency.name}}</td>
 					<td>{{counsel.counselor.user.first_name}} {{counsel.counselor.user.last_name}}</td>
 					<td>{{counsel.student.name}}</td>
 					<td>{{counsel.program_interested}}</td>

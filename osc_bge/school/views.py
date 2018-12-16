@@ -143,6 +143,72 @@ class SecondaryView(LoginRequiredMixin, View):
             )
 
 
+class CollegeView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def search(self):
+
+        if self.request.GET.get('form_type') == 'college_form':
+
+            queryset = models.College.objects.all().order_by('ranking')
+
+            school_type = self.request.GET.getlist('school_type', None)
+            if school_type:
+                queryset = queryset.filter(school__school_type__type__in=school_type)
+
+            toefl_requirement = self.request.GET.get('toefl_requirement', None)
+            if toefl_requirement:
+                if toefl_requirement == '100':
+                    queryset = queryset.filter(toefl_requirement__gte=int(toefl_requirement), toefl_requirement__isnull=False)
+                else:
+                    queryset =queryset.filter(toefl_requirement__lte=int(toefl_requirement), toefl_requirement__isnull=False)
+
+            state = self.request.GET.getlist('state', None)
+            if state:
+                queryset = queryset.filter(state__in=state)
+
+            national_univ = self.request.GET.getlist('national_univ', None)
+            if national_univ:
+                queryset = queryset.filter(national_univ__in=national_univ)
+
+        elif self.request.GET.get('form_type') == 'name_form':
+
+            queryset = models.College.objects.all()
+
+            school_name = self.request.GET.get('school_name')
+            if school_name:
+                queryset = queryset.filter(school__name__icontains=school_name)
+
+            school_id = self.request.GET.get('school_id')
+            if school_id:
+                queryset = models.College.objects.filter(id=int(school_id))
+
+        else:
+            queryset = None
+
+        return queryset
+
+    def get(self, request):
+
+        all_schools = models.College.objects.all().order_by('ranking')
+        first_schools = models.College.objects.filter(ranking__lte=50).order_by("ranking")
+        second_schools = models.College.objects.filter(ranking__range=(51, 101)).order_by("ranking")
+        third_schools = models.College.objects.filter(ranking__range=(101, 151)).order_by("ranking")
+        fourth_schools = models.College.objects.filter(ranking__range=(151, 201)).order_by("ranking")
+        search_schools = self.search()
+
+        return render(request, 'school/colleges.html',
+            {
+                "first_schools":first_schools,
+                "second_schools":second_schools,
+                "third_schools":third_schools,
+                "fourth_schools":fourth_schools,
+                'search_schools':search_schools,
+                'all_schools':all_schools
+            }
+        )
+
+
 class SecondaryCreateView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 

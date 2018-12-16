@@ -158,3 +158,17 @@ class StudentMonthlyReportAdmin(admin.ModelAdmin):
         "created_at",
         "updated_at",
     )
+
+@admin.register(models.StudentAccounting)
+class StudentAccountingAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "student",
+        "description",
+        "expense",
+        "due_date",
+        "payment",
+        "paid_date",
+        "balance",
+        "invoice",
+    )

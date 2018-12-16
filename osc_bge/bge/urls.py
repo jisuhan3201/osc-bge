@@ -4,6 +4,8 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('mypage', views.MypageView.as_view(), name='mypage_view'),
+    path('accounting', views.AccountingView.as_view(), name='accounting_view'),
+    path('accounting/<int:student_id>', views.AccountingStudentView.as_view(), name='accounting_student_view'),
     path('statistics', views.BgeStatisticsView.as_view(), name='bge_statistics_view'),
     path('charts/bge/statistics', views.chart_bge_statistics, name='chart_bge_statistics'),
     path('branches', views.BranchesView.as_view(), name='branches_view'),
@@ -18,6 +20,4 @@ urlpatterns = [
     path('agents/history/get/<int:history_id>', views.agent_history_get, name='agents_history_get_view'),
     path('secondary', views.SecondaryView.as_view(), name='secondary_view'),
     path('team-statistics', views.BgeTeamStatisticsView.as_view(), name='bge_team_statistics_view'),
-    path('colleges', views.BgeCollegeView.as_view(), name='bge_college_view'),
-    path('accounting', views.BgeAccountingView.as_view(), name='bge_college_view'),
 ]

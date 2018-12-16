@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+#PopAccountUpdate {display:none;}
+</style>
+<div class="PopCover" id="PopAccountUpdate">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopAccountUpdate').style.display='none';">X</div>
+			<div class="Title">Add New</div>
+		</div>
+		<div class="Contents">
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="110">
+						<col>
+					</colgroup>
+					<tr>
+						<th>Description : </th>
+						<td class="InnerInputTD">
+							<textarea class="TableInnerTextarea" style="height:60px;" name="description"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<th>Expense : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" size="20" value="" name="expense" pattern="\d*"/>
+						</td>
+					</tr>
+					<tr>
+						<th>Due Date : </th>
+						<td class="InnerInputTD">
+              <input
+                type="text"
+                class="TableInnerInput"
+                size="10"
+                name="due_date"
+                pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+                placeholder="YYYY-MM-DD"
+              />
+
+						</td>
+					</tr>
+					<tr>
+						<th>Payment : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" size="20" value="" name="payment" pattern="\d*"/>
+						</td>
+					</tr>
+					<tr>
+						<th>Paid Date : </th>
+						<td class="InnerInputTD">
+              <input
+                type="text"
+                class="TableInnerInput"
+                size="10"
+                name="paid_date"
+                pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+                placeholder="YYYY-MM-DD"
+              />
+						</td>
+					</tr>
+          <tr>
+            <th>Invoice Attachment : </th>
+            <td class="InnerInputTD">
+              <input type="file" class="TableInnerInput" size="10" name="invoice"/>
+            </td>
+          </tr>
+				</table>
+			</div><!-- InfoTable -->
+
+
+			<div class="PopButtonLine">
+				<button class="Submit" type="submit">SAVE</button>
+			</div>
+    </form>
+
+		</div>
+	</div>
+</div>
+
+<div class="ContentsFrame">
+	<div class="LeftFrame" id="LeftF">
+		<div class="SectionTitle">BGE All Current Students</div>
+		<div class="LeftTab">
+			<div class="TabConternts">
+				<div class="InnerTabContents">
+          {% for branch in all_branches %}
+					<div id="LeftTab0{{forloop.counter}}"  style="display:none;">
+						<div class="InnerTabTitle" style="cursor:pointer;" OnClick="document.getElementById('LeftTab0{{forloop.counter}}').style.display='none';document.getElementById('LeftTab0{{forloop.counter}}C').style.display='block';">{{branch.name}}</div>
+            {% for student in all_students %}
+              {% if student.school.provider_branch.id == branch.id %}
+						    <li><a href="/accounting/{{student.id}}">{{student.name}}</a></li>
+              {% endif %}
+            {% endfor %}
+						<li></li>
+					</div>
+					<div id="LeftTab0{{forloop.counter}}C" class="LeftTabHidden">
+						<div class="InnerTabTitle" style="cursor:pointer;" OnClick="document.getElementById('LeftTab0{{forloop.counter}}').style.display='block';document.getElementById('LeftTab0{{forloop.counter}}C').style.display='none';">{{branch.name}}</div>
+					</div>
+          {% endfor %}
+				</div><!-- InnerTabContents -->
+			</div>
+		</div><!-- LeftTab ID:LeftTab03 -->
+	</div><!-- LeftFrame -->
+
+
+
+
+	<div class="MainFrame" id="MainF">
+
+
+		<div class="AccountFrameL">
+			<div class="MTitle">{{found_student.name}} <span>Account Information</span></div>
+			<div class="ListSearch Aright">
+        {% if found_student %}
+				<div><a href="Javascript:void(0);" OnClick="document.getElementById('PopAccountUpdate').style.display='block';" class="IsolationButton">+ &nbsp; Add New</a></div>
+        {% endif %}
+			</div>
+			<div class="cdiv"></div>
+			<div class="ListTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col>
+					</colgroup>
+
+					<tr>
+						<th>Description</th>
+						<th>Expense</th>
+						<th>Due date</th>
+						<th>Payment</th>
+						<th>Paid date</th>
+						<th>Balance</th>
+						<th>Invoice attachment</th>
+            <th>Management</th>
+					</tr>
+          {% for accounting in found_student.accounting.all %}
+					<tr>
+						<td>{{accounting.description}}</td>
+						<td>{{accounting.expense}}</td>
+						<td>{{accounting.due_date|date:"Y-m-d"}}</td>
+						<td>{{accounting.payment}}</td>
+						<td>{{accounting.paid_date|date:"Y-m-d"}}</td>
+						<td>{{accounting.balance}}</td>
+						<td><a href="{{MEDIA_URL}}{{accounting.invoice}}" download>{{accounting.invoice}}</a></td>
+            <td>
+  						<form method="POST">
+  							{% csrf_token %}
+  							<input type="text" name="delete_invoice" value="{{accounting.id}}" hidden>
+  							<button class="Button" type="submit">DEL</button>
+  						</form>
+            </td>
+					</tr>
+          {% endfor %}
+				</table>
+			</div><!-- ListTable -->
+		</div><!-- AccountFrameL -->
+		<div class="AccountFrameR">
+			<div class="ListTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col>
+					</colgroup>
+
+					<tr>
+						<th>Overdue Accounts</th>
+					</tr>
+          {% for student in overdue_students %}
+					<tr>
+						<td><a href="/accounting/{{student.id}}">{{student.name}}</a></td>
+					</tr>
+          {% endfor %}
+				</table>
+			</div><!-- ListTable -->
+		</div><!-- AccountFrameR -->
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+
+{% endblock %}
