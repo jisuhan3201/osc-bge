@@ -167,9 +167,9 @@ class CollegeView(LoginRequiredMixin, View):
             if state:
                 queryset = queryset.filter(state__in=state)
 
-            national_univ = self.request.GET.getlist('national_univ', None)
-            if national_univ:
-                queryset = queryset.filter(national_univ__in=national_univ)
+            partition = self.request.GET.getlist('partition', None)
+            if partition:
+                queryset = queryset.filter(partition__in=partition)
 
         elif self.request.GET.get('form_type') == 'name_form':
 

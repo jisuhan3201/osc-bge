@@ -167,6 +167,7 @@ class College(TimeStampedModel):
     gpa_requirement = models.CharField(max_length=80, null=True, blank=True)
     ranking = models.IntegerField(null=True, blank=True)
     setting = models.CharField(max_length=80, null=True, blank=True, choices=SETTING_CHOICE)
+    acceptance_percent = models.CharField(max_length=80, null=True, blank=True)
     asian_percent = models.IntegerField(null=True, blank=True)
     high_school_10 = models.IntegerField(null=True, blank=True)
     full_time_faculty = models.IntegerField(null=True, blank=True)

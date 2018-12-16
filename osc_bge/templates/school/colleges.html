@@ -16,7 +16,7 @@
 			<div class="TabConternts">
 				<div class="InnerTabContents">
 					{% for college in first_schools %}
-					<li><a href="/school/college/{{school.id}}">{{college.ranking}}. {{college.school.name}}</a></li>
+					<li><a href="/school/college/summary/{{college.school.id}}">{{college.ranking}}. {{college.school.name}}</a></li>
 					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts -->
@@ -32,7 +32,7 @@
 			<div class="TabConternts">
 				<div class="InnerTabContents">
 					{% for college in second_schools %}
-					<li><a href="/school/college/{{school.id}}">{{college.ranking}}. {{college.school.name}}</a></li>
+					<li><a href="/school/college/summary/{{college.school.id}}">{{college.ranking}}. {{college.school.name}}</a></li>
 					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts -->
@@ -48,7 +48,7 @@
 			<div class="TabConternts">
 				<div class="InnerTabContents">
 					{% for college in third_schools %}
-					<li><a href="/school/college/{{school.id}}">{{college.ranking}}. {{college.school.name}}</a></li>
+					<li><a href="/school/college/summary/{{college.school.id}}">{{college.ranking}}. {{college.school.name}}</a></li>
 					{% endfor %}
 
 				</div><!-- InnerTabContents -->
@@ -65,7 +65,7 @@
 			<div class="TabConternts">
 				<div class="InnerTabContents">
 					{% for college in fourth_schools %}
-					<li><a href="/school/college/{{school.id}}">{{college.ranking}}. {{college.school.name}}</a></li>
+					<li><a href="/school/college/summary/{{college.school.id}}">{{college.ranking}}. {{college.school.name}}</a></li>
 					{% endfor %}
 				</div><!-- InnerTabContents -->
 			</div><!-- TabConternts -->
@@ -116,8 +116,8 @@
 				<tr>
 					<th>College Type : </th>
 					<td>
-						<label><input type="checkbox" name="school_type" value="public" /><span></span>Public College</label>
-						<label><input type="checkbox" name="school_type" value="private"/><span></span>Private College</label>
+						<label><input type="checkbox" name="partition" value="public" /><span></span>Public College</label>
+						<label><input type="checkbox" name="partition" value="private"/><span></span>Private College</label>
 					</td>
 				</tr>
 				<tr>
@@ -141,10 +141,10 @@
 				<tr>
 					<th>National Universities  : </th>
 					<td colspan="3">
-						<label><input type="checkbox" name="national_univ" value="es" /><span></span>Top Engineering school </label>
-						<label><input type="checkbox" name="national_univ" value="bs" /><span></span>Top Business school </label>
-						<label><input type="checkbox" name="national_univ" value="as" /><span></span>Top Art school </label>
-						<label><input type="checkbox" name="national_univ" value="ss" /><span></span>Top Science school</label>
+						<label><input type="checkbox" name="school_type" value="es" /><span></span>Top Engineering school </label>
+						<label><input type="checkbox" name="school_type" value="bs" /><span></span>Top Business school </label>
+						<label><input type="checkbox" name="school_type" value="as" /><span></span>Top Art school </label>
+						<label><input type="checkbox" name="school_type" value="ss" /><span></span>Top Science school</label>
 					</td>
 				</tr>
 				<tr>

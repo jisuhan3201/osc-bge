@@ -77,6 +77,7 @@ class CollegeAdmin(admin.ModelAdmin):
         "gpa_requirement",
         "ranking",
         "setting",
+        "acceptance_percent",
         "asian_percent",
         "high_school_10",
         "full_time_faculty",

@@ -9,11 +9,11 @@
 </div><!-- TopMenuSet -->
 
 <div class="ContentsFrame">
-	<div class="SchoolVisual" style="background-image:url('{% static 'imgsrc/college.jpg'%}');">
+	<div class="SchoolVisual" style="background-image:url('{{MEDIA_URL}}{{found_school.image}}');">
 		<div class="Cover">
 			<div class="Name">
 			<span>College Information</span><br />
-			Princeton University
+			{{found_school.name|capfirst}}
 			</div>
 
 
@@ -25,35 +25,35 @@
 					</colgroup>
 					<tr>
 						<th>Location : </th>
-						<td>Princeton, NJ</td>
+						<td>{{found_school.college.state|upper}}</td>
 					</tr>
 					<tr>
 						<th>Type : </th>
-						<td>Private</td>
+						<td>{{found_school.college.partition|capfirst}}</td>
 					</tr>
 					<tr>
 						<th>Tuition : </th>
-						<td>$49,055</td>
+						<td>${{found_school.college.tuition}}</td>
 					</tr>
 					<tr>
 						<th>Room & Board : </th>
-						<td>$18,520</td>
+						<td>${{found_school.college.room_and_board}}</td>
 					</tr>
 					<tr>
 						<th>SAT/ACT Requirement : </th>
-						<td>Yes</td>
+						<td>{{found_school.college.sat_act_requirement}}</td>
 					</tr>
 					<tr>
 						<th>SAT/ACT 25% : </th>
-						<td>1470 (New SAT 1600)</td>
+						<td>{{found_school.college.sat_25}} (New SAT 1600)</td>
 					</tr>
 					<tr>
 						<th>SAT/ACT 75% : </th>
-						<td>1590</td>
+						<td>{{found_school.college.sat_75}}</td>
 					</tr>
 					<tr>
 						<th>GPA Requirement : </th>
-						<td>3.87 unweighted</td>
+						<td>{{found_school.college.gpa_requirement}}</td>
 					</tr>
 				</table>
 			</div><!-- InfoTable -->
@@ -76,43 +76,43 @@
 				</colgroup>
 				<tr>
 					<th>Ranking : </th>
-					<td>-</td>
+					<td>{{found_school.college.ranking}}</td>
 					<th>Setting : </th>
-					<td>-</td>
+					<td>{{found_school.college.setting}}</td>
 					<th>Acceptance % : </th>
-					<td>-</td>
+					<td>{{found_school.college.acceptance_percent}}%</td>
 				</tr>
 				<tr>
 					<th>Year Founded : </th>
-					<td>-</td>
+					<td>{{found_school.founded}}</td>
 					<th># of Students : </th>
-					<td>-</td>
+					<td>{{found_school.number_students}}</td>
 					<th>Asian % : </th>
-					<td>-</td>
+					<td>{{found_school.college.asian_percent}}%</td>
 				</tr>
 				<tr>
 					<th>High School Top 10 % : </th>
-					<td>-</td>
+					<td>{{found_school.college.high_school_10}}%</td>
 					<th>Full Time Faculty (%) : </th>
-					<td>-</td>
+					<td>{{found_school.college.full_time_faculty}}%</td>
 					<th>Student/Faculty Ratio :</th>
-					<td>-</td>
+					<td>{{found_school.college.student_faculty_ratio}}</td>
 				</tr>
 				<tr>
 					<th>Classes Under 20 (%) : </th>
-					<td>-</td>
+					<td>{{found_school.college.class_under_20}}%</td>
 					<th>E/D, E/A Deadline : </th>
-					<td>-</td>
+					<td>{{found_school.college.ed_ea_deadline|date:"Y-m-d"}}</td>
 					<th>E/D, E/A Notice Date :</th>
-					<td>-</td>
+					<td>{{found_school.college.ed_ea_noticedate|date:"Y-m-d"}}</td>
 				</tr>
 				<tr>
 					<th>Application Deadline : </th>
-					<td>-</td>
+					<td>{{found_school.college.application_deadline|date:"Y-m-d"}}</td>
 					<th>Degrees Offered : </th>
-					<td>-</td>
+					<td>{{found_school.college.degree_offered}}</td>
 					<th>Most Popular Majors :</th>
-					<td>-</td>
+					<td>{{found_school.college.most_popular_majors}}</td>
 				</tr>
 			</table>
 		</div><!-- InfoTable -->
@@ -123,9 +123,7 @@
 		<div class="BOX03">
 			<div class="MTitle">Selling point</div>
 			<div class="MTextBox">
-				<li>Very famous boy school, more AP courses, excellent education quality, teachers are responsible, very experienced at handling any problems that boys may have.</li>
-				<li><b>Recent College Acceptance</b> : Amherst, Yale, Stanford, MIT, Georgetown, Johns Hopkins, Virginia Tech…</li>
-				<li><b>College Acceptance Rate</b> : 96%</li>
+				{{found_school.college.selling_point}}
 			</div><!-- MTextBox -->
 		</div>
 
@@ -140,9 +138,9 @@
 		<div class="BOX03E">
 			<div class="MTitle">Student’s Review</div>
 			<div class="MTextBox">
-				<li>I have been with BGE since I was in eighth grade and they were very helpful in preparing me for high school in the United States…..</li>
 				<div class="MMore">+ See More</div>
-			</div><!-- MTextBox -->
+			</div>
+			<!-- MTextBox -->
 		</div>
 		<div class="cdiv"></div>
 		<div class="EndPart"></div>
@@ -150,11 +148,10 @@
 
 		<div class="MTitle">Location& Contacts</div>
 		<div class="Location">
-			<div class="API" id="map_canvas">MapAPI</div>
 			<div class="Info">
-				<li>378 Main St, Shrewsbury MA 01545</li>
-				<li>+1 508-842-8934</li>
-				<li>https://www.stjohnshigh.org</li>
+				<li>{{found_school.address}}</li>
+				<li>{{found_school.phone}}</li>
+				<li>{{found_school.web_url}}</li>
 			</div>
 		</div><!-- Location -->
 		<div class="cdiv"></div>
