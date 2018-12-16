@@ -693,8 +693,17 @@ class CollegeSchoolView(LoginRequiredMixin, View):
 
     def get(self, request, school_id=None):
 
+        if school_id:
 
-        return render(request, 'agent_school/colleges.html', {})
+            try:
+                found_school = school_models.School.objects.get(pk=school_id)
+            except school_models.School.DoesNotExist:
+                return HttpResponse("Wrong school id", status=400)
+
+        else:
+            return HttpResponse('No school id', status=400)
+
+        return render(request, 'agent_school/colleges.html', {'found_school':found_school})
 
 
 class SecondarySummaryView(LoginRequiredMixin, View):

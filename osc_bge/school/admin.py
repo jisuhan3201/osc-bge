@@ -68,7 +68,7 @@ class CollegeAdmin(admin.ModelAdmin):
         "school",
         "toefl_requirement",
         "state",
-        "national_univ",
+        "partition",
         "tuition",
         "room_and_board",
         "sat_act_requirement",

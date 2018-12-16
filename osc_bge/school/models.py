@@ -146,14 +146,9 @@ class College(TimeStampedModel):
         ('mw', 'MW'),
         ('w', 'W'),
     )
-    NATIONAL_CHOICE = (
-        ('es', 'Good-Engineering'),
-        ('bs', 'Good-Business'),
-        ('as', 'Good-Art'),
-        ('ss', 'Good-Science'),
-        ('lac', 'Liveral-Arts-College'),
-        ('lc', 'Local-Collge'),
-        ('pu', 'Pathway-University'),
+    TYPE_CHOICES = (
+        ('private', 'Private'),
+        ('public', 'Public')
     )
     SETTING_CHOICE = (
         ('urban', 'Urban'),
@@ -163,7 +158,7 @@ class College(TimeStampedModel):
     school = models.OneToOneField(School, on_delete=models.SET_NULL, null=True, related_name="college")
     toefl_requirement = models.IntegerField(null=True, blank=True)
     state = models.CharField(max_length=80, null=True, choices=LOCATION_CHOICE)
-    national_univ = models.CharField(max_length=80, null=True, choices=NATIONAL_CHOICE)
+    partition = models.CharField(max_length=80, null=True, choices=TYPE_CHOICES)
     tuition = models.IntegerField(null=True, blank=True)
     room_and_board = models.IntegerField(null=True, blank=True)
     sat_act_requirement = models.CharField(max_length=80, null=True, blank=True)

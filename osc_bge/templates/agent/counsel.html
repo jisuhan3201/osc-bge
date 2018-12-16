@@ -11,13 +11,8 @@
 		<div class="SectionTitle">Counseling</div>
 		<div class="LeftTab" id="LeftTab01">
 			<div class="TabTitle">
-				{% if request.GET.form_type == 'college_form' or request.GET.form_type == 'college_name_form' %}
-				<div OnClick="TabOpen('LeftTab01');PageOpen('SchoolTab');" >Secondary</div>
-				<div OnClick="TabOpen('LeftTab02');PageOpen('CollegeTab');" class="On">College</div>
-				{% else %}
 				<div OnClick="TabOpen('LeftTab01');PageOpen('SchoolTab');" class="On">Secondary</div>
 				<div OnClick="TabOpen('LeftTab02');PageOpen('CollegeTab');">College</div>
-				{% endif %}
 			</div><!-- TabTitle -->
 			<div class="TabConternts" id="InnerTab0101">
 				<div class="InnerTab">
@@ -489,8 +484,8 @@
 				</colgroup>
 				<tr>
 					<th>College Name</th>
-					<th>Website</th>
 					<th>Location</th>
+					<th>Website</th>
 					<th>Ranking</th>
 					<th>Requirements</th>
 				</tr>
@@ -659,4 +654,15 @@
 
 	</div><!-- MainFrame -->
 </div><!--  ContentsFrame-->
+
+{% if request.GET.form_type == 'college_form' or request.GET.form_type == 'college_name_form' %}
+
+<script>
+   document.getElementById('LeftTab01').style.display='none';
+   document.getElementById('LeftTab02').style.display='block';
+   document.getElementById('SchoolTab').style.display='none';
+   document.getElementById('CollegeTab').style.display='block';
+</script>
+
+{% endif %}
 {% endblock %}
