@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('mypage', views.MypageView.as_view(), name='mypage_view'),
+    path('create/user', views.CreateUserView.as_view(), name='create_user_view'),
     path('accounting', views.AccountingView.as_view(), name='accounting_view'),
     path('accounting/<int:student_id>', views.AccountingStudentView.as_view(), name='accounting_student_view'),
     path('statistics', views.BgeStatisticsView.as_view(), name='bge_statistics_view'),

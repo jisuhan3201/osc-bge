@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static templatehelpers %}
+{% block content %}
+
+
+<div class="ContentsFrame">
+	<div class="MainAFrame" id="Main">
+		<div class="MTitle">Create User</div>
+		<div class="cdiv"></div>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+  		<div class="InformationSet">
+				<div class="Information">
+					<div class="InfoTable">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<colgroup>
+								<col width="80">
+								<col>
+								<col width="120">
+								<col>
+							</colgroup>
+							<tr>
+								<th>ID : </th>
+								<td class="InnerInputTD"><input type="text" name="username" class="TableInnerInput" size="18" required /></td>
+								<th>Image : </th>
+								<td class="InnerInputTD"><input type="file" name="image" class="TableInnerInput" style="border:0px;" required /></td>
+							</tr>
+							<tr>
+								<th>Email : </th>
+								<td class="InnerInputTD" colspan="3"><input type="text" name="email" class="TableInnerInput" size="48" required /></td>
+							</tr>
+							<tr>
+								<th>First Name : </th>
+								<td class="InnerInputTD"><input type="text" name="first_name" class="TableInnerInput" size="36" required /></td>
+								<th>Last Name : </th>
+								<td class="InnerInputTD"><input type="text" name="last_name" class="TableInnerInput" size="36" required /></td>
+							</tr>
+							<tr>
+								<th>Password : </th>
+								<td class="InnerInputTD">
+                  <input id="password" class="TableInnerInput" name="password" type="password" size="18" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;" placeholder="Password">
+                </td>
+								<th>Password Confirm:</th>
+								<td class="InnerInputTD">
+                  <input id="password_two" name="password_two" type="password" class="TableInnerInput" size="18" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" placeholder="Verify Password">
+                </td>
+							</tr>
+							<tr>
+								<th>Address : </th>
+								<td class="InnerInputTD" colspan="3"><input type="text" name="address" class="TableInnerInput" style="width:calc(100% - 20px);" required /></td>
+							</tr>
+							<tr>
+								<th>Type : </th>
+								<td class="InnerInputTD">
+									<label><input class="UserTypeClass" type="radio" name="type" value="bge_team" required /><span></span>BGE Admission Team</label>
+									<label><input class="UserTypeClass" type="radio" name="type" value="bge_branch_admin" /><span></span>BGE Branch Manager or Coordinator</label>
+									<label><input class="UserTypeClass" type="radio" name="type" value="bge_accountant" /><span></span>BGE Accountant</label>
+									<label><input class="UserTypeClass" type="radio" name="type" value="agency_admin" /><span></span>Agent Head Admin</label>
+                  <label><input class="UserTypeClass" type="radio" name="type" value="agency_branch_admin" /><span></span>Agent Branch Admin</label>
+                  <label><input class="UserTypeClass" type="radio" name="type" value="counselor" /><span></span>Agent Branch Counselor</label>
+								</td>
+                <th class="BgeBranchUserPositionClass" style="display:none;">Bge Branch User Position</th>
+                <td class="InnerInputTD BgeBranchUserPositionClass" style="display:none;">
+                  <select name="branch" id="BgeUserPosition">
+                    <option value="">Select Position</option>
+                    <option value="school_coordi">School Coordinator</option>
+                    <option value="student_coordi">Student Coordinator</option>
+                    <option value="host_coordi">Host Coordinator</option>
+                    <option value="others">Branch Manager or Others</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th>Select</th>
+                <td class="InnerInputTD" colspan="3">
+                  <select name="branch" id="BgeBranchSelect" style="display:none;">
+                    <option value="">Select Branch</option>
+                    {% for branch in all_branches %}
+                    <option value="{{branch.id}}">{{branch.name}}</option>
+                    {% endfor %}
+                  </select>
+                  <select id="AgentHeadSelect" name="agent_head" style="display:none;">
+                    <option value="">Select Agent Head</option>
+                    {% for head in all_agent_heads %}
+                    <option value="{{head.id}}">{{head.name}}</option>
+                    {% endfor %}
+                  </select>
+                  <select id="AgentBranchSelect" name="agent_branch" style="display:none;">
+                    <option value="">Select Agent Branch</option>
+                    {% for branch in all_agent_branches %}
+                    <option value="{{branch.id}}">{{branch.name}}</option>
+                    {% endfor %}
+                  </select>
+                </td>
+							</tr>
+						</table>
+					</div><!-- InfoTable -->
+				</div><!-- Information -->
+
+
+
+
+		</div><!-- InformationSet -->
+
+		<div class="SubmitButtonLine">
+			<button class="Submit" type="submit">Create</button>
+		</div>
+		<div class="EndPart"></div>
+
+
+  </form>
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+
+{% endblock %}

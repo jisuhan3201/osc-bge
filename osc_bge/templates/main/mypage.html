@@ -6,6 +6,9 @@
 <div class="ContentsFrame">
 	<div class="MainAFrame" id="Main">
 		<div class="MTitle">Member Information</div>
+		{% if user.type == 'bge_admin' or user.type == 'agency_admin' %}
+		<a href="/create/user" class="IsolationButton" style="float:right;"> + Create User</a>
+		{% endif %}
 		<div class="cdiv"></div>
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}

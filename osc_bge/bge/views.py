@@ -6,7 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core import serializers
 from django.views import View
+from django.contrib.auth import get_user_model
 from osc_bge.users import forms as user_forms
+from osc_bge.users import models as user_models
 from osc_bge.agent import models as agent_models
 from osc_bge.form import models as form_models
 from osc_bge.school import models as school_models
@@ -67,6 +69,115 @@ class MypageView(LoginRequiredMixin, View):
                 return HttpResponse('Password Not correct', status=401)
 
         return HttpResponseRedirect(request.path_info)
+
+
+class CreateUserView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def get(self, request):
+
+        if request.user.type == 'bge_admin' or request.user.type == 'agency_admin':
+
+            all_branches = models.BgeBranch.objects.all()
+            all_agent_heads = agent_models.AgencyHead.objects.all()
+            all_agent_branches = agent_models.Agency.objects.all()
+
+            return render(request, 'main/create_user.html', {
+                'all_branches':all_branches,
+                'all_agent_heads':all_agent_heads,
+                'all_agent_branches':all_agent_branches,
+            })
+
+        else:
+            return HttpResponse('Unauthorized User', status=400)
+
+
+    def post(self, request):
+
+        data = request.POST
+        User = get_user_model()
+
+        if request.user.type == 'bge_admin' or request.user.type == 'agency_admin':
+
+            user = User.objects.create_user(
+                username=data.get('username'),
+                email=data.get('email'),
+                password=data.get('password'),
+                first_name=data.get('first_name'),
+                last_name=data.get('last_name'),
+                address=data.get('address'),
+                type=data.get('type')
+            )
+            user.save()
+
+            if request.FILES.get('image'):
+                user_form = user_forms.UserImageForm(request.POST,request.FILES)
+                if user_form.is_valid():
+                    user.image = user_form.cleaned_data['image']
+                    user.save()
+
+            if data.get('type') == 'bge_branch_admin':
+
+                found_branch = models.BgeBranch.objects.get(id=int(data.get('branch')))
+                if data.get('branch_user_type') == 'school_coordi':
+                    branch_admin = user_models.BgeBranchCoordinator(
+                        position='school_coordi',
+                        user=user,
+                        branch=found_branch,
+                    )
+                    branch_admin.save()
+                elif data.get('branch_user_type') == 'student_coordi':
+                    branch_admin = user_models.BgeBranchCoordinator(
+                        user=user,
+                        branch=found_branch,
+                        position='student_coordi',
+                    )
+                    branch_admin.save()
+                elif data.get('branch_user_type') == 'host_coordi':
+                    branch_admin = user_models.BgeBranchCoordinator(
+                        user=user,
+                        branch=found_branch,
+                        position='host_coordi',
+                    )
+                    branch_admin.save()
+                else:
+                    branch_admin = user_models.BgeBranchAdminUser(
+                        user=user,
+                        branch=found_branch,
+                    )
+                    branch_admin.save()
+
+            elif data.get('type') == 'agency_admin':
+
+                found_head = agent_models.AgencyHead.objects.get(id=int(data.get('agent_head')))
+                agent_admin = user_models.AgencyHeadAdminUser(
+                    user=user,
+                    agency_head=found_head
+                )
+                agent_admin.save()
+
+            elif data.get('type') == 'agency_branch_admin':
+
+                found_agent = agent_models.Agency.objects.get(id=int(data.get('agent_branch')))
+                agent_admin = user_models.AgencyAdminUser(
+                    user=user,
+                    agency=found_agent,
+                )
+                agent_admin.save()
+
+            elif data.get('type') == 'counselor':
+
+                found_agent = agent_models.Agency.objects.get(id=int(data.get('agent_branch')))
+                counselor = user_models.Counselor(
+                    user=user,
+                    agency=found_agent,
+                )
+                counselor.save()
+
+        else:
+            return HttpResponse('Unauthorized User', status=400)
+
+        return HttpResponseRedirect('/accounts/logout/')
 
 
 class BgeStatisticsView(LoginRequiredMixin, View):
@@ -315,12 +426,12 @@ class BgeStatisticsView(LoginRequiredMixin, View):
             "total_applied":total_applied,
             "total_cancelled":total_cancelled,
             "total_enrolled":total_enrolled,
-            "total_accepted_percent":total_accepted_percent,
+            "total_accepted":total_accepted,
             "new_total_inquired" : new_total_inquired,
             "new_total_applied" : new_total_applied,
             "new_total_cancelled" : new_total_cancelled,
             "new_total_enrolled" : new_total_enrolled,
-            "new_total_accepted_percent" : new_total_accepted_percent,
+            "new_total_accepted" : new_total_accepted,
             "default_start_date": datetime.today() - relativedelta(weeks=1, days=-1),
             "default_end_date":datetime.today(),
             "counsels":counsels,

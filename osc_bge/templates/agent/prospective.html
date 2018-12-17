@@ -17,6 +17,9 @@
   					<th>Name, Phone, E-mail Search :</th>
   					<td class="InnerInputTD">
   						<input type="text" class="TableInnerInput" size="36" name="q" value="{{request.GET.q}}"/>
+						</td>
+						<th></th>
+						<td>
               {% if request.GET.registered  == 'registered' %}
   						<label><input type="radio" name="registered" value="registered" checked/><span></span>Registered</label>
   						<label><input type="radio" name="registered" value="unregistered"/><span></span>No Registered</label>
@@ -94,6 +97,9 @@
                 <option value="1y">Over a year</option>
                 {% endif %}
   						</select>
+						</td>
+						<th></th>
+						<td>
               {% if request.GET.country == 'us' %}
               <label><input type="radio" name="country" value="us" checked/><span></span>US</label>
   						<label><input type="radio" name="country" value="ca"/><span></span>CAN</label>
