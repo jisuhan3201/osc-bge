@@ -257,7 +257,7 @@
 					{% for college in colleges %}
 						{% if college.state == 'ne' %}
 							{% if college.school.partnership == 1 or college.school.partnership == 2 or college.school.partnership == 3%}
-							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK"><strong style="color:orange;">{{college.school}}</strong></a></li>
+							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK"><strong style="color:orange;">{{college.ranking}}. {{college.school}}</strong></a></li>
 							{% else %}
 							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK">{{college.school}}</a></li>
 							{% endif %}
@@ -278,7 +278,7 @@
 					{% for college in colleges %}
 						{% if college.state == 'se' %}
 							{% if college.school.partnership == 1 or college.school.partnership == 2 or college.school.partnership == 3%}
-							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK"><strong style="color:orange;">{{college.school}}</strong></a></li>
+							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK"><strong style="color:orange;">{{college.ranking}}. {{college.school}}</strong></a></li>
 							{% else %}
 							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK">{{college.school}}</a></li>
 							{% endif %}
@@ -299,7 +299,7 @@
 					{% for college in colleges %}
 						{% if college.state == 'mw' %}
 							{% if college.school.partnership == 1 or college.school.partnership == 2 or college.school.partnership == 3%}
-							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK"><strong style="color:orange;">{{college.school}}</strong></a></li>
+							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK"><strong style="color:orange;">{{college.ranking}}. {{college.school}}</strong></a></li>
 							{% else %}
 							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK">{{college.school}}</a></li>
 							{% endif %}
@@ -320,7 +320,7 @@
 					{% for college in colleges %}
 						{% if college.state == 'w' %}
 							{% if college.school.partnership == 1 or college.school.partnership == 2 or college.school.partnership == 3%}
-							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK"><strong style="color:orange;">{{college.school}}</strong></a></li>
+							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK"><strong style="color:orange;">{{college.ranking}}. {{college.school}}</strong></a></li>
 							{% else %}
 							<li><a href="/school/college/summary/{{college.school.id}}" target="_BLANK">{{college.school}}</a></li>
 							{% endif %}
