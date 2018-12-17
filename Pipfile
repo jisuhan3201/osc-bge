@@ -38,6 +38,7 @@ django-seed = "*"
 django-bootstrap-datepicker-plus = "*"
 "django-bootstrap4" = "*"
 awsebcli = "*"
+"xhtml2pdf" = "*"
 
 [requires]
 python_version = "3.6"

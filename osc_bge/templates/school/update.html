@@ -612,7 +612,7 @@ document.getElementById(TabName).style.display='block';
 							<label><input type="radio" name="accept_12_grade" value="" checked/><span></span>No</label>
               {% endif %}
 						</td>
-						<th>Toefl Requirement  : </th>
+						<th>TOEFL Requirement  : </th>
 						<td>
 							{% if found_school.secondary.toefl_requirement %}
 							<label><input type="text" name="toefl_requirement" placeholder="Please Enter Only Numbers.."pattern="\d*" value="{{found_school.secondary.toefl_requirement}}"/><span></span></label>
@@ -913,7 +913,7 @@ document.getElementById(TabName).style.display='block';
 							<label><input type="radio" name="esl" value="no" checked/><span></span>No</label>
               {% endif %}
 						</td>
-						<th>Student: Teach Ratio : </th>
+						<th>Student : Teacher Ratio : </th>
 						<td class="InnerInputTD">
               {% if found_school.secondary.student_teach_ratio %}
               <input type="text" name="student_teach_ratio" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.student_teach_ratio}}" />
@@ -962,13 +962,13 @@ document.getElementById(TabName).style.display='block';
 					<tr>
 						<th>Clubs # : </th>
 						<td class="InnerInputTD"><input type="text" name="number_clubs" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.number_clubs}}" /></td>
-						<th>Club Lists : </th>
+						<th>Club List : </th>
 						<td class="InnerInputTD"><input type="text" name="list_clubs" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.list_clubs}}" /></td>
 					</tr>
 					<tr>
 						<th>Sports # : </th>
 						<td class="InnerInputTD"><input type="text" name="number_sports" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.number_sports}}" /></td>
-						<th>Sports Lists : </th>
+						<th>Sports List : </th>
 						<td class="InnerInputTD"><input type="text" name="list_sports" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.list_sports}}" /></td>
 					</tr>
 

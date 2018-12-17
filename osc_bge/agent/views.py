@@ -350,7 +350,7 @@ class CounselView(LoginRequiredMixin, View):
 
             school_id = self.request.GET.get('school_id')
             if school_id:
-                queryset = models.College.objects.filter(id=int(school_id))
+                queryset = school_models.College.objects.filter(id=int(school_id))
 
         else:
             queryset = None

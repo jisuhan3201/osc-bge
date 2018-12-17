@@ -29,7 +29,7 @@
 					</tr>
 					<tr>
 						<th>Type : </th>
-						<td>{{found_school.college.partition|capfirst}}</td>
+						<td>{{found_school.college.college_type|capfirst}}</td>
 					</tr>
 					<tr>
 						<th>Tuition : </th>
@@ -78,7 +78,7 @@
 					<th>Ranking : </th>
 					<td>{{found_school.college.ranking}}</td>
 					<th>Setting : </th>
-					<td>{{found_school.college.setting}}</td>
+					<td>{{found_school.college.setting|capfirst}}</td>
 					<th>Acceptance % : </th>
 					<td>{{found_school.college.acceptance_percent}}%</td>
 				</tr>
@@ -121,7 +121,7 @@
 
 
 		<div class="BOX03">
-			<div class="MTitle">Selling point</div>
+			<div class="MTitle">Selling Point</div>
 			<div class="MTextBox">
 				{{found_school.college.selling_point}}
 			</div><!-- MTextBox -->
@@ -151,7 +151,7 @@
 			<div class="Info">
 				<li>{{found_school.address}}</li>
 				<li>{{found_school.phone}}</li>
-				<li>{{found_school.web_url}}</li>
+				<li><a href="{{found_school.web_url}}">{{found_school.web_url}}</a></li>
 			</div>
 		</div><!-- Location -->
 		<div class="cdiv"></div>
