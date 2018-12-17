@@ -35,12 +35,18 @@ class SecondaryView(LoginRequiredMixin, View):
             if grade:
                 if len(grade) != 1:
                     queryset = queryset.filter(Q(grade_start__lte=grade[0]) | Q(grade_end__gte=grade[-1]))
+                    to_schools = models.School.objects.filter(tb_of_og__grade__in=grade, tb_of_og__quantity__gt=0).distinct()
+                    queryset = queryset.filter(school__in=to_schools)
                 else:
                     queryset = queryset.filter(grade_start__lte=grade[0], grade_end__gte=grade[0])
+                    to_schools = models.School.objects.filter(tb_of_og__grade=grade[0], tb_of_og__quantity__gt=0).distinct()
+                    queryset = queryset.filter(school__in=to_schools)
 
-            term = self.request.GET.get('term', None)
+            term = self.request.GET.getlist('term', None)
             if term:
-                queryset = queryset.filter(school__term=term)
+                queryset = queryset.filter(school__term__in=term).distinct()
+                to_schools = models.School.objects.filter(tb_of_og__term__in=term, tb_of_og__quantity__gt=0).distinct()
+                queryset = queryset.filter(school__in=to_schools)
 
             toefl_requirement = self.request.GET.get('toefl_requirement', None)
             if toefl_requirement:
@@ -118,14 +124,22 @@ class SecondaryView(LoginRequiredMixin, View):
                 except:
                     return HttpResponse('Not Branch Admin or Branch coordi', status=400)
 
-            all_schools = models.School.objects.filter(provider_branch=found_branch).order_by('name')
+            all_schools = models.Secondary.objects.filter(school__provider_branch=found_branch).order_by('school__name')
 
             if request.GET.get('search_name'):
-                search_schools = models.School.objects.filter(name__icontains=request.GET.get('search_name'), provider_branch=found_branch)
+                search_schools = models.Secondary.objects.filter(school__name__icontains=request.GET.get('search_name'), school__provider_branch=found_branch).order_by('school__name')
             elif request.GET.get('search_id'):
-                search_schools = models.School.objects.filter(id=request.GET.get('search_id'))
+                search_schools = models.Secondary.objects.filter(school__id=request.GET.get('search_id'))
             else:
                 search_schools = None
+
+            if search_schools:
+                for secondary in search_schools:
+                    try:
+                        last_log = models.SchoolCommunicationLog.objects.filter(school=secondary.school).latest('created_at')
+                        secondary.last_log = last_log
+                    except models.SchoolCommunicationLog.DoesNotExist:
+                        secondary.last_log = None
 
             return render(request, 'school/secondary.html', {
                 'all_schools':all_schools,
@@ -219,12 +233,14 @@ class SecondaryCreateView(LoginRequiredMixin, View):
         provider_branches = bge_models.BgeBranch.objects.all().order_by('name')
         admission_coordi = user_models.BgeBranchCoordinator.objects.filter(position='admission_coordi')
         school_coordi = user_models.BgeBranchCoordinator.objects.filter(position='school_coordi')
+        to_range = range(7, 13)
 
         return render(request, 'school/create.html', {
             'secondaries':secondaries,
             'provider_branches':provider_branches,
             'admission_coordi':admission_coordi,
             'school_coordi':school_coordi,
+            'to_range': to_range,
         })
 
     def post(self, request):
@@ -290,6 +306,25 @@ class SecondaryCreateView(LoginRequiredMixin, View):
                     school_photo.school = found_school
                     school_photo.photo = photo
                     school_photo.save()
+
+        for num in range(7 ,13):
+
+
+            found_school_fall_to = models.SchoolTotalQuantity(
+                school=school,
+                term='fall',
+                grade=num,
+                quantity=int(data.get('to_value_fall_'+str(num))) if data.get('to_value_fall_'+str(num)) else 0
+            )
+            found_school_fall_to.save()
+
+            found_school_spring_to = models.SchoolTotalQuantity(
+                school=school,
+                term='spring',
+                grade=num,
+                quantity=int(data.get('to_value_spring_'+str(num))) if data.get('to_value_spring_'+str(num)) else 0
+            )
+            found_school_spring_to.save()
 
         secondary = models.Secondary(
             school=school,
@@ -366,6 +401,13 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
         for school_type in school_types:
             school_type_list.append(school_type.type)
 
+        to_range = range(7, 13)
+
+        try:
+            found_school_to = models.SchoolTotalQuantity.objects.filter(school=found_school)
+        except models.SchoolTotalQuantity.DoesNotExist:
+            found_school_to = None
+
         return render(request, 'school/update.html', {
             'found_school':found_school,
             'secondaries':secondaries,
@@ -377,6 +419,8 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
             'school_type_list':school_type_list,
             'current_student_reviews':current_student_reviews,
             "graduate_profiles":graduate_profiles,
+            'to_range':to_range,
+            "found_school_to":found_school_to,
         })
 
     def post(self, request, school_id=None):
@@ -454,6 +498,38 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
             for photo_id in data.getlist('delete_photo'):
                 found_school_photo = models.SchoolPhotos.objects.get(id=int(photo_id))
                 found_school_photo.delete()
+
+        for num in range(7 ,13):
+
+            if data.get('to_value_fall_'+ str(num)):
+
+                try:
+                    found_school_fall_to = models.SchoolTotalQuantity.objects.get(school=found_school, term='fall', grade=num)
+                    found_school_fall_to.quantity = int(data.get('to_value_fall_'+str(num)))
+                    found_school_fall_to.save()
+                except models.SchoolTotalQuantity.DoesNotExist:
+                    found_school_fall_to = models.SchoolTotalQuantity(
+                        school=found_school,
+                        term='fall',
+                        grade=int(data.get('to_grade_fall_'+str(num))) if data.get('to_grade_fall_'+str(num)) else None,
+                        quantity=int(data.get('to_value_fall_'+str(num))) if data.get('to_value_fall_'+str(num)) else None
+                    )
+                    found_school_fall_to.save()
+
+            if data.get('to_value_spring_'+ str(num)):
+
+                try:
+                    found_school_spring_to = models.SchoolTotalQuantity.objects.get(school=found_school, term='spring', grade=num)
+                    found_school_spring_to.quantity = int(data.get('to_value_spring_'+str(num)))
+                    found_school_spring_to.save()
+                except models.SchoolTotalQuantity.DoesNotExist:
+                    found_school_spring_to = models.SchoolTotalQuantity(
+                        school=found_school,
+                        term='spring',
+                        grade=int(data.get('to_grade_spring_'+str(num))) if data.get('to_grade_spring_'+str(num)) else None,
+                        quantity=int(data.get('to_value_spring_'+str(num))) if data.get('to_value_spring_'+str(num)) else None
+                    )
+                    found_school_spring_to.save()
 
         try:
             found_secodary = models.Secondary.objects.get(school=found_school)
@@ -685,8 +761,72 @@ class SecondaryLogView(LoginRequiredMixin, View):
 
     def get(self, request, school_id=None):
 
+        if school_id:
 
-        return render(request, 'school/testlog.html', {})
+            try:
+                bge_branch_admin = user_models.BgeBranchAdminUser.objects.get(user=request.user)
+                found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
+            except:
+                found_branch=None
+
+            if not found_branch:
+                try:
+                    bge_branch_admin = user_models.BgeBranchCoordinator.objects.get(user=request.user)
+                    found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
+                except:
+                    return HttpResponse('Not Branch Admin or Branch coordi', status=400)
+
+            all_schools = school_models.Secondary.objects.filter(school__provider_branch=found_branch)
+
+            try:
+                found_school = school_models.School.objects.get(pk=school_id)
+            except school_models.School.DoesNotExist:
+                return HttpResponse("Wrong school id", status=400)
+
+            found_logs = models.SchoolCommunicationLog.objects.filter(school=found_school).order_by("-created_at")
+
+        else:
+            return HttpResponse('No school id', status=400)
+
+        return render(request, 'school/school_log.html', {
+            "all_schools":all_schools,
+            "found_school":found_school,
+            "found_logs":found_logs,
+        })
+
+
+    def post(self, request, school_id=None):
+
+        data = request.POST
+
+        if school_id:
+
+            if data.get('log_id'):
+                found_log = models.SchoolCommunicationLog.objects.get(id=int(data.get('log_id')))
+                found_log.delete()
+                return HttpResponseRedirect(request.path_info)
+
+            try:
+                found_school = school_models.School.objects.get(pk=school_id)
+            except school_models.School.DoesNotExist:
+                return HttpResponse("Wrong school id", status=400)
+
+            log = models.SchoolCommunicationLog(
+                school=found_school,
+                writer=request.user,
+                comment=data.get('comment'),
+            )
+            log.save()
+
+            log_form = forms.SchoolLogForm(request.POST,request.FILES)
+            if log_form.is_valid():
+                log.file = log_form.cleaned_data['file']
+                log.save()
+
+        else:
+            return HttpResponse(status=400)
+
+        return HttpResponseRedirect(request.path_info)
 
 
 class CollegeSchoolView(LoginRequiredMixin, View):

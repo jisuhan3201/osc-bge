@@ -212,3 +212,24 @@ class SchoolPhotos(TimeStampedModel):
 
     def __str__(self):
         return "{}".format(self.school)
+
+
+class SchoolTotalQuantity(TimeStampedModel):
+
+    TERM_CHOICES = (
+        ('fall', 'Fall'),
+        ('spring', 'Spring')
+    )
+
+    school = models.ForeignKey(School, on_delete=models.SET_NULL, null=True, related_name="tb_of_og")
+    term = models.CharField(max_length=80, null=True, blank=True, choices=TERM_CHOICES)
+    grade = models.IntegerField(null=True, blank=True)
+    quantity = models.IntegerField(null=True, blank=True)
+
+
+class SchoolCommunicationLog(TimeStampedModel):
+
+    school = models.ForeignKey(School, on_delete=models.SET_NULL, null=True, related_name="logs")
+    writer = models.ForeignKey(user_models.User, on_delete=models.SET_NULL, null=True)
+    comment = models.TextField(null=True, blank=True)
+    file = models.FileField(upload_to='logs/schools', null=True, blank=True)

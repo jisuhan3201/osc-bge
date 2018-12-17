@@ -257,12 +257,18 @@ class CounselView(LoginRequiredMixin, View):
             if grade:
                 if len(grade) != 1:
                     queryset = queryset.filter(Q(grade_start__lte=grade[0]) | Q(grade_end__gte=grade[-1]))
+                    to_schools = school_models.School.objects.filter(tb_of_og__grade__in=grade, tb_of_og__quantity__gt=0).distinct()
+                    queryset = queryset.filter(school__in=to_schools)
                 else:
                     queryset = queryset.filter(grade_start__lte=grade[0], grade_end__gte=grade[0])
+                    to_schools = school_models.School.objects.filter(tb_of_og__grade=grade[0], tb_of_og__quantity__gt=0).distinct()
+                    queryset = queryset.filter(school__in=to_schools)
 
-            term = self.request.GET.get('term', None)
+            term = self.request.GET.getlist('term', None)
             if term:
-                queryset = queryset.filter(school__term=term)
+                queryset = queryset.filter(school__term__in=term).distinct()
+                to_schools = school_models.School.objects.filter(tb_of_og__term__in=term, tb_of_og__quantity__gt=0).distinct()
+                queryset = queryset.filter(school__in=to_schools)
 
             toefl_requirement = self.request.GET.get('toefl_requirement', None)
             if toefl_requirement:

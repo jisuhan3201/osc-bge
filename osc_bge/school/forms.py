@@ -14,3 +14,10 @@ class SchoolPhotoForm(forms.ModelForm):
     class Meta:
         model = models.SchoolPhotos
         fields = ('photo',)
+
+
+class SchoolLogForm(forms.ModelForm):
+
+    class Meta:
+        model = models.SchoolCommunicationLog
+        fields = ('file',)

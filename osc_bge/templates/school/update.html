@@ -422,7 +422,7 @@ document.getElementById(TabName).style.display='block';
 		<!-- 등록일 경우 -->
 		<!-- <div class="PTitle">School Profile Regist</div> -->
 
-		<div class="MTitle">School information</div>
+		<div class="MTitle">School Information</div>
 		<form method="post" enctype="multipart/form-data">
 			{% csrf_token %}
 			<div class="InfoTable">
@@ -562,13 +562,13 @@ document.getElementById(TabName).style.display='block';
 						<th>(Enroll) Term  : </th>
 						<td>
               {% if found_school.term == 'fall' %}
-							<label><input type="radio" name="term" value="fall" checked/><span></span>Fall</label>
+							<label><input type="radio" name="term" value="fall" checked required/><span></span>Fall</label>
 							<label><input type="radio" name="term" value="spring" /><span></span>Spring</label>
               {% elif found_school.term == 'spring' %}
-              <label><input type="radio" name="term" value="fall" /><span></span>Fall</label>
+              <label><input type="radio" name="term" value="fall" required/><span></span>Fall</label>
 							<label><input type="radio" name="term" value="spring" checked/><span></span>Spring</label>
               {% else %}
-              <label><input type="radio" name="term" value="fall" /><span></span>Fall</label>
+              <label><input type="radio" name="term" value="fall" required/><span></span>Fall</label>
 							<label><input type="radio" name="term" value="spring" /><span></span>Spring</label>
               {% endif %}
 						</td>
@@ -587,17 +587,17 @@ document.getElementById(TabName).style.display='block';
 						<th>Serving Start Grades  : </th>
 						<td class="InnerInputTD">
               {% if found_school.secondary.grade_start %}
-              <input type="text" name="grade_start" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.grade_start}}" pattern="\d*"/>
+              <input type="text" name="grade_start" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.grade_start}}" pattern="\d*" required/>
               {% else %}
-              <input type="text" name="grade_start" class="TableInnerInput" style="width:calc(100% - 10px);"pattern="\d*"/>
+              <input type="text" name="grade_start" class="TableInnerInput" style="width:calc(100% - 10px);"pattern="\d*" required/>
               {% endif %}
             </td>
 						<th>Serving End Grades  : </th>
             <td class="InnerInputTD">
               {% if found_school.secondary.grade_end %}
-              <input type="text" name="grade_end" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.grade_end}}" pattern="\d*"/>
+              <input type="text" name="grade_end" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.grade_end}}" pattern="\d*" required/>
               {% else %}
-              <input type="text" name="grade_end" class="TableInnerInput" style="width:calc(100% - 10px);" pattern="\d*"/>
+              <input type="text" name="grade_end" class="TableInnerInput" style="width:calc(100% - 10px);" pattern="\d*" required/>
               {% endif %}
           </td>
 					</tr>
@@ -996,6 +996,21 @@ document.getElementById(TabName).style.display='block';
 						<th>Fee Memo : </th>
 						<td class="InnerInputTD" colspan="3"><input type="text" name="fee_memo" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
 					</tr>
+					{% for school_to in found_school_to %}
+						<tr>
+							<th>T.O. ( Term : {{school_to.term|capfirst}} / Grade : {{school_to.grade}}) : </th>
+							<td class="InnerInputTD" colspan="3">
+								<select class="TableInnerInput" name="to_term_{{school_to.term}}_{{school_to.grade}}" readonly>
+									<option value="{{school_to.term}}">{{school_to.term|capfirst}}</option>
+								</select>
+								<select class="TableInnerInput" name="to_grade_{{school_to.term}}_{{school_to.grade}}" readonly>
+									<option value="{{school_to.grde}}">{{school_to.grade}}</option>
+								</select>
+								<input type="text" name="to_value_{{school_to.term}}_{{school_to.grade}}" class="TableInnerInput" value="{{school_to.quantity}}" pattern="\d*" placeholder="Only Number.."/>
+							</td>
+						</tr>
+					{% endfor %}
+
 				</table>
 			</div><!-- InfoTable -->
 

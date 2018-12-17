@@ -273,7 +273,7 @@
 		<div class="PTitle">School Profile Register</div>
 
 
-		<div class="MTitle">School information</div>
+		<div class="MTitle">School Information</div>
 		<form method="post" enctype="multipart/form-data">
 			{% csrf_token %}
 			<div class="InfoTable">
@@ -359,7 +359,7 @@
 					<tr>
 						<th>(Enroll) Term  : </th>
 						<td>
-							<label><input type="radio" name="term" value="fall" /><span></span>Fall</label>
+							<label><input type="radio" name="term" value="fall" required/><span></span>Fall</label>
 							<label><input type="radio" name="term" value="spring" /><span></span>Spring</label>
 						</td>
 						<th>(Accepting) Transfer  : </th>
@@ -370,9 +370,9 @@
 					</tr>
 					<tr>
 						<th>Serving Start Grades  : </th>
-						<td class="InnerInputTD"><input type="text" pattern="\d*" name="grade_start" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+						<td class="InnerInputTD"><input type="text" pattern="\d*" name="grade_start" class="TableInnerInput" style="width:calc(100% - 10px);" required/></td>
 						<th>Serving End Grades  : </th>
-						<td class="InnerInputTD"><input type="text" pattern="\d*" name="grade_end" class="TableInnerInput" style="width:calc(100% - 10px);" /></td>
+						<td class="InnerInputTD"><input type="text" pattern="\d*" name="grade_end" class="TableInnerInput" style="width:calc(100% - 10px);" required/></td>
 					</tr>
 					<tr>
 						<th>Accepting 12th Grade  : </th>
@@ -550,6 +550,30 @@
 						<th>Fee Memo : </th>
 						<td class="InnerInputTD" colspan="3"><input type="text" name="fee_memo" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
 					</tr>
+					{% for grade in to_range %}
+					<tr>
+						<th>T.O. ( Term : Fall / Grade : {{grade}}) : </th>
+						<td class="InnerInputTD">
+							<select class="TableInnerInput" name="to_term_fall_{{grade}}" readonly>
+								<option value="fall">Fall</option>
+							</select>
+							<select class="TableInnerInput" name="to_grade_fall_{{grade}}" readonly>
+								<option value="{{grade}}">{{grade}}</option>
+							</select>
+							<input type="text" name="to_value_fall_{{grade}}" class="TableInnerInput" value="" pattern="\d*" placeholder="Only Number.."/>
+						</td>
+						<th>T.O. ( Term : Spring / Grade : {{grade}}) : </th>
+						<td class="InnerInputTD">
+							<select class="TableInnerInput" name="to_term_spring_{{grade}}" readonly>
+								<option value="spring">Spring</option>
+							</select>
+							<select class="TableInnerInput" name="to_grade_spring_{{grade}}" readonly>
+								<option value="{{grade}}">{{grade}}</option>
+							</select>
+							<input type="text" name="to_value_spring_{{grade}}" class="TableInnerInput" value="" pattern="\d*" placeholder="Only Number.."/>
+						</td>
+					</tr>
+					{% endfor %}
 				</table>
 			</div><!-- InfoTable -->
 

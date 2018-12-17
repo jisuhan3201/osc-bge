@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+#PopCommunicationUpdate {display:none;}
+</style>
+<div class="PopCover" id="PopCommunicationUpdate">
+	<div class="Popup">
+		<div class="TitleSet">
+			<div class="Close" OnClick="document.getElementById('PopCommunicationUpdate').style.display='none';">X</div>
+			<div class="Title">Add New Log</div>
+		</div>
+		<div class="Contents">
+
+		<form method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			<div class="InfoTable">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<colgroup>
+						<col width="110">
+						<col>
+					</colgroup>
+					<tr>
+						<th>Write : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" size="24" value="{{user.first_name}} {{user.last_name}}" readonly/>
+						</td>
+					</tr>
+					<tr>
+						<th>Date : </th>
+						<td class="InnerInputTD">
+							<input type="text" class="TableInnerInput" size="10" value="{% now 'Y-m-d'%}" readonly/>
+						</td>
+					</tr>
+					<tr>
+						<th>Comment : </th>
+						<td class="InnerInputTD">
+							<textarea class="TableInnerTextarea" name="comment"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<th>File Attachment : </th>
+						<td class="InnerInputTD">
+							<input type="file" name="file" value="">
+						</td>
+					</tr>
+				</table>
+			</div><!-- InfoTable -->
+
+
+			<div class="PopButtonLine">
+				<button class="Submit" type="submit">SAVE</button>
+			</div>
+
+		</form>
+
+		</div>
+	</div>
+</div>
+
+
+
+<div class="ContentsFrame">
+
+	<div class="LeftFrame" id="LeftF">
+		<div class="SectionTitle">Secondary Schools Logs</div>
+		<div class="LeftTab" id="LeftTab01">
+			<div class="TabConternts" id="InnerTab0101">
+				<div class="InnerTabContents">
+					{% for secondary in all_schools %}
+						{% if secondary.school.partnership == 1 or secondary.school.partnership == 2 or secondary.school.partnership == 3 %}
+						<li><a href="/school/secondary/logs/{{secondary.school.id}}"><strong style="color:orange;">{{secondary.school.name}}</strong></a></li>
+						{% else %}
+						<li><a href="/school/secondary/logs/{{secondary.school.id}}">{{secondary.school.name}}</a></li>
+						{% endif %}
+					{% endfor %}
+				</div><!-- InnerTabContents -->
+			</div><!-- TabConternts ID:InnerTab0101 -->
+		</div><!-- LeftTab ID:LeftTab01 -->
+		<br />
+	</div><!-- LeftFrame -->
+
+
+
+	<div class="MainFrame">
+
+
+		<div class="MTitle">{{found_school.name}} <span>Communication Log</span></div>
+		<div class="ListSearch Aright">
+			<div><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';" class="IsolationButton">+ &nbsp; Add New Log</a></div>
+		</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<colgroup>
+					<col>
+				</colgroup>
+				<tr>
+					<th>Date</th>
+					<th>Comment</th>
+					<th>File</th>
+					<th>Writer</th>
+					<th>Management</th>
+				</tr>
+				{% for log in found_logs %}
+				<tr>
+					<td>{{log.created_at|date:"Y-m-d"}}</td>
+					<td class="Aleft">{{log.comment}}</td>
+					<td><a href="{{MEDIA_URL}}{{log.file}}" download>{{log.file}}</a></td>
+					<td>{{log.writer.first_name}} {{log.writer.last_name}}</td>
+					<td>
+						<form method="POST">
+							{% csrf_token %}
+							<input type="text" name="log_id" value="{{log.id}}" hidden>
+							<button type="submit" class="IsolationButton">DEL</button>
+						</form>
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div><!-- ListTable -->
+
+	</div><!-- MainFrame -->
+</div><!--  ContentsFrame-->
+{% endblock %}

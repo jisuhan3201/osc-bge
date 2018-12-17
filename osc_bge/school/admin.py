@@ -106,3 +106,15 @@ class SchoolPhotosAdmin(admin.ModelAdmin):
         "school",
         "photo",
     )
+
+
+@admin.register(models.SchoolTotalQuantity)
+class SchoolTotalQuantityAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "id",
+        "school",
+        "term",
+        "grade",
+        "quantity",
+    )

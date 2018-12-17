@@ -40,7 +40,7 @@ class Student(TimeStampedModel):
 
     agency_admin = models.ForeignKey(user_models.AgencyAdminUser, on_delete=models.SET_NULL, null=True)
     counselor = models.ForeignKey(user_models.Counselor, on_delete=models.SET_NULL, null=True)
-    school = models.ForeignKey(school_models.School, on_delete=models.SET_NULL, null=True)
+    school = models.ForeignKey(school_models.School, on_delete=models.SET_NULL, null=True, related_name='students')
     parent_info = models.ForeignKey(ParentInfo, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=80, null=True)
     gender = models.CharField(max_length=80, choices=GENDER_CHOICES, null=True)
