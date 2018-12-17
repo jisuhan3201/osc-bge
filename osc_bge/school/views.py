@@ -11,6 +11,7 @@ from osc_bge.bge import models as bge_models
 from osc_bge.student import models as student_models
 from osc_bge.school import models as school_models
 from osc_bge.form import models as form_models
+from osc_bge.utils import render_to_pdf
 import json
 
 class SecondaryView(LoginRequiredMixin, View):
@@ -945,3 +946,28 @@ class SecondaryPhotoView(LoginRequiredMixin, View):
         return render(request, 'school/photo.html', {
             'found_school':found_school,
         })
+
+
+class SecondaryDetailPdfView(View):
+
+    def get(self, request, school_id=None):
+
+        if school_id:
+
+            try:
+                found_school = school_models.School.objects.get(pk=school_id)
+            except school_models.School.DoesNotExist:
+                return HttpResponse("Wrong school id", status=400)
+
+            school_types = school_models.SchoolTypes.objects.filter(school=found_school)
+        else:
+            return HttpResponse("School id is null", statue=400)
+
+        data = {
+             'found_school':found_school,
+             'school_types':school_types,
+        }
+        pdf = render_to_pdf('school/detailed_info.html', data)
+
+
+        return HttpResponse(pdf, content_type='application/pdf')

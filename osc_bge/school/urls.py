@@ -16,6 +16,7 @@ urlpatterns = [
     path('college/summary/<int:school_id>', views.CollegeSchoolView.as_view(), name='college_school_view'),
     path('secondary/summary/<int:school_id>', views.SecondarySummaryView.as_view(), name='secondary_summary_view'),
     path('secondary/detail/<int:school_id>', views.SecondaryDetailView.as_view(), name='secondary_detail_view'),
+    path('secondary/detail/<int:school_id>/pdf', views.SecondaryDetailPdfView.as_view(), name='secondary_detail_pdf_view'),
     path('secondary/service/<int:school_id>', views.SecondaryServiceView.as_view(), name='secondary_service_view'),
     path('secondary/review/<int:school_id>', views.SecondaryReviewView.as_view(), name='secondary_review_view'),
     path('secondary/estimate/<int:school_id>', views.SecondaryEstimateView.as_view(), name='secondary_estimate_view'),

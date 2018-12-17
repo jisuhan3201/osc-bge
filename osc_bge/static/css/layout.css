@@ -66,7 +66,7 @@ border-radius:3px;border:1px solid #FAFAFA;}
 font-size:16px;line-height:30px;
 background:#fba016;border-radius:3px;cursor:pointer;overflow:hidden;}
 .LoginPop .Form .LoginButton:hover {background:#FF6600;}
-.LoginPop .Form .LoginButton > div {float:left;}
+.LoginPop .Form .LoginButton > button {float:left;}
 .LoginPop .Form .LoginButton > .Icon {line-height:30px;height:30px;}
 .LoginPop .Form .LoginButton > .Icon img {margin-top:-3px;height:100%;}
 .LoginPop .Form .LoginButton > .Text {margin-left:10px;padding-left:15px;
