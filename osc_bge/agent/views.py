@@ -630,11 +630,11 @@ class ProspectiveView(LoginRequiredMixin, View):
         departure = self.request.GET.get('departure', None)
         if departure:
             if departure == '3m':
-                queryset = queryset.filter(Q(expected_departure__lte=datetime.now()+relativedelta(months=3)))
+                queryset = queryset.filter(expected_departure__range=(datetime.now(), datetime.now()+relativedelta(months=3)))
             elif departure == '6m':
-                queryset = queryset.filter(Q(expected_departure__lte=datetime.now()+relativedelta(months=6)))
+                queryset = queryset.filter(expected_departure__range=(datetime.now(), datetime.now()+relativedelta(months=6)))
             elif departure == '12m':
-                queryset = queryset.filter(Q(expected_departure__lte=datetime.now()+relativedelta(months=12)))
+                queryset = queryset.filter(expected_departure__range=(datetime.now(), datetime.now()+relativedelta(months=12)))
             else:
                 queryset = queryset.filter(Q(expected_departure__gt=datetime.now()+relativedelta(years=1)))
 
