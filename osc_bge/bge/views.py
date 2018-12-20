@@ -76,11 +76,17 @@ class CreateUserView(LoginRequiredMixin, View):
 
     def get(self, request):
 
-        if request.user.type == 'bge_admin' or request.user.type == 'agency_admin':
+        if request.user.type == 'bge_admin':
 
             all_branches = models.BgeBranch.objects.all()
             all_agent_heads = agent_models.AgencyHead.objects.all()
             all_agent_branches = agent_models.Agency.objects.all()
+
+        elif  request.user.type == 'agency_admin':
+
+            all_branches = None
+            all_agent_heads = None
+            all_agent_branches = agent_models.Agency.objects.filter(head=request.user.agency_head_admin.agency_head)
 
             return render(request, 'main/create_user.html', {
                 'all_branches':all_branches,

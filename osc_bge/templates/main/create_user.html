@@ -53,12 +53,18 @@
 							<tr>
 								<th>Type : </th>
 								<td class="InnerInputTD">
+									{% if user.type == bge_admin%}
 									<label><input class="UserTypeClass" type="radio" name="type" value="bge_team" required /><span></span>BGE Admission Team</label>
 									<label><input class="UserTypeClass" type="radio" name="type" value="bge_branch_admin" /><span></span>BGE Branch Manager or Coordinator</label>
 									<label><input class="UserTypeClass" type="radio" name="type" value="bge_accountant" /><span></span>BGE Accountant</label>
 									<label><input class="UserTypeClass" type="radio" name="type" value="agency_admin" /><span></span>Agent Head Admin</label>
                   <label><input class="UserTypeClass" type="radio" name="type" value="agency_branch_admin" /><span></span>Agent Branch Admin</label>
                   <label><input class="UserTypeClass" type="radio" name="type" value="counselor" /><span></span>Agent Branch Counselor</label>
+									{% else %}
+									<label><input class="UserTypeClass" type="radio" name="type" value="agency_admin" /><span></span>Agent Head Admin</label>
+                  <label><input class="UserTypeClass" type="radio" name="type" value="agency_branch_admin" /><span></span>Agent Branch Admin</label>
+                  <label><input class="UserTypeClass" type="radio" name="type" value="counselor" /><span></span>Agent Branch Counselor</label>
+									{% endif %}
 								</td>
                 <th class="BgeBranchUserPositionClass" style="display:none;">Bge Branch User Position</th>
                 <td class="InnerInputTD BgeBranchUserPositionClass" style="display:none;">
