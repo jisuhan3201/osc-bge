@@ -18,7 +18,7 @@ font-size:12px;font-weight:350;color:#999;z-index:1000;cursor:pointer;}
 
 
 .PopCover .SmallPopup {margin:150px auto;padding:20px;width:240px;
-background:#FFF;border-radius:3px;overflow:hidden;}
+background:#FFF;border-radius:3px;}
 .PopCover .SmallPopup .TitleSet {position:relative;overflow:hidden;}
 .PopCover .SmallPopup .TitleSet .Title {padding-bottom:10px;line-height:18px;font-size:18px;font-weight:350;color:#333;}
 .PopCover .SmallPopup .TitleSet .Close {position:absolute;right:0px;width:16px;height:16px;line-height:16px;
