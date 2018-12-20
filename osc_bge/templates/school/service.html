@@ -12,7 +12,7 @@
 		<div class="MediaList">
 			{% for video in all_videos %}
 			<div class="MediaSet BOX04">
-					<video controls>
+					<video controls width="550">
 						<source src="{{MEDIA_URL}}{{video.video}}" type="video/mp4">
 					</video>
 				<div class="Title">{{video.video}}</div>
