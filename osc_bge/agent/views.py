@@ -597,17 +597,20 @@ class ProspectiveView(LoginRequiredMixin, View):
 
         if self.request.user.type == 'counselor':
             found_counselor = self.get_counselor()
-            queryset = form_models.Counsel.objects.filter(counselor=found_counselor)
+            queryset = form_models.Counsel.objects.filter(
+                counselor=found_counselor, student__school__isnull=True)
         elif self.request.user.type == 'agency_branch_admin':
             found_agent_branch_admin = user_models.AgencyAdminUser.objects.get(user=self.request.user)
             found_counselors = user_models.Counselor.objects.filter(agency=found_agent_branch_admin.agency)
-            queryset = form_models.Counsel.objects.filter(counselor__in=found_counselors)
+            queryset = form_models.Counsel.objects.filter(
+                counselor__in=found_counselors, student__school__isnull=True)
         elif self.request.user.type == 'agency_admin':
             found_agent_admin = user_models.AgencyHeadAdminUser.objects.get(user=self.request.user)
             found_counselors = user_models.Counselor.objects.filter(agency__head=found_agent_admin.agency_head)
-            queryset = form_models.Counsel.objects.filter(counselor__in=found_counselors)
+            queryset = form_models.Counsel.objects.filter(
+                counselor__in=found_counselors, student__school__isnull=True)
         else:
-            queryset = form_models.Counsel.objects.all()
+            queryset = form_models.Counsel.objects.filter(student__school__isnull=True)
 
         query = self.request.GET.get('q', None)
         if query:
