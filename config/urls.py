@@ -4,6 +4,9 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
+from django.http import HttpResponse
+
+return HttpResponse(status=500)
 
 urlpatterns = [
     path('', include('osc_bge.bge.urls')),
