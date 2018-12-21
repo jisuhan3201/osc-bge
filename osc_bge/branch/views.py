@@ -21,7 +21,7 @@ class BranchStatisticsView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         try:
             bge_branch_admin = user_models.BgeBranchAdminUser.objects.get(user=request.user)
             found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
@@ -254,7 +254,7 @@ class BranchSecondaryView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         return render(request, 'branch/secondary.html', {})
 
 
@@ -262,7 +262,7 @@ class BranchStudentsView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         try:
             bge_branch_admin = user_models.BgeBranchAdminUser.objects.get(user=request.user)
             found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
@@ -318,7 +318,7 @@ class BranchHostsView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         try:
             bge_branch_admin = user_models.BgeBranchAdminUser.objects.get(user=request.user)
             found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
@@ -367,7 +367,7 @@ class BranchResourcesView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         if request.user.type == 'bge_admin' or request.user.type == 'bge_team':
 
             all_resources = models.BgeResource.objects.all().order_by('-created_at')
@@ -446,7 +446,7 @@ class HostCreateView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         try:
             bge_branch_admin = user_models.BgeBranchAdminUser.objects.get(user=request.user)
             found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
@@ -530,7 +530,7 @@ class HostUpdateView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request, host_id=None):
-        return HttpResponse(status=500)
+
         if host_id:
 
             try:
@@ -647,7 +647,7 @@ class HostLogsView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request, host_id=None):
-        return HttpResponse(status=500)
+
         if host_id:
 
             try:
@@ -740,7 +740,7 @@ class HostStudentReportView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request, student_id=None):
-        return HttpResponse(status=500)
+
         if student_id:
 
             try:
@@ -837,7 +837,7 @@ class HostStudentReportView(LoginRequiredMixin, View):
 class HostStudentReportUpdateView(LoginRequiredMixin, View):
 
     def get(self, request, report_id=None):
-        return HttpResponse(status=500)
+
         if report_id:
 
             try:

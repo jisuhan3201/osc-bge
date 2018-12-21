@@ -24,7 +24,7 @@ class StatisticsView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         user = request.user
         agency = None
         agency_head = None
@@ -365,7 +365,7 @@ class CounselView(LoginRequiredMixin, View):
 
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         secondaries = school_models.Secondary.objects.all().order_by('school__name', 'school__partnership')
         colleges = school_models.College.objects.all().order_by('ranking')
         search_schools = self.search()
@@ -392,7 +392,7 @@ class CustomerRegisterView(LoginRequiredMixin, View):
         return found_counselor
 
     def get(self, request, counsel_num=None):
-        return HttpResponse(status=500)
+
         if counsel_num:
 
             try:
@@ -650,7 +650,7 @@ class ProspectiveView(LoginRequiredMixin, View):
 
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         found_counselor = self.get_counselor()
 
         all_counsel = self.search()
@@ -680,7 +680,7 @@ class ApplicationRegisterView(LoginRequiredMixin, View):
         return found_counselor
 
     def get(self, request, counsel_num=None):
-        return HttpResponse(status=500)
+
         if counsel_num:
 
             try:
@@ -896,7 +896,7 @@ class ProcessView(LoginRequiredMixin, View):
         return found_counselor
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         if request.user.type == 'counselor':
             found_counselor = self.get_counselor()
             found_formalities = form_models.Formality.objects.filter(
@@ -1028,7 +1028,7 @@ class ProcessApplyView(LoginRequiredMixin, View):
         return found_counselor
 
     def get(self, request, formality_id):
-        return HttpResponse(status=500)
+
         try:
             found_formality = form_models.Formality.objects.get(pk=formality_id)
         except form_models.Formality.DoesNotExist:

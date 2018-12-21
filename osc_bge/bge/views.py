@@ -23,7 +23,7 @@ from django.contrib.auth import authenticate
 def index(request):
 
     if request.user.is_authenticated:
-        return HttpResponse(status=500)
+
 
         if request.user.type == 'bge_admin':
             return redirect('/statistics')
@@ -50,7 +50,7 @@ class MypageView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         return render(request, 'main/mypage.html', {})
 
     def post(self, request):
@@ -76,7 +76,7 @@ class CreateUserView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         if request.user.type == 'bge_admin':
 
             all_branches = models.BgeBranch.objects.all()
@@ -191,7 +191,7 @@ class BgeStatisticsView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         now = datetime.now()
         year_list = []
         for year in range(2018, now.year+1):
@@ -496,7 +496,7 @@ class BranchesView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         now = datetime.now()
         year_list = []
         for year in range(2018, now.year+1):
@@ -615,7 +615,7 @@ class BranchesStatisticView(LoginRequiredMixin,View):
     login_url = '/accounts/login/'
 
     def get(self, request, branch_id=None):
-        return HttpResponse(status=500)
+
         if branch_id:
 
             try:
@@ -755,7 +755,7 @@ class AgentsView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         all_agents = agent_models.AgencyHead.objects.all()
         total_inquired = 0
         total_enrolled = 0
@@ -862,7 +862,7 @@ class AgentsCreateView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         if not request.user.type == 'bge_admin' or request.user.type == 'bge_team' or request.user.type == 'bge_branch_admin':
             return HttpResponse("You don't have permissions", status=400)
 
@@ -940,7 +940,7 @@ class AgentsUpdateView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request, agent_id=None):
-        return HttpResponse(status=500)
+
         # Agent Update
         if agent_id:
 
@@ -1202,7 +1202,7 @@ def agent_history_get(request, history_id=None):
 class AgentsBranchUpdateView(LoginRequiredMixin, View):
 
     def get(self, request, agent_id=None):
-        return HttpResponse(status=500)
+
         if agent_id:
 
             try:
@@ -1310,7 +1310,7 @@ class AccountingView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         all_students = student_models.Student.objects.filter(status='registered')
         all_branches = models.BgeBranch.objects.all()
         overdue_students = all_students.filter(accounting__balance__lt=0).distinct()
@@ -1325,7 +1325,7 @@ class AccountingStudentView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request, student_id):
-        return HttpResponse(status=500)
+
         if student_id:
 
             all_students = student_models.Student.objects.filter(status='registered')

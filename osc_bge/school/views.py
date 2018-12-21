@@ -108,7 +108,7 @@ class SecondaryView(LoginRequiredMixin, View):
         return queryset
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         if request.user.type == 'bge_branch_admin':
 
             try:
@@ -204,7 +204,7 @@ class CollegeView(LoginRequiredMixin, View):
         return queryset
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         all_schools = models.College.objects.all().order_by('ranking')
         first_schools = models.College.objects.filter(ranking__lte=50).order_by("ranking")
         second_schools = models.College.objects.filter(ranking__range=(51, 101)).order_by("ranking")
@@ -228,7 +228,7 @@ class SecondaryCreateView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         secondaries = models.Secondary.objects.all()
         provider_branches = bge_models.BgeBranch.objects.all().order_by('name')
         admission_coordi = user_models.BgeBranchCoordinator.objects.filter(position='admission_coordi')
@@ -380,7 +380,7 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request, school_id=None):
-        return HttpResponse(status=500)
+
         if not school_id:
             return HttpResponse(status=400)
 
@@ -760,7 +760,7 @@ class SecondaryLogView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request, school_id=None):
-        return HttpResponse(status=500)
+
         if school_id:
 
             try:
@@ -833,7 +833,7 @@ class CollegeSchoolView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request, school_id=None):
-        return HttpResponse(status=500)
+
         if school_id:
 
             try:
@@ -860,7 +860,7 @@ class SecondarySummaryView(LoginRequiredMixin, View):
         return found_counselor
 
     def get(self, request, school_id=None):
-        return HttpResponse(status=500)
+
         found_counselor = self.get_counselor()
 
         if school_id:
@@ -978,7 +978,7 @@ class SecondaryDetailView(LoginRequiredMixin, View):
         return found_counselor
 
     def get(self, request, school_id=None):
-        return HttpResponse(status=500)
+
         found_counselor = self.get_counselor()
 
         if school_id:
@@ -1002,7 +1002,7 @@ class SecondaryServiceView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request, school_id=None):
-        return HttpResponse(status=500)
+
         if school_id:
 
             try:
@@ -1025,7 +1025,7 @@ class SecondaryReviewView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request, school_id=None):
-        return HttpResponse(status=500)
+
         if school_id:
 
             try:
@@ -1052,7 +1052,7 @@ class SecondaryEstimateView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request, school_id=None):
-        return HttpResponse(status=500)
+
         if school_id:
 
             try:
@@ -1072,7 +1072,7 @@ class SecondaryPhotoView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request, school_id=None):
-        return HttpResponse(status=500)
+
         if school_id:
 
             try:
@@ -1091,7 +1091,7 @@ class SecondaryPhotoView(LoginRequiredMixin, View):
 class SecondaryDetailPdfView(View):
 
     def get(self, request, school_id=None):
-        return HttpResponse(status=500)
+
         if school_id:
 
             try:

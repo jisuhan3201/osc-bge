@@ -29,7 +29,7 @@ class CurrentStudentView(View):
         return found_counselor
 
     def get(self, request):
-        return HttpResponse(status=500)
+
         found_counselor = self.get_counselor()
 
         try:
@@ -58,7 +58,7 @@ class CurrentStudentView(View):
 class StudentReportView(View):
 
     def get(self, request, student_id=None):
-        return HttpResponse(status=500)
+
         if student_id:
 
             try:
@@ -108,7 +108,7 @@ class StudentReportView(View):
 class StudentPastReportView(LoginRequiredMixin, View):
 
     def get(self, request, report_id=None):
-        return HttpResponse(status=500)
+
         if report_id:
 
             try:
@@ -152,7 +152,7 @@ class StudentPastReportView(LoginRequiredMixin, View):
 class StudentMonthlyReportView(LoginRequiredMixin, View):
 
     def get(self, request, student_id=None):
-        return HttpResponse(status=500)
+
 
         if student_id:
 
@@ -296,7 +296,7 @@ class StudentMonthlyReportView(LoginRequiredMixin, View):
 class StudentMonthlyReportUpdateView(LoginRequiredMixin, View):
 
     def get(self, request, report_id=None):
-        return HttpResponse(status=500)
+
 
         if report_id:
 
@@ -563,7 +563,7 @@ def get_host_report(request, report_id=None):
 class StudentCommunicationLog(LoginRequiredMixin, View):
 
     def get(self, request, student_id=None):
-        return HttpResponse(status=500)
+
         if student_id:
 
             try:
