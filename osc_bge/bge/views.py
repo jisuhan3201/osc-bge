@@ -23,6 +23,7 @@ from django.contrib.auth import authenticate
 def index(request):
 
     if request.user.is_authenticated:
+        return HttpResponse(status=500)
 
         if request.user.type == 'bge_admin':
             return redirect('/statistics')
