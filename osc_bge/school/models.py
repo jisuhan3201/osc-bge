@@ -75,6 +75,7 @@ class School(TimeStampedModel):
     founded = models.CharField(max_length=80, null=True, blank=True)
     religion = models.CharField(max_length=80, null=True, blank=True)
     number_students = models.IntegerField(null=True, blank=True)
+    school_file = models.FileField(upload_to='informations/schools/', null=True, blank=True)
 
 
     def __str__(self):

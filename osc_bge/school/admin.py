@@ -59,6 +59,11 @@ class SecondaryAdmin(admin.ModelAdmin):
         "number_clubs",
         "number_sports",
         "facilities",
+        "general_impression",
+        "strong_advantages",
+        "extra_curricular",
+        "college_acceptance_list",
+        "fee_memo",
     )
 
 @admin.register(models.College)

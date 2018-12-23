@@ -10,6 +10,12 @@
 		<a href="/school/secondary/photo/{{found_school.id}}">Photo</a>
 	</div>
 	<div class="ButtonLine">
-		<div class="SchoolButton"><a href="/school/secondary/detail/{{found_school.id}}/pdf">School Info. PDF Print</a></div>
+		<div class="SchoolButton">
+			{% if found_school.school_file %}
+			<a href="{{MEDIA_URL}}{{found_school.school_file}}" download>School Info. PDF Download</a>
+			{% else %}
+			<p>No School Info. PDF</p>
+			{% endif %}
+		</div>
 	</div>
 </div><!-- TopMenuSet -->
