@@ -658,7 +658,7 @@ document.getElementById(TabName).style.display='block';
 							{% endif %}
 					</tr>
 					<tr>
-						<th>Selling Points(Both English & Chinese) : </th>
+						<th>Special Comment : </th>
 						<td class="InnerInputTD" colspan="3">
 							{% if found_school.secondary.selling_point %}
 							<input type="text" name="selling_point" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.selling_point}}"/>
@@ -1013,7 +1013,7 @@ document.getElementById(TabName).style.display='block';
 					</tr>
 					<tr>
 						<th>Fee Memo : </th>
-						<td class="InnerInputTD" colspan="3"><input type="text" name="fee_memo" class="TableInnerInput" style="width:calc(100% - 10px);" value="" /></td>
+						<td class="InnerInputTD" colspan="3"><input type="text" name="fee_memo" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.fee_memo}}" /></td>
 					</tr>
 					{% for school_to in found_school_to %}
 						<tr>
