@@ -1037,6 +1037,10 @@ document.getElementById(TabName).style.display='block';
 						<td class="InnerInputTD" colspan="3"><input type="file" name="school_file" class="TableInnerInput"/><br /></td>
 						{% endif %}
 					</tr>
+					<tr>
+						<th>Accepted College : </th>
+						<td class="InnerInputTD" colspan="3"><input type="text" name="accepted_college" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.accepted_college}}" /></td>
+					</tr>
 				</table>
 			</div><!-- InfoTable -->
 

@@ -248,6 +248,10 @@ class CounselorSellingPoint(TimeStampedModel):
     clubs_cm = models.CharField(max_length=255, null=True, blank=True)
     sports_ev = models.CharField(max_length=255, null=True, blank=True)
     sports_cm = models.CharField(max_length=255, null=True, blank=True)
+    campus = models.TextField(null=True, blank=True)
+    agent_location = models.TextField(null=True, blank=True)
+    art = models.TextField(null=True, blank=True)
+    music = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return "{}- {}".format(self.school, self.counselor)

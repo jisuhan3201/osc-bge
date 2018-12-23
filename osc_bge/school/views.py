@@ -365,6 +365,7 @@ class SecondaryCreateView(LoginRequiredMixin, View):
             extra_curricular = data.get('extra_curricular'),
             college_acceptance_list = data.get("college_acceptance_list"),
             fee_memo=data.get('fee_memo'),
+            accepted_college=data.get('accepted_college'),
         )
         secondary.save()
 
@@ -579,6 +580,7 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
         found_secodary.extra_curricular = data.get('extra_curricular')
         found_secodary.college_acceptance_list = data.get("college_acceptance_list")
         found_secodary.fee_memo = data.get('fee_memo')
+        found_secodary.accepted_college = data.get('accepted_college')
 
         found_secodary.save()
 
@@ -937,6 +939,10 @@ class SecondarySummaryView(LoginRequiredMixin, View):
                 found_counselling_point.clubs_cm=data.get('clubs_cm')
                 found_counselling_point.sports_ev=data.get('sports_ev')
                 found_counselling_point.sports_cm=data.get('sports_cm')
+                found_counselling_point.campus = data.get('campus')
+                found_counselling_point.agent_location = data.get('agent_location')
+                found_counselling_point.art = data.get('art')
+                found_counselling_point.music = data.get('music')
                 found_counselling_point.save()
 
             else:
@@ -967,6 +973,11 @@ class SecondarySummaryView(LoginRequiredMixin, View):
                     clubs_cm=data.get('clubs_cm'),
                     sports_ev=data.get('sports_ev'),
                     sports_cm=data.get('sports_cm'),
+                    campus = data.get('campus'),
+                    agent_location = data.get('agent_location'),
+                    art = data.get('art'),
+                    music = data.get('music'),
+
                 )
                 found_counselling_point.save()
 
