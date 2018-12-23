@@ -758,7 +758,8 @@ class AgentsView(LoginRequiredMixin, View):
 
     def get(self, request):
 
-        all_agents = agent_models.AgencyHead.objects.all()
+        all_agents = agent_models.AgencyHead.objects.all().annotate(
+            inquired_count=Count('agent_branch__counselor__counseling')).exclude(inquired_count=0).order_by('-inquired_count')
         total_inquired = 0
         total_enrolled = 0
         for head in all_agents:
@@ -799,7 +800,8 @@ class AgentsView(LoginRequiredMixin, View):
 @login_required(login_url='/accounts/login/')
 def chart_agent_statistics(request):
 
-    all_agents = agent_models.AgencyHead.objects.all()
+    all_agents = agent_models.AgencyHead.objects.all().annotate(
+        inquired_count=Count('agent_branch__counselor__counseling')).exclude(inquired_count=0).order_by('-inquired_count')
 
     data_list = []
     for head in all_agents:
@@ -814,7 +816,7 @@ def chart_agent_statistics(request):
             ed = today - relativedelta(years=number-1)
 
             past_start_date = date(sd.year, 1, 1)
-            past_end_date = date(ed.year, 1, 1) - relativedelta(days=1)
+            past_end_date = date(ed.year, 1, 1)
 
             inquired_count = form_models.Counsel.objects.filter(
                 counseling_date__range=(past_start_date, past_end_date),
