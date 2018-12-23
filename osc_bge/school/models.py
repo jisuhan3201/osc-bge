@@ -134,7 +134,6 @@ class Secondary(TimeStampedModel):
     extra_curricular = models.TextField(null=True, blank=True)
     college_acceptance_list = models.TextField(null=True, blank=True)
     fee_memo = models.TextField(null=True, blank=True)
-    accepted_college = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return "{}".format(self.school)
