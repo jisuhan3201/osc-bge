@@ -210,7 +210,7 @@ class BgeStatisticsView(LoginRequiredMixin, View):
             day_list.append(datetime.today() - relativedelta(days=num))
 
         all_agent_heads = agent_models.AgencyHead.objects.all().annotate(
-            inquired_count=Count('agent_branch__counselor__counseling')).order_by('-inquired_count')
+            inquired_count=Count('agent_branch__counselor__counseling')).exclude(inquired_count=0).order_by('-inquired_count')
         total_inquired = 0
         total_applied = 0
         total_accepted = 0
