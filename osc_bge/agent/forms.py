@@ -5,7 +5,7 @@ from osc_bge.form import models as form_models
 
 class FormalityForm(forms.Form):
     Date = forms.DateField(
-        required=False,
+        required=True,
         widget=DatePickerInput(format="%Y-%m-%d")
     )
 

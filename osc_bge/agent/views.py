@@ -927,7 +927,7 @@ class ProcessView(LoginRequiredMixin, View):
         try:
             upcoming_school_interview = form_models.SchoolFormality.objects.filter(
                 Q(school_interview_done__isnull=True)|
-                Q(school_interview_done=False)).exclude(
+                Q(school_interview_done=False)).filter(formality__in=found_formalities).exclude(
                 school_interview_date__isnull=True).order_by('school_interview_date').distinct()
         except:
             upcoming_school_interview = None
