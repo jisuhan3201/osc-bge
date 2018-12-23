@@ -21,7 +21,7 @@ class SecondaryView(LoginRequiredMixin, View):
 
         if self.request.GET.get('form_type') == 'secondary_form':
 
-            queryset = models.Secondary.objects.all()
+            queryset = models.Secondary.objects.all().order_by("school__partnership", 'school__name')
 
             school_type = self.request.GET.getlist('school_type', None)
             if school_type:
@@ -92,7 +92,7 @@ class SecondaryView(LoginRequiredMixin, View):
 
         elif self.request.GET.get('form_type') == 'name_form':
 
-            queryset = models.Secondary.objects.all()
+            queryset = models.Secondary.objects.all().order_by("school__partnership", 'school__name')
 
             school_name = self.request.GET.get('school_name')
             if school_name:
