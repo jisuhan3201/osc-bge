@@ -127,7 +127,7 @@ class SecondaryView(LoginRequiredMixin, View):
             all_schools = models.Secondary.objects.filter(school__provider_branch=found_branch).order_by("school__partnership", 'school__name')
 
             if request.GET.get('search_name'):
-                search_schools = models.Secondary.objects.filter(school__name__icontains=request.GET.get('search_name'), school__provider_branch=found_branch).order_by('school__name')
+                search_schools = models.Secondary.objects.filter(school__name__icontains=request.GET.get('search_name'), school__provider_branch=found_branch).order_by("school__partnership", 'school__name')
             elif request.GET.get('search_id'):
                 search_schools = models.Secondary.objects.filter(school__id=request.GET.get('search_id'))
             else:
