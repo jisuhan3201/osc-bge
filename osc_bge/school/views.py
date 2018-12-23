@@ -131,7 +131,7 @@ class SecondaryView(LoginRequiredMixin, View):
             elif request.GET.get('search_id'):
                 search_schools = models.Secondary.objects.filter(school__id=request.GET.get('search_id'))
             else:
-                search_schools = None
+                search_schools = all_schools.filter(school__logs__isnull=False).distinct()
 
             if search_schools:
                 for secondary in search_schools:
