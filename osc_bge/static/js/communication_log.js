@@ -4,7 +4,6 @@ $(".CommunicationLogClass").click(function () {
     $.ajax({                       // initialize an AJAX request
       url: "/branch/host/log/get/" + log_id,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
       success: function (data) {   // `data` is the return of the `load_cities` view function
-        console.log(data)
         $("#PopCommunicationUpdate input[name=log_id]").val(data[0].pk);
         $("#PopCommunicationUpdate select[name=category]").val(data[0].fields.category);
         $("#PopCommunicationUpdate select[name=priority]").val(data[0].fields.priority);
@@ -25,7 +24,6 @@ $(".UpdateLogClass").click(function () {
     $.ajax({                       // initialize an AJAX request
       url: "/student/log/get/" + log_id,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
       success: function (data) {   // `data` is the return of the `load_cities` view function
-        console.log(data)
         $("#PopStudentCommunicationUpdate input[name=log_id]").val(data[0].pk);
         $("#PopStudentCommunicationUpdate select[name=category]").val(data[0].fields.category);
         $("#PopStudentCommunicationUpdate select[name=priority]").val(data[0].fields.priority);
@@ -38,3 +36,18 @@ $(".UpdateLogClass").click(function () {
     alert('Review ID does not exist..')
   }
 });
+
+
+$("#PopCommunicationUpdate .Close").click(function(){
+  $("#PopCommunicationUpdate input[name=log_id]").val("");
+  $("#PopCommunicationUpdate select[name=category]").val("");
+  $("#PopCommunicationUpdate select[name=priority]").val("");
+  $("#PopCommunicationUpdate textarea[name=comment]").text("");
+})
+
+$("#PopStudentCommunicationUpdate .Close").click(function(){
+  $("#PopStudentCommunicationUpdate input[name=log_id]").val("");
+  $("#PopStudentCommunicationUpdate select[name=category]").val("");
+  $("#PopStudentCommunicationUpdate select[name=priority]").val("");
+  $("#PopStudentCommunicationUpdate textarea[name=comment]").text("");
+})

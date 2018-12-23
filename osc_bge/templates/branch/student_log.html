@@ -8,7 +8,7 @@
 <div class="PopCover" id="PopStudentCommunicationUpdate">
 	<div class="Popup">
 		<div class="TitleSet">
-			<div class="Close" OnClick="document.getElementById('PopCommunicationUpdate').style.display='none';">X</div>
+			<div class="Close" OnClick="document.getElementById('PopStudentCommunicationUpdate').style.display='none';">X</div>
 			<div class="Title">Add New Log</div>
 		</div>
 		<div class="Contents">
@@ -100,7 +100,7 @@
 
 		<div class="MTitle">{{found_student.name|capfirst}} <span>Communication Log</span></div>
 		<div class="ListSearch Aright">
-			<div><a href="Javascript:void(0);" OnClick="document.getElementById('PopCommunicationUpdate').style.display='block';" class="IsolationButton">+ &nbsp; Add New Log</a></div>
+			<div><a href="Javascript:void(0);" OnClick="document.getElementById('PopStudentCommunicationUpdate').style.display='block';" class="IsolationButton">+ &nbsp; Add New Log</a></div>
 		</div>
 		<div class="cdiv"></div>
 		<div class="ListTable">
@@ -117,7 +117,7 @@
 				</tr>
         {% for log in all_logs %}
 				<tr>
-					<td>{{log.updated_at}}</td>
+					<td>{{log.updated_at|date:"Y-m-d"}}</td>
 					<td>{{log.category}}</td>
 					<td>{{log.priority}}</td>
 					<td class="Aleft" style="color:blue;cursor:pointer;"><span id="UpdateLog{{log.id}}" class="UpdateLogClass">{{log.comment}}</span></td>
