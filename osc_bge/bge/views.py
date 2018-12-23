@@ -818,10 +818,10 @@ def chart_agent_statistics(request):
             past_start_date = date(sd.year, 1, 1)
             past_end_date = date(ed.year, 1, 1)
 
-            inquired_count = form_models.Counsel.objects.filter(
-                counseling_date__range=(past_start_date, past_end_date),
-                counselor__agency__head=head
-            ).count()
+            # inquired_count = form_models.Counsel.objects.filter(
+            #     counseling_date__range=(past_start_date, past_end_date),
+            #     counselor__agency__head=head
+            # ).count()
 
             enrolled_count = form_models.SchoolFormality.objects.filter(
                 formality__counsel__counselor__agency__head=head,
@@ -829,16 +829,16 @@ def chart_agent_statistics(request):
                 i20_received_date__range=(past_start_date, past_end_date),
             ).count()
 
-            inquired_list.append(inquired_count)
+            # inquired_list.append(inquired_count)
             enrolled_list.append(enrolled_count)
 
-        inquired_list.reverse()
+        # inquired_list.reverse()
         enrolled_list.reverse()
 
-        data_list.append({
-            "agent": str(head.name) + " Inquired",
-            "data":inquired_list
-        })
+        # data_list.append({
+        #     "agent": str(head.name) + " Inquired",
+        #     "data":inquired_list
+        # })
 
         data_list.append({
             "agent": str(head.name) + " Enrolled",
