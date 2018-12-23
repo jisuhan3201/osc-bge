@@ -361,12 +361,14 @@ class CounselView(LoginRequiredMixin, View):
         else:
             queryset = None
 
+        queryset = queryset.order_by('school__partnership', 'school__name')
+
         return queryset
 
 
     def get(self, request):
 
-        secondaries = school_models.Secondary.objects.all().order_by('school__name', 'school__partnership')
+        secondaries = school_models.Secondary.objects.all().order_by('school__partnership', 'school__name')
         colleges = school_models.College.objects.all().order_by('ranking')
         search_schools = self.search()
 
