@@ -124,7 +124,7 @@ class SecondaryView(LoginRequiredMixin, View):
                 except:
                     return HttpResponse('Not Branch Admin or Branch coordi', status=400)
 
-            all_schools = models.Secondary.objects.filter(school__provider_branch=found_branch).order_by('school__name')
+            all_schools = models.Secondary.objects.filter(school__provider_branch=found_branch).order_by("school__partnership", 'school__name')
 
             if request.GET.get('search_name'):
                 search_schools = models.Secondary.objects.filter(school__name__icontains=request.GET.get('search_name'), school__provider_branch=found_branch).order_by('school__name')
@@ -147,7 +147,7 @@ class SecondaryView(LoginRequiredMixin, View):
             })
 
         else:
-            secondaries = models.Secondary.objects.all().order_by("school__name", "school__partnership")
+            secondaries = models.Secondary.objects.all().order_by("school__partnership", "school__name")
             search_schools = self.search()
 
             return render(request, 'school/secondary2.html',
