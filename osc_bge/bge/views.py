@@ -17,6 +17,7 @@ from osc_bge.student import models as student_models
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth import authenticate
+from django.db.models import Count
 
 
 @login_required(login_url='/accounts/login/')
@@ -208,7 +209,8 @@ class BgeStatisticsView(LoginRequiredMixin, View):
         for num in range(0, 7):
             day_list.append(datetime.today() - relativedelta(days=num))
 
-        all_agent_heads = agent_models.AgencyHead.objects.all()
+        all_agent_heads = agent_models.AgencyHead.objects.all().annotate(
+            inquired_count=Count('agent_branch__counselor__counseling')).order_by('-inquired_count')
         total_inquired = 0
         total_applied = 0
         total_accepted = 0
@@ -422,7 +424,6 @@ class BgeStatisticsView(LoginRequiredMixin, View):
             counsels = paginator.page(1)
         except EmptyPage:
             counsels = paginator.page(paginator.num_pages)
-
 
         return render(request, 'main/statistics.html', {
             'year_list':year_list,

@@ -42,7 +42,7 @@ class AgencyProgram(TimeStampedModel):
 #Agent Branch Table
 class Agency(TimeStampedModel):
 
-    head = models.ForeignKey(AgencyHead, on_delete=models.CASCADE, null=True)
+    head = models.ForeignKey(AgencyHead, on_delete=models.CASCADE, null=True, related_name='agent_branch')
     name = models.CharField(max_length=140, null=True, blank=True)
     location = models.CharField(max_length=140, null=True, blank=True)
     capacity_students = models.CharField(max_length=255, null=True, blank=True)
