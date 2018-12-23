@@ -23,6 +23,13 @@ class SchoolFileForm(forms.ModelForm):
         fields = ('school_file',)
 
 
+class ProgramFileForm(forms.ModelForm):
+
+    class Meta:
+        model = models.School
+        fields = ('program_file',)
+
+
 class SchoolLogForm(forms.ModelForm):
 
     class Meta:

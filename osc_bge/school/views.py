@@ -302,6 +302,11 @@ class SecondaryCreateView(LoginRequiredMixin, View):
             school.school_file = file_form.cleaned_data['school_file']
             school.save()
 
+        program_file_form = forms.ProgramFileForm(request.POST,request.FILES)
+        if program_file_form.is_valid():
+            school.program_file = program_file_form.cleaned_data['program_file']
+            school.save()
+
         if request.FILES.getlist('photo'):
             photo_form = forms.SchoolPhotoForm(request.POST, request.FILES)
             if photo_form.is_valid():
@@ -493,6 +498,12 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
             file_form = forms.SchoolFileForm(request.POST,request.FILES)
             if file_form.is_valid():
                 found_school.school_file = file_form.cleaned_data['school_file']
+                found_school.save()
+
+        if request.FILES.get('program_file'):
+            program_file_form = forms.ProgramFileForm(request.POST,request.FILES)
+            if program_file_form.is_valid():
+                found_school.program_file = program_file_form.cleaned_data['program_file']
                 found_school.save()
 
         if request.FILES.getlist('photo'):
