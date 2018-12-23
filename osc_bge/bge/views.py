@@ -228,7 +228,7 @@ class BgeStatisticsView(LoginRequiredMixin, View):
                 cancel_enrolment_date__isnull=False)
             enrolled = form_models.SchoolFormality.objects.filter(
                 formality__counsel__counselor__agency__head=head,
-                i20_completed=True)
+                i20_received_date__isnull=False)
 
             if request.GET.get('year') and request.GET.get('start_month') and request.GET.get('end_month'):
                 start_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
@@ -326,7 +326,7 @@ class BgeStatisticsView(LoginRequiredMixin, View):
                     cancel_enrolment_date__isnull=False,
                     cancel_enrolment_date__range=(datetime.today() - relativedelta(weeks=1, days=-1), datetime.today()))
                 new_enrolled = new_enrolled.filter(
-                    i20_completed=True,
+                    i20_received_date__isnull=False,
                     i20_received_date__range=(datetime.today() - relativedelta(weeks=1, days=-1), datetime.today()))
 
             if request.GET.get('new_week'):
@@ -342,7 +342,7 @@ class BgeStatisticsView(LoginRequiredMixin, View):
                     cancel_enrolment_date__isnull=False,
                     cancel_enrolment_date__range=(new_end_date - relativedelta(weeks=1, days=-1), new_end_date))
                 new_enrolled = new_enrolled.filter(
-                    i20_completed=True,
+                    i20_received_date__isnull=False,
                     i20_received_date__range=(new_end_date - relativedelta(weeks=1, days=-1), new_end_date))
 
             if request.GET.get('new_day'):
@@ -358,7 +358,7 @@ class BgeStatisticsView(LoginRequiredMixin, View):
                     cancel_enrolment_date__isnull=False,
                     cancel_enrolment_date__range=(new_day, new_day + relativedelta(days=1)))
                 new_enrolled = new_enrolled.filter(
-                    i20_completed=True,
+                    i20_received_date__isnull=False,
                     i20_received_date__range=(new_day, new_day + relativedelta(days=1)))
 
             new_program_interested = request.GET.get('new_program')
@@ -766,7 +766,7 @@ class AgentsView(LoginRequiredMixin, View):
             inquired = form_models.Counsel.objects.filter(counselor__agency__head=head)
             enrolled = form_models.SchoolFormality.objects.filter(
                 formality__counsel__counselor__agency__head=head,
-                i20_completed=True)
+                i20_received_date__isnull=False)
 
             head.inquired = inquired.count()
             head.enrolled = enrolled.count()
@@ -825,7 +825,7 @@ def chart_agent_statistics(request):
 
             enrolled_count = form_models.SchoolFormality.objects.filter(
                 formality__counsel__counselor__agency__head=head,
-                i20_completed=True,
+                i20_received_date__isnull=False,
                 i20_received_date__range=(past_start_date, past_end_date),
             ).count()
 
@@ -844,7 +844,6 @@ def chart_agent_statistics(request):
             "agent": str(head.name) + " Enrolled",
             "data":enrolled_list,
         })
-
 
     year_list = []
     for num in range(0, 5):
