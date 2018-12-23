@@ -336,7 +336,7 @@ class CounselView(LoginRequiredMixin, View):
 
         elif self.request.GET.get('form_type') == 'name_form':
 
-            queryset = school_models.Secondary.objects.all().order_by('school__name', 'school__partnership')
+            queryset = school_models.Secondary.objects.all().order_by('school__partnership', 'school__name')
 
             school_name = self.request.GET.get('school_name')
             if school_name:
