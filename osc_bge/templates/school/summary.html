@@ -54,7 +54,10 @@
 									<input type="text" value="{{selling_point.admission_requirement_ev}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="admission_requirement_ev"/>
 								</td>
 								<td class="InnerInputTD">
-									<input type="text" value="{{selling_point.admission_requirement_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="admission_requirement_cm"/>
+									<input type="text" value="{{selling_point.admission_requirement_cm}}" style="width:calc(100% - 8px);" class="TableInnerInput" name="admission_requirement_cm" placeholder="Input full url ex) https://example.com"/>
+									{% if selling_point.admission_requirement_cm %}
+									<a href="{{selling_point.admission_requirement_cm}}">{{selling_point.admission_requirement_cm}}</a>
+									{% endif %}
 								</td>
 							</tr>
 							<tr>

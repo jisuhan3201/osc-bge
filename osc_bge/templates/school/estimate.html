@@ -198,13 +198,16 @@
 			Memo
 		</div>
 		<div class="TextAreaForm">
-			<textarea disabled>{{found_school.secondary.fee_memo}}</textarea>
+			<textarea>{{found_school.secondary.fee_memo}}</textarea>
 			<div class="SchoolButton" id="ModifyButtonId" >Modify</div>
 		</div><!-- TextAreaForm -->
 		<div class="EndPart"></div>
 
 		<div class="TotalEstimate">
 			<div class="Total"><span>Total Estimate Cost</span>$ <span class="total_estimate_fee"></span></div>
+			<div class="Button">
+				<div class="EstimatePDFClass" onclick="window.print()">Print</div>
+			</div>
 		</div><!-- TotalEstimate -->
 		<div class="EndPart"></div>
 
