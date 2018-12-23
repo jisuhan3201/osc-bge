@@ -536,7 +536,7 @@ def student_transcript_chart(request, student_id=None):
         'sat':sat_list,
         'toefl':toefl_list,
     }
-    print(result)
+
     return JsonResponse(result, safe=False)
 
 

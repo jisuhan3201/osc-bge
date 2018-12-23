@@ -104,7 +104,7 @@
 			{% csrf_token %}
 			<input type="text" name="post_type" value="student_monthly_report" hidden>
 			<input type="text" name="report_id" value="" hidden>
-		<div class="PTitle">Student Monthly Report {% if found_report.submit_date %}(Submitted  :  {{found_report.submit_date}}) {% endif %}</div>
+		<div class="PTitle">Student Academic Report {% if found_report.submit_date %}(Submitted  :  {{found_report.submit_date}}) {% endif %}</div>
 		<div class="MTitle" style="width:100%;">
 			<div class="MTitleForm">
 				<select class="MTitleInput" onchange="location=this.value;">
@@ -167,10 +167,10 @@
               </td>
 						</tr>
 						<tr>
-							<th>School year : </th>
-							<td class="InnerInputTD"><input name="school_year" type="text" class="TableInnerInput" style="width:80px;" value="{{found_report.school_year}}" /></td>
+							<th>School Year : </th>
+							<td class="InnerInputTD"><input name="school_year" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.school_year}}" /></td>
 							<th>Grade : </th>
-							<td class="InnerInputTD"><input name="grade" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.grade}}" /></td>
+							<td class="InnerInputTD"><input name="grade" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.grade}}" /></td>
 							<th style="color:red;">* Send to Agent Date : </th>
 							<td class="InnerInputTD">
                 {% if found_report.send_to_agent_date %}
@@ -201,7 +201,7 @@
 		</div><!-- InformationSet -->
 		<div class="EndPart"></div>
 
-		<div class="MTitle">Current Selection</div>
+		<div class="MTitle">Academic Record and Review</div>
 		<div class="cdiv"></div>
 		<div class="InfoTable">
 			<table cellpadding="0" cellspacing="0" border="0">
@@ -221,26 +221,26 @@
 				</tr>
 				<tr>
 					<th>Level</th>
-					<td class="InnerInputTD"><input name="eng9h_lv" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.eng9h_lv}}" /></td>
-					<td class="InnerInputTD"><input name="precal_lv" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.precal_lv}}" /></td>
-					<td class="InnerInputTD"><input name="bioh_lv" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.bioh_lv}}" /></td>
-					<td class="InnerInputTD"><input name="chemh_lv" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.chemh_lv}}" /></td>
-					<td class="InnerInputTD"><input name="geo_lv" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.geo_lv}}" /></td>
-					<td class="InnerInputTD"><input name="cs_lv" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.cs_lv}}" /></td>
-					<td class="InnerInputTD"><input name="sp_lv" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.sp_lv}}" /></td>
-					<td class="InnerInputTD"><input name="orch_lv" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.orch_lv}}" /></td>
+					<td class="InnerInputTD"><input name="eng9h_lv" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.eng9h_lv}}" /></td>
+					<td class="InnerInputTD"><input name="precal_lv" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.precal_lv}}" /></td>
+					<td class="InnerInputTD"><input name="bioh_lv" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.bioh_lv}}" /></td>
+					<td class="InnerInputTD"><input name="chemh_lv" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.chemh_lv}}" /></td>
+					<td class="InnerInputTD"><input name="geo_lv" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.geo_lv}}" /></td>
+					<td class="InnerInputTD"><input name="cs_lv" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.cs_lv}}" /></td>
+					<td class="InnerInputTD"><input name="sp_lv" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.sp_lv}}" /></td>
+					<td class="InnerInputTD"><input name="orch_lv" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.orch_lv}}" /></td>
 
 				</tr>
 				<tr>
 					<th>Target</th>
-					<td class="InnerInputTD"><input name="eng9h_tg" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.eng9h_tg}}" /></td>
-					<td class="InnerInputTD"><input name="precal_tg" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.precal_tg}}" /></td>
-					<td class="InnerInputTD"><input name="bioh_tg" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.bioh_tg}}" /></td>
-					<td class="InnerInputTD"><input name="chemh_tg" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.chemh_tg}}" /></td>
-					<td class="InnerInputTD"><input name="geo_tg" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.geo_tg}}" /></td>
-					<td class="InnerInputTD"><input name="cs_tg" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.cs_tg}}" /></td>
-					<td class="InnerInputTD"><input name="sp_tg" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.sp_tg}}" /></td>
-					<td class="InnerInputTD"><input name="orch_tg" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.orch_tg}}" /></td>
+					<td class="InnerInputTD"><input name="eng9h_tg" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.eng9h_tg}}" /></td>
+					<td class="InnerInputTD"><input name="precal_tg" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.precal_tg}}" /></td>
+					<td class="InnerInputTD"><input name="bioh_tg" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.bioh_tg}}" /></td>
+					<td class="InnerInputTD"><input name="chemh_tg" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.chemh_tg}}" /></td>
+					<td class="InnerInputTD"><input name="geo_tg" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.geo_tg}}" /></td>
+					<td class="InnerInputTD"><input name="cs_tg" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.cs_tg}}" /></td>
+					<td class="InnerInputTD"><input name="sp_tg" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.sp_tg}}" /></td>
+					<td class="InnerInputTD"><input name="orch_tg" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.orch_tg}}" /></td>
 				</tr>
 				<tr>
 					<th>Current</th>
@@ -256,19 +256,19 @@
 				<tr>
 					<th>Comment</th>
 					<td colspan="9" class="InnerInputTD">
-					<textarea class="TableInnerTextarea" style="height:60px;width:calc(100% - 10px);" name="comment">{{found_report.comment}}</textarea>
+					<textarea class="TableInnerTextarea" style="height:140px;width:calc(100% - 10px);" name="comment">{{found_report.comment}}</textarea>
 					</td>
 				</tr>
 				<tr>
 					<th>Target GPA</th>
 					<td colspan="9" class="InnerInputTD">
-					<textarea class="TableInnerTextarea" style="height:60px;width:calc(100% - 10px);" name="target_gpa">{{found_report.target_gpa}}</textarea>
+					<textarea class="TableInnerTextarea" style="height:140px;width:calc(100% - 10px);" name="target_gpa">{{found_report.target_gpa}}</textarea>
 					</td>
 				</tr>
 				<tr>
 					<th>To see current Transcript</th>
 					<td colspan="9" class="InnerInputTD">
-					<textarea class="TableInnerTextarea" style="height:60px;width:calc(100% - 10px);" name="transcript">{{found_report.transcript}}</textarea>
+					<textarea class="TableInnerTextarea" style="height:140px;width:calc(100% - 10px);" name="transcript">{{found_report.transcript}}</textarea>
 					</td>
 				</tr>
 			</table>
@@ -277,10 +277,10 @@
 
 
 
-		<div class="MTitle">English skills / TOEFL</div>
+		<div class="MTitle">English Skills / TOEFL</div>
 		<div class="cdiv"></div>
 		<div class="ListTable">
-			<textarea class="TableInnerTextarea" style="height:60px;" name="eng_skill">{{found_report.eng_skill}}</textarea>
+			<textarea class="TableInnerTextarea" style="height:140px;" name="eng_skill">{{found_report.eng_skill}}</textarea>
 			<table cellpadding="0" cellspacing="0" border="0">
 				<colgroup>
 					<col>
@@ -303,14 +303,14 @@
 					<th>Next Test Date</th>
 				</tr>
 				<tr>
-					<td class="InnerInputTD"><input name="toefl" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.toefl}}" /></td>
-					<td class="InnerInputTD"><input name="toefl_reading" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.toefl_reading}}" /></td>
-					<td class="InnerInputTD"><input name="toefl_listening" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.toefl_listening}}" /></td>
-					<td class="InnerInputTD"><input name="toefl_speaking" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.toefl_speaking}}" /></td>
-					<td class="InnerInputTD"><input name="toefl_writing" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.toefl_writing}}" /></td>
-					<td class="InnerInputTD"><input name="toefl_total" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.toefl_total}}" /></td>
-					<td class="InnerInputTD"><input name="toefl_target" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.toefl_target}}" /></td>
-					<td class="InnerInputTD"><input name="toefl_next_test_date" type="text" class="TableInnerInput" style="width:70px;" value="{{found_report.toefl_next_test_date}}" /></td>
+					<td class="InnerInputTD"><input name="toefl" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.toefl}}" /></td>
+					<td class="InnerInputTD"><input name="toefl_reading" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.toefl_reading}}" /></td>
+					<td class="InnerInputTD"><input name="toefl_listening" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.toefl_listening}}" /></td>
+					<td class="InnerInputTD"><input name="toefl_speaking" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.toefl_speaking}}" /></td>
+					<td class="InnerInputTD"><input name="toefl_writing" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.toefl_writing}}" /></td>
+					<td class="InnerInputTD"><input name="toefl_total" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.toefl_total}}" /></td>
+					<td class="InnerInputTD"><input name="toefl_target" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.toefl_target}}" /></td>
+					<td class="InnerInputTD"><input name="toefl_next_test_date" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.toefl_next_test_date}}" /></td>
 				</tr>
 			</table>
 		</div><!-- ListTable -->
@@ -318,7 +318,7 @@
 
 
 
-		<div class="MTitle">Test Scores</div>
+		<div class="MTitle">SAT / ACT Test Scores</div>
 		<div class="cdiv"></div>
 		<div class="ListTable">
 			<table cellpadding="0" cellspacing="0" border="0">
@@ -339,12 +339,12 @@
 					<th>Next Test Date</th>
 				</tr>
 				<tr>
-					<td class="InnerInputTD"><input name="sat" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.sat}}" /></td>
-					<td class="InnerInputTD"><input name="sat_evb_reading_writing" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.sat_evb_reading_writing}}" /></td>
-					<td class="InnerInputTD"><input name="sat_math" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.sat_math}}" /></td>
-					<td class="InnerInputTD"><input name="sat_total" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.sat_total}}" /></td>
-					<td class="InnerInputTD"><input name="sat_target" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.sat_target}}" /></td>
-					<td class="InnerInputTD"><input name="sat_next_test_date" type="text" class="TableInnerInput" style="width:70px;" value="{{found_report.sat_next_test_date}}" /></td>
+					<td class="InnerInputTD"><input name="sat" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.sat}}" /></td>
+					<td class="InnerInputTD"><input name="sat_evb_reading_writing" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.sat_evb_reading_writing}}" /></td>
+					<td class="InnerInputTD"><input name="sat_math" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.sat_math}}" /></td>
+					<td class="InnerInputTD"><input name="sat_total" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.sat_total}}" /></td>
+					<td class="InnerInputTD"><input name="sat_target" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.sat_target}}" /></td>
+					<td class="InnerInputTD"><input name="sat_next_test_date" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.sat_next_test_date}}" /></td>
 				</tr>
 			</table>
 			<table cellpadding="0" cellspacing="0" border="0">
@@ -369,14 +369,14 @@
 					<th>Next Test Date</th>
 				</tr>
 				<tr>
-					<td class="InnerInputTD"><input name="act" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.act}}" /></td>
-					<td class="InnerInputTD"><input name="act_eng" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.act_eng}}" /></td>
-					<td class="InnerInputTD"><input name="act_math" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.act_math}}" /></td>
-					<td class="InnerInputTD"><input name="act_reading" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.act_reading}}" /></td>
-					<td class="InnerInputTD"><input name="act_sci" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.act_sci}}" /></td>
-					<td class="InnerInputTD"><input name="act_composition_score" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.act_composition_score}}" /></td>
-					<td class="InnerInputTD"><input name="act_target" type="text" class="TableInnerInput" style="width:60px;" value="{{found_report.act_target}}" /></td>
-					<td class="InnerInputTD"><input name="act_next_test_date" type="text" class="TableInnerInput" style="width:70px;" value="{{found_report.act_next_test_date}}" /></td>
+					<td class="InnerInputTD"><input name="act" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.act}}" /></td>
+					<td class="InnerInputTD"><input name="act_eng" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.act_eng}}" /></td>
+					<td class="InnerInputTD"><input name="act_math" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.act_math}}" /></td>
+					<td class="InnerInputTD"><input name="act_reading" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.act_reading}}" /></td>
+					<td class="InnerInputTD"><input name="act_sci" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.act_sci}}" /></td>
+					<td class="InnerInputTD"><input name="act_composition_score" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.act_composition_score}}" /></td>
+					<td class="InnerInputTD"><input name="act_target" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.act_target}}" /></td>
+					<td class="InnerInputTD"><input name="act_next_test_date" type="text" class="TableInnerInput" style="width:140px;" value="{{found_report.act_next_test_date}}" /></td>
 				</tr>
 			</table>
 		</div><!-- ListTable -->
@@ -388,20 +388,20 @@
 				</colgroup>
 				<tr>
 					<th>AP Tests</th>
-					<td class="InnerInputTD"><textarea name="ap_tests" class="TableInnerTextarea" style="height:60px;" >{{found_report.ap_tests}}</textarea></td>
+					<td class="InnerInputTD"><textarea name="ap_tests" class="TableInnerTextarea" style="height:140px;" >{{found_report.ap_tests}}</textarea></td>
 				</tr>
 				<tr>
 					<th>SAT Subject Tests</th>
-					<td class="InnerInputTD"><textarea name="sat_subjects_tests" class="TableInnerTextarea" style="height:60px;" >{{found_report.sat_subjects_tests}}</textarea></td>
+					<td class="InnerInputTD"><textarea name="sat_subjects_tests" class="TableInnerTextarea" style="height:140px;" >{{found_report.sat_subjects_tests}}</textarea></td>
 				</tr>
 			</table>
 		</div><!-- ListTable -->
 		<div class="EndPart"></div>
 
-		<div class="MTitle">Test Prep</div>
+		<div class="MTitle">Consulting for Test Preparation</div>
 		<div class="cdiv"></div>
 		<div class="ListTable">
-		<textarea name="test_prep" class="TableInnerTextarea" style="height:60px;" >{{found_report.test_prep}}</textarea>
+		<textarea name="test_prep" class="TableInnerTextarea" style="height:140px;" >{{found_report.test_prep}}</textarea>
 		</div><!-- InfoTable -->
 		<div class="EndPart"></div>
 
@@ -502,33 +502,26 @@
 		<div class="EndPart"></div>
 		<div class="cdiv"></div>
 
-		<div class="InfoTable">
-			<table cellpadding="0" cellspacing="0" border="0">
-				<colgroup>
-					<col width="90">
-					<col>
-				</colgroup>
-				<tr>
-					<th>Activities : </th>
-					<td class="InnerInputTD"><textarea name="activities" class="TableInnerTextarea" style="height:60px;" placeholder="">{{found_report.activities}}</textarea></td>
-				</tr>
-				<tr>
-					<th>Community Services : </th>
-					<td class="InnerInputTD"><textarea name="community_services" class="TableInnerTextarea" style="height:60px;" placeholder="">{{found_report.community_services}}</textarea></td>
-				</tr>
-				<tr>
-					<th>Agenda : </th>
-					<td class="InnerInputTD"><textarea name="agenda" class="TableInnerTextarea" style="height:60px;" placeholder="">{{found_report.agenda}}</textarea></td>
-				</tr>
-				<tr>
-					<th>Comment : </th>
-					<td class="InnerInputTD"><textarea name="comment2" class="TableInnerTextarea" style="height:60px;" placeholder="">{{found_report.comment2}}</textarea></td>
-				</tr>
-				<tr>
-					<th>Objective / Assignment : </th>
-					<td class="InnerInputTD"><textarea name="objective_assignment" class="TableInnerTextarea" style="height:60px;" placeholder="">{{found_report.objective_assignment}}</textarea></td>
-				</tr>
-			</table>
+		<div class="EndPart"></div>
+
+		<div class="MTitle">Activities</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+		<textarea name="activities" class="TableInnerTextarea" style="height:140px;">{{found_report.activities}}</textarea>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+		<div class="MTitle">Community Services</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+		<textarea name="community_services" class="TableInnerTextarea" style="height:140px;">{{found_report.community_services}}</textarea>
+		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
+
+		<div class="MTitle">Objective / Assignment for Next Report</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+		<textarea name="objective_assignment" class="TableInnerTextarea" style="height:140px;">{{found_report.objective_assignment}}</textarea>
 		</div><!-- InfoTable -->
 		<div class="EndPart"></div>
 
@@ -543,11 +536,11 @@
 				<tr>
 					<th>Description</th>
 					<th>Expense</th>
-					<th>Due date</th>
+					<th>Due Date</th>
 					<th>Payment</th>
-					<th>Paid date</th>
+					<th>Paid Date</th>
 					<th>Balance</th>
-					<th>Invoice attachment</th>
+					<th>Invoice Attachment</th>
 				</tr>
 				<tr>
 					<td class="InnerInputTD"><input name="payment_desc" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_desc}}" /></td>
@@ -704,9 +697,9 @@
 				<tr>
 					<td colspan="3" class="InnerInputTD">
 						{% if found_host_report %}
-						<textarea id="HostReportHostComment" class="TableInnerTextarea" style="height:60px;" readonly>{{found_host_report.comment}}</textarea>
+						<textarea id="HostReportHostComment" class="TableInnerTextarea" style="height:140px;" readonly>{{found_host_report.comment}}</textarea>
 						{% else %}
-						<textarea id="HostReportHostComment" class="TableInnerTextarea" style="height:60px;" readonly></textarea>
+						<textarea id="HostReportHostComment" class="TableInnerTextarea" style="height:140px;" readonly></textarea>
 						{% endif %}
 					</td>
 				</tr>
