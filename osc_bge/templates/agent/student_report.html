@@ -76,7 +76,7 @@
 							<th>School Year : </th>
 							<td class="InnerInputTD"><input name="school_year" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.school_year}}" disabled/></td>
 							<th>Grade : </th>
-							<td class="InnerInputTD"><input name="grade" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.grade}}" disabled/></td>
+							<td class="InnerInputTD"><input name="grade" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.grade}}" disabled/></td>
 							<th style="color:red;">* Report to Parent Date : </th>
 							<td class="InnerInputTD">
                 {% if found_report.report_to_parent %}
@@ -129,48 +129,77 @@
 				</colgroup>
 				<tr>
 					<th>Subject</th>
-					<td>Eng-9H</td>
-					<td>PreCal</td>
-					<td>Bio-H</td>
-					<td>Chem-H</td>
-					<td>AP-Human Geo</td>
-					<td>Computer Sci</td>
-					<td>Spanish 3</td>
-					<td>Orchestra</td>
+					{% for record in academic_records %}
+						{% if record.subject %}
+							<td class="InnerInputTD"><input name="subject{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="{{ record.subject }}" /></td>
+						{% else %}
+						<td class="InnerInputTD"><input name="subject{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+						{% endif %}
+					{% endfor %}
+					{% for num in academic_range %}
+						<td class="InnerInputTD"><input name="subject{{num}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+					{% endfor %}
+					<td>Quater GPA</td>
 				</tr>
 				<tr>
 					<th>Level</th>
-					<td class="InnerInputTD"><input name="eng9h_lv" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.eng9h_lv}}" disabled/></td>
-					<td class="InnerInputTD"><input name="precal_lv" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.precal_lv}}" disabled/></td>
-					<td class="InnerInputTD"><input name="bioh_lv" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.bioh_lv}}" disabled/></td>
-					<td class="InnerInputTD"><input name="chemh_lv" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.chemh_lv}}" disabled/></td>
-					<td class="InnerInputTD"><input name="geo_lv" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.geo_lv}}" disabled/></td>
-					<td class="InnerInputTD"><input name="cs_lv" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.cs_lv}}" disabled/></td>
-					<td class="InnerInputTD"><input name="sp_lv" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.sp_lv}}" disabled/></td>
-					<td class="InnerInputTD"><input name="orch_lv" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.orch_lv}}" disabled/></td>
-
+					{% for record in academic_records %}
+						{% if record.level %}
+						<td class="InnerInputTD"><input name="level{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="{{ record.level }}" /></td>
+						{% else %}
+						<td class="InnerInputTD"><input name="level{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+						{% endif %}
+					{% endfor %}
+					{% for num in academic_range %}
+						<td class="InnerInputTD"><input name="level{{num}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+					{% endfor %}
+					<td class="InnerInputTD"></td>
 				</tr>
 				<tr>
 					<th>Target</th>
-					<td class="InnerInputTD"><input name="eng9h_tg" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.eng9h_tg}}" disabled/></td>
-					<td class="InnerInputTD"><input name="precal_tg" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.precal_tg}}" disabled/></td>
-					<td class="InnerInputTD"><input name="bioh_tg" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.bioh_tg}}" disabled/></td>
-					<td class="InnerInputTD"><input name="chemh_tg" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.chemh_tg}}" disabled/></td>
-					<td class="InnerInputTD"><input name="geo_tg" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.geo_tg}}" disabled/></td>
-					<td class="InnerInputTD"><input name="cs_tg" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.cs_tg}}" disabled/></td>
-					<td class="InnerInputTD"><input name="sp_tg" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.sp_tg}}" disabled/></td>
-					<td class="InnerInputTD"><input name="orch_tg" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.orch_tg}}" disabled/></td>
+					{% for record in academic_records %}
+						{% if record.target %}
+						<td class="InnerInputTD"><input name="target{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="{{ record.target }}" /></td>
+						{% else %}
+						<td class="InnerInputTD"><input name="target{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+						{% endif %}
+					{% endfor %}
+					{% for num in academic_range %}
+						<td class="InnerInputTD"><input name="target{{num}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+					{% endfor %}
+					<td class="InnerInputTD"></td>
 				</tr>
 				<tr>
 					<th>Current</th>
-					<td class="InnerInputTD"><input name="eng9h_current" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.eng9h_current}}" disabled/></td>
-					<td class="InnerInputTD"><input name="precal_current" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.precal_current}}" disabled/></td>
-					<td class="InnerInputTD"><input name="bioh_current" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.bioh_current}}" disabled/></td>
-					<td class="InnerInputTD"><input name="chemh_current" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.chemh_current}}" disabled/></td>
-					<td class="InnerInputTD"><input name="geo_current" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.geo_current}}" disabled/></td>
-					<td class="InnerInputTD"><input name="cs_current" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.cs_current}}" disabled/></td>
-					<td class="InnerInputTD"><input name="sp_current" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.sp_current}}" disabled/></td>
-					<td class="InnerInputTD"><input name="orch_current" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.orch_current}}" disabled/></td>
+					{% for record in academic_records %}
+						{% if record.current %}
+						<td class="InnerInputTD"><input name="current{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="{{ record.current }}" /></td>
+						{% else %}
+						<td class="InnerInputTD"><input name="current{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+						{% endif %}
+					{% endfor %}
+					{% for num in academic_range %}
+						<td class="InnerInputTD"><input name="current{{num}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+					{% endfor %}
+					<td class="InnerInputTD"></td>
+				</tr>
+				<tr>
+					<th>Current Grade</th>
+					{% for record in academic_records %}
+						{% if record.current_grade %}
+						<td class="InnerInputTD"><input name="current_grade{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="{{ record.current_grade }}" /></td>
+						{% else %}
+						<td class="InnerInputTD"><input name="current_grade{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+						{% endif %}
+					{% endfor %}
+					{% for num in academic_range %}
+						<td class="InnerInputTD"><input name="current_grade{{num}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+					{% endfor %}
+					{% if found_report.quater_gpa %}
+					<td class="InnerInputTD"><input name="quater_gpa" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.quater_gpa}}" /></td>
+					{% else %}
+					<td class="InnerInputTD"><input name="quater_gpa" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+					{% endif %}
 				</tr>
 				<tr>
 					<th>Comment</th>
@@ -188,6 +217,7 @@
 					<th>To see current Transcript</th>
 					<td colspan="9" class="InnerInputTD">
 					<textarea class="TableInnerTextarea" style="height:100px;width:calc(100% - 10px);" name="transcript" disabled>{{found_report.transcript}}</textarea>
+					<a href="{{found_report.transcript}}">{{found_report.transcript}}</a>
 					</td>
 				</tr>
 			</table>
@@ -222,13 +252,13 @@
 					<th>Next Test Date</th>
 				</tr>
 				<tr>
-					<td class="InnerInputTD"><input name="toefl" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.toefl}}" disabled/></td>
-					<td class="InnerInputTD"><input name="toefl_reading" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.toefl_reading}}" disabled/></td>
-					<td class="InnerInputTD"><input name="toefl_listening" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.toefl_listening}}" disabled/></td>
-					<td class="InnerInputTD"><input name="toefl_speaking" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.toefl_speaking}}"disabled /></td>
-					<td class="InnerInputTD"><input name="toefl_writing" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.toefl_writing}}" disabled/></td>
-					<td class="InnerInputTD"><input name="toefl_total" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.toefl_total}}" disabled/></td>
-					<td class="InnerInputTD"><input name="toefl_target" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.toefl_target}}" disabled/></td>
+					<td class="InnerInputTD"><input name="toefl" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.toefl}}" disabled/></td>
+					<td class="InnerInputTD"><input name="toefl_reading" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.toefl_reading}}" disabled/></td>
+					<td class="InnerInputTD"><input name="toefl_listening" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.toefl_listening}}" disabled/></td>
+					<td class="InnerInputTD"><input name="toefl_speaking" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.toefl_speaking}}"disabled /></td>
+					<td class="InnerInputTD"><input name="toefl_writing" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.toefl_writing}}" disabled/></td>
+					<td class="InnerInputTD"><input name="toefl_total" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.toefl_total}}" disabled/></td>
+					<td class="InnerInputTD"><input name="toefl_target" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.toefl_target}}" disabled/></td>
 					<td class="InnerInputTD"><input name="toefl_next_test_date" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.toefl_next_test_date}}" disabled/></td>
 				</tr>
 			</table>
@@ -258,11 +288,11 @@
 					<th>Next Test Date</th>
 				</tr>
 				<tr>
-					<td class="InnerInputTD"><input name="sat" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.sat}}" disabled/></td>
-					<td class="InnerInputTD"><input name="sat_evb_reading_writing" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.sat_evb_reading_writing}}" disabled/></td>
-					<td class="InnerInputTD"><input name="sat_math" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.sat_math}}" disabled/></td>
-					<td class="InnerInputTD"><input name="sat_total" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.sat_total}}"disabled /></td>
-					<td class="InnerInputTD"><input name="sat_target" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.sat_target}}" disabled/></td>
+					<td class="InnerInputTD"><input name="sat" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.sat}}" disabled/></td>
+					<td class="InnerInputTD"><input name="sat_evb_reading_writing" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.sat_evb_reading_writing}}" disabled/></td>
+					<td class="InnerInputTD"><input name="sat_math" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.sat_math}}" disabled/></td>
+					<td class="InnerInputTD"><input name="sat_total" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.sat_total}}"disabled /></td>
+					<td class="InnerInputTD"><input name="sat_target" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.sat_target}}" disabled/></td>
 					<td class="InnerInputTD"><input name="sat_next_test_date" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.sat_next_test_date}}" disabled/></td>
 				</tr>
 			</table>
@@ -288,13 +318,13 @@
 					<th>Next Test Date</th>
 				</tr>
 				<tr>
-					<td class="InnerInputTD"><input name="act" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.act}}" disabled/></td>
-					<td class="InnerInputTD"><input name="act_eng" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.act_eng}}" disabled/></td>
-					<td class="InnerInputTD"><input name="act_math" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.act_math}}" disabled/></td>
-					<td class="InnerInputTD"><input name="act_reading" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.act_reading}}" disabled/></td>
-					<td class="InnerInputTD"><input name="act_sci" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.act_sci}}"disabled /></td>
-					<td class="InnerInputTD"><input name="act_composition_score" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.act_composition_score}}"disabled /></td>
-					<td class="InnerInputTD"><input name="act_target" type="text" class="TableInnerInput" style="width:40px;" value="{{found_report.act_target}}" disabled/></td>
+					<td class="InnerInputTD"><input name="act" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.act}}" disabled/></td>
+					<td class="InnerInputTD"><input name="act_eng" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.act_eng}}" disabled/></td>
+					<td class="InnerInputTD"><input name="act_math" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.act_math}}" disabled/></td>
+					<td class="InnerInputTD"><input name="act_reading" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.act_reading}}" disabled/></td>
+					<td class="InnerInputTD"><input name="act_sci" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.act_sci}}"disabled /></td>
+					<td class="InnerInputTD"><input name="act_composition_score" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.act_composition_score}}"disabled /></td>
+					<td class="InnerInputTD"><input name="act_target" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.act_target}}" disabled/></td>
 					<td class="InnerInputTD"><input name="act_next_test_date" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.act_next_test_date}}"disabled /></td>
 				</tr>
 			</table>
@@ -404,7 +434,7 @@
 		})
 		</script>
 
-		<div class="MTitle">Graph for GPA, TOEFL. SAT, ACT</div>
+		<div class="MTitle">Graph for GPA, TOEFL, SAT, ACT</div>
 		<div class="cdiv"></div>
 		<div class="Layout_2-1">
 		<div class="GraphgArea">

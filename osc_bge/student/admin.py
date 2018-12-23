@@ -87,30 +87,6 @@ class StudentMonthlyReportAdmin(admin.ModelAdmin):
         "grade",
         "send_to_agent_date",
         "college_plan",
-        "eng9h_lv",
-        "eng9h_tg",
-        "eng9h_current",
-        "precal_lv",
-        "precal_tg",
-        "precal_current",
-        "bioh_lv",
-        "bioh_tg",
-        "bioh_current",
-        "chemh_lv",
-        "chemh_tg",
-        "chemh_current",
-        "geo_lv",
-        "geo_tg",
-        "geo_current",
-        "cs_lv",
-        "cs_tg",
-        "cs_current",
-        "sp_lv",
-        "sp_tg",
-        "sp_current",
-        "orch_lv",
-        "orch_tg",
-        "orch_current",
         "comment",
         "target_gpa",
         "transcript",
@@ -155,8 +131,22 @@ class StudentMonthlyReportAdmin(admin.ModelAdmin):
         "submit_date",
         "agent_confirmed",
         "status",
+        "quater_gpa",
         "created_at",
         "updated_at",
+    )
+
+@admin.register(models.StudentAcademicRecord)
+class StudentAcademicRecordAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "student",
+        "subject_number",
+        "subject",
+        "level",
+        "target",
+        "current",
+        "current_grade",
     )
 
 @admin.register(models.StudentAccounting)
