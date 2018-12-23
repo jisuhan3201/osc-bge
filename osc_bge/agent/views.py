@@ -243,7 +243,7 @@ class CounselView(LoginRequiredMixin, View):
 
         if self.request.GET.get('form_type') == 'secondary_form':
 
-            queryset = school_models.Secondary.objects.all().order_by('school__name', 'school__partnership')
+            queryset = school_models.Secondary.objects.all().order_by('school__partnership', 'school__name')
 
             school_type = self.request.GET.getlist('school_type', None)
             if school_type:
@@ -360,8 +360,6 @@ class CounselView(LoginRequiredMixin, View):
 
         else:
             queryset = None
-
-        queryset = queryset.order_by('school__partnership', 'school__name')
 
         return queryset
 
