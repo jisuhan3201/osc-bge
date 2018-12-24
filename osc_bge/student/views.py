@@ -81,6 +81,10 @@ class StudentReportView(View):
             except models.StudentAcademicRecord.DoesNotExist:
                 academic_records = None
 
+            all_toefl = models.StudentToeflHistory.objects.filter(student=found_student).order_by('toefl_date')
+            all_sat = models.StudentSatHistory.objects.filter(student=found_student).order_by('sat_date')
+            all_act = models.StudentActHistory.objects.filter(student=found_student).order_by('act_date')
+
         else:
             return HttpResponse('No student id', status=400)
 
@@ -88,6 +92,9 @@ class StudentReportView(View):
             'found_report':found_report,
             'all_reports':all_reports,
             'academic_records':academic_records,
+            'all_toefl':all_toefl,
+            'all_sat':all_sat,
+            'all_act':all_act,
         })
 
     def post(self, request, student_id=None):
@@ -125,12 +132,25 @@ class StudentPastReportView(LoginRequiredMixin, View):
             all_reports = models.StudentMonthlyReport.objects.filter(
                 student=found_report.student, send_to_agent_date__isnull=False).order_by('-send_to_agent_date')
 
+            try:
+                academic_records = models.StudentAcademicRecord.objects.filter(student=found_student)
+            except models.StudentAcademicRecord.DoesNotExist:
+                academic_records = None
+
+            all_toefl = models.StudentToeflHistory.objects.filter(student=found_student).order_by('toefl_date')
+            all_sat = models.StudentSatHistory.objects.filter(student=found_student).order_by('sat_date')
+            all_act = models.StudentActHistory.objects.filter(student=found_student).order_by('act_date')
+
         else:
             return HttpResponse('No student id', status=400)
 
         return render(request, 'agent/student_report.html', {
             'found_report':found_report,
             'all_reports':all_reports,
+            'academic_records':academic_records,
+            'all_toefl':all_toefl,
+            'all_sat':all_sat,
+            'all_act':all_act,
         })
 
     def post(self, request, report_id=None):

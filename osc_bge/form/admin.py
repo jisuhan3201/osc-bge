@@ -67,6 +67,8 @@ class FormalityAdmin(admin.ModelAdmin):
         "air_arrive_time",
         "air_arrive_port",
         "pickup_num",
+        "departure_ot",
+        "departure_confirmed",
     )
 
 @admin.register(models.SchoolFormality)

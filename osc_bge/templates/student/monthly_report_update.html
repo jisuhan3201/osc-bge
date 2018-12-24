@@ -853,9 +853,9 @@
 					{% endif %}
 
 					{% if found_host_report %}
-					<td id="HostReportHostImprovement" class="InnerInputTD">Improvement : {{found_host_report.improvement}}</td>
+					<td class="InnerInputTD">Improvement : <span id="HostReportHostImprovement">{{found_host_report.improvement}}</span></td>
 					{% else %}
-					<td id="HostReportHostImprovement" class="InnerInputTD">Improvement : </td>
+					<td class="InnerInputTD">Improvement : <span id="HostReportHostImprovement"></span></td>
 					{% endif %}
 				</tr>
         <tr>

@@ -21,7 +21,7 @@ $("#GetHostReportId").change(function () {
         $("#HostReportHostAddress").text(data[1]["fields"]["address"])
         $("#HostReportHostContact").text(data[1]["fields"]["phone"] + " / " + data[1]["fields"]["email"])
         $("#HostReportHostRate").text(data[0]["fields"]["rate"])
-        $("#HostReportHostImprovement").text(data[1]["fields"]["improvement"])
+        $("#HostReportHostImprovement").text(data[0]["fields"]["improvement"])
         $("#HostReportHostFluency").text(data[0]["fields"]["cultural_fluency"])
         $("#HostReportHostRules").text(data[0]["fields"]["house_rule_attitude"])
         $("#HostReportHostResponsibility").text(data[0]["fields"]["responsibility"])
