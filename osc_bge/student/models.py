@@ -131,28 +131,6 @@ class StudentMonthlyReport(TimeStampedModel):
     transcript = models.TextField(null=True, blank=True)
     eng_skill = models.TextField(null=True, blank=True)
     quater_gpa = models.CharField(max_length=80, null=True, blank=True)
-    toefl = models.DateField(null=True, blank=True)
-    toefl_reading = models.CharField(max_length=80, null=True, blank=True)
-    toefl_listening = models.CharField(max_length=80, null=True, blank=True)
-    toefl_speaking = models.CharField(max_length=80, null=True, blank=True)
-    toefl_writing = models.CharField(max_length=80, null=True, blank=True)
-    toefl_total = models.CharField(max_length=80, null=True, blank=True)
-    toefl_target = models.CharField(max_length=80, null=True, blank=True)
-    toefl_next_test_date = models.CharField(max_length=80, null=True, blank=True)
-    sat = models.DateField(null=True, blank=True)
-    sat_evb_reading_writing = models.CharField(max_length=80, null=True, blank=True)
-    sat_math = models.CharField(max_length=80, null=True, blank=True)
-    sat_total = models.CharField(max_length=80, null=True, blank=True)
-    sat_target = models.CharField(max_length=80, null=True, blank=True)
-    sat_next_test_date = models.CharField(max_length=80, null=True, blank=True)
-    act = models.DateField(null=True, blank=True)
-    act_eng = models.CharField(max_length=80, null=True, blank=True)
-    act_math = models.CharField(max_length=80, null=True, blank=True)
-    act_reading = models.CharField(max_length=80, null=True, blank=True)
-    act_sci = models.CharField(max_length=80, null=True, blank=True)
-    act_composition_score = models.CharField(max_length=80, null=True, blank=True)
-    act_target = models.CharField(max_length=80, null=True, blank=True)
-    act_next_test_date = models.CharField(max_length=80, null=True, blank=True)
     ap_tests = models.TextField(null=True, blank=True)
     sat_subjects_tests = models.TextField(null=True, blank=True)
     test_prep = models.TextField(null=True, blank=True)
@@ -186,6 +164,43 @@ class StudentAcademicRecord(TimeStampedModel):
     target = models.CharField(max_length=80, null=True, blank=True)
     current = models.CharField(max_length=80, null=True, blank=True)
     current_grade = models.CharField(max_length=80, null=True, blank=True)
+
+
+class StudentToeflHistory(TimeStampedModel):
+
+    student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True, related_name='toefl')
+    toefl_date = models.DateField(null=True, blank=True)
+    reading = models.CharField(max_length=80, null=True, blank=True)
+    listening = models.CharField(max_length=80, null=True, blank=True)
+    speaking = models.CharField(max_length=80, null=True, blank=True)
+    writing = models.CharField(max_length=80, null=True, blank=True)
+    total = models.CharField(max_length=80, null=True, blank=True)
+    target = models.CharField(max_length=80, null=True, blank=True)
+    next_test_date = models.CharField(max_length=80, null=True, blank=True)
+
+
+class StudentSatHistory(TimeStampedModel):
+
+    student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True, related_name='sat')
+    sat_date = models.DateField(null=True, blank=True)
+    eb_reading_writing = models.CharField(max_length=80, null=True, blank=True)
+    math = models.CharField(max_length=80, null=True, blank=True)
+    total = models.CharField(max_length=80, null=True, blank=True)
+    target = models.CharField(max_length=80, null=True, blank=True)
+    next_test_date = models.CharField(max_length=80, null=True, blank=True)
+
+
+class StudentActHistory(TimeStampedModel):
+
+    student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True, related_name='act')
+    act_date = models.DateField(null=True, blank=True)
+    eng = models.CharField(max_length=80, null=True, blank=True)
+    math = models.CharField(max_length=80, null=True, blank=True)
+    reading = models.CharField(max_length=80, null=True, blank=True)
+    science = models.CharField(max_length=80, null=True, blank=True)
+    cp_score = models.CharField(max_length=80, null=True, blank=True)
+    target = models.CharField(max_length=80, null=True, blank=True)
+    next_test_date = models.CharField(max_length=80, null=True, blank=True)
 
 
 class StudentCommunicationLog(TimeStampedModel):

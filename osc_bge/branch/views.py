@@ -824,6 +824,26 @@ class HostStudentReportView(LoginRequiredMixin, View):
             )
             host_report.save()
 
+            if request.FILES.getlist('photo'):
+                host_form = forms.HostStudentPhotoForm(request.POST, request.FILES)
+                if host_form.is_valid():
+                    for photo in request.FILES.getlist('photo'):
+
+                        report_photo = models.ReportPhoto()
+                        report_photo.report = host_report
+                        report_photo.photo = photo
+                        report_photo.save()
+
+            if request.FILES.getlist('file'):
+                host_form = forms.HostStudentFileForm(request.POST, request.FILES)
+                if host_form.is_valid():
+                    for file in request.FILES.getlist('file'):
+
+                        report_file = models.ReportFile()
+                        report_file.report = host_report
+                        report_file.file = file
+                        report_file.save()
+
             if data.get('status') == 'complete':
                 host_report.submitted_date = datetime.date.today()
                 host_report.save()
@@ -831,7 +851,7 @@ class HostStudentReportView(LoginRequiredMixin, View):
         else:
             return HttpResponse('No student id', status=400)
 
-        return HttpResponseRedirect(request.path_info)
+        return HttpResponseRedirect("/branch/host/report/update/"+str(host_report.id))
 
 
 class HostStudentReportUpdateView(LoginRequiredMixin, View):
@@ -871,7 +891,6 @@ class HostStudentReportUpdateView(LoginRequiredMixin, View):
     def post(self, request, report_id=None):
 
         data = request.POST
-
         if report_id:
 
             try:
@@ -899,7 +918,37 @@ class HostStudentReportUpdateView(LoginRequiredMixin, View):
 
             found_report.save()
 
+            if request.FILES.getlist('photo'):
+                host_form = forms.HostStudentPhotoForm(request.POST, request.FILES)
+                if host_form.is_valid():
+                    for photo in request.FILES.getlist('photo'):
+
+                        report_photo = models.ReportPhoto()
+                        report_photo.report = found_report
+                        report_photo.photo = photo
+                        report_photo.save()
+
+            if request.FILES.getlist('file'):
+                host_form = forms.HostStudentFileForm(request.POST, request.FILES)
+                if host_form.is_valid():
+                    for file in request.FILES.getlist('file'):
+
+                        report_file = models.ReportFile()
+                        report_file.report = found_report
+                        report_file.file = file
+                        report_file.save()
+
+            if data.getlist('delete_photo'):
+                for num in data.getlist('delete_photo'):
+                    found_photo = models.ReportPhoto.objects.get(id=int(num))
+                    found_photo.delete()
+
+            if data.getlist('delete_file'):
+                for num in data.getlist('delete_file'):
+                    found_file = models.ReportFile.objects.get(id=int(num))
+                    found_file.delete()
+
         else:
             return HttpResponse('No student id', status=400)
 
-        return HttpResponseRedirect("/branch/host/report/"+str(found_report.student.id))
+        return HttpResponseRedirect(request.path_info)

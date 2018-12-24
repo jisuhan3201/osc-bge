@@ -5,6 +5,18 @@ $("#GetHostReportId").change(function () {
       url: "/student/host/report/"+report_id,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
       success: function (data) {   // `data` is the return of the `load_cities` view function
         console.log(data)
+        var photo_list = []
+        var file_list = []
+        for (i=0; i<data.length; i++){
+          if(data[i]["model"] == "branch.reportphoto"){
+            photo_list.push(data[i]["fields"]["photo"])
+            $("#HostReportHostPhoto").append(data[i]["fields"]["photo"])
+          }
+          if(data[i]["model"] == "branch.reportfile"){
+            file_list.push(data[i]["fields"]["file"])
+            $("#HostReportHostFile").append(data[i]["fields"]["file"])
+          }
+        }
         $("#HostReportHostName").text(data[1]["fields"]["name"])
         $("#HostReportHostAddress").text(data[1]["fields"]["address"])
         $("#HostReportHostContact").text(data[1]["fields"]["phone"] + " / " + data[1]["fields"]["email"])
@@ -17,6 +29,8 @@ $("#GetHostReportId").change(function () {
         $("#HostReportHostHabit").text(data[0]["fields"]["sleeping_habits"])
         $("#HostReportHostAttendance").text(data[0]["fields"]["school_attendance"])
         $("#HostReportHostComment").text(data[0]["fields"]["comment"])
+        $("#HostReportHostPhoto").text(photo_list)
+        $("#HostReportHostFile").text(file_list + " / ")
         $("#HostReportId").val(data[0]["pk"])
       }
     });

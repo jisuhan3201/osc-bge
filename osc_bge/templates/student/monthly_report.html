@@ -168,11 +168,7 @@
 					{% for num in academic_range %}
 						<td class="InnerInputTD"><input name="current_grade{{num}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
 					{% endfor %}
-					{% if found_report.quater_gpa %}
-					<td class="InnerInputTD"><input name="quater_gpa" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.quater_gpa}}" /></td>
-					{% else %}
 					<td class="InnerInputTD"><input name="quater_gpa" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-					{% endif %}
 				</tr>
 				<tr>
 					<th>Comment</th>
@@ -214,7 +210,7 @@
 					<col width="100">
 				</colgroup>
 				<tr>
-					<th>TOEFL</th>
+					<th><span style="color:orange;">* TOEFL (Required)</span></th>
 					<th>Reading</th>
 					<th>Listening</th>
 					<th>Speaking</th>
@@ -223,9 +219,32 @@
 					<th>Target</th>
 					<th>Next Test Date</th>
 				</tr>
+				{% for toefl in all_toefl %}
+					<tr>
+						<input type="text" name="toefl_id" value="{{toefl.id}}" hidden>
+						<td class="InnerInputTD">
+							<input
+								name="toefl_date{{toefl.id}}"
+								type="text"
+								class="TableInnerInput"
+								style="width:100px;"
+								pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+								placeholder="YYYY-MM-DD"
+								value="{{toefl.toefl_date|date:'Y-m-d'}}" />
+						</td>
+						<td class="InnerInputTD"><input name="toefl_reading{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.reading}}" /></td>
+						<td class="InnerInputTD"><input name="toefl_listening{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.listening}}" /></td>
+						<td class="InnerInputTD"><input name="toefl_speaking{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.speaking}}" /></td>
+						<td class="InnerInputTD"><input name="toefl_writing{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.writing}}" /></td>
+						<td class="InnerInputTD"><input name="toefl_total{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.total}}" /></td>
+						<td class="InnerInputTD"><input name="toefl_target{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.target}}" /></td>
+						<td class="InnerInputTD"><input name="toefl_next_test_date{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.next_test_date}}" /></td>
+					</tr>
+				{% endfor %}
 				<tr>
+					<td class="InnerInputTD">
 						<input
-							name="toefl"
+							name="toefl_date"
 							type="text"
 							class="TableInnerInput"
 							style="width:100px;"
@@ -260,17 +279,37 @@
 					<col width="100">
 				</colgroup>
 				<tr>
-					<th>SAT(PSAT)</th>
+					<th><span style="color:orange;">* SAT(PSAT) Required</span></th>
 					<th>Evidence-based Reading & Writing</th>
 					<th>Math</th>
 					<th>Total</th>
 					<th>Target</th>
 					<th>Next Test Date</th>
 				</tr>
+				{% for sat in all_sat %}
+					<tr>
+						<input type="text" name="sat_id" value="{{sat.id}}" hidden>
+						<td class="InnerInputTD">
+							<input
+								name="sat_date{{sat.id}}"
+								type="text"
+								class="TableInnerInput"
+								style="width:100px;"
+								pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+								placeholder="YYYY-MM-DD"
+								value="{{sat.sat_date|date:'Y-m-d'}}" />
+						</td>
+						<td class="InnerInputTD"><input name="sat_eb_reading_writing{{sat.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{sat.eb_reading_writing}}" /></td>
+						<td class="InnerInputTD"><input name="sat_math{{sat.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{sat.math}}" /></td>
+						<td class="InnerInputTD"><input name="sat_total{{sat.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{sat.total}}" /></td>
+						<td class="InnerInputTD"><input name="sat_target{{sat.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{sat.target}}" /></td>
+						<td class="InnerInputTD"><input name="sat_next_test_date{{sat.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{sat.next_test_date}}" /></td>
+					</tr>
+				{% endfor %}
 				<tr>
 					<td class="InnerInputTD">
 						<input
-							name="sat"
+							name="sat_date"
 							type="text"
 							class="TableInnerInput"
 							style="width:100px;"
@@ -278,7 +317,7 @@
 							placeholder="YYYY-MM-DD"
 							value="" />
 					</td>
-					<td class="InnerInputTD"><input name="sat_evb_reading_writing" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+					<td class="InnerInputTD"><input name="sat_eb_reading_writing" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
 					<td class="InnerInputTD"><input name="sat_math" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
 					<td class="InnerInputTD"><input name="sat_total" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
 					<td class="InnerInputTD"><input name="sat_target" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
@@ -297,7 +336,7 @@
 					<col width="100">
 				</colgroup>
 				<tr>
-					<th>ACT</th>
+					<th><span style="color:orange;">* ACT (Required)</span></th>
 					<th>English</th>
 					<th>Math</th>
 					<th>Reading</th>
@@ -306,10 +345,32 @@
 					<th>Target</th>
 					<th>Next Test Date</th>
 				</tr>
+				{% for act in all_act %}
+					<tr>
+						<input type="text" name="act_id" value="{{act.id}}" hidden>
+						<td class="InnerInputTD">
+							<input
+								name="act_date{{act.id}}"
+								type="text"
+								class="TableInnerInput"
+								style="width:100px;"
+								pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+								placeholder="YYYY-MM-DD"
+								value="{{act.act_date|date:'Y-m-d'}}" />
+						</td>
+						<td class="InnerInputTD"><input name="act_eng{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.eng}}" /></td>
+						<td class="InnerInputTD"><input name="act_math{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.math}}" /></td>
+						<td class="InnerInputTD"><input name="act_reading{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.reading}}" /></td>
+						<td class="InnerInputTD"><input name="act_science{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.science}}" /></td>
+						<td class="InnerInputTD"><input name="act_cp_score{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.cp_score}}" /></td>
+						<td class="InnerInputTD"><input name="act_target{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.target}}" /></td>
+						<td class="InnerInputTD"><input name="act_next_test_date{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.next_test_date}}" /></td>
+					</tr>
+				{% endfor %}
 				<tr>
 					<td class="InnerInputTD">
 						<input
-							name="act"
+							name="act_date"
 							type="text"
 							class="TableInnerInput"
 							style="width:100px;"
@@ -320,8 +381,8 @@
 					<td class="InnerInputTD"><input name="act_eng" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
 					<td class="InnerInputTD"><input name="act_math" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
 					<td class="InnerInputTD"><input name="act_reading" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-					<td class="InnerInputTD"><input name="act_sci" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-					<td class="InnerInputTD"><input name="act_composition_score" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+					<td class="InnerInputTD"><input name="act_science" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+					<td class="InnerInputTD"><input name="act_cp_score" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
 					<td class="InnerInputTD"><input name="act_target" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
 					<td class="InnerInputTD"><input name="act_next_test_date" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
 				</tr>
@@ -356,19 +417,26 @@
 		$(document).ready(function(){
 
 			$.ajax({                       // initialize an AJAX request
-				url: "/student/transcript/statistics/{{found_student.id}}",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+				url: "/student/transcript/statistics/{{found_report.student.id}}",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
 				success: function (data) {   // `data` is the return of the `load_cities` view function
-					var months = data.months;
+					var sat_date = data.sat_date;
+					var act_date = data.act_date;
+					var toefl_date = data.toefl_date;
+					var months = data.months
+					var gpa = data.gpa;
+
 					var ctx = document.getElementById("SatStatisticChart");
-					var ctx2 = document.getElementById("ToeflStatisticChart");
+					var ctx2 = document.getElementById("ActStatisticChart");
+					var ctx3 = document.getElementById("ToeflStatisticChart");
+					var ctx4 = document.getElementById("GpaStatisticChart");
 					var myChart = new Chart(ctx, {
 							type: 'line',
 							data: {
-									labels: months,
+									labels: sat_date,
 									datasets: [
 										{
 											label:"SAT",
-											data: data.sat,
+											data: data.sat_score,
 											fill:false,
 											borderColor: [
 												'rgb(' + (Math.floor(Math.random() * 256)) + ',' +
@@ -397,11 +465,44 @@
 					var myChart2 = new Chart(ctx2, {
 							type: 'line',
 							data: {
-									labels: months,
+									labels: act_date,
 									datasets: [
 										{
-											label:"Toefl",
-											data: data.toefl,
+											label:"ACT",
+											data: data.act_score,
+											fill:false,
+											borderColor: [
+												'rgb(' + (Math.floor(Math.random() * 256)) + ',' +
+												(Math.floor(Math.random() * 256)) + ',' +
+												(Math.floor(Math.random() * 256)) + ',1' + ')',
+											],
+											borderWidth: 2
+										},
+									],
+							},
+							options: {
+									title: {
+										display:true,
+										text: "ACT"
+									},
+									scales: {
+											yAxes: [{
+													ticks: {
+															beginAtZero:true
+													}
+											}]
+									}
+							}
+					});
+
+					var myChart3 = new Chart(ctx3, {
+							type: 'line',
+							data: {
+									labels: toefl_date,
+									datasets: [
+										{
+											label:"TOEFL",
+											data: data.toefl_score,
 											fill:false,
 											borderColor: [
 												'rgb(' + (Math.floor(Math.random() * 256)) + ',' +
@@ -426,12 +527,60 @@
 									}
 							}
 					});
+
+					var myChart4 = new Chart(ctx4, {
+							type: 'line',
+							data: {
+									labels: months,
+									datasets: [
+										{
+											label:"GPA",
+											data: data.gpa,
+											fill:false,
+											borderColor: [
+												'rgb(' + (Math.floor(Math.random() * 256)) + ',' +
+												(Math.floor(Math.random() * 256)) + ',' +
+												(Math.floor(Math.random() * 256)) + ',1' + ')',
+											],
+											borderWidth: 2
+										},
+									],
+							},
+							options: {
+									title: {
+										display:true,
+										text: "GPA"
+									},
+									scales: {
+											yAxes: [{
+													ticks: {
+															beginAtZero:true
+													}
+											}]
+									}
+							}
+					});
+
 				}
 			});
 		})
 		</script>
 
 		<div class="MTitle">Graph for GPA, TOEFL, SAT, ACT</div>
+		<div class="cdiv"></div>
+		<div class="Layout_2-1">
+		<div class="GraphgArea">
+			<canvas id="SatStatisticChart" width="636" height="300"></canvas>
+		</div>
+		</div><!-- Layout_2-1 -->
+		<div class="Layout_2-1">
+		<div class="GraphgArea">
+			<canvas id="ToeflStatisticChart" width="636" height="300"></canvas>
+		</div>
+		</div><!-- Layout_2-1 -->
+		<div class="EndPart"></div>
+		<div class="cdiv"></div>
+
 		<div class="cdiv"></div>
 		<div class="Layout_2-1">
 		<div class="GraphgArea">

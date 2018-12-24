@@ -251,16 +251,28 @@
 					<th>Target</th>
 					<th>Next Test Date</th>
 				</tr>
-				<tr>
-					<td class="InnerInputTD"><input name="toefl" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.toefl}}" disabled/></td>
-					<td class="InnerInputTD"><input name="toefl_reading" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.toefl_reading}}" disabled/></td>
-					<td class="InnerInputTD"><input name="toefl_listening" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.toefl_listening}}" disabled/></td>
-					<td class="InnerInputTD"><input name="toefl_speaking" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.toefl_speaking}}"disabled /></td>
-					<td class="InnerInputTD"><input name="toefl_writing" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.toefl_writing}}" disabled/></td>
-					<td class="InnerInputTD"><input name="toefl_total" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.toefl_total}}" disabled/></td>
-					<td class="InnerInputTD"><input name="toefl_target" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.toefl_target}}" disabled/></td>
-					<td class="InnerInputTD"><input name="toefl_next_test_date" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.toefl_next_test_date}}" disabled/></td>
-				</tr>
+				{% for toefl in all_toefl %}
+					<tr>
+						<input type="text" name="toefl_id" value="{{toefl.id}}" hidden>
+						<td class="InnerInputTD">
+							<input
+								name="toefl_date{{toefl.id}}"
+								type="text"
+								class="TableInnerInput"
+								style="width:100px;"
+								pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+								placeholder="YYYY-MM-DD"
+								value="{{toefl.toefl_date|date:'Y-m-d'}}" />
+						</td>
+						<td class="InnerInputTD"><input name="reading{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.reading}}" /></td>
+						<td class="InnerInputTD"><input name="listening{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.listening}}" /></td>
+						<td class="InnerInputTD"><input name="speaking{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.speaking}}" /></td>
+						<td class="InnerInputTD"><input name="writing{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.writing}}" /></td>
+						<td class="InnerInputTD"><input name="total{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.total}}" /></td>
+						<td class="InnerInputTD"><input name="target{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.target}}" /></td>
+						<td class="InnerInputTD"><input name="next_test_date{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.next_test_date}}" /></td>
+					</tr>
+				{% endfor %}
 			</table>
 		</div><!-- ListTable -->
 		<div class="EndPart"></div>

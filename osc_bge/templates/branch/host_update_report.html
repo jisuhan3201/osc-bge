@@ -27,7 +27,7 @@
 		<!-- 등록일 경우 -->
 		<!-- <div class="MTitle">Reports Regist ({% now "Y F"%})</div> -->
 
-		<form method="POST">
+		<form method="POST" enctype="multipart/form-data">
 			{% csrf_token %}
 		<div class="InfoTable">
 			<table cellpadding="0" cellspacing="0" border="0">
@@ -55,7 +55,12 @@
         </tr>
 				<tr>
 					<th>Photo  : </th>
-					<td class="InnerInputTD" colspan="3"><input type="file" class="TableInnerInput" value="" /><br />
+					<td class="InnerInputTD" colspan="3"><input type="file" class="TableInnerInput" name="photo" multiple/><br />
+						{% for photo in found_report.photos.all %}
+						<img src="{{MEDIA_URL}}{{photo.photo}}" width="400px" alt="">
+						<label><input type="checkbox" name="delete_photo" value="{{photo.id}}"><span></span>Delete</label>
+						<span style="margin-right:10px;"></span>
+						{% endfor %}
 					<!-- <label>
 					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA8hCGZ69G52M0EThs-5dHEQr223RDgzasznLuBOxs4RG1cRyo" class="SchoolThumbnail" />
 					<input type="checkbox" /><span></span>delete</label> -->
@@ -177,11 +182,16 @@
 					</td>
 				</tr>
 				<tr>
-					<th>Photo/File Attachment : </th>
+					<th>File Attachment : </th>
 					<td class="InnerInputTD" colspan="3">
-						<input type="file" class="TableInnerInput" style="width:calc(100% - 100px);" /><a href="" class="Button">x &nbsp; delete</a>
-						<br /><input type="file" class="TableInnerInput" style="width:calc(100% - 100px);" /><a href="" class="Button">x &nbsp; delete</a>
-						<br /><input type="file" class="TableInnerInput" style="width:calc(100% - 100px);" /><a href="" class="Button">+ &nbsp; add</a>
+						<input type="file" class="TableInnerInput" style="width:calc(100% - 100px);" name="file" multiple/>
+						{% for file in found_report.files.all %}
+						<a href="{{MEDIA_URL}}{{file.file}}">{{file.file}}</a>
+						<label><input type="checkbox" name="delete_file" value="{{file.id}}"><span></span>Delete</label><br>
+						{% endfor %}
+
+						<!-- <br /><input type="file" class="TableInnerInput" style="width:calc(100% - 100px);" /><a href="" class="Button">x &nbsp; delete</a>
+						<br /><input type="file" class="TableInnerInput" style="width:calc(100% - 100px);" /><a href="" class="Button">+ &nbsp; add</a> -->
 					</td>
 				</tr>
         <tr>

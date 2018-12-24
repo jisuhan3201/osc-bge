@@ -190,6 +190,10 @@ class StudentMonthlyReportView(LoginRequiredMixin, View):
             else:
                 academic_range = range(1, 9)
 
+
+            all_toefl = models.StudentToeflHistory.objects.filter(student=found_student).order_by('toefl_date')
+            all_sat = models.StudentSatHistory.objects.filter(student=found_student).order_by('sat_date')
+            all_act = models.StudentActHistory.objects.filter(student=found_student).order_by('act_date')
             all_schools = school_models.School.objects.filter(provider_branch=found_branch)
             all_students = models.Student.objects.filter(school__in=all_schools)
             all_reports = models.StudentMonthlyReport.objects.filter(student=found_student).order_by('-updated_at')
@@ -203,6 +207,9 @@ class StudentMonthlyReportView(LoginRequiredMixin, View):
             'all_reports':all_reports,
             'academic_range':academic_range,
             'academic_records':academic_records,
+            "all_toefl":all_toefl,
+            "all_sat":all_sat,
+            "all_act":all_act,
         })
 
     def post(self, request, student_id=None):
@@ -233,28 +240,6 @@ class StudentMonthlyReportView(LoginRequiredMixin, View):
                 target_gpa=data.get('target_gpa'),
                 transcript=data.get('transcript'),
                 eng_skill=data.get('eng_skill'),
-                toefl=data.get('toefl') if data.get('toefl') else None,
-                toefl_reading=data.get('toefl_reading'),
-                toefl_listening=data.get('toefl_listening'),
-                toefl_speaking=data.get('toefl_speaking'),
-                toefl_writing=data.get('toefl_writing'),
-                toefl_total=data.get('toefl_total'),
-                toefl_target=data.get('toefl_target'),
-                toefl_next_test_date=data.get('toefl_next_test_date'),
-                sat=data.get('sat') if data.get('sat') else None,
-                sat_evb_reading_writing=data.get('sat_evb_reading_writing'),
-                sat_math=data.get('sat_math'),
-                sat_total=data.get('sat_total'),
-                sat_target=data.get('sat_target'),
-                sat_next_test_date=data.get('sat_next_test_date'),
-                act=data.get('act') if data.get('act') else None,
-                act_eng=data.get('act_eng'),
-                act_math=data.get('act_math'),
-                act_reading=data.get('act_reading'),
-                act_sci=data.get('act_sci'),
-                act_composition_score=data.get('act_composition_score'),
-                act_target=data.get('act_target'),
-                act_next_test_date=data.get('act_next_test_date'),
                 ap_tests=data.get('ap_tests'),
                 sat_subjects_tests=data.get('sat_subjects_tests'),
                 test_prep=data.get('test_prep'),
@@ -339,6 +324,108 @@ class StudentMonthlyReportView(LoginRequiredMixin, View):
                         )
                     academic_record.save()
 
+
+            if data.getlist('toefl_id'):
+
+                for num in data.getlist("toefl_id"):
+
+                    try:
+                        toefl = models.StudentToeflHistory.objects.get(id=num)
+                    except models.StudentToeflHistory.DoesNotExist:
+                        return HttpResponse('wrong toefl id', status=400)
+
+                    toefl.toefl_date = data.get('toefl_date'+str(num)) if data.get('toefl_date'+str(num)) else None
+                    toefl.reading=data.get('toefl_reading'+str(num))
+                    toefl.listening=data.get('toefl_listening'+str(num))
+                    toefl.speaking=data.get('toefl_speaking'+str(num))
+                    toefl.writing=data.get('toefl_writing'+str(num))
+                    toefl.total=data.get('toefl_total'+str(num))
+                    toefl.target=data.get('toefl_target'+str(num))
+                    toefl.next_test_date=data.get('toefl_next_test_date'+str(num))
+                    toefl.save()
+
+            if data.get('toefl_date'):
+
+                toefl = models.StudentToeflHistory(
+                    student=found_student,
+                    toefl_date=data.get('toefl_date') if data.get('toefl_date') else None,
+                    reading=data.get('toefl_reading') if data.get('toefl_reading') else None,
+                    listening=data.get('toefl_listening') if data.get('toefl_listening') else None,
+                    speaking=data.get('toefl_speaking') if data.get('toefl_speaking') else None,
+                    writing=data.get('toefl_writing') if data.get('toefl_writing') else None,
+                    total=data.get('toefl_total') if data.get('toefl_total') else None,
+                    target=data.get('toefl_target') if data.get('toefl_target') else None,
+                    next_test_date=data.get('toefl_next_test_date') if data.get('toefl_next_test_date') else None,
+                )
+                toefl.save()
+
+
+            if data.getlist('sat_id'):
+
+                for num in data.getlist("sat_id"):
+
+                    try:
+                        sat = models.StudentSatHistory.objects.get(id=num)
+                    except models.StudentSatHistory.DoesNotExist:
+                        return HttpResponse('wrong toefl id', status=400)
+
+                    sat.sat_date = data.get('sat_date'+str(num)) if data.get('sat_date'+str(num)) else None
+                    sat.eb_reading_writing = data.get('sat_eb_reading_writing'+str(num))
+                    sat.math = data.get('sat_math'+str(num))
+                    sat.total=data.get('sat_total'+str(num))
+                    sat.target=data.get('sat_target'+str(num))
+                    sat.next_test_date=data.get('sat_next_test_date'+str(num))
+                    sat.save()
+
+            if data.get('sat_date'):
+
+                sat = models.StudentSatHistory(
+                    student=found_student,
+                    sat_date=data.get('sat_date') if data.get('sat_date') else None,
+                    eb_reading_writing=data.get('sat_eb_reading_writing') if data.get('sat_eb_reading_writing') else None,
+                    math=data.get('sat_math') if data.get('sat_math') else None,
+                    total=data.get('sat_total') if data.get('sat_total') else None,
+                    target=data.get('sat_target') if data.get('sat_target') else None,
+                    next_test_date=data.get('sat_next_test_date') if data.get('sat_next_test_date') else None,
+                )
+                sat.save()
+
+
+            if data.getlist('act_id'):
+
+                for num in data.getlist("act_id"):
+
+                    try:
+                        act = models.StudentActHistory.objects.get(id=num)
+                    except models.StudentActHistory.DoesNotExist:
+                        return HttpResponse('wrong toefl id', status=400)
+
+                    act.act_date = data.get('act_date'+str(num)) if data.get('act_date'+str(num)) else None
+                    act.eng=data.get('act_eng'+str(num))
+                    act.math=data.get('act_math'+str(num))
+                    act.reading=data.get('act_reading'+str(num))
+                    act.science=data.get('act_science'+str(num))
+                    act.cp_score=data.get('act_cp_score'+str(num))
+                    act.target=data.get('act_target'+str(num))
+                    act.next_test_date=data.get('act_next_test_date'+str(num))
+                    act.save()
+
+            if data.get('act_date'):
+
+                act = models.StudentActHistory(
+                    student=found_student,
+                    act_date=data.get('act_date') if data.get('act_date') else None,
+                    eng=data.get('act_eng') if data.get('act_eng') else None,
+                    math=data.get('act_math') if data.get('act_math') else None,
+                    reading=data.get('act_reading') if data.get('act_reading') else None,
+                    science=data.get('act_science') if data.get('act_science') else None,
+                    cp_score=data.get('act_cp_score') if data.get('act_cp_score') else None,
+                    target=data.get('act_target') if data.get('act_target') else None,
+                    next_test_date=data.get('act_next_test_date') if data.get('act_next_test_date') else None,
+                )
+                act.save()
+
+
             if data.get('status') == 'submitted':
                 report.submit_date=datetime.datetime.today()
                 report.save()
@@ -401,6 +488,10 @@ class StudentMonthlyReportUpdateView(LoginRequiredMixin, View):
             else:
                 academic_range = range(1, 9)
 
+            all_toefl = models.StudentToeflHistory.objects.filter(student=found_report.student).order_by('toefl_date')
+            all_sat = models.StudentSatHistory.objects.filter(student=found_report.student).order_by('sat_date')
+            all_act = models.StudentActHistory.objects.filter(student=found_report.student).order_by('act_date')
+
         else:
             return HttpResponse('No student id', status=400)
 
@@ -412,6 +503,9 @@ class StudentMonthlyReportUpdateView(LoginRequiredMixin, View):
             'found_host_report':found_host_report,
             'academic_range':academic_range,
             'academic_records':academic_records,
+            "all_toefl":all_toefl,
+            "all_sat":all_sat,
+            "all_act":all_act,
         })
 
     def post(self, request, report_id=None):
@@ -466,28 +560,6 @@ class StudentMonthlyReportUpdateView(LoginRequiredMixin, View):
             found_report.target_gpa=data.get('target_gpa')
             found_report.transcript=data.get('transcript')
             found_report.eng_skill=data.get('eng_skill')
-            found_report.toefl=data.get('toefl') if data.get('toefl') else None
-            found_report.toefl_reading=data.get('toefl_reading')
-            found_report.toefl_listening=data.get('toefl_listening')
-            found_report.toefl_speaking=data.get('toefl_speaking')
-            found_report.toefl_writing=data.get('toefl_writing')
-            found_report.toefl_total=data.get('toefl_total')
-            found_report.toefl_target=data.get('toefl_target')
-            found_report.toefl_next_test_date=data.get('toefl_next_test_date')
-            found_report.sat=data.get('sat') if data.get('sat') else None
-            found_report.sat_evb_reading_writing=data.get('sat_evb_reading_writing')
-            found_report.sat_math=data.get('sat_math')
-            found_report.sat_total=data.get('sat_total')
-            found_report.sat_target=data.get('sat_target')
-            found_report.sat_next_test_date=data.get('sat_next_test_date')
-            found_report.act=data.get('act') if data.get('act') else None
-            found_report.act_eng=data.get('act_eng')
-            found_report.act_math=data.get('act_math')
-            found_report.act_reading=data.get('act_reading')
-            found_report.act_sci=data.get('act_sci')
-            found_report.act_composition_score=data.get('act_composition_score')
-            found_report.act_target=data.get('act_target')
-            found_report.act_next_test_date=data.get('act_next_test_date')
             found_report.ap_tests=data.get('ap_tests')
             found_report.sat_subjects_tests=data.get('sat_subjects_tests')
             found_report.test_prep=data.get('test_prep')
@@ -504,6 +576,7 @@ class StudentMonthlyReportUpdateView(LoginRequiredMixin, View):
             found_report.payment_balance=data.get('payment_balance')
             found_report.payment_invoice=data.get('payment_invoice')
             found_report.status=data.get('status')
+            found_report.quater_gpa=data.get('quater_gpa')
 
             if data.get('status') == 'submitted':
                 found_report.submit_date=datetime.datetime.today()
@@ -538,6 +611,106 @@ class StudentMonthlyReportUpdateView(LoginRequiredMixin, View):
 
                 academic_record.save()
 
+            if data.getlist('toefl_id'):
+
+                for num in data.getlist("toefl_id"):
+
+                    try:
+                        toefl = models.StudentToeflHistory.objects.get(id=num)
+                    except models.StudentToeflHistory.DoesNotExist:
+                        return HttpResponse('wrong toefl id', status=400)
+
+                    toefl.toefl_date = data.get('toefl_date'+str(num)) if data.get('toefl_date'+str(num)) else None
+                    toefl.reading=data.get('toefl_reading'+str(num))
+                    toefl.listening=data.get('toefl_listening'+str(num))
+                    toefl.speaking=data.get('toefl_speaking'+str(num))
+                    toefl.writing=data.get('toefl_writing'+str(num))
+                    toefl.total=data.get('toefl_total'+str(num))
+                    toefl.target=data.get('toefl_target'+str(num))
+                    toefl.next_test_date=data.get('toefl_next_test_date'+str(num))
+                    toefl.save()
+
+            if data.get('toefl_date'):
+
+                toefl = models.StudentToeflHistory(
+                    student=found_student,
+                    toefl_date=data.get('toefl_date') if data.get('toefl_date') else None,
+                    reading=data.get('toefl_reading') if data.get('toefl_reading') else None,
+                    listening=data.get('toefl_listening') if data.get('toefl_listening') else None,
+                    speaking=data.get('toefl_speaking') if data.get('toefl_speaking') else None,
+                    writing=data.get('toefl_writing') if data.get('toefl_writing') else None,
+                    total=data.get('toefl_total') if data.get('toefl_total') else None,
+                    target=data.get('toefl_target') if data.get('toefl_target') else None,
+                    next_test_date=data.get('toefl_next_test_date') if data.get('toefl_next_test_date') else None,
+                )
+                toefl.save()
+
+
+            if data.getlist('sat_id'):
+
+                for num in data.getlist("sat_id"):
+
+                    try:
+                        sat = models.StudentSatHistory.objects.get(id=num)
+                    except models.StudentSatHistory.DoesNotExist:
+                        return HttpResponse('wrong toefl id', status=400)
+
+                    sat.sat_date = data.get('sat_date'+str(num)) if data.get('sat_date'+str(num)) else None
+                    sat.eb_reading_writing = data.get('sat_eb_reading_writing'+str(num))
+                    sat.math = data.get('sat_math'+str(num))
+                    sat.total=data.get('sat_total'+str(num))
+                    sat.target=data.get('sat_target'+str(num))
+                    sat.next_test_date=data.get('sat_next_test_date'+str(num))
+                    sat.save()
+
+            if data.get('sat_date'):
+
+                sat = models.StudentSatHistory(
+                    student=found_student,
+                    sat_date=data.get('sat_date') if data.get('sat_date') else None,
+                    eb_reading_writing=data.get('sat_eb_reading_writing') if data.get('sat_eb_reading_writing') else None,
+                    math=data.get('sat_math') if data.get('sat_math') else None,
+                    total=data.get('sat_total') if data.get('sat_total') else None,
+                    target=data.get('sat_target') if data.get('sat_target') else None,
+                    next_test_date=data.get('sat_next_test_date') if data.get('sat_next_test_date') else None,
+                )
+                sat.save()
+
+
+            if data.getlist('act_id'):
+
+                for num in data.getlist("act_id"):
+
+                    try:
+                        act = models.StudentActHistory.objects.get(id=num)
+                    except models.StudentActHistory.DoesNotExist:
+                        return HttpResponse('wrong toefl id', status=400)
+
+                    act.act_date = data.get('act_date'+str(num)) if data.get('act_date'+str(num)) else None
+                    act.eng=data.get('act_eng'+str(num))
+                    act.math=data.get('act_math'+str(num))
+                    act.reading=data.get('act_reading'+str(num))
+                    act.science=data.get('act_science'+str(num))
+                    act.cp_score=data.get('act_cp_score'+str(num))
+                    act.target=data.get('act_target'+str(num))
+                    act.next_test_date=data.get('act_next_test_date'+str(num))
+                    act.save()
+
+            if data.get('act_date'):
+
+                act = models.StudentActHistory(
+                    student=found_student,
+                    act_date=data.get('act_date') if data.get('act_date') else None,
+                    eng=data.get('act_eng') if data.get('act_eng') else None,
+                    math=data.get('act_math') if data.get('act_math') else None,
+                    reading=data.get('act_reading') if data.get('act_reading') else None,
+                    science=data.get('act_science') if data.get('act_science') else None,
+                    cp_score=data.get('act_cp_score') if data.get('act_cp_score') else None,
+                    target=data.get('act_target') if data.get('act_target') else None,
+                    next_test_date=data.get('act_next_test_date') if data.get('act_next_test_date') else None,
+                )
+                act.save()
+
         else:
             return HttpResponse('No student id', status=400)
 
@@ -553,8 +726,47 @@ def student_transcript_chart(request, student_id=None):
         except student_models.Student.DoesNotExist:
             return HttpResponse('Wrong Student Id', status=404)
 
-        sat_list = []
-        toefl_list = []
+        try:
+            all_sat_history = models.StudentSatHistory.objects.filter(student=found_student).order_by('sat_date')
+        except models.StudentSatHistory.DoesNotExist:
+            all_sat_history = None
+
+        sat_date = []
+        sat_score = []
+        if all_sat_history:
+            for sat in all_sat_history:
+
+                sat_date.append(sat.sat_date)
+                sat_score.append(sat.total)
+
+        try:
+            all_act_history = models.StudentActHistory.objects.filter(student=found_student).order_by('act_date')
+        except models.StudentActHistory.DoesNotExist:
+            all_act_history = None
+
+        act_date = []
+        act_score = []
+        if all_act_history:
+            for act in all_act_history:
+
+                act_date.append(act.act_date)
+                act_score.append(act.cp_score)
+
+        try:
+            all_toefl_history = models.StudentToeflHistory.objects.filter(student=found_student).order_by('toefl_date')
+        except models.StudentToeflHistory.DoesNotExist:
+            all_toefl_history = None
+
+        toefl_date = []
+        toefl_score = []
+        if all_toefl_history:
+            for toefl in all_toefl_history:
+
+                toefl_date.append(toefl.toefl_date)
+                toefl_score.append(toefl.total)
+
+
+        gpa_list = []
         today = datetime.datetime.today()
         for number in range(0, 12):
 
@@ -569,25 +781,17 @@ def student_transcript_chart(request, student_id=None):
                     student=found_student,
                     submit_date__range=(past_start_date, past_end_date)
                 ).exclude(status='incomplete').latest('updated_at')
-                sat = student_report.sat_total
-                toefl = student_report.toefl_total
+                gpa = student_report.quater_gpa
 
             except models.StudentMonthlyReport.DoesNotExist:
-                sat = 0
-                toefl=0
+                gpa = 0
 
             try:
-                sat = float(sat)
+                gpa = float(gpa)
             except:
-                sat=0.0
+                gpa=0.0
 
-            try:
-                toefl = float(toefl)
-            except:
-                toefl=0.0
-
-            sat_list.append(sat)
-            toefl_list.append(toefl)
+            gpa_list.append(gpa)
 
         month_list = []
         for num in range(0, 12):
@@ -601,13 +805,16 @@ def student_transcript_chart(request, student_id=None):
     else:
         return HttpResponse(status=400)
 
-    sat_list.reverse()
-    toefl_list.reverse()
-
+    gpa_list.reverse()
     result = {
         'months':month_list,
-        'sat':sat_list,
-        'toefl':toefl_list,
+        'gpa':gpa_list,
+        'sat_date':sat_date,
+        'sat_score':sat_score,
+        'act_date':act_date,
+        'act_score':act_score,
+        'toefl_date':toefl_date,
+        'toefl_score':toefl_score,
     }
 
     return JsonResponse(result, safe=False)
@@ -624,8 +831,10 @@ def get_host_report(request, report_id=None):
             return HttpResponse(status=400)
 
         found_host = branch_models.HostFamily.objects.filter(id=found_report[0].host.id)
+        found_photos = branch_models.ReportPhoto.objects.filter(report__id=int(report_id))
+        found_files = branch_models.ReportFile.objects.filter(report__id=int(report_id))
 
-        data = list(found_report) + list(found_host)
+        data = list(found_report) + list(found_host) + list(found_photos) + list(found_files)
         data = serializers.serialize("json", data)
     else:
         return HttpResponse(status=400)

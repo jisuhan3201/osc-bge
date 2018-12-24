@@ -114,14 +114,14 @@ class HostStudentReport(TimeStampedModel):
 
 class ReportPhoto(TimeStampedModel):
 
-    report = models.ForeignKey(HostStudentReport, on_delete=models.CASCADE, null=True)
-    photo = models.ImageField(upload_to='image', null=True, blank=True)
+    report = models.ForeignKey(HostStudentReport, on_delete=models.CASCADE, null=True, related_name="photos")
+    photo = models.ImageField(upload_to='hosts/students/photos/', null=True, blank=True)
 
 
 class ReportFile(TimeStampedModel):
 
-    report = models.ForeignKey(HostStudentReport, on_delete=models.CASCADE, null=True)
-    file = models.FileField(upload_to='file', null=True, blank=True)
+    report = models.ForeignKey(HostStudentReport, on_delete=models.CASCADE, null=True, related_name="files")
+    file = models.FileField(upload_to='hosts/students/files/', null=True, blank=True)
 
 
 class BgeResource(TimeStampedModel):

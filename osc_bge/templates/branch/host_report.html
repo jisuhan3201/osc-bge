@@ -25,9 +25,9 @@
 
 		<!-- <div class="MTitle">Recent Reports</div> -->
 		<!-- 등록일 경우 -->
-		<div class="MTitle">Reports Regist ({% now "Y F"%})</div>
+		<div class="MTitle">Reports Register ({% now "Y F"%})</div>
 
-		<form method="POST">
+		<form method="POST" enctype="multipart/form-data">
 			{% csrf_token %}
 		<div class="InfoTable">
 			<table cellpadding="0" cellspacing="0" border="0">
@@ -55,7 +55,7 @@
 				</tr>
 				<tr>
 					<th>Photo  : </th>
-					<td class="InnerInputTD" colspan="3"><input type="file" class="TableInnerInput" value="" /><br />
+					<td class="InnerInputTD" colspan="3"><input type="file" class="TableInnerInput" name="photo" multiple/><br />
 					<!-- <label>
 					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA8hCGZ69G52M0EThs-5dHEQr223RDgzasznLuBOxs4RG1cRyo" class="SchoolThumbnail" />
 					<input type="checkbox" /><span></span>delete</label> -->
@@ -123,11 +123,11 @@
 					</td>
 				</tr>
 				<tr>
-					<th>Photo/File Attachment : </th>
+					<th>File Attachment : </th>
 					<td class="InnerInputTD" colspan="3">
-						<input type="file" class="TableInnerInput" style="width:calc(100% - 100px);" /><a href="" class="Button">x &nbsp; delete</a>
-						<br /><input type="file" class="TableInnerInput" style="width:calc(100% - 100px);" /><a href="" class="Button">x &nbsp; delete</a>
-						<br /><input type="file" class="TableInnerInput" style="width:calc(100% - 100px);" /><a href="" class="Button">+ &nbsp; add</a>
+						<input type="file" class="TableInnerInput" style="width:calc(100% - 100px);" name="file" multiple/>
+						<!-- <br /><input type="file" class="TableInnerInput" style="width:calc(100% - 100px);" /><a href="" class="Button">x &nbsp; delete</a>
+						<br /><input type="file" class="TableInnerInput" style="width:calc(100% - 100px);" /><a href="" class="Button">+ &nbsp; add</a> -->
 					</td>
 				</tr>
 				<tr>
