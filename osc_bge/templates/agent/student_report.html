@@ -452,24 +452,17 @@
 			$.ajax({                       // initialize an AJAX request
 				url: "/student/transcript/statistics/{{found_report.student.id}}",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
 				success: function (data) {   // `data` is the return of the `load_cities` view function
-					var sat_date = data.sat_date;
-					var act_date = data.act_date;
-					var toefl_date = data.toefl_date;
-					var months = data.months
-					var gpa = data.gpa;
-
+					var months = data.months;
 					var ctx = document.getElementById("SatStatisticChart");
-					var ctx2 = document.getElementById("ActStatisticChart");
-					var ctx3 = document.getElementById("ToeflStatisticChart");
-					var ctx4 = document.getElementById("GpaStatisticChart");
+					var ctx2 = document.getElementById("ToeflStatisticChart");
 					var myChart = new Chart(ctx, {
 							type: 'line',
 							data: {
-									labels: sat_date,
+									labels: months,
 									datasets: [
 										{
 											label:"SAT",
-											data: data.sat_score,
+											data: data.sat,
 											fill:false,
 											borderColor: [
 												'rgb(' + (Math.floor(Math.random() * 256)) + ',' +
@@ -498,44 +491,11 @@
 					var myChart2 = new Chart(ctx2, {
 							type: 'line',
 							data: {
-									labels: act_date,
+									labels: months,
 									datasets: [
 										{
-											label:"ACT",
-											data: data.act_score,
-											fill:false,
-											borderColor: [
-												'rgb(' + (Math.floor(Math.random() * 256)) + ',' +
-												(Math.floor(Math.random() * 256)) + ',' +
-												(Math.floor(Math.random() * 256)) + ',1' + ')',
-											],
-											borderWidth: 2
-										},
-									],
-							},
-							options: {
-									title: {
-										display:true,
-										text: "ACT"
-									},
-									scales: {
-											yAxes: [{
-													ticks: {
-															beginAtZero:true
-													}
-											}]
-									}
-							}
-					});
-
-					var myChart3 = new Chart(ctx3, {
-							type: 'line',
-							data: {
-									labels: toefl_date,
-									datasets: [
-										{
-											label:"TOEFL",
-											data: data.toefl_score,
+											label:"Toefl",
+											data: data.toefl,
 											fill:false,
 											borderColor: [
 												'rgb(' + (Math.floor(Math.random() * 256)) + ',' +
@@ -560,40 +520,6 @@
 									}
 							}
 					});
-
-					var myChart4 = new Chart(ctx4, {
-							type: 'line',
-							data: {
-									labels: months,
-									datasets: [
-										{
-											label:"GPA",
-											data: data.gpa,
-											fill:false,
-											borderColor: [
-												'rgb(' + (Math.floor(Math.random() * 256)) + ',' +
-												(Math.floor(Math.random() * 256)) + ',' +
-												(Math.floor(Math.random() * 256)) + ',1' + ')',
-											],
-											borderWidth: 2
-										},
-									],
-							},
-							options: {
-									title: {
-										display:true,
-										text: "GPA"
-									},
-									scales: {
-											yAxes: [{
-													ticks: {
-															beginAtZero:true
-													}
-											}]
-									}
-							}
-					});
-
 				}
 			});
 		})
@@ -704,122 +630,54 @@
 				</colgroup>
 				<tr>
 					<th>Host Family Name : </th>
-					{% if found_host_report %}
-					<td id="HostReportHostName" colspan="2" class="InnerInputTD">{{found_host_report.host.name}}</td>
-					{% else %}
-					<td id="HostReportHostName" colspan="2" class="InnerInputTD"></td>
-					{% endif %}
+					<td colspan="2" class="InnerInputTD">{{found_report.host_report.host.name}}</td>
 				</tr>
 				<tr>
 					<th>Host Family Address : </th>
-					{% if found_host_report %}
-					<td id="HostReportHostAddress" colspan="2" class="InnerInputTD">{{found_host_report.host.address}}</td>
-					{% else %}
-					<td id="HostReportHostAddress" colspan="2" class="InnerInputTD"></td>
-					{% endif %}
+					<td colspan="2" class="InnerInputTD">{{found_report.host_report.host.address}}</td>
 				</tr>
 				<tr>
 					<th>Host Family Contact Info : </th>
-					{% if found_host_report %}
-					<td id="HostReportHostContact" colspan="2" class="InnerInputTD">{{found_host_report.host.phone}} / {{found_host_report.host.email}}</td>
-					{% else %}
-					<td id="HostReportHostContact" colspan="2" class="InnerInputTD"></td>
-					{% endif %}
+					<td colspan="2" class="InnerInputTD">{{found_report.host_report.host.phone}} / {{found_report.host_report.host.email}}</td>
 				</tr>
 				<tr>
 					<th>Rate </th>
-					{% if found_host_report %}
-					<td id="HostReportHostRate" class="InnerInputTD">{{found_host_report.rate}}</td>
-					{% else %}
-					<td id="HostReportHostRate" class="InnerInputTD"></td>
-					{% endif %}
-
-					{% if found_host_report %}
-					<td class="InnerInputTD">Improvement : <span id="HostReportHostImprovement">{{found_host_report.improvement}}</span></td>
-					{% else %}
-					<td class="InnerInputTD">Improvement : <span id="HostReportHostImprovement"></span></td>
-					{% endif %}
+					<td class="InnerInputTD">{{found_report.host_report.rate}}</td>
+					<td class="InnerInputTD">Improvement :  {{found_report.host_report.improvement}}</td>
 				</tr>
         <tr>
 					<th>Cultural Fluency : </th>
-					{% if found_host_report %}
-					<td id="HostReportHostFluency" colspan="2" class="InnerInputTD">{{found_host_report.cultural_fluency}}</td>
-					{% else %}
-					<td id="HostReportHostFluency" colspan="2" class="InnerInputTD"></td>
-					{% endif %}
+					<td colspan="2" class="InnerInputTD">{{found_report.host_report.cultural_fluency}}</td>
 				</tr>
 				<tr>
 					<th>House Rules & Attitude</th>
-					{% if found_host_report %}
-					<td id="HostReportHostRules" colspan="2" class="InnerInputTD">{{found_host_report.house_rule_attitude}}</td>
-					{% else %}
-					<td id="HostReportHostRules" colspan="2" class="InnerInputTD"></td>
-					{% endif %}
+					<td colspan="2" class="InnerInputTD">{{found_report.host_report.house_rule_attitude}}</td>
 				</tr>
 				<tr>
 					<th>Responsibility</th>
-					{% if found_host_report %}
-					<td id="HostReportHostResponsibility" colspan="2" class="InnerInputTD">{{found_host_report.responsibility}}</td>
-					{% else %}
-					<td id="HostReportHostResponsibility" colspan="2" class="InnerInputTD"></td>
-					{% endif %}
+          <td colspan="2" class="InnerInputTD">{{found_report.host_report.responsibility}}</td>
 				</tr>
 				<tr>
 					<th>Communication</th>
-					{% if found_host_report %}
-					<td id="HostReportHostCommunication" colspan="2" class="InnerInputTD">{{found_host_report.communication}}</td>
-					{% else %}
-					<td id="HostReportHostCommunication" colspan="2" class="InnerInputTD"></td>
-					{% endif %}
+          <td colspan="2" class="InnerInputTD">{{found_report.host_report.communication}}</td>
 				</tr>
 				<tr>
 					<th>Sleeping Habits</th>
-					{% if found_host_report %}
-					<td id="HostReportHostHabit" colspan="2" class="InnerInputTD">{{found_host_report.sleeping_habits}}</td>
-					{% else %}
-					<td id="HostReportHostHabit" colspan="2" class="InnerInputTD"></td>
-					{% endif %}
+          <td colspan="2" class="InnerInputTD">{{found_report.host_report.sleeping_habits}}</td>
 				</tr>
 				<tr>
 					<th>School Attendance</th>
-					{% if found_host_report %}
-					<td id="HostReportHostAttendance" colspan="2" class="InnerInputTD">{{found_host_report.school_attendance}}</td>
-					{% else %}
-					<td id="HostReportHostAttendance" colspan="2" class="InnerInputTD"></td>
-					{% endif %}
+          <td colspan="2" class="InnerInputTD">{{found_report.host_report.school_attendance}}</td>
 				</tr>
 				<tr>
 					<td colspan="3" class="InnerInputTD">
-						{% if found_host_report %}
-						<textarea id="HostReportHostComment" class="TableInnerTextarea" style="height:100px;" readonly>{{found_host_report.comment}}</textarea>
-						{% else %}
-						<textarea id="HostReportHostComment" class="TableInnerTextarea" style="height:100px;" readonly></textarea>
-						{% endif %}
+					<textarea class="TableInnerTextarea" style="height:100px;" readonly>{{found_report.host_report.comment}}</textarea>
 					</td>
 				</tr>
-				{% if found_host_report.photos.all %}
 				<tr>
-					<th>Photos</th>
-					<td colspan="3" class="InnerInputTD">
-						{% for photo in found_host_report.photos.all %}
-						<img src="{{MEDIA_URL}}{{photo.photo}}" width="400px" alt="">
-						<span style="margin-right:10px;"></span>
-						{% endfor %}
-						<span id="HostReportHostPhoto" style="margin-right:10px;"></span>
-					</td>
+					<th>Photo/File Attachment</th>
+					<td colspan="2" class="InnerInputTD"></td>
 				</tr>
-				{% endif %}
-				{% if found_host_report.files.all %}
-				<tr>
-					<th>Files</th>
-					<td colspan="3" class="InnerInputTD">
-						{% for file in found_host_report.files.all %}
-						<a href="{{MEDIA_URL}}{{file.file}}">{{file.file}}</a><br>
-						{% endfor %}
-						<span id="HostReportHostFile"></span>
-					</td>
-				</tr>
-				{% endif %}
 			</table>
 		</div><!-- ListTable -->
 
