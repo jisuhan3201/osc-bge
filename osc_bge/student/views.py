@@ -84,10 +84,18 @@ class StudentReportView(View):
         else:
             return HttpResponse('No student id', status=400)
 
+        all_toefl = models.StudentToeflHistory.objects.filter(student=found_student).order_by('toefl_date')
+        all_sat = models.StudentSatHistory.objects.filter(student=found_student).order_by('sat_date')
+        all_act = models.StudentActHistory.objects.filter(student=found_student).order_by('act_date')
+
+
         return render(request, 'agent/student_report.html', {
             'found_report':found_report,
             'all_reports':all_reports,
             'academic_records':academic_records,
+            'all_toefl':all_toefl,
+            'all_sat':all_sat,
+            'all_act':all_act,
         })
 
     def post(self, request, student_id=None):
@@ -128,9 +136,16 @@ class StudentPastReportView(LoginRequiredMixin, View):
         else:
             return HttpResponse('No student id', status=400)
 
+        all_toefl = models.StudentToeflHistory.objects.filter(student=found_report.student).order_by('toefl_date')
+        all_sat = models.StudentSatHistory.objects.filter(student=found_report.student).order_by('sat_date')
+        all_act = models.StudentActHistory.objects.filter(student=found_report.student).order_by('act_date')
+
         return render(request, 'agent/student_report.html', {
             'found_report':found_report,
             'all_reports':all_reports,
+            'all_toefl':all_toefl,
+            'all_sat':all_sat,
+            'all_act':all_act,
         })
 
     def post(self, request, report_id=None):

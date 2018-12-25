@@ -103,6 +103,7 @@
 				</div><!-- InfoTable -->
 			</div><!-- Information -->
 
+            <label class="HButton" style="background-color:#bdbebd">Photo</label>
 			<div class="Information">
 				<div class="InfoTable">
 					<table cellpadding="0" cellspacing="0" border="0">
@@ -131,13 +132,13 @@
 					<th>Subject</th>
 					{% for record in academic_records %}
 						{% if record.subject %}
-							<td class="InnerInputTD"><input name="subject{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="{{ record.subject }}" /></td>
+							<td class="InnerInputTD"><input name="subject{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="{{ record.subject }}" readonly /></td>
 						{% else %}
-						<td class="InnerInputTD"><input name="subject{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+						<td class="InnerInputTD"><input name="subject{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="" readonly /></td>
 						{% endif %}
 					{% endfor %}
 					{% for num in academic_range %}
-						<td class="InnerInputTD"><input name="subject{{num}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+						<td class="InnerInputTD"><input name="subject{{num}}" type="text" class="TableInnerInput" style="width:100px;" value="" readonly /></td>
 					{% endfor %}
 					<td>Quater GPA</td>
 				</tr>
@@ -145,13 +146,13 @@
 					<th>Level</th>
 					{% for record in academic_records %}
 						{% if record.level %}
-						<td class="InnerInputTD"><input name="level{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="{{ record.level }}" /></td>
+						<td class="InnerInputTD"><input name="level{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="{{ record.level }}" readonly /></td>
 						{% else %}
-						<td class="InnerInputTD"><input name="level{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+						<td class="InnerInputTD"><input name="level{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="" readonly /></td>
 						{% endif %}
 					{% endfor %}
 					{% for num in academic_range %}
-						<td class="InnerInputTD"><input name="level{{num}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+						<td class="InnerInputTD"><input name="level{{num}}" type="text" class="TableInnerInput" style="width:100px;" value="" readonly /></td>
 					{% endfor %}
 					<td class="InnerInputTD"></td>
 				</tr>
@@ -159,13 +160,13 @@
 					<th>Target</th>
 					{% for record in academic_records %}
 						{% if record.target %}
-						<td class="InnerInputTD"><input name="target{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="{{ record.target }}" /></td>
+						<td class="InnerInputTD"><input name="target{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="{{ record.target }}" readonly /></td>
 						{% else %}
-						<td class="InnerInputTD"><input name="target{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+						<td class="InnerInputTD"><input name="target{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="" readonly /></td>
 						{% endif %}
 					{% endfor %}
 					{% for num in academic_range %}
-						<td class="InnerInputTD"><input name="target{{num}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+						<td class="InnerInputTD"><input name="target{{num}}" type="text" class="TableInnerInput" style="width:100px;" value="" readonly /></td>
 					{% endfor %}
 					<td class="InnerInputTD"></td>
 				</tr>
@@ -173,13 +174,13 @@
 					<th>Current</th>
 					{% for record in academic_records %}
 						{% if record.current %}
-						<td class="InnerInputTD"><input name="current{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="{{ record.current }}" /></td>
+						<td class="InnerInputTD"><input name="current{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="{{ record.current }}" readonly /></td>
 						{% else %}
-						<td class="InnerInputTD"><input name="current{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+						<td class="InnerInputTD"><input name="current{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="" readonly /></td>
 						{% endif %}
 					{% endfor %}
 					{% for num in academic_range %}
-						<td class="InnerInputTD"><input name="current{{num}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+						<td class="InnerInputTD"><input name="current{{num}}" type="text" class="TableInnerInput" style="width:100px;" value="" readonly /></td>
 					{% endfor %}
 					<td class="InnerInputTD"></td>
 				</tr>
@@ -187,36 +188,36 @@
 					<th>Current Grade</th>
 					{% for record in academic_records %}
 						{% if record.current_grade %}
-						<td class="InnerInputTD"><input name="current_grade{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="{{ record.current_grade }}" /></td>
+						<td class="InnerInputTD"><input name="current_grade{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="{{ record.current_grade }}" readonly /></td>
 						{% else %}
-						<td class="InnerInputTD"><input name="current_grade{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+						<td class="InnerInputTD"><input name="current_grade{{record.subject_number}}" type="text" class="TableInnerInput" style="width:100px;" value="" readonly /></td>
 						{% endif %}
 					{% endfor %}
 					{% for num in academic_range %}
-						<td class="InnerInputTD"><input name="current_grade{{num}}" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+						<td class="InnerInputTD"><input name="current_grade{{num}}" type="text" class="TableInnerInput" style="width:100px;" value="" readonly /></td>
 					{% endfor %}
 					{% if found_report.quater_gpa %}
-					<td class="InnerInputTD"><input name="quater_gpa" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.quater_gpa}}" /></td>
+					<td class="InnerInputTD"><input name="quater_gpa" type="text" class="TableInnerInput" style="width:100px;" value="{{found_report.quater_gpa}}" readonly /></td>
 					{% else %}
-					<td class="InnerInputTD"><input name="quater_gpa" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
+					<td class="InnerInputTD"><input name="quater_gpa" type="text" class="TableInnerInput" style="width:100px;" value="" readonly /></td>
 					{% endif %}
 				</tr>
 				<tr>
 					<th>Comment</th>
 					<td colspan="9" class="InnerInputTD">
-					<textarea class="TableInnerTextarea" style="height:100px;width:calc(100% - 10px);" name="comment" disabled>{{found_report.comment}}</textarea>
+					<textarea class="TableInnerTextarea" style="height:100px;width:calc(100% - 10px);" name="comment" readonly>{{found_report.comment}}</textarea>
 					</td>
 				</tr>
 				<tr>
 					<th>Target GPA</th>
 					<td colspan="9" class="InnerInputTD">
-					<textarea class="TableInnerTextarea" style="height:100px;width:calc(100% - 10px);" name="target_gpa" disabled>{{found_report.target_gpa}}</textarea>
+					<textarea class="TableInnerTextarea" style="height:100px;width:calc(100% - 10px);" name="target_gpa" readonly>{{found_report.target_gpa}}</textarea>
 					</td>
 				</tr>
 				<tr>
 					<th>To see current Transcript</th>
 					<td colspan="9" class="InnerInputTD">
-					<textarea class="TableInnerTextarea" style="height:100px;width:calc(100% - 10px);" name="transcript" disabled>{{found_report.transcript}}</textarea>
+					<textarea class="TableInnerTextarea" style="height:100px;width:calc(100% - 10px);" name="transcript" readonly>{{found_report.transcript}}</textarea>
 					<a href="{{found_report.transcript}}">{{found_report.transcript}}</a>
 					</td>
 				</tr>
@@ -226,10 +227,10 @@
 
 
 
-		<div class="MTitle">English Skills / TOEFLE</div>
+		<div class="MTitle">English Skills / TOEFL</div>
 		<div class="cdiv"></div>
 		<div class="ListTable">
-			<textarea class="TableInnerTextarea" style="height:100px;" name="eng_skill" disabled>{{found_report.eng_skill}}</textarea>
+			<textarea class="TableInnerTextarea" style="height:100px;" name="eng_skill" readonly>{{found_report.eng_skill}}</textarea>
 			<table cellpadding="0" cellspacing="0" border="0">
 				<colgroup>
 					<col>
@@ -262,36 +263,17 @@
 								style="width:100px;"
 								pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
 								placeholder="YYYY-MM-DD"
-								value="{{toefl.toefl_date|date:'Y-m-d'}}" />
+								value="{{toefl.toefl_date|date:'Y-m-d'}}" readonly />
 						</td>
-						<td class="InnerInputTD"><input name="toefl_reading{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.reading}}" /></td>
-						<td class="InnerInputTD"><input name="toefl_listening{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.listening}}" /></td>
-						<td class="InnerInputTD"><input name="toefl_speaking{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.speaking}}" /></td>
-						<td class="InnerInputTD"><input name="toefl_writing{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.writing}}" /></td>
-						<td class="InnerInputTD"><input name="toefl_total{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.total}}" /></td>
-						<td class="InnerInputTD"><input name="toefl_target{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.target}}" /></td>
-						<td class="InnerInputTD"><input name="toefl_next_test_date{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.next_test_date}}" /></td>
+						<td class="InnerInputTD"><input name="toefl_reading{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.reading}}" readonly /></td>
+						<td class="InnerInputTD"><input name="toefl_listening{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.listening}}" readonly /></td>
+						<td class="InnerInputTD"><input name="toefl_speaking{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.speaking}}" readonly /></td>
+						<td class="InnerInputTD"><input name="toefl_writing{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.writing}}" readonly /></td>
+						<td class="InnerInputTD"><input name="toefl_total{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.total}}" readonly /></td>
+						<td class="InnerInputTD"><input name="toefl_target{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.target}}" readonly /></td>
+						<td class="InnerInputTD"><input name="toefl_next_test_date{{toefl.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{toefl.next_test_date}}" readonly /></td>
 					</tr>
 				{% endfor %}
-				<tr>
-					<td class="InnerInputTD">
-						<input
-							name="toefl_date"
-							type="text"
-							class="TableInnerInput"
-							style="width:100px;"
-							pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-							placeholder="YYYY-MM-DD"
-							value="" />
-					</td>
-					<td class="InnerInputTD"><input name="toefl_reading" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-					<td class="InnerInputTD"><input name="toefl_listening" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-					<td class="InnerInputTD"><input name="toefl_speaking" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-					<td class="InnerInputTD"><input name="toefl_writing" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-					<td class="InnerInputTD"><input name="toefl_total" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-					<td class="InnerInputTD"><input name="toefl_target" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-					<td class="InnerInputTD"><input name="toefl_next_test_date" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-				</tr>
 			</table>
 		</div><!-- ListTable -->
 		<div class="EndPart"></div>
@@ -329,32 +311,15 @@
 								style="width:100px;"
 								pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
 								placeholder="YYYY-MM-DD"
-								value="{{sat.sat_date|date:'Y-m-d'}}" />
+								value="{{sat.sat_date|date:'Y-m-d'}}" readonly />
 						</td>
-						<td class="InnerInputTD"><input name="sat_eb_reading_writing{{sat.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{sat.eb_reading_writing}}" /></td>
-						<td class="InnerInputTD"><input name="sat_math{{sat.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{sat.math}}" /></td>
-						<td class="InnerInputTD"><input name="sat_total{{sat.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{sat.total}}" /></td>
-						<td class="InnerInputTD"><input name="sat_target{{sat.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{sat.target}}" /></td>
-						<td class="InnerInputTD"><input name="sat_next_test_date{{sat.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{sat.next_test_date}}" /></td>
+						<td class="InnerInputTD"><input name="sat_eb_reading_writing{{sat.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{sat.eb_reading_writing}}" readonly /></td>
+						<td class="InnerInputTD"><input name="sat_math{{sat.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{sat.math}}" readonly /></td>
+						<td class="InnerInputTD"><input name="sat_total{{sat.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{sat.total}}" readonly /></td>
+						<td class="InnerInputTD"><input name="sat_target{{sat.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{sat.target}}" readonly /></td>
+						<td class="InnerInputTD"><input name="sat_next_test_date{{sat.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{sat.next_test_date}}" readonly /></td>
 					</tr>
 				{% endfor %}
-				<tr>
-					<td class="InnerInputTD">
-						<input
-							name="sat_date"
-							type="text"
-							class="TableInnerInput"
-							style="width:100px;"
-							pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-							placeholder="YYYY-MM-DD"
-							value="" />
-					</td>
-					<td class="InnerInputTD"><input name="sat_eb_reading_writing" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-					<td class="InnerInputTD"><input name="sat_math" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-					<td class="InnerInputTD"><input name="sat_total" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-					<td class="InnerInputTD"><input name="sat_target" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-					<td class="InnerInputTD"><input name="sat_next_test_date" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-				</tr>
 			</table>
 			<table cellpadding="0" cellspacing="0" border="0">
 				<colgroup>
@@ -388,36 +353,17 @@
 								style="width:100px;"
 								pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
 								placeholder="YYYY-MM-DD"
-								value="{{act.act_date|date:'Y-m-d'}}" />
+								value="{{act.act_date|date:'Y-m-d'}}" readonly />
 						</td>
-						<td class="InnerInputTD"><input name="act_eng{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.eng}}" /></td>
-						<td class="InnerInputTD"><input name="act_math{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.math}}" /></td>
-						<td class="InnerInputTD"><input name="act_reading{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.reading}}" /></td>
-						<td class="InnerInputTD"><input name="act_science{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.science}}" /></td>
-						<td class="InnerInputTD"><input name="act_cp_score{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.cp_score}}" /></td>
-						<td class="InnerInputTD"><input name="act_target{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.target}}" /></td>
-						<td class="InnerInputTD"><input name="act_next_test_date{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.next_test_date}}" /></td>
+						<td class="InnerInputTD"><input name="act_eng{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.eng}}" readonly /></td>
+						<td class="InnerInputTD"><input name="act_math{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.math}}" readonly /></td>
+						<td class="InnerInputTD"><input name="act_reading{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.reading}}" readonly /></td>
+						<td class="InnerInputTD"><input name="act_science{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.science}}" readonly /></td>
+						<td class="InnerInputTD"><input name="act_cp_score{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.cp_score}}" readonly /></td>
+						<td class="InnerInputTD"><input name="act_target{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.target}}" readonly /></td>
+						<td class="InnerInputTD"><input name="act_next_test_date{{act.id}}" type="text" class="TableInnerInput" style="width:100px;" value="{{act.next_test_date}}" readonly /></td>
 					</tr>
 				{% endfor %}
-				<tr>
-					<td class="InnerInputTD">
-						<input
-							name="act_date"
-							type="text"
-							class="TableInnerInput"
-							style="width:100px;"
-							pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-							placeholder="YYYY-MM-DD"
-							value="" />
-					</td>
-					<td class="InnerInputTD"><input name="act_eng" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-					<td class="InnerInputTD"><input name="act_math" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-					<td class="InnerInputTD"><input name="act_reading" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-					<td class="InnerInputTD"><input name="act_science" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-					<td class="InnerInputTD"><input name="act_cp_score" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-					<td class="InnerInputTD"><input name="act_target" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-					<td class="InnerInputTD"><input name="act_next_test_date" type="text" class="TableInnerInput" style="width:100px;" value="" /></td>
-				</tr>
 		</table>
 		</div><!-- ListTable -->
 		<div class="InfoTable">
@@ -428,11 +374,11 @@
 				</colgroup>
 				<tr>
 					<th>AP Tests</th>
-					<td class="InnerInputTD"><textarea name="ap_tests" class="TableInnerTextarea" style="height:100px;" disabled>{{found_report.ap_tests}}</textarea></td>
+					<td class="InnerInputTD"><textarea name="ap_tests" class="TableInnerTextarea" style="height:100px;" readonly>{{found_report.ap_tests}}</textarea></td>
 				</tr>
 				<tr>
 					<th>SAT Subject Tests</th>
-					<td class="InnerInputTD"><textarea name="sat_subjects_tests" class="TableInnerTextarea" style="height:100px;" disabled>{{found_report.sat_subjects_tests}}</textarea></td>
+					<td class="InnerInputTD"><textarea name="sat_subjects_tests" class="TableInnerTextarea" style="height:100px;" readonly>{{found_report.sat_subjects_tests}}</textarea></td>
 				</tr>
 			</table>
 		</div><!-- ListTable -->
@@ -441,7 +387,7 @@
 		<div class="MTitle">Consulting for Test Preparation</div>
 		<div class="cdiv"></div>
 		<div class="ListTable">
-		<textarea name="test_prep" class="TableInnerTextarea" style="height:100px;" disabled>{{found_report.test_prep}}</textarea>
+		<textarea name="test_prep" class="TableInnerTextarea" style="height:100px;" readonly>{{found_report.test_prep}}</textarea>
 		</div><!-- InfoTable -->
 		<div class="EndPart"></div>
 
@@ -452,17 +398,24 @@
 			$.ajax({                       // initialize an AJAX request
 				url: "/student/transcript/statistics/{{found_report.student.id}}",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
 				success: function (data) {   // `data` is the return of the `load_cities` view function
-					var months = data.months;
+					var sat_date = data.sat_date;
+					var act_date = data.act_date;
+					var toefl_date = data.toefl_date;
+					var months = data.months
+					var gpa = data.gpa;
+
 					var ctx = document.getElementById("SatStatisticChart");
-					var ctx2 = document.getElementById("ToeflStatisticChart");
+					var ctx2 = document.getElementById("ActStatisticChart");
+					var ctx3 = document.getElementById("ToeflStatisticChart");
+					var ctx4 = document.getElementById("GpaStatisticChart");
 					var myChart = new Chart(ctx, {
 							type: 'line',
 							data: {
-									labels: months,
+									labels: sat_date,
 									datasets: [
 										{
 											label:"SAT",
-											data: data.sat,
+											data: data.sat_score,
 											fill:false,
 											borderColor: [
 												'rgb(' + (Math.floor(Math.random() * 256)) + ',' +
@@ -475,7 +428,7 @@
 							},
 							options: {
 									title: {
-										display:true,
+										display:false,
 										text: "SAT"
 									},
 									scales: {
@@ -491,11 +444,11 @@
 					var myChart2 = new Chart(ctx2, {
 							type: 'line',
 							data: {
-									labels: months,
+									labels: act_date,
 									datasets: [
 										{
-											label:"Toefl",
-											data: data.toefl,
+											label:"ACT",
+											data: data.act_score,
 											fill:false,
 											borderColor: [
 												'rgb(' + (Math.floor(Math.random() * 256)) + ',' +
@@ -508,7 +461,40 @@
 							},
 							options: {
 									title: {
-										display:true,
+										display:false,
+										text: "ACT"
+									},
+									scales: {
+											yAxes: [{
+													ticks: {
+															beginAtZero:true
+													}
+											}]
+									}
+							}
+					});
+
+					var myChart3 = new Chart(ctx3, {
+							type: 'line',
+							data: {
+									labels: toefl_date,
+									datasets: [
+										{
+											label:"TOEFL",
+											data: data.toefl_score,
+											fill:false,
+											borderColor: [
+												'rgb(' + (Math.floor(Math.random() * 256)) + ',' +
+												(Math.floor(Math.random() * 256)) + ',' +
+												(Math.floor(Math.random() * 256)) + ',1' + ')',
+											],
+											borderWidth: 2
+										},
+									],
+							},
+							options: {
+									title: {
+										display:false,
 										text: "TOEFL"
 									},
 									scales: {
@@ -520,6 +506,40 @@
 									}
 							}
 					});
+
+					var myChart4 = new Chart(ctx4, {
+							type: 'line',
+							data: {
+									labels: months,
+									datasets: [
+										{
+											label:"GPA",
+											data: data.gpa,
+											fill:false,
+											borderColor: [
+												'rgb(' + (Math.floor(Math.random() * 256)) + ',' +
+												(Math.floor(Math.random() * 256)) + ',' +
+												(Math.floor(Math.random() * 256)) + ',1' + ')',
+											],
+											borderWidth: 2
+										},
+									],
+							},
+							options: {
+									title: {
+										display:false,
+										text: "GPA"
+									},
+									scales: {
+											yAxes: [{
+													ticks: {
+															beginAtZero:true
+													}
+											}]
+									}
+							}
+					});
+
 				}
 			});
 		})
@@ -534,32 +554,47 @@
 		</div><!-- Layout_2-1 -->
 		<div class="Layout_2-1">
 		<div class="GraphgArea">
-			<canvas id="ToeflStatisticChart" width="636" height="300"></canvas>
+			<canvas id="ActStatisticChart" width="636" height="300"></canvas>
 		</div>
 		</div><!-- Layout_2-1 -->
 		<div class="EndPart"></div>
 		<div class="cdiv"></div>
+
+		<div class="cdiv"></div>
+		<div class="Layout_2-1">
+		<div class="GraphgArea">
+			<canvas id="ToeflStatisticChart" width="636" height="300"></canvas>
+		</div>
+		</div><!-- Layout_2-1 -->
+		<div class="Layout_2-1">
+		<div class="GraphgArea">
+			<canvas id="GpaStatisticChart" width="636" height="300"></canvas>
+		</div>
+		</div><!-- Layout_2-1 -->
+		<div class="EndPart"></div>
+		<div class="cdiv"></div>
+
 
 		<div class="EndPart"></div>
 
 		<div class="MTitle">Activities</div>
 		<div class="cdiv"></div>
 		<div class="ListTable">
-		<textarea name="activities" class="TableInnerTextarea" style="height:100px;" disabled>{{found_report.activities}}</textarea>
+		<textarea name="activities" class="TableInnerTextarea" style="height:100px;" readonly>{{found_report.activities}}</textarea>
 		</div><!-- InfoTable -->
 		<div class="EndPart"></div>
 
 		<div class="MTitle">Community Services</div>
 		<div class="cdiv"></div>
 		<div class="ListTable">
-		<textarea name="community_services" class="TableInnerTextarea" style="height:100px;" disabled>{{found_report.community_services}}</textarea>
+		<textarea name="community_services" class="TableInnerTextarea" style="height:100px;" readonly>{{found_report.community_services}}</textarea>
 		</div><!-- InfoTable -->
 		<div class="EndPart"></div>
 
 		<div class="MTitle">Objective / Assignment for Next Report</div>
 		<div class="cdiv"></div>
 		<div class="ListTable">
-		<textarea name="objective_assignment" class="TableInnerTextarea" style="height:100px;" disabled>{{found_report.objective_assignment}}</textarea>
+		<textarea name="objective_assignment" class="TableInnerTextarea" style="height:100px;" readonly>{{found_report.objective_assignment}}</textarea>
 		</div><!-- InfoTable -->
 		<div class="EndPart"></div>
 
@@ -580,13 +615,13 @@
 					<th>Invoice Attachment</th>
 				</tr>
 				<tr>
-					<td class="InnerInputTD"><input name="payment_desc" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_desc}}" disabled/></td>
-					<td class="InnerInputTD"><input name="payment_expense" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_expense}}" disabled/></td>
-					<td class="InnerInputTD"><input name="payment_due_date" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_due_date}}" disabled/></td>
-					<td class="InnerInputTD"><input name="payment_payment" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_payment}}" disabled/></td>
-					<td class="InnerInputTD"><input name="payment_paid_date" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_paid_date}}" disabled/></td>
-					<td class="InnerInputTD"><input name="payment_balance" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_balance}}" disabled/></td>
-					<td class="InnerInputTD"><input name="payment_invoice" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_invoice}}" disabled/></td>
+					<td class="InnerInputTD"><input name="payment_desc" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_desc}}" readonly/></td>
+					<td class="InnerInputTD"><input name="payment_expense" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_expense}}" readonly/></td>
+					<td class="InnerInputTD"><input name="payment_due_date" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_due_date}}" readonly/></td>
+					<td class="InnerInputTD"><input name="payment_payment" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_payment}}" readonly/></td>
+					<td class="InnerInputTD"><input name="payment_paid_date" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_paid_date}}" readonly/></td>
+					<td class="InnerInputTD"><input name="payment_balance" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_balance}}" readonly/></td>
+					<td class="InnerInputTD"><input name="payment_invoice" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_report.payment_invoice}}" readonly/></td>
 				</tr>
 			</table>
 		</div><!-- ListTable -->
@@ -642,8 +677,8 @@
 				</tr>
 				<tr>
 					<th>Rate </th>
-					<td class="InnerInputTD">{{found_report.host_report.rate}}</td>
-					<td class="InnerInputTD">Improvement :  {{found_report.host_report.improvement}}</td>
+					<td class="InnerInputTD">{{found_report.host_report.rate|capfirst}}</td>
+					<td class="InnerInputTD">Improvement :  {{found_report.host_report.improvement|capfirst}}</td>
 				</tr>
         <tr>
 					<th>Cultural Fluency : </th>
