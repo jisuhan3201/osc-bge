@@ -113,6 +113,7 @@ class StudentMonthlyReport(TimeStampedModel):
 
     STATUS_CHOICES = (
         ('incomplete', 'Incomplete'),
+        ('complete', 'Complete'),
         ('submitted', 'Submitted'),
         ('manager_confirmed', 'Manager Confirmed'),
         ('send_to_agent', 'Send to Agent'),

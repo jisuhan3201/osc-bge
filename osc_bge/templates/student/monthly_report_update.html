@@ -565,7 +565,7 @@
 							},
 							options: {
 									title: {
-										display:true,
+										display:false,
 										text: "SAT"
 									},
 									scales: {
@@ -598,7 +598,7 @@
 							},
 							options: {
 									title: {
-										display:true,
+										display:false,
 										text: "ACT"
 									},
 									scales: {
@@ -631,7 +631,7 @@
 							},
 							options: {
 									title: {
-										display:true,
+										display:false,
 										text: "TOEFL"
 									},
 									scales: {
@@ -664,7 +664,7 @@
 							},
 							options: {
 									title: {
-										display:true,
+										display:false,
 										text: "GPA"
 									},
 									scales: {
@@ -776,18 +776,19 @@
 					<td>
             {% if found_report.status == 'incomplete' %}
 						<label><input name="status" type="radio" value="incomplete" checked required/><span></span>Incomplete</label>
-						<label><input name="status" type="radio" value="submitted"/><span></span>Complete</label>
-            {% elif found_report.status == 'submitted' %}
-            Submitted Date  :  {{found_report.submit_date|date:"Y-m-d"}}
+						<label><input name="status" type="radio" value="complete"/><span></span>Complete</label>
+						{% elif found_report.status == 'complete'%}
+						<label><input name="status" type="radio" value="incomplete" required/><span></span>Incomplete</label>
+						<label><input name="status" type="radio" value="complete" checked/><span></span>Complete</label>
             {% elif found_report.status == 'manager_confirmed' %}
-            Submitted Date  :  {{found_report.submit_date|date:"Y-m-d"}} / Manager Confirmed Date  :  {{found_report.manager_confirm_date|date:"Y-m-d"}}
+            Manager Confirmed Date  :  {{found_report.manager_confirm_date|date:"Y-m-d"}}
             {% elif found_report.status == 'send_to_agent' %}
-            Submitted Date  :  {{found_report.submit_date|date:"Y-m-d"}} / Manager Confirmed  :  {{found_report.manager_confirm_date|date:"Y-m-d"}} / Send to Agent  :  {{found_report.send_to_agent_date|date:"Y-m-d"}}
+            Manager Confirmed  :  {{found_report.manager_confirm_date|date:"Y-m-d"}} / Send to Agent  :  {{found_report.send_to_agent_date|date:"Y-m-d"}}
             {% elif found_report.status == 'agent_confirmed' %}
-            Submitted Date  :  {{found_report.submit_date|date:"Y-m-d"}} / Manager Confirmed  :  {{found_report.manager_confirm_date|date:"Y-m-d"}} / Send to Agent  :  {{found_report.send_to_agent_date|date:"Y-m-d"}} / Agent Confirmed  :  {{found_report.agent_confirmed|date:"Y-m-d"}}
+            Manager Confirmed  :  {{found_report.manager_confirm_date|date:"Y-m-d"}} / Send to Agent  :  {{found_report.send_to_agent_date|date:"Y-m-d"}} / Agent Confirmed  :  {{found_report.agent_confirmed|date:"Y-m-d"}}
             {% else %}
             <label><input name="status" type="radio" value="incomplete" required/><span></span>Incomplete</label>
-						<label><input name="status" type="radio" value="submitted"/><span></span>Complete</label>
+						<label><input name="status" type="radio" value="complete"/><span></span>Complete</label>
             {% endif %}
 					</td>
 				</tr>
@@ -847,13 +848,13 @@
 				<tr>
 					<th>Rate </th>
 					{% if found_host_report %}
-					<td id="HostReportHostRate" class="InnerInputTD">{{found_host_report.rate}}</td>
+					<td id="HostReportHostRate" class="InnerInputTD">{{found_host_report.rate|capfirst}}</td>
 					{% else %}
 					<td id="HostReportHostRate" class="InnerInputTD"></td>
 					{% endif %}
 
 					{% if found_host_report %}
-					<td class="InnerInputTD">Improvement : <span id="HostReportHostImprovement">{{found_host_report.improvement}}</span></td>
+					<td class="InnerInputTD">Improvement : <span id="HostReportHostImprovement">{{found_host_report.improvement|capfirst}}</span></td>
 					{% else %}
 					<td class="InnerInputTD">Improvement : <span id="HostReportHostImprovement"></span></td>
 					{% endif %}

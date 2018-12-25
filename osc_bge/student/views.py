@@ -426,7 +426,7 @@ class StudentMonthlyReportView(LoginRequiredMixin, View):
                 act.save()
 
 
-            if data.get('status') == 'submitted':
+            if data.get('status') == 'send_to_agent':
                 report.submit_date=datetime.datetime.today()
                 report.save()
 
@@ -578,7 +578,7 @@ class StudentMonthlyReportUpdateView(LoginRequiredMixin, View):
             found_report.status=data.get('status')
             found_report.quater_gpa=data.get('quater_gpa')
 
-            if data.get('status') == 'submitted':
+            if data.get('status') == 'send_to_agent':
                 found_report.submit_date=datetime.datetime.today()
 
             if data.get('manager_confirm_date'):
@@ -780,7 +780,7 @@ def student_transcript_chart(request, student_id=None):
                 student_report = models.StudentMonthlyReport.objects.filter(
                     student=found_student,
                     submit_date__range=(past_start_date, past_end_date)
-                ).exclude(status='incomplete').latest('updated_at')
+                ).latest('updated_at')
                 gpa = student_report.quater_gpa
 
             except models.StudentMonthlyReport.DoesNotExist:
