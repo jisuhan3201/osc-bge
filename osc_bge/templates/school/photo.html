@@ -9,12 +9,27 @@
 	{{found_school.name}}
 	</div>
 	<div class="SchoolFrame">
+
 		<div class="MTitle">School Photos</div>
 		<div class="MediaList">
 			{% for photo in found_school.school_photo.all %}
 			<div class="MediaSet BOX04">
 				<img src="{{MEDIA_URL}}{{photo.photo}}" alt="additional_school_photos" style="max-width:100%;max-height:100%;">
 				<div class="Title">{{photo.photo}}</div>
+			</div>
+			{% endfor %}
+			<div class="cdiv"></div>
+		</div><!-- MediaList -->
+		<div class="EndPart"></div>
+		<div class="EndPart"></div>
+		<div class="MTitle">School Videos</div>
+		<div class="MediaList">
+			{% for video in found_school.school_video.all %}
+			<div class="MediaSet BOX04">
+				<video  controls alt="additional_school_videos" style="max-width:100%;max-height:100%;">
+					<source src="{{MEDIA_URL}}{{video.video}}" type="video/mp4">
+				</video>
+				<div class="Title">{{video.video}}</div>
 			</div>
 			{% endfor %}
 			<div class="cdiv"></div>
