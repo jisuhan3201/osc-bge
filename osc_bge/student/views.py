@@ -542,6 +542,7 @@ class StudentMonthlyReportUpdateView(LoginRequiredMixin, View):
             if data.get('host_form_id'):
 
                 found_report.send_to_agent_date = datetime.date.today()
+                found_report.status = 'submitted'
                 found_report.save()
 
                 try:
