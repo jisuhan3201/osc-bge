@@ -207,6 +207,7 @@ class SchoolTypes(TimeStampedModel):
     school = models.ForeignKey(School, on_delete=models.SET_NULL, null=True, related_name="school_type")
     type = models.CharField(max_length=80, null=True)
 
+
 class SchoolPhotos(TimeStampedModel):
 
     school = models.ForeignKey(School, on_delete=models.SET_NULL, null=True, related_name="school_photo")
@@ -214,6 +215,12 @@ class SchoolPhotos(TimeStampedModel):
 
     def __str__(self):
         return "{}".format(self.school)
+
+
+class SchoolVideo(TimeStampedModel):
+
+    school = models.ForeignKey(School, on_delete=models.SET_NULL, null=True, related_name="school_video")
+    video = models.FileField(upload_to='videos/schools/', null=True, blank=True)
 
 
 class SchoolTotalQuantity(TimeStampedModel):
