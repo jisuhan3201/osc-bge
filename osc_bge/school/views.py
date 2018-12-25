@@ -317,6 +317,16 @@ class SecondaryCreateView(LoginRequiredMixin, View):
                     school_photo.photo = photo
                     school_photo.save()
 
+        if request.FILES.getlist('video'):
+            video_form = forms.SchoolVideoForm(request.POST, request.FILES)
+            if video_form.is_valid():
+                for video in request.FILES.getlist('video'):
+
+                    school_video = models.SchoolVideo()
+                    school_video.school = found_school
+                    school_video.video = video
+                    school_video.save()
+
         for num in range(7 ,13):
 
 
@@ -520,6 +530,21 @@ class SecondaryUpdateView(LoginRequiredMixin, View):
             for photo_id in data.getlist('delete_photo'):
                 found_school_photo = models.SchoolPhotos.objects.get(id=int(photo_id))
                 found_school_photo.delete()
+
+        if request.FILES.getlist('video'):
+            video_form = forms.SchoolVideoForm(request.POST, request.FILES)
+            if video_form.is_valid():
+                for video in request.FILES.getlist('video'):
+
+                    school_video = models.SchoolVideo()
+                    school_video.school = found_school
+                    school_video.video = video
+                    school_video.save()
+
+        if data.getlist('delete_video'):
+            for video_id in data.getlist('delete_video'):
+                found_school_video = models.SchoolVideo.objects.get(id=int(video_id))
+                found_school_video.delete()
 
         for num in range(7 ,13):
 

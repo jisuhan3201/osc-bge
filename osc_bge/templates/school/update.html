@@ -460,6 +460,20 @@ document.getElementById(TabName).style.display='block';
 						</td>
 					</tr>
 					<tr>
+					  <th>Additional Videos  : </th>
+					  <td class="InnerInputTD" colspan="3">
+					    <input type="file" name="video" class="TableInnerInput" multiple/><br />
+					    {% if found_school.school_video %}
+					      {% for video in found_school.school_video.all %}
+					        <video  controls alt="additional_school_videos" width="150">
+					          <source src="{{MEDIA_URL}}{{video.video}}" type="video/mp4">
+					        </video>
+					        <label><input type="checkbox" name="delete_video" value="{{video.id}}"><span></span>Delete</label>
+					      {% endfor %}
+					    {% endif %}
+					  </td>
+					</tr>
+					<tr>
 						<th>Partnership : </th>
 						<td>
               {% if found_school.partnership == 1%}
