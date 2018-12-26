@@ -267,7 +267,26 @@ background:#FFF;border:1px solid #CCC;border-radius:3px;cursor:pointer;overflow:
 .ListTable .TitleColor {font-size:12px;font-weight:600;color:#000;background:#EFEFEF;}
 .ListTable .TitleColor2 {font-size:11px;font-weight:600;color:#FF6600;text-align:center;background:#FAFAFA;}
 
+.ListTable2 {margin:5px 0px;overflow:hidden;border-radius:3px;}
+.ListTable2 table {width:100%;
+font-size:12px;line-height:16px;text-align:center;}
+.ListTable2 tr:hover {background:#FFF;}
+.ListTable2 th {padding:9px;font-weight:450;color:#FFF;background:#bdbebd;}
+.ListTable2 td {padding:6px;font-weight:450;color:#333;border-bottom:1px solid #DDD;}
+.ListTable2 .Relationship {background-color:#e3fddf;}
+.ListTable2 tr:hover .RelationShip {background:#FFF;}
+.ListTable2 td .Button {padding:3px 10px;
+font-size:11px;font-weight:600;color:#333;line-height:22px;
+background:#FFF;border:1px solid #CCC;border-radius:3px;cursor:pointer;overflow:hidden;}
+.ListTable2 td .Button:hover {background:#FF6600;color:#FFF;}
 
+.ListTable2 .row2 {padding:2px !important;}
+.ListTable2 .IcoButton {width:22px;padding:3px 5px;
+background:#FFF;border:1px solid #CCC;border-radius:3px;cursor:pointer;overflow:hidden;}
+.ListTable2 .IcoButton img {margin-top:-3px;height:16px;opacity:0.5;}
+.ListTable2 .IcoButton:hover img {opacity:1;}
+.ListTable2 .TitleColor {font-size:12px;font-weight:600;color:#000;background:#EFEFEF;}
+.ListTable2 .TitleColor2 {font-size:11px;font-weight:600;color:#FF6600;text-align:center;background:#FAFAFA;}
 
 
 

@@ -81,8 +81,17 @@ class StudentReportView(View):
             except models.StudentAcademicRecord.DoesNotExist:
                 academic_records = None
 
+            try:
+                found_host_report = branch_models.HostStudentReport.objects.get(student_report=found_report)
+            except branch_models.HostStudentReport.DoesNotExist:
+                found_host_report = None
+
         else:
             return HttpResponse('No student id', status=400)
+
+        all_logs = models.StudentCommunicationLog.objects.filter(student=found_report.student, updated_at__range=(
+            datetime.date.today() - relativedelta.relativedelta(months=1),
+            datetime.date.today() + relativedelta.relativedelta(days=1)))
 
         all_toefl = models.StudentToeflHistory.objects.filter(student=found_student).order_by('toefl_date')
         all_sat = models.StudentSatHistory.objects.filter(student=found_student).order_by('sat_date')
@@ -93,6 +102,8 @@ class StudentReportView(View):
             'found_report':found_report,
             'all_reports':all_reports,
             'academic_records':academic_records,
+            'all_logs':all_logs,
+            'found_host_report':found_host_report,
             'all_toefl':all_toefl,
             'all_sat':all_sat,
             'all_act':all_act,
@@ -136,16 +147,39 @@ class StudentPastReportView(LoginRequiredMixin, View):
         else:
             return HttpResponse('No student id', status=400)
 
+        try:
+            found_host_report = branch_models.HostStudentReport.objects.get(student_report=found_report)
+        except branch_models.HostStudentReport.DoesNotExist:
+            found_host_report = None
+
+        try:
+            academic_records = models.StudentAcademicRecord.objects.filter(student=found_report.student)
+        except models.StudentAcademicRecord.DoesNotExist:
+            academic_records = None
+
+        if academic_records:
+            academic_range = range(academic_records.count() + 1, 9)
+        else:
+            academic_range = range(1, 9)
+
         all_toefl = models.StudentToeflHistory.objects.filter(student=found_report.student).order_by('toefl_date')
         all_sat = models.StudentSatHistory.objects.filter(student=found_report.student).order_by('sat_date')
         all_act = models.StudentActHistory.objects.filter(student=found_report.student).order_by('act_date')
 
+        all_logs = models.StudentCommunicationLog.objects.filter(student=found_report.student, updated_at__range=(
+            datetime.date.today() - relativedelta.relativedelta(months=1),
+            datetime.date.today() + relativedelta.relativedelta(days=1)))
+
         return render(request, 'agent/student_report.html', {
             'found_report':found_report,
             'all_reports':all_reports,
+            'academic_range': academic_range,
+            'academic_records': academic_records,
+            'found_host_report': found_host_report,
             'all_toefl':all_toefl,
             'all_sat':all_sat,
             'all_act':all_act,
+            'all_logs': all_logs,
         })
 
     def post(self, request, report_id=None):
@@ -506,7 +540,13 @@ class StudentMonthlyReportUpdateView(LoginRequiredMixin, View):
             all_toefl = models.StudentToeflHistory.objects.filter(student=found_report.student).order_by('toefl_date')
             all_sat = models.StudentSatHistory.objects.filter(student=found_report.student).order_by('sat_date')
             all_act = models.StudentActHistory.objects.filter(student=found_report.student).order_by('act_date')
-
+            all_logs = models.StudentCommunicationLog.objects.filter(
+                student=found_report.student,
+                updated_at__range=(
+                    datetime.date.today() - relativedelta.relativedelta(months=1),
+                    datetime.date.today() + relativedelta.relativedelta(days=1)
+                )
+            )
         else:
             return HttpResponse('No student id', status=400)
 
@@ -514,6 +554,7 @@ class StudentMonthlyReportUpdateView(LoginRequiredMixin, View):
             'all_students':all_students,
             'all_reports':all_reports,
             'found_report':found_report,
+            'all_logs':all_logs,
             'all_host_reports':all_host_reports,
             'found_host_report':found_host_report,
             'academic_range':academic_range,

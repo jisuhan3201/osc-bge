@@ -767,6 +767,7 @@
 		</div><!-- ListTable -->
 		<div class="EndPart"></div>
 
+
 		<div class="MTitle">Status</div>
 		<div class="cdiv"></div>
 		<div class="ListTable">
@@ -800,6 +801,36 @@
 		</div>
 		</form>
 		<div class="EndPart"></div>
+
+
+        <div class="MTitle">Communication Log</div>
+        <div class="cdiv"></div>
+        <div class="ListTable2">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <colgroup>
+                    <col>
+                </colgroup>
+                <tr>
+                    <th>Updated</th>
+                    <th>Category</th>
+                    <th>Priority</th>
+                    <th>Comment</th>
+                    <th>Writer</th>
+                </tr>
+                <tr>
+					{% for log in all_logs %}
+						<tr>
+							<td class="InnerInputTD"><input name="log_updated_at" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{log.updated_at}}" readonly /></td>
+							<td class="InnerInputTD"><input name="log_category" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{log.category}}" readonly /></td>
+							<td class="InnerInputTD"><input name="log_priority}" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{log.priority}}" readonly /></td>
+							<td class="InnerInputTD"><input name="log_comment" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{log.comment}}" readonly /></td>
+							<td class="InnerInputTD"><input name="log_writer" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{log.writer}}" readonly /></td>
+						</tr>
+					{% endfor %}
+                </tr>
+            </table>
+        </div><!-- ListTable -->
+        <div class="EndPart"></div>
 
 
     <div class="MTitle" style="width:100%;">

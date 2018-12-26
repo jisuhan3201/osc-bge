@@ -627,30 +627,35 @@
 		</div><!-- ListTable -->
 		<div class="EndPart"></div>
 
-		<div class="MTitle">Status</div>
-		<div class="cdiv"></div>
-		<div class="ListTable">
-			<table cellpadding="0" cellspacing="0" border="0">
-				<tr>
-					<th>Report Status : </th>
-					<td>
-            {% if found_report.send_to_agent_date and not found_report.agent_confirmed and not found_report.report_to_parent %}
-            Send to Agent  :  {{found_report.send_to_agent_date|date:"Y-m-d"}}
-            {% elif found_report.agent_confirmed and not found_report.report_to_parent %}
-            Send to Agent  :  {{found_report.send_to_agent_date|date:"Y-m-d"}} / Agent Confirmed  :  {{found_report.agent_confirmed|date:"Y-m-d"}}
-            {% elif found_report.report_to_parent %}
-            Send to Agent  :  {{found_report.send_to_agent_date|date:"Y-m-d"}} / Agent Confirmed  :  {{found_report.agent_confirmed|date:"Y-m-d"}} / Report to parent : {{found_report.report_to_parent|date:"Y-m-d"}}
-            {% endif %}
-					</td>
-				</tr>
-			</table>
-		</div><!-- ListTable -->
 
-		<div class="SubmitButtonLine">
-			<button class="Submit" type="submit">SAVE</button>
-		</div>
-		</form>
-		<div class="EndPart"></div>
+        <div class="MTitle">Communication Log</div>
+        <div class="cdiv"></div>
+        <div class="ListTable">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <colgroup>
+                    <col>
+                </colgroup>
+                <tr>
+                    <th>Updated</th>
+                    <th>Category</th>
+                    <th>Priority</th>
+                    <th>Comment</th>
+                    <th>Writer</th>
+                </tr>
+                <tr>
+					{% for log in all_logs %}
+						<tr>
+							<td class="InnerInputTD"><input name="log_updated_at" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{log.updated_at}}" readonly /></td>
+							<td class="InnerInputTD"><input name="log_category" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{log.category}}" readonly /></td>
+							<td class="InnerInputTD"><input name="log_priority}" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{log.priority}}" readonly /></td>
+							<td class="InnerInputTD"><input name="log_comment" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{log.comment}}" readonly /></td>
+							<td class="InnerInputTD"><input name="log_writer" type="text" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{log.writer}}" readonly /></td>
+						</tr>
+					{% endfor %}
+                </tr>
+            </table>
+        </div><!-- ListTable -->
+        <div class="EndPart"></div>
 
 
 
@@ -709,12 +714,61 @@
 					<textarea class="TableInnerTextarea" style="height:100px;" readonly>{{found_report.host_report.comment}}</textarea>
 					</td>
 				</tr>
+				{% if found_host_report.photos.all %}
 				<tr>
-					<th>Photo/File Attachment</th>
-					<td colspan="2" class="InnerInputTD"></td>
+					<th>Photos</th>
+					<td colspan="3" class="InnerInputTD">
+						{% for photo in found_host_report.photos.all %}
+						<img src="{{MEDIA_URL}}{{photo.photo}}" width="400px" alt="">
+						<span style="margin-right:10px;"></span>
+						{% endfor %}
+						<span id="HostReportHostPhoto" style="margin-right:10px;"></span>
+					</td>
+				</tr>
+				{% endif %}
+				{% if found_host_report.files.all %}
+				<tr>
+					<th>Files</th>
+					<td colspan="3" class="InnerInputTD">
+						{% for file in found_host_report.files.all %}
+						<a href="{{MEDIA_URL}}{{file.file}}">{{file.file}}</a><br>
+						{% endfor %}
+						<span id="HostReportHostFile"></span>
+					</td>
+				</tr>
+				{% endif %}
+			</table>
+		</div><!-- ListTable -->
+        <div class="EndPart"></div>
+
+
+        <div class="MTitle">Status</div>
+		<div class="cdiv"></div>
+		<div class="ListTable">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<th>Report Status : </th>
+					<td>
+            {% if found_report.send_to_agent_date and not found_report.agent_confirmed and not found_report.report_to_parent %}
+            Send to Agent  :  {{found_report.send_to_agent_date|date:"Y-m-d"}}
+            {% elif found_report.agent_confirmed and not found_report.report_to_parent %}
+            Send to Agent  :  {{found_report.send_to_agent_date|date:"Y-m-d"}} / Agent Confirmed  :  {{found_report.agent_confirmed|date:"Y-m-d"}}
+            {% elif found_report.report_to_parent %}
+            Send to Agent  :  {{found_report.send_to_agent_date|date:"Y-m-d"}} / Agent Confirmed  :  {{found_report.agent_confirmed|date:"Y-m-d"}} / Report to parent : {{found_report.report_to_parent|date:"Y-m-d"}}
+            {% endif %}
+					</td>
 				</tr>
 			</table>
 		</div><!-- ListTable -->
+        <div class="EndPart"></div>
+
+
+        <div class="SubmitButtonLine">
+			<button class="Submit" type="submit">SAVE</button>
+		</div>
+		</form>
+		<div class="EndPart"></div>
+
 
     <div class="EndPart"></div>
 {% else %}
