@@ -89,7 +89,7 @@ class StudentReportView(View):
         else:
             return HttpResponse('No student id', status=400)
 
-        all_logs = models.StudentCommunicationLog.objects.filter(student=found_report.student, updated_at__range=(
+        all_logs = models.StudentCommunicationLog.objects.filter(student=found_student, updated_at__range=(
             datetime.date.today() - relativedelta.relativedelta(months=1),
             datetime.date.today() + relativedelta.relativedelta(days=1)))
 
