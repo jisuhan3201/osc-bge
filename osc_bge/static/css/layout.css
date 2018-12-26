@@ -201,11 +201,11 @@ font-size:12px;font-weight:350;line-height:1.3em;}
 /* MAIN */
 .MainFrame {float:left;padding:42px 40px 20px 40px;width:calc(100% - 275px);height:calc(100% - 62px);min-height:calc(100% - 62px);
 transition: all linear 200ms;overflow:auto;}
-.MainFrame .MTitle {float:left;margin-bottom:10px;padding-left:10px;height:36px;
-font-size:18px;font-weight:600;line-height:36px;color:#333;
+.MainFrame .MTitle {float:left;margin-bottom:10px;padding-left:10px;height:26px;
+font-size:18px;font-weight:600;line-height:26px;color:#333;
 border-left:3px solid #dcb068;}
-.MainAFrame .MTitle {float:left;padding-left:10px;height:36px;
-font-size:16px;font-weight:600;line-height:36px;color:#333;
+.MainAFrame .MTitle {float:left;padding-left:10px;height:26px;
+font-size:16px;font-weight:600;line-height:26px;color:#333;
 border-left:3px solid #dcb068;}
 .MainFrame .MTitle span {margin-left:10px;font-size:14px;font-weight:100;color:#666;}
 .MainAFrame .MTitle span {margin-left:10px;font-size:14px;font-weight:100;color:#666;}
@@ -585,4 +585,10 @@ background-color:#FFF;border-radius:3px;border:1px solid #DDD;cursor:pointer;}
 font-size:12px;line-height:16px;text-align:center;border-top:1px solid #DDD;border-right:1px solid #DDD;}
 .DirectoryTable th {padding:9px;font-weight:450;color:#FFF;background:#215670;}
 .DirectoryTable td {padding:6px;font-weight:450;color:#333;border-bottom:1px solid #DDD;border-left:1px solid #DDD;}
-.GraphgArea {padding:20px;height:400px;background:#FFF;}
+.GraphgArea {padding:20px;height:300px;background:#FFF;}
+
+@media print {
+ .TopMenuSet .SchoolMenu {opacity:0 !important;visibility:hidden !important;display:none !important;}
+ .TopMenuSet .ButtonLine {opacity:0 !important;visibility:hidden !important;display:none !important;}
+ .SubmitButtonLine, .NoPrint {opacity:0 !important;visibility:hidden !important;display:none !important;}
+}

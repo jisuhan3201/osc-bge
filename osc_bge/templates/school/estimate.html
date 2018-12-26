@@ -195,7 +195,7 @@
 
 
 		<div class="MTitle">
-			<div class="MTitleButton">
+			<div class="MTitleButton NoPrint">
 			{% if found_school.program_file %}
 			<a href="{{MEDIA_URL}}{{found_school.program_file}}" download>Program PDF Download</a>
 			{% else %}
@@ -206,13 +206,13 @@
 		</div>
 		<div class="TextAreaForm">
 			<textarea>{{found_school.secondary.fee_memo}}</textarea>
-			<div class="SchoolButton" id="ModifyButtonId" >Modify</div>
+			<div class="SchoolButton NoPrint" id="ModifyButtonId" >Modify</div>
 		</div><!-- TextAreaForm -->
 		<div class="EndPart"></div>
 
 		<div class="TotalEstimate">
 			<div class="Total"><span>Total Estimate Cost</span>$ <span class="total_estimate_fee"></span></div>
-			<div class="Button">
+			<div class="Button NoPrint">
 				<div class="EstimatePDFClass" onclick="window.print()">Print</div>
 			</div>
 		</div><!-- TotalEstimate -->

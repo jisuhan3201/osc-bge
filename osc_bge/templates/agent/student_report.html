@@ -6,12 +6,12 @@
 <div class="ContentsFrame">
 
 
-	<div class="MainFrame" id="MainF">
+	<div class="MainFrame" style="width:1200px !important;height:auto !important;" id="MainF">
 		<form method="POST">
 			{% csrf_token %}
 			<input type="text" name="report_id" value="{{found_report.id}}" hidden>
 		<div class="PTitle">Student Academic Report</div>
-		<div class="MTitle" style="width:100%;">
+		<div class="MTitle NoPrint" style="width:100%;">
 			<div class="MTitleForm">
 				<select class="MTitleInput" onchange="location=this.value;">
           <option value="">Select Reports..</option>
@@ -217,12 +217,13 @@
 				<tr>
 					<th>To see current Transcript</th>
 					<td colspan="9" class="InnerInputTD">
-					<textarea class="TableInnerTextarea" style="height:100px;width:calc(100% - 10px);" name="transcript" readonly>{{found_report.transcript}}</textarea>
+					<textarea class="TableInnerTextarea" style="height:60px;width:calc(100% - 10px);" name="transcript" readonly>{{found_report.transcript}}</textarea>
 					<a href="{{found_report.transcript}}">{{found_report.transcript}}</a>
 					</td>
 				</tr>
 			</table>
 		</div><!-- InfoTable -->
+		<div class="EndPart"></div>
 		<div class="EndPart"></div>
 
 
@@ -276,6 +277,7 @@
 				{% endfor %}
 			</table>
 		</div><!-- ListTable -->
+		<div class="EndPart"></div>
 		<div class="EndPart"></div>
 
 
@@ -382,6 +384,8 @@
 				</tr>
 			</table>
 		</div><!-- ListTable -->
+		<div class="EndPart"></div>
+		<div class="EndPart"></div>
 		<div class="EndPart"></div>
 
 		<div class="MTitle">Consulting for Test Preparation</div>
@@ -557,7 +561,6 @@
 			<canvas id="ActStatisticChart" width="636" height="300"></canvas>
 		</div>
 		</div><!-- Layout_2-1 -->
-		<div class="EndPart"></div>
 		<div class="cdiv"></div>
 
 		<div class="cdiv"></div>
@@ -575,6 +578,7 @@
 		<div class="cdiv"></div>
 
 
+		<div class="EndPart"></div>
 		<div class="EndPart"></div>
 
 		<div class="MTitle">Activities</div>
@@ -760,6 +764,9 @@
 				</tr>
 			</table>
 		</div><!-- ListTable -->
+
+
+    <!-- 프린트 할 경우 감춰야 할 부분 : Start -->
         <div class="EndPart"></div>
 
 
@@ -767,10 +774,13 @@
 			<button class="Submit" type="submit">SAVE</button>
 		</div>
 		</form>
-		<div class="EndPart"></div>
+		<!-- div class="EndPart"></div>
 
 
-    <div class="EndPart"></div>
+    <div class="EndPart"></div -->
+    <!-- 프린트 할 경우 감춰야 할 부분 : End -->
+
+
 {% else %}
 <div style="display:flex;justify-content:center;">
 	<div style="margin-top:300px;font-size:50px;">No Report Found</div>
