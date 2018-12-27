@@ -84,6 +84,12 @@ class CreateUserView(LoginRequiredMixin, View):
             all_agent_heads = agent_models.AgencyHead.objects.all()
             all_agent_branches = agent_models.Agency.objects.all()
 
+            return render(request, 'main/create_user.html', {
+                'all_branches':all_branches,
+                'all_agent_heads':all_agent_heads,
+                'all_agent_branches':all_agent_branches,
+            })
+
         elif  request.user.type == 'agency_admin':
 
             all_branches = None
