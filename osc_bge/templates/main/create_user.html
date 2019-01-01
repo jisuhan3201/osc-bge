@@ -53,7 +53,7 @@
 							<tr>
 								<th>Type : </th>
 								<td class="InnerInputTD">
-									{% if user.type == bge_admin%}
+									{% if user.type == "bge_admin" %}
 									<label><input class="UserTypeClass" type="radio" name="type" value="bge_team" required /><span></span>BGE Admission Team</label>
 									<label><input class="UserTypeClass" type="radio" name="type" value="bge_branch_admin" /><span></span>BGE Branch Manager or Coordinator</label>
 									<label><input class="UserTypeClass" type="radio" name="type" value="bge_accountant" /><span></span>BGE Accountant</label>
