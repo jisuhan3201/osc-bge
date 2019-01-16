@@ -219,8 +219,8 @@ def branch_chart_statistics(request):
                 chart_name = 'Prospective Host Families'
 
             elif chart_type == 'student_complaints':
-                complaints = models.CommunicationLog.objects.filter(
-                    category='complaints', host__in=all_hosts, created_at__range=(sd,ed)).count()
+                complaints = (models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts, created_at__range=(sd,ed)).count() +
+                    student_models.StudentCommunicationLog.objects.filter(category='complaints', student__school__in=all_schools, created_at__range=(sd,ed)).count())
                 data.append(complaints)
                 chart_name = 'Complaints'
 
