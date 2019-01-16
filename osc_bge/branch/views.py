@@ -71,7 +71,8 @@ class BranchStatisticsView(LoginRequiredMixin, View):
         found_branch.inactive_host = models.HostFamily.objects.filter(provider_branch=found_branch, status='inactive')
         found_branch.prospective_host = models.HostFamily.objects.filter(provider_branch=found_branch, status='prospective')
         found_branch.current_students = student_models.Student.objects.filter(school__in=all_schools)
-        found_branch.complaints = models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts)
+        found_branch.complaints = (models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts).count() +
+            student_models.StudentCommunicationLog.objects.filter(category='complaints', student__school__in=all_schools).count())
 
         if request.GET.get('form_type'):
 
@@ -133,7 +134,9 @@ class BranchStatisticsView(LoginRequiredMixin, View):
                 found_branch.inactive_host = found_branch.inactive_host.filter(created_at__gte=start_date)
                 found_branch.prospective_host = found_branch.prospective_host.filter(created_at__gte=start_date)
                 found_branch.current_students = found_branch.current_students.filter(created_at__gte=start_date)
-                found_branch.complaints = found_branch.complaints.filter(created_at__gte=start_date)
+                found_branch.complaints = (models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts, created_at__gte=start_date).count() +
+                    student_models.StudentCommunicationLog.objects.filter(category='complaints', student__school__in=all_schools, created_at__gte=start_date).count())
+
 
                 if end_date:
                     found_branch.school_count = found_branch.school_count.filter(created_at__lt=end_date)
@@ -141,15 +144,14 @@ class BranchStatisticsView(LoginRequiredMixin, View):
                     found_branch.inactive_host = found_branch.inactive_host.filter(created_at__lt=end_date)
                     found_branch.prospective_host = found_branch.prospective_host.filter(created_at__lt=end_date)
                     found_branch.current_students = found_branch.current_students.filter(created_at__lt=end_date)
-                    found_branch.complaints = found_branch.complaints.filter(created_at__lt=end_date)
+                    found_branch.complaints = (models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts, created_at__gte=start_date, created_at__lt=end_date).count() +
+                        student_models.StudentCommunicationLog.objects.filter(category='complaints', student__school__in=all_schools, created_at__gte=start_date, created_at__lt=end_date).count())
 
         found_branch.school_count = found_branch.school_count.count()
         found_branch.active_host = found_branch.active_host.count()
         found_branch.inactive_host = found_branch.inactive_host.count()
         found_branch.prospective_host = found_branch.prospective_host.count()
         found_branch.current_students = found_branch.current_students.count()
-        found_branch.complaints = found_branch.complaints.count()
-
 
         return render(request, 'branch/statistics.html', {
             'default_start_date':default_start_date,
