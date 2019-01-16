@@ -227,7 +227,7 @@ def branch_chart_statistics(request):
             else:
                 current_students = student_models.Student.objects.filter(
                     school__in=all_schools,
-                    counsel__formality__school_formality__i20_received_date__range=(sd, ed),
+                    created_at__range=(sd, ed),
                 ).count()
                 data.append(current_students)
                 chart_name = 'Current Students'
@@ -235,7 +235,7 @@ def branch_chart_statistics(request):
         else:
             current_students = student_models.Student.objects.filter(
                 school__in=all_schools,
-                counsel__formality__school_formality__i20_received_date__range=(sd, ed),
+                created_at__range=(sd, ed),
             ).count()
             data.append(current_students)
             chart_name = 'Current Students'
