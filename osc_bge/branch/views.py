@@ -230,7 +230,7 @@ def branch_chart_statistics(request):
                     created_at__range=(sd, ed),
                 ).count()
                 data.append(current_students)
-                chart_name = 'Current Students'
+                chart_name = 'Secondary School Monthly Current Students Information'
 
         else:
             current_students = student_models.Student.objects.filter(
@@ -238,7 +238,7 @@ def branch_chart_statistics(request):
                 created_at__range=(sd, ed),
             ).count()
             data.append(current_students)
-            chart_name = 'Current Students'
+            chart_name = 'Secondary School Monthly Current Students Information'
 
     month_list.reverse()
     data.reverse()

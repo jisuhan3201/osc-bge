@@ -139,6 +139,10 @@ class SchoolFormality(TimeStampedModel):
 
     @property
     def payment_amount(self):
+        if not self.program_fee:
+            self.program_fee = 0
+        if not self.i20_fee:
+            self.i20_fee = 0
         result = self.program_fee - self.i20_fee
         return result
 
