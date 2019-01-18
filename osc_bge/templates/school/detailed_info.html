@@ -1,154 +1,153 @@
-{% extends 'school_base.html' %}
-{% load static %}
-{% block title %}{{found_school.name}}{% endblock %}
-{% block content %}
+{% extends 'school_base.html' %} {% load static %} {% block title %}{{
+  found_school.name
+}}{% endblock %} {% block content %}
 
 <div class="ContentsFrame">
-	<div class="SchoolName">
-	<span>School Information</span><br />
-	{{found_school.name}}
-	</div>
-	<div class="SchoolFrame">
-		<div class="InfoTable">
-			<table cellpadding="0" cellspacing="0" border="0">
-				<colgroup>
-					<col width="150">
-					<col>
-				</colgroup>
-				<tr>
-					<th>General Impression : </th>
-					<td>{{found_school.secondary.general_impression}}</td>
-				</tr>
-				<tr>
-					<th>Strong Advantages  : </th>
-					<td>{{found_school.secondary.strong_advantages}}</td>
-				</tr>
-			</table>
-		</div><!-- InfoTable -->
-		<div class="EndPart"></div>
+  <div class="SchoolName">
+    <span>School Information</span><br />
+    {{ found_school.name }}
+  </div>
+  <div class="SchoolFrame">
+    <div class="InfoTable">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <colgroup>
+          <col width="150" />
+          <col />
+        </colgroup>
+        <tr>
+          <th>General Impression :</th>
+          <td>{{ found_school.secondary.general_impression }}</td>
+        </tr>
+        <tr>
+          <th>Strong Advantages :</th>
+          <td>{{ found_school.secondary.strong_advantages }}</td>
+        </tr>
+      </table>
+    </div>
+    <!-- InfoTable -->
+    <div class="EndPart"></div>
 
+    <div class="MTitle">About the school</div>
+    <div class="InfoTable">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <colgroup>
+          <col width="150" />
+          <col style="max-width: 600px;" />
+          <col width="150" />
+          <col />
+        </colgroup>
+        <tr>
+          <th>Year Founded :</th>
+          <td>{{ found_school.founded }}</td>
+          <th>Religion :</th>
+          <td>{{ found_school.religion | capfirst }}</td>
+        </tr>
+        <tr>
+          <th>School Type :</th>
+          <td>
+            {% for type in school_types %} {{ type.type | capfirst }} / {%
+            endfor %}
+          </td>
+          <th>Grades :</th>
+          <td>
+            {{ found_school.secondary.grade_start }} -
+            {{ found_school.secondary.grade_end }}
+          </td>
+        </tr>
+        <tr>
+          <th>Student Body :</th>
+          <td>{{ found_school.secondary.student_body | capfirst }}</td>
+          <th>Uniform :</th>
+          {% if found_school.secondary.uniform %}
+          <td>Yes</td>
+          {% else %}
+          <td>No</td>
+          {% endif %}
+        </tr>
+        <tr>
+          <th>Number of Students :</th>
+          <td>{{ found_school.number_students }}</td>
+          <th>International Students :</th>
+          <td>{{ found_school.secondary.international_students }}</td>
+        </tr>
+        <tr>
+          <th>Class Size :</th>
+          <td>{{ found_school.secondary.class_size }}</td>
+          <th>ESL :</th>
+          {% if found_school.secondary.esl %}
+          <td>Yes</td>
+          {% else %}
+          <td>No</td>
+          {% endif %}
+        </tr>
+        <tr>
+          <th rowspan="2">Area Information :</th>
+          <td rowspan="2">{{ found_school.area_description }}</td>
+          <th>Student : Teacher Ratio :</th>
+          <td>{{ found_school.secondary.student_teach_ratio }}</td>
+        </tr>
+        <tr>
+          <th>Others :</th>
+          <td>{{ found_school.secondary.facilities }}</td>
+        </tr>
+      </table>
+    </div>
+    <!-- InfoTable -->
+    <div class="EndPart"></div>
 
-		<div class="MTitle">About the school</div>
-		<div class="InfoTable">
-			<table cellpadding="0" cellspacing="0" border="0">
-				<colgroup>
-					<col width="150">
-					<col>
-					<col width="150">
-					<col>
-				</colgroup>
-				<tr>
-					<th>Year Founded : </th>
-					<td>{{found_school.founded}}</td>
-					<th>Religion : </th>
-					<td>{{found_school.religion|capfirst}}</td>
-				</tr>
-				<tr>
-					<th>School Type : </th>
-					<td>
-						{% for type in school_types %}
-							{{type.type|capfirst}} /
-						{% endfor %}
-					</td>
-					<th>Grades : </th>
-					<td>{{found_school.secondary.grade_start}} - {{found_school.secondary.grade_end}}</td>
-				</tr>
-				<tr>
-					<th>Student Body : </th>
-					<td>{{found_school.secondary.student_body|capfirst}}</td>
-					<th>Uniform : </th>
-					{% if found_school.secondary.uniform %}
-					<td>Yes</td>
-					{% else %}
-					<td>No</td>
-					{% endif %}
-				</tr>
-				<tr>
-					<th>Number of Students : </th>
-					<td>{{found_school.number_students}}</td>
-					<th>International Students : </th>
-					<td>{{found_school.secondary.international_students}}</td>
-				</tr>
-				<tr>
-					<th>Class Size : </th>
-					<td>{{found_school.secondary.class_size}}</td>
-					<th>ESL : </th>
-					{% if found_school.secondary.esl %}
-					<td>Yes</td>
-					{% else %}
-					<td>No</td>
-					{% endif %}
-				</tr>
-				<tr>
-					<th rowspan="2">Area Information : </th>
-					<td rowspan="2">{{found_school.area_description}}</td>
-					<th>Student : Teacher Ratio : </th>
-					<td>{{found_school.secondary.student_teach_ratio}}</td>
-				</tr>
-				<tr>
-					<th>Others : </th>
-					<td>{{found_school.secondary.facilities}}</td>
-				</tr>
-			</table>
-		</div><!-- InfoTable -->
-		<div class="EndPart"></div>
-
-
-		<div class="MTitle">Academics</div>
-		<div class="InfoTable">
-			<table cellpadding="0" cellspacing="0" border="0">
-				<colgroup>
-					<col width="150">
-					<col>
-				</colgroup>
-				<tr>
-					<th>College Acceptance Rate : </th>
-					<td>{{found_school.secondary.college_acceptance_rate}}</td>
-				</tr>
-				<tr>
-					<th>Average SAT Scores : </th>
-					<td>{{found_school.secondary.avg_sat}}</td>
-				</tr>
-				<tr>
-					<th>Honor Courses : </th>
-					<td>{{found_school.secondary.list_honor_courses}}</td>
-				</tr>
-				<tr>
-					<th>AP Courses : </th>
-					<td>{{found_school.secondary.list_ap_courses}}</td>
-				</tr>
-				<tr>
-					<th>Club List : </th>
-					<td>{{found_school.secondary.list_clubs}}</td>
-				</tr>
-				<tr>
-					<th>Sports List : </th>
-					<td>{{found_school.secondary.list_sports}}</td>
-				</tr>
-				<tr>
-					<th>Extra Curricular : </th>
-					<td>{{found_school.secondary.extra_curricular}}</td>
-				</tr>
-				<tr>
-					<th>College Acceptance List : </th>
-					<td>{{found_school.secondary.college_acceptance_list}}</td>
-				</tr>
-				<tr>
-					<th>Application Fee : </th>
-					<td>$ {{found_school.secondary.application_fee}}</td>
-				</tr>
-				<tr>
-					<th>Program Fee  : </th>
-					<td>$ {{found_school.secondary.program_fee}}</td>
-				</tr>
-			</table>
-		</div><!-- InfoTable -->
-		<div class="EndPart"></div>
-
-
-
-	</div>
-</div><!--  ContentsFrame-->
-
+    <div class="MTitle">Academics</div>
+    <div class="InfoTable">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <colgroup>
+          <col width="150" />
+          <col />
+        </colgroup>
+        <tr>
+          <th>College Acceptance Rate :</th>
+          <td>{{ found_school.secondary.college_acceptance_rate }}</td>
+        </tr>
+        <tr>
+          <th>Average SAT Scores :</th>
+          <td>{{ found_school.secondary.avg_sat }}</td>
+        </tr>
+        <tr>
+          <th>Honor Courses :</th>
+          <td>{{ found_school.secondary.list_honor_courses }}</td>
+        </tr>
+        <tr>
+          <th>AP Courses :</th>
+          <td>{{ found_school.secondary.list_ap_courses }}</td>
+        </tr>
+        <tr>
+          <th>Club List :</th>
+          <td>{{ found_school.secondary.list_clubs }}</td>
+        </tr>
+        <tr>
+          <th>Sports List :</th>
+          <td>{{ found_school.secondary.list_sports }}</td>
+        </tr>
+        <tr>
+          <th>Extra Curricular :</th>
+          <td>{{ found_school.secondary.extra_curricular }}</td>
+        </tr>
+        <tr>
+          <th>College Acceptance List :</th>
+          <td>{{ found_school.secondary.college_acceptance_list }}</td>
+        </tr>
+        <tr>
+          <th>Application Fee :</th>
+          <td>$ {{ found_school.secondary.application_fee }}</td>
+        </tr>
+        <tr>
+          <th>Program Fee  :</th>
+          <td>$ {{ found_school.secondary.program_fee }}</td>
+        </tr>
+      </table>
+    </div>
+    <!-- InfoTable -->
+    <div class="EndPart"></div>
+  </div>
+</div>
+<!--  ContentsFrame-->
 
 {% endblock %}
