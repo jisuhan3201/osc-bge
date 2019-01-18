@@ -81,10 +81,10 @@ class StudentReportView(View):
             except models.StudentAcademicRecord.DoesNotExist:
                 academic_records = None
 
-            try:
-                found_host_report = branch_models.HostStudentReport.objects.get(student_report=found_report)
-            except branch_models.HostStudentReport.DoesNotExist:
-                found_host_report = None
+            # try:
+            #     found_host_report = branch_models.HostStudentReport.objects.get(student_report=found_report)
+            # except branch_models.HostStudentReport.DoesNotExist:
+            #     found_host_report = None
 
         else:
             return HttpResponse('No student id', status=400)
@@ -103,7 +103,7 @@ class StudentReportView(View):
             'all_reports':all_reports,
             'academic_records':academic_records,
             'all_logs':all_logs,
-            'found_host_report':found_host_report,
+            # 'found_host_report':found_host_report,
             'all_toefl':all_toefl,
             'all_sat':all_sat,
             'all_act':all_act,
