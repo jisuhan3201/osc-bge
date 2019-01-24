@@ -790,11 +790,13 @@ def student_transcript_chart(request, student_id=None):
 
         sat_date = []
         sat_score = []
+        sat_target = []
         if all_sat_history:
             for sat in all_sat_history:
 
                 sat_date.append(sat.sat_date)
                 sat_score.append(sat.total)
+                sat_target.append(sat.target)
 
         try:
             all_act_history = models.StudentActHistory.objects.filter(student=found_student).order_by('act_date')
@@ -803,11 +805,13 @@ def student_transcript_chart(request, student_id=None):
 
         act_date = []
         act_score = []
+        act_target = []
         if all_act_history:
             for act in all_act_history:
 
                 act_date.append(act.act_date)
                 act_score.append(act.cp_score)
+                act_target.append(act.target)
 
         try:
             all_toefl_history = models.StudentToeflHistory.objects.filter(student=found_student).order_by('toefl_date')
@@ -816,11 +820,13 @@ def student_transcript_chart(request, student_id=None):
 
         toefl_date = []
         toefl_score = []
+        toefl_target = []
         if all_toefl_history:
             for toefl in all_toefl_history:
 
                 toefl_date.append(toefl.toefl_date)
                 toefl_score.append(toefl.total)
+                toefl_target.append(toefl.target)
 
 
         gpa_list = []
@@ -868,10 +874,13 @@ def student_transcript_chart(request, student_id=None):
         'gpa':gpa_list,
         'sat_date':sat_date,
         'sat_score':sat_score,
+        'sat_target':sat_target,
         'act_date':act_date,
         'act_score':act_score,
+        'act_target':act_target,
         'toefl_date':toefl_date,
         'toefl_score':toefl_score,
+        'toefl_target':toefl_target,
     }
 
     return JsonResponse(result, safe=False)
