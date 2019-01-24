@@ -471,10 +471,15 @@ def chart_bge_statistics(request):
             past_start_date = date(sd.year, sd.month, 1)
             past_end_date = date(ed.year, ed.month, 1)
 
-            acceptance_count = form_models.SchoolFormality.objects.filter(
+            acceptance = form_models.SchoolFormality.objects.filter(
                 acceptance_date__range=(past_start_date, past_end_date),
                 formality__counsel__counselor__agency__head=head
-            ).count()
+            )
+
+            if request.GET.get('program'):                
+                acceptance = acceptance.filter(formality__counsel__program_interested=request.GET.get('program'))
+
+            acceptance_count = acceptance.count()
             acceptance_list.append(acceptance_count)
 
         acceptance_list.reverse()

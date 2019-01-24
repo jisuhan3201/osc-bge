@@ -104,7 +104,7 @@
 		$(document).ready(function(){
 
 			$.ajax({                       // initialize an AJAX request
-				url: "/charts/bge/statistics",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+				url: "/charts/bge/statistics?program={{request.GET.program_interested}}",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
 				success: function (data) {   // `data` is the return of the `load_cities` view function
 					var months = data.months;
 					var result = data.data;
