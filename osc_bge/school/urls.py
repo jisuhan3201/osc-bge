@@ -14,6 +14,7 @@ urlpatterns = [
     path('graduate/review/delete/<int:review_id>', views.graduate_profile_delete, name='graduate_profile_delete'),
     path('secondary/logs/<int:school_id>', views.SecondaryLogView.as_view(), name='secondary_log_view'),
     path('college/summary/<int:school_id>', views.CollegeSchoolView.as_view(), name='college_school_view'),
+    path('college/update/<int:school_id>', views.CollegeSchoolUpdateView.as_view(), name='college_school_update'),
     path('secondary/summary/<int:school_id>', views.SecondarySummaryView.as_view(), name='secondary_summary_view'),
     path('secondary/detail/<int:school_id>', views.SecondaryDetailView.as_view(), name='secondary_detail_view'),
     path('secondary/detail/<int:school_id>/pdf', views.SecondaryDetailPdfView.as_view(), name='secondary_detail_pdf_view'),

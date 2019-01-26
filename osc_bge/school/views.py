@@ -894,6 +894,45 @@ class CollegeSchoolView(LoginRequiredMixin, View):
         return render(request, 'agent_school/colleges.html', {'found_school':found_school})
 
 
+class CollegeSchoolUpdateView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+
+    def get(self, request, school_id=None):
+
+        if school_id:
+
+            try:
+                found_school = school_models.School.objects.get(pk=school_id)
+            except school_models.School.DoesNotExist:
+                return HttpResponse("Wrong school id", status=400)
+
+        else:
+            return HttpResponse('No school id', status=400)
+
+        first_schools = models.College.objects.filter(ranking__lte=50).order_by("ranking")
+        second_schools = models.College.objects.filter(ranking__range=(51, 101)).order_by("ranking")
+        third_schools = models.College.objects.filter(ranking__range=(101, 151)).order_by("ranking")
+        fourth_schools = models.College.objects.filter(ranking__range=(151, 201)).order_by("ranking")
+
+        return render(request, 'school/college_update.html',
+            {
+                'found_school':found_school,
+                "first_schools":first_schools,
+                "second_schools":second_schools,
+                "third_schools":third_schools,
+                "fourth_schools":fourth_schools,
+            }
+        )
+
+
+    def post(self, request, school_id=None):
+
+        #  화이팅입니다! 대표님은 다 하실수 있어요!
+        # SecondaryUpdateView 참고하세요
+        # template/school/college_update.html 수정하실때 template/school/update.html 참고하세요
+
+        return redirect(request.path_info)
+
 class SecondarySummaryView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
