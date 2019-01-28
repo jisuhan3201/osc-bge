@@ -54,7 +54,11 @@
 					</tr>
 					<tr>
 						<th>GPA Requirement : </th>
-						<td>{{found_school.college.gpa_requirement}}</td>
+                        {% if found_school.college.gpa_requirement == '1' %}
+                            <td>Yes</td>
+                        {% else %}
+                            <td>No</td>
+                        {% endif %}
 					</tr>
 				</table>
 			</div><!-- InfoTable -->

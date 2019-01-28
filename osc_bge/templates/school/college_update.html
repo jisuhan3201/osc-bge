@@ -120,7 +120,13 @@
                 </colgroup>
                 <tr>
                     <th>School Name : </th>
-                    <td class="InnerInputTD" colspan="3"><input type="text" name="name" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.name}}"/></td>
+                    <td class="InnerInputTD">
+                        <input type="text" name="name" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.name}}" />
+                    </td>
+                    <th>Year Founded : </th>
+                    <td class="InnerInputTD">
+                        <input type="text" name="founded" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.founded}}" />
+                    </td>
                 </tr>
                 <tr>
                     <th>School Main Photo  : </th>
@@ -132,623 +138,194 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Additional Photos  : </th>
-                    <td class="InnerInputTD" colspan="3">
-                        <input type="file" name="photo" class="TableInnerInput" multiple/><br />
-                        {% if found_school.school_photo %}
-                            {% for photo in found_school.school_photo.all %}
-                                <img src="{{MEDIA_URL}}{{photo.photo}}" alt="additional_school_photos" width="150">
-                                <label><input type="checkbox" name="delete_photo" value="{{photo.id}}"><span></span>Delete</label>
-                            {% endfor %}
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                  <th>Additional Videos  : </th>
-                  <td class="InnerInputTD" colspan="3">
-                    <input type="file" name="video" class="TableInnerInput" multiple/><br />
-                    {% if found_school.school_video %}
-                      {% for video in found_school.school_video.all %}
-                        <video  controls alt="additional_school_videos" width="150">
-                          <source src="{{MEDIA_URL}}{{video.video}}" type="video/mp4">
-                        </video>
-                        <label><input type="checkbox" name="delete_video" value="{{video.id}}"><span></span>Delete</label>
-                      {% endfor %}
-                    {% endif %}
-                  </td>
-                </tr>
-                <tr>
-                    <th>Partnership : </th>
+                    <th>Location : </th>
                     <td>
-          {% if found_school.partnership == 1%}
-                        <label><input name="partnership" type="radio" value="1" required checked/><span></span>1</label>
-                        <label><input name="partnership" type="radio" value="2" /><span></span>2</label>
-                        <label><input name="partnership" type="radio" value="3" /><span></span>3</label>
-                        <label><input name="partnership" type="radio" value="4" /><span></span>4</label>
-                        <label><input name="partnership" type="radio" value="5" /><span></span>5</label>
-          {% elif found_school.partnership == 2%}
-          <label><input name="partnership" type="radio" value="1" required/><span></span>1</label>
-                        <label><input name="partnership" type="radio" value="2" checked/><span></span>2</label>
-                        <label><input name="partnership" type="radio" value="3" /><span></span>3</label>
-                        <label><input name="partnership" type="radio" value="4" /><span></span>4</label>
-                        <label><input name="partnership" type="radio" value="5" /><span></span>5</label>
-          {% elif found_school.partnership == 3%}
-          <label><input name="partnership" type="radio" value="1" required/><span></span>1</label>
-                        <label><input name="partnership" type="radio" value="2" /><span></span>2</label>
-                        <label><input name="partnership" type="radio" value="3" checked/><span></span>3</label>
-                        <label><input name="partnership" type="radio" value="4" /><span></span>4</label>
-                        <label><input name="partnership" type="radio" value="5" /><span></span>5</label>
-          {% elif found_school.partnership == 4%}
-          <label><input name="partnership" type="radio" value="1" required/><span></span>1</label>
-                        <label><input name="partnership" type="radio" value="2" /><span></span>2</label>
-                        <label><input name="partnership" type="radio" value="3" /><span></span>3</label>
-                        <label><input name="partnership" type="radio" value="4" checked/><span></span>4</label>
-                        <label><input name="partnership" type="radio" value="5" /><span></span>5</label>
-          {% elif found_school.partnership == 5%}
-          <label><input name="partnership" type="radio" value="1" required/><span></span>1</label>
-                        <label><input name="partnership" type="radio" value="2" /><span></span>2</label>
-                        <label><input name="partnership" type="radio" value="3" /><span></span>3</label>
-                        <label><input name="partnership" type="radio" value="4" /><span></span>4</label>
-                        <label><input name="partnership" type="radio" value="5" checked/><span></span>5</label>
+          {% if found_school.college.state == 'ne' %}
+                        <label><input name="state" type="radio" value="ne" required checked /><span></span>NE</label>
+                        <label><input name="state" type="radio" value="se" /><span></span>SE</label>
+                        <label><input name="state" type="radio" value="me" /><span></span>ME</label>
+                        <label><input name="state" type="radio" value="w" /><span></span>W</label>
+          {% elif found_school.college.state == 'se' %}
+                        <label><input name="state" type="radio" value="ne" required /><span></span>NE</label>
+                        <label><input name="state" type="radio" value="se" checked /><span></span>SE</label>
+                        <label><input name="state" type="radio" value="me" /><span></span>ME</label>
+                        <label><input name="state" type="radio" value="w" /><span></span>W</label>
+          {% elif found_school.college.state == 'me' %}
+                        <label><input name="state" type="radio" value="ne" required /><span></span>NE</label>
+                        <label><input name="state" type="radio" value="se" /><span></span>SE</label>
+                        <label><input name="state" type="radio" value="me" checked /><span></span>ME</label>
+                        <label><input name="state" type="radio" value="w" /><span></span>W</label>
           {% else %}
-          <label><input name="partnership" type="radio" value="1" required/><span></span>1</label>
-                        <label><input name="partnership" type="radio" value="2" /><span></span>2</label>
-                        <label><input name="partnership" type="radio" value="3" /><span></span>3</label>
-                        <label><input name="partnership" type="radio" value="4" /><span></span>4</label>
-                        <label><input name="partnership" type="radio" value="5" /><span></span>5</label>
+                        <label><input name="state" type="radio" value="ne" required /><span></span>NE</label>
+                        <label><input name="state" type="radio" value="se" /><span></span>SE</label>
+                        <label><input name="state" type="radio" value="me" /><span></span>ME</label>
+                        <label><input name="state" type="radio" value="w" checked /><span></span>W</label>
           {% endif %}
                     </td>
-                    <th>Provider : </th>
+                    <th>Type : </th>
                     <td>
-          {% if found_school.provider == "bge" %}
-                        <label><input name="provider" type="radio" value="bge" checked/><span></span>BGE</label>
-                        <label><input name="provider" type="radio" value="other_providers"/><span></span>Other Providers</label>
-          {% elif found_school.provider == "other_providers" %}
-          <label><input name="provider" type="radio" value="bge"/><span></span>BGE</label>
-                        <label><input name="provider" type="radio" value="other_providers" checked/><span></span>Other Providers</label>
+          {% if found_school.college.college_type == "private" %}
+                        <label><input name="college_type" type="radio" value="private" checked /><span></span>Private</label>
+                        <label><input name="college_type" type="radio" value="public"/><span></span>Public</label>
           {% else %}
-          <label><input name="provider" type="radio" value="bge"/><span></span>BGE</label>
-                        <label><input name="provider" type="radio" value="other_providers"/><span></span>Other Providers</label>
+                        <label><input name="college_type" type="radio" value="private" /><span></span>Private</label>
+                        <label><input name="college_type" type="radio" value="public" checked /><span></span>Public</label>
           {% endif %}
                     </td>
                 </tr>
                 <tr>
-                    <th>Provider Branch : </th>
-                    <td class="InnerInputTD" colspan="3">
-                        <select id="Provider_Branch_textbox" class="TableInnerInput" name="provider_branch">
-                            <option value="">Select Provider Branch..</option>
-            {% for branch in provider_branches %}
-              {% if branch.id == found_school.provider_branch.id %}
-                <option value="{{branch.id}}" selected>{{branch.name}}</option>
-              {% else %}
-                <option value="{{branch.id}}">{{branch.name}}</option>
-              {% endif %}
-            {% endfor %}
-                        </select>
+                    <th>Ranking : </th>
+                    <td class="InnerInputTD">
+                        <input type="text" name="ranking" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.college.ranking}}" />
+                    </td>
+                    <th>Web URL : </th>
+                    <td class="InnerInputTD">
+                        <input type="text" name="web_url" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.web_url}}" />
                     </td>
                 </tr>
                 <tr>
-                    <th>Admission Coordinator  : </th>
-                    <td class="InnerInputTD" colspan="3">
-                        <select id="Admission_Coordinator_textbox" class="TableInnerInput" name="admission_coordi">
-                            <option value="">Select Admission Coordinator..</option>
-            {% for coordi in admission_coordi %}
-              {% if coordi.user.id == found_school.admission_coordi.user.id %}
-              <option value="{{coordi.user.id}}" selected>{{coordi.user.first_name}} {{coordi.user.last_name}}</option>
-              {% else %}
-              <option value="{{coordi.user.id}}">{{coordi.user.first_name}} {{coordi.user.last_name}}</option>
-              {% endif %}
-            {% endfor %}
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th>School Coordinator  : </th>
-                    <td class="InnerInputTD" colspan="3">
-                        <select id="School_Coordinator_textbox" class="TableInnerInput" name="school_coordi">
-                            <option value="">Select School Coordinator..</option>
-            {% for coordi in school_coordi %}
-              {% if coordi.user.id == found_school.school_coordi.user.id %}
-                <option value="{{coordi.user.id}}" selected>{{coordi.user.first_name}} {{coordi.user.last_name}}</option>
-              {% else %}
-                <option value="{{coordi.user.id}}">{{coordi.user.first_name}} {{coordi.user.last_name}}</option>
-              {% endif %}
-            {% endfor %}
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th>(Enroll) Term  : </th>
+                    <th>Setting : </th>
                     <td>
-          {% if found_school.term == 'fall' %}
-                        <label><input type="radio" name="term" value="fall" checked required/><span></span>Fall</label>
-                        <label><input type="radio" name="term" value="spring" /><span></span>Spring</label>
-          {% elif found_school.term == 'spring' %}
-          <label><input type="radio" name="term" value="fall" required/><span></span>Fall</label>
-                        <label><input type="radio" name="term" value="spring" checked/><span></span>Spring</label>
+          {% if found_school.college.setting == "urban" %}
+                        <label><input name="setting" type="radio" value="urban" checked /><span></span>Urban</label>
+                        <label><input name="setting" type="radio" value="suburban"/><span></span>Suburban</label>
           {% else %}
-          <label><input type="radio" name="term" value="fall" required/><span></span>Fall</label>
-                        <label><input type="radio" name="term" value="spring" /><span></span>Spring</label>
+                        <label><input name="setting" type="radio" value="urban" /><span></span>Urban</label>
+                        <label><input name="setting" type="radio" value="suburban" checked /><span></span>Suburban</label>
           {% endif %}
                     </td>
-                    <th>(Accepting) Transfer  : </th>
-                    <td>
-          {% if found_school.transfer %}
-                        <label><input type="radio" name="transfer" value="yes" checked/><span></span>Yes</label>
-                        <label><input type="radio" name="transfer" value="" /><span></span>No</label>
+                    <th>Acceptance % : </th>
+                    <td class="InnerInputTD">
+                        <input type="text" name="acceptance_percent" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.college.acceptance_percent}}" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>GPA Requirement : </th>
+                    <td class="InnerInputTD">
+          {% if found_school.college.gpa_requirement == "1" %}
+                        <label><input type="radio" name="gpa_requirement" value="1" checked/><span></span>Yes</label>
+                        <label><input type="radio" name="gpa_requirement" value="0" /><span></span>No</label>
           {% else %}
-          <label><input type="radio" name="transfer" value="yes"/><span></span>Yes</label>
-                        <label><input type="radio" name="transfer" value="" checked/><span></span>No</label>
+                        <label><input type="radio" name="gpa_requirement" value="1" /><span></span>Yes</label>
+                        <label><input type="radio" name="gpa_requirement" value="0" checked /><span></span>No</label>
           {% endif %}
                     </td>
-                </tr>
-                <tr>
-                    <th>Serving Start Grades  : </th>
+                    <th>SAT/ACT Requirement : </th>
                     <td class="InnerInputTD">
-          {% if found_school.secondary.grade_start %}
-          <input type="text" name="grade_start" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.grade_start}}" pattern="\d*" required/>
+          {% if found_school.college.sat_act_requirement == "Yes" %}
+                        <label><input type="radio" name="sat_act_requirement" value="Yes" checked /><span></span>Yes</label>
+                        <label><input type="radio" name="sat_act_requirement" value="No" /><span></span>No</label>
           {% else %}
-          <input type="text" name="grade_start" class="TableInnerInput" style="width:calc(100% - 10px);"pattern="\d*" required/>
-          {% endif %}
-        </td>
-                    <th>Serving End Grades  : </th>
-        <td class="InnerInputTD">
-          {% if found_school.secondary.grade_end %}
-          <input type="text" name="grade_end" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.grade_end}}" pattern="\d*" required/>
-          {% else %}
-          <input type="text" name="grade_end" class="TableInnerInput" style="width:calc(100% - 10px);" pattern="\d*" required/>
-          {% endif %}
-      </td>
-                </tr>
-                <tr>
-                    <th>Accepting 12th Grade  : </th>
-                    <td>
-          {% if found_school.secondary.accept_12_grade %}
-                        <label><input type="radio" name="accept_12_grade" value="yes" checked/><span></span>Yes</label>
-                        <label><input type="radio" name="accept_12_grade" value="" /><span></span>No</label>
-          {% else %}
-          <label><input type="radio" name="accept_12_grade" value="yes"/><span></span>Yes</label>
-                        <label><input type="radio" name="accept_12_grade" value="" checked/><span></span>No</label>
-          {% endif %}
-                    </td>
-                    <th>TOEFL Requirement  : </th>
-                    <td>
-                        {% if found_school.secondary.toefl_requirement %}
-                        <label><input type="text" name="toefl_requirement" placeholder="Please Enter Only Numbers.."pattern="\d*" value="{{found_school.secondary.toefl_requirement}}"/><span></span></label>
-                        {% else %}
-                        <label><input type="text" name="toefl_requirement" placeholder="Please Enter Only Numbers.."pattern="\d*"/><span></span></label>
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <th>Application Fee : </th>
-                    <td class="InnerInputTD">
-                        {% if found_school.secondary.application_fee %}
-          $<input type="text" name="application_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." value="{{found_school.secondary.application_fee}}" pattern="\d*"/>
-                        {% else %}
-                        $<input type="text" name="application_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." pattern="\d*"/>
-                        {% endif %}
-        </td>
-                    <th>Program Fee  : </th>
-                    <td class="InnerInputTD">
-                        {% if found_school.secondary.program_fee %}
-                        $<input type="text" name="program_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." value="{{found_school.secondary.program_fee}}" pattern="\d*"/>
-                        {% else %}
-                        $<input type="text" name="program_fee" class="TableInnerInput" style="width:calc(100% - 10px);" placeholder="Please Enter Only Numbers.." pattern="\d*"/>
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <th>Admission Requirements : </th>
-                    <td class="InnerInputTD" colspan="3">
-                        {% if found_school.secondary.admission_requirements %}
-                        <input type="text" name="admission_requirements" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.admission_requirements}}"/></td>
-                        {% else%}
-                        <input type="text" name="admission_requirements" class="TableInnerInput" style="width:calc(100% - 10px);"/></td>
-                        {% endif %}
-                </tr>
-                <tr>
-                    <th>Admission DocumentsList : </th>
-                    <td class="InnerInputTD" colspan="3">
-                        {% if found_school.secondary.admission_documents %}
-                        <input type="text" name="admission_documents" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.admission_documents}}"/></td>
-                        {% else %}
-                        <input type="text" name="admission_documents" class="TableInnerInput" style="width:calc(100% - 10px);"/></td>
-                        {% endif %}
-                </tr>
-                <tr>
-                    <th>Special Comment : </th>
-                    <td class="InnerInputTD" colspan="3">
-                        {% if found_school.secondary.selling_point %}
-                        <input type="text" name="selling_point" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.selling_point}}"/>
-                        {% else %}
-                        <input type="text" name="selling_point" class="TableInnerInput" style="width:calc(100% - 10px);"/>
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <th>Country : </th>
-                    <td class="InnerInputTD">
-                        <select name="country" class="TableInnerInput" required>
-                            <option disabled value="">Select Country..</option>
-            {% if found_school.country == 'us'%}
-                            <option value="us" selected>US</option>
-                            <option value="ca">CA</option>
-                            <option value="uk">UK</option>
-                            <option value="au">AU</option>
-                            <option value="nz">NZ</option>
-            {% elif found_school.country == 'ca'%}
-            <option value="us">US</option>
-                            <option value="ca" selected>CA</option>
-                            <option value="uk">UK</option>
-                            <option value="au">AU</option>
-                            <option value="nz">NZ</option>
-            {% elif found_school.country == 'uk'%}
-            <option value="us">US</option>
-                            <option value="ca">CA</option>
-                            <option value="uk" selected>UK</option>
-                            <option value="au">AU</option>
-                            <option value="nz">NZ</option>
-            {% elif found_school.country == 'au'%}
-            <option value="us">US</option>
-                            <option value="ca">CA</option>
-                            <option value="uk">UK</option>
-                            <option value="au" selected>AU</option>
-                            <option value="nz">NZ</option>
-            {% elif found_school.country == 'nz'%}
-            <option value="us">US</option>
-                            <option value="ca">CA</option>
-                            <option value="uk">UK</option>
-                            <option value="au">AU</option>
-                            <option value="nz" selected>NZ</option>
-            {% else %}
-            <option value="us">US</option>
-                            <option value="ca">CA</option>
-                            <option value="uk">UK</option>
-                            <option value="au">AU</option>
-                            <option value="nz">NZ</option>
-            {% endif %}
-                        </select>
-                    </td>
-                    <th>Location : </th>
-                    <td class="InnerInputTD">
-          {% if found_school.secondary.state == 'ma' %}
-          <label><input type="radio" name="state" value="ma" required checked/><span></span>MA</label>
-                        <label><input type="radio" name="state" value="ct" /><span></span>CT</label>
-                        <label><input type="radio" name="state" value="nj" /><span></span>NJ</label>
-                        <label><input type="radio" name="state" value="pa" /><span></span>PA</label>
-                        <label><input type="radio" name="state" value="dc" /><span></span>DC</label>
-                        <label><input type="radio" name="state" value="ca" /><span></span>CA</label>
-                        <label><input type="radio" name="state" value="fl" /><span></span>FL</label>
-                        <label><input type="radio" name="state" value="tx" /><span></span>TX</label>
-                        <label><input type="radio" name="state" value="others" /><span></span>Others</label>
-          {% elif found_school.secondary.state == 'ct' %}
-          <label><input type="radio" name="state" value="ma" required /><span></span>MA</label>
-                        <label><input type="radio" name="state" value="ct" checked/><span></span>CT</label>
-                        <label><input type="radio" name="state" value="nj" /><span></span>NJ</label>
-                        <label><input type="radio" name="state" value="pa" /><span></span>PA</label>
-                        <label><input type="radio" name="state" value="dc" /><span></span>DC</label>
-                        <label><input type="radio" name="state" value="ca" /><span></span>CA</label>
-                        <label><input type="radio" name="state" value="fl" /><span></span>FL</label>
-                        <label><input type="radio" name="state" value="tx" /><span></span>TX</label>
-                        <label><input type="radio" name="state" value="others" /><span></span>Others</label>
-          {% elif found_school.secondary.state == 'nj' %}
-          <label><input type="radio" name="state" value="ma" required /><span></span>MA</label>
-                        <label><input type="radio" name="state" value="ct" /><span></span>CT</label>
-                        <label><input type="radio" name="state" value="nj" checked/><span></span>NJ</label>
-                        <label><input type="radio" name="state" value="pa" /><span></span>PA</label>
-                        <label><input type="radio" name="state" value="dc" /><span></span>DC</label>
-                        <label><input type="radio" name="state" value="ca" /><span></span>CA</label>
-                        <label><input type="radio" name="state" value="fl" /><span></span>FL</label>
-                        <label><input type="radio" name="state" value="tx" /><span></span>TX</label>
-                        <label><input type="radio" name="state" value="others" /><span></span>Others</label>
-          {% elif found_school.secondary.state == 'pa' %}
-          <label><input type="radio" name="state" value="ma" required /><span></span>MA</label>
-                        <label><input type="radio" name="state" value="ct" /><span></span>CT</label>
-                        <label><input type="radio" name="state" value="nj" /><span></span>NJ</label>
-                        <label><input type="radio" name="state" value="pa" checked/><span></span>PA</label>
-                        <label><input type="radio" name="state" value="dc" /><span></span>DC</label>
-                        <label><input type="radio" name="state" value="ca" /><span></span>CA</label>
-                        <label><input type="radio" name="state" value="fl" /><span></span>FL</label>
-                        <label><input type="radio" name="state" value="tx" /><span></span>TX</label>
-                        <label><input type="radio" name="state" value="others" /><span></span>Others</label>
-          {% elif found_school.secondary.state == 'dc' %}
-          <label><input type="radio" name="state" value="ma" required /><span></span>MA</label>
-                        <label><input type="radio" name="state" value="ct" /><span></span>CT</label>
-                        <label><input type="radio" name="state" value="nj" /><span></span>NJ</label>
-                        <label><input type="radio" name="state" value="pa" /><span></span>PA</label>
-                        <label><input type="radio" name="state" value="dc" checked/><span></span>DC</label>
-                        <label><input type="radio" name="state" value="ca" /><span></span>CA</label>
-                        <label><input type="radio" name="state" value="fl" /><span></span>FL</label>
-                        <label><input type="radio" name="state" value="tx" /><span></span>TX</label>
-                        <label><input type="radio" name="state" value="others" /><span></span>Others</label>
-                        {% elif found_school.secondary.state == 'ca' %}
-          <label><input type="radio" name="state" value="ma" required /><span></span>MA</label>
-                        <label><input type="radio" name="state" value="ct" /><span></span>CT</label>
-                        <label><input type="radio" name="state" value="nj" /><span></span>NJ</label>
-                        <label><input type="radio" name="state" value="pa" /><span></span>PA</label>
-                        <label><input type="radio" name="state" value="dc" /><span></span>DC</label>
-                        <label><input type="radio" name="state" value="ca" checked/><span></span>CA</label>
-                        <label><input type="radio" name="state" value="fl" /><span></span>FL</label>
-                        <label><input type="radio" name="state" value="tx" /><span></span>TX</label>
-                        <label><input type="radio" name="state" value="others" /><span></span>Others</label>
-          {% elif found_school.secondary.state == 'fl' %}
-          <label><input type="radio" name="state" value="ma" required /><span></span>MA</label>
-                        <label><input type="radio" name="state" value="ct" /><span></span>CT</label>
-                        <label><input type="radio" name="state" value="nj" /><span></span>NJ</label>
-                        <label><input type="radio" name="state" value="pa" /><span></span>PA</label>
-                        <label><input type="radio" name="state" value="dc" /><span></span>DC</label>
-                        <label><input type="radio" name="state" value="ca" /><span></span>CA</label>
-                        <label><input type="radio" name="state" value="fl" checked/><span></span>FL</label>
-                        <label><input type="radio" name="state" value="tx" /><span></span>TX</label>
-                        <label><input type="radio" name="state" value="others" /><span></span>Others</label>
-          {% elif found_school.secondary.state == 'tx' %}
-          <label><input type="radio" name="state" value="ma" required /><span></span>MA</label>
-                        <label><input type="radio" name="state" value="ct" /><span></span>CT</label>
-                        <label><input type="radio" name="state" value="nj" /><span></span>NJ</label>
-                        <label><input type="radio" name="state" value="pa" /><span></span>PA</label>
-                        <label><input type="radio" name="state" value="dc" /><span></span>DC</label>
-                        <label><input type="radio" name="state" value="ca" /><span></span>CA</label>
-                        <label><input type="radio" name="state" value="fl" /><span></span>FL</label>
-                        <label><input type="radio" name="state" value="tx" checked/><span></span>TX</label>
-                        <label><input type="radio" name="state" value="others" /><span></span>Others</label>
-          {% elif found_school.secondary.state == 'others' %}
-          <label><input type="radio" name="state" value="ma" required /><span></span>MA</label>
-                        <label><input type="radio" name="state" value="ct" /><span></span>CT</label>
-                        <label><input type="radio" name="state" value="nj" /><span></span>NJ</label>
-                        <label><input type="radio" name="state" value="pa" /><span></span>PA</label>
-                        <label><input type="radio" name="state" value="dc" /><span></span>DC</label>
-                        <label><input type="radio" name="state" value="ca" /><span></span>CA</label>
-                        <label><input type="radio" name="state" value="fl" /><span></span>FL</label>
-                        <label><input type="radio" name="state" value="tx" /><span></span>TX</label>
-                        <label><input type="radio" name="state" value="others" checked/><span></span>Others</label>
-          {% else %}
-                        <label><input type="radio" name="state" value="ma" required /><span></span>MA</label>
-                        <label><input type="radio" name="state" value="ct" /><span></span>CT</label>
-                        <label><input type="radio" name="state" value="nj" /><span></span>NJ</label>
-                        <label><input type="radio" name="state" value="pa" /><span></span>PA</label>
-                        <label><input type="radio" name="state" value="dc" /><span></span>DC</label>
-                        <label><input type="radio" name="state" value="ca" /><span></span>CA</label>
-                        <label><input type="radio" name="state" value="fl" /><span></span>FL</label>
-                        <label><input type="radio" name="state" value="tx" /><span></span>TX</label>
-                        <label><input type="radio" name="state" value="others" /><span></span>Others</label>
+                        <label><input type="radio" name="sat_act_requirement" value="Yes" /><span></span>Yes</label>
+                        <label><input type="radio" name="sat_act_requirement" value="No" checked /><span></span>No</label>
           {% endif %}
                     </td>
                 </tr>
                 <tr>
-                    <th>Address : </th>
-                    <td class="InnerInputTD" colspan="3"><input type="text" name="address" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.address}}"/></td>
-                </tr>
-                <tr>
-                    <th>Area Information : </th>
-                    <td class="InnerInputTD" colspan="3"><input type="text" name="area_description" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.area_description}}"/></td>
-                </tr>
-                <tr>
-                    <th>Phone # : </th>
-                    <td class="InnerInputTD"><input type="text" name="phone" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.phone}}" /></td>
-                    <th>Website URL : </th>
-                    <td class="InnerInputTD"><input type="text" name="web_url" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.web_url}}" /></td>
-                </tr>
-                <tr>
-                    <th>Year Founded : </th>
-                    <td class="InnerInputTD"><input type="text" name="founded" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.founded}}" /></td>
-                    <th>School Type : </th>
-                    <td>
-        {% if "college_prep" in school_type_list %}
-        <label><input type="checkbox" name="school_type" value="college_prep" checked/><span></span>College Prep</label>
-        {% else %}
-        <label><input type="checkbox" name="school_type" value="college_prep" /><span></span>College Prep</label>
-        {% endif %}
-        {% if "day" in school_type_list %}
-        <label><input type="checkbox" name="school_type" value="day" checked/><span></span>Day</label>
-        {% else %}
-        <label><input type="checkbox" name="school_type" value="day" /><span></span>Day</label>
-        {% endif %}
-        {% if "boarding" in school_type_list %}
-        <label><input type="checkbox" name="school_type" value="boarding" checked/><span></span>Boarding</label>
-        {% else %}
-        <label><input type="checkbox" name="school_type" value="boarding" /><span></span>Boarding</label>
-        {% endif %}
+                    <th>Tuition : </th>
+                    <td class="InnerInputTD">
+                        $<input type="text" name="tuition" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.college.tuition}}" pattern="\d*"/>
+                    </td>
+                    <th>Room & Board : </th>
+                    <td class="InnerInputTD">
+                        $<input type="text" name="room_and_board" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.college.room_and_board}}" pattern="\d*"/>
                     </td>
                 </tr>
                 <tr>
-                    <th>Student Body : </th>
+                    <th>SAT/ACT 25% : </th>
                     <td class="InnerInputTD">
-          {% if found_school.secondary.student_body == 'boys'%}
-                        <label><input type="radio" name="student_body" value="boys" checked/><span></span>Boys</label>
-                        <label><input type="radio" name="student_body" value="girls" /><span></span>Girls</label>
-                        <label><input type="radio" name="student_body" value="coed" /><span></span>Coed</label>
-          {% elif found_school.secondary.student_body == 'girls'%}
-          <label><input type="radio" name="student_body" value="boys"/><span></span>Boys</label>
-                        <label><input type="radio" name="student_body" value="girls" checked/><span></span>Girls</label>
-                        <label><input type="radio" name="student_body" value="coed" /><span></span>Coed</label>
-          {% elif found_school.secondary.student_body == 'coed'%}
-          <label><input type="radio" name="student_body" value="boys"/><span></span>Boys</label>
-                        <label><input type="radio" name="student_body" value="girls" /><span></span>Girls</label>
-                        <label><input type="radio" name="student_body" value="coed" checked/><span></span>Coed</label>
-          {% else %}
-          <label><input type="radio" name="student_body" value="boys"/><span></span>Boys</label>
-          <label><input type="radio" name="student_body" value="girls" /><span></span>Girls</label>
-          <label><input type="radio" name="student_body" value="coed" /><span></span>Coed</label>
-          {% endif %}
-                    </td class="InnerInputTD">
-                    <th>Religion : </th>
-                    <td class="InnerInputTD">
-          {% if found_school.religion == 'catholic' %}
-                        <label><input type="radio" name="religion" value="catholic" checked/><span></span>Catholic</label>
-                        <label><input type="radio" name="religion" value="christian" /><span></span>Christian</label>
-                        <label><input type="radio" name="religion" value="no_religion" /><span></span>No Religion</label>
-                        <label><input type="radio" name="religion" value="not_available" /><span></span>Not Available</label>
-          {% elif found_school.religion == 'christian'%}
-          <label><input type="radio" name="religion" value="catholic"/><span></span>Catholic</label>
-                        <label><input type="radio" name="religion" value="christian" checked/><span></span>Christian</label>
-                        <label><input type="radio" name="religion" value="no_religion" /><span></span>No Religion</label>
-                        <label><input type="radio" name="religion" value="not_available" /><span></span>Not Available</label>
-          {% elif found_school.religion == 'no_religion'%}
-          <label><input type="radio" name="religion" value="catholic"/><span></span>Catholic</label>
-                        <label><input type="radio" name="religion" value="christian" /><span></span>Christian</label>
-                        <label><input type="radio" name="religion" value="no_religion" checked/><span></span>No Religion</label>
-                        <label><input type="radio" name="religion" value="not_available" /><span></span>Not Available</label>
-                        {% elif found_school.religion == 'not_available'%}
-                        <label><input type="radio" name="religion" value="catholic"/><span></span>Catholic</label>
-                        <label><input type="radio" name="religion" value="christian" /><span></span>Christian</label>
-                        <label><input type="radio" name="religion" value="no_religion" /><span></span>No Religion</label>
-                        <label><input type="radio" name="religion" value="not_available" checked/><span></span>Not Available</label>
-          {% else %}
-          <label><input type="radio" name="religion" value="catholic"/><span></span>Catholic</label>
-                        <label><input type="radio" name="religion" value="christian" /><span></span>Christian</label>
-                        <label><input type="radio" name="religion" value="no_religion" /><span></span>No Religion</label>
-                        <label><input type="radio" name="religion" value="not_available" /><span></span>Not Available</label>
-          {% endif %}
+                        <input type="text" name="sat_25" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.college.sat_25}}" pattern="\d*"/>
                     </td>
-                </tr>
-                <tr>
-                    <th>Students # : </th>
+                    <th>SAT/ACT 75% : </th>
                     <td class="InnerInputTD">
-          {% if found_school.number_students%}
-          <input type="text" name="number_students" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.number_students}}" pattern="\d*"/>
-          {% else %}
-          <input type="text" name="number_students" class="TableInnerInput" style="width:calc(100% - 10px);" pattern="\d*"/>
-          {% endif %}
-        </td>
-                    <th>International Students : </th>
-                    <td class="InnerInputTD">
-          {% if found_school.secondary.international_students %}
-          <input type="text" name="international_students" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.international_students}}" pattern="\d*"/>
-          {% else %}
-          <input type="text" name="international_students" class="TableInnerInput" style="width:calc(100% - 10px);" pattern="\d*"/>
-          {% endif %}
-        </td>
-                </tr>
-                <tr>
-                    <th>ESL : </th>
-                    <td class="InnerInputTD">
-          {% if found_school.secondary.esl%}
-                        <label><input type="radio" name="esl" value="yes" checked/><span></span>Yes</label>
-                        <label><input type="radio" name="esl" value="" /><span></span>No</label>
-          {% else %}
-          <label><input type="radio" name="esl" value="yes" /><span></span>Yes</label>
-                        <label><input type="radio" name="esl" value="" checked/><span></span>No</label>
-          {% endif %}
+                        <input type="text" name="sat_75" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.college.sat_75}}" pattern="\d*"/>
                     </td>
-                    <th>Student : Teacher Ratio : </th>
-                    <td class="InnerInputTD">
-          {% if found_school.secondary.student_teach_ratio %}
-          <input type="text" name="student_teach_ratio" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.student_teach_ratio}}" />
-          {% else %}
-          <input type="text" name="student_teach_ratio" class="TableInnerInput" style="width:calc(100% - 10px);" />
-          {% endif %}
-        </td>
-                </tr>
-                <tr>
-                    <th>Class Size : </th>
-                    <td class="InnerInputTD"><input type="text" name="class_size" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.class_size}}" /></td>
-                    <th>Uniform : </th>
-                    <td class="InnerInputTD">
-          {% if found_school.secondary.uniform %}
-                        <label><input type="radio" name="uniform" value="yes" checked/><span></span>Yes</label>
-                        <label><input type="radio" name="uniform" value="" /><span></span>No</label>
-          {% else %}
-          <label><input type="radio" name="uniform" value="yes"/><span></span>Yes</label>
-                        <label><input type="radio" name="uniform" value="" checked/><span></span>No</label>
-          {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <th>College Acceptance Rate : </th>
-                    <td class="InnerInputTD"><input type="text" name="college_acceptance_rate" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.college_acceptance_rate}}" /></td>
-                    <th>Average SAT : </th>
-                    <td class="InnerInputTD"><input type="text" name="avg_sat" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.avg_sat}}" /></td>
-                </tr>
-                <tr>
-                    <th>Honor Courses # : </th>
-                    <td class="InnerInputTD" colspan="3"><input type="text" name="number_honor_courses" class="TableInnerInput" size="10" value="{{found_school.secondary.number_honor_courses}}" /></td>
-                </tr>
-                <tr>
-                    <th>Honor Courses List : </th>
-                    <td class="InnerInputTD" colspan="3"><input type="text" name="list_honor_courses" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.list_honor_courses}}" /></td>
-                </tr>
-                <tr>
-                    <th>AP Courses # : </th>
-                    <td class="InnerInputTD" colspan="3"><input type="text" name="number_ap_courses" class="TableInnerInput" size="10" value="{{found_school.secondary.number_ap_courses}}" /></td>
-                </tr>
-                <tr>
-                    <th>AP Courses List : </th>
-                    <td class="InnerInputTD" colspan="3"><input type="text" name="list_ap_courses" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.list_ap_courses}}" /></td>
                 </tr>
 
                 <tr>
-                    <th>Clubs # : </th>
-                    <td class="InnerInputTD"><input type="text" name="number_clubs" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.number_clubs}}" /></td>
-                    <th>Club List : </th>
-                    <td class="InnerInputTD"><input type="text" name="list_clubs" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.list_clubs}}" /></td>
-                </tr>
-                <tr>
-                    <th>Sports # : </th>
-                    <td class="InnerInputTD"><input type="text" name="number_sports" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.number_sports}}" /></td>
-                    <th>Sports List : </th>
-                    <td class="InnerInputTD"><input type="text" name="list_sports" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.list_sports}}" /></td>
+                    <th># of Students : </th>
+                    <td class="InnerInputTD">
+                        <input type="text" name="number_students" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.number_students}}" pattern="\d*"/>
+                    </td>
+                    <th>Classes Under 20 (%) : </th>
+                    <td class="InnerInputTD">
+                        <input type="text" name="class_under_20" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.college.class_under_20}}" pattern="\d*"/>
+                    </td>
                 </tr>
 
                 <tr>
-                    <th>Others : </th>
-                    <td class="InnerInputTD" colspan="3"><input type="text" name="facilities" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.facilities}}" /></td>
-                </tr>
-                <tr>
-                    <th>General Impression : </th>
-                    <td class="InnerInputTD" colspan="3"><input type="text" name="general_impression" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.general_impression}}" /></td>
-                </tr>
-                <tr>
-                    <th>Strong Advantages : </th>
-                    <td class="InnerInputTD" colspan="3"><input type="text" name="strong_advantages" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.strong_advantages}}" /></td>
-                </tr>
-                <tr>
-                    <th>Extra Curricular : </th>
-                    <td class="InnerInputTD" colspan="3"><input type="text" name="extra_curricular" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.extra_curricular}}" /></td>
-                </tr>
-                <tr>
-                    <th>College Acceptance List : </th>
-                    <td class="InnerInputTD" colspan="3"><input type="text" name="college_acceptance_list" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.college_acceptance_list}}" /></td>
-                </tr>
-                <tr>
-                    <th>Fee Memo : </th>
-                    <td class="InnerInputTD" colspan="3"><input type="text" name="fee_memo" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.secondary.fee_memo}}" /></td>
-                </tr>
-                {% for school_to in found_school_to %}
-                    <tr>
-                        <th>T.O. ( Term : {{school_to.term|capfirst}} / Grade : {{school_to.grade}}) : </th>
-                        <td class="InnerInputTD" colspan="3">
-                            <select class="TableInnerInput" name="to_term_{{school_to.term}}_{{school_to.grade}}" readonly>
-                                <option value="{{school_to.term}}">{{school_to.term|capfirst}}</option>
-                            </select>
-                            <select class="TableInnerInput" name="to_grade_{{school_to.term}}_{{school_to.grade}}" readonly>
-                                <option value="{{school_to.grde}}">{{school_to.grade}}</option>
-                            </select>
-                            <input type="text" name="to_value_{{school_to.term}}_{{school_to.grade}}" class="TableInnerInput" value="{{school_to.quantity}}" pattern="\d*" placeholder="Only Number.."/>
-                        </td>
-                    </tr>
-                {% endfor %}
-                <tr>
-                    <th>School Info (PDF)  : </th>
-                    {% if found_school.school_file %}
-                    <td class="InnerInputTD" colspan="3">
-                        <input type="file" name="school_file" class="TableInnerInput" value="{{found_school.school_file}}"/><br />
-                        <a href="{{MEDIA_URL}}{{found_school.school_file}}" download>{{found_school.school_file}}</a>
+                    <th>Asian % : </th>
+                    <td class="InnerInputTD">
+                        <input type="text" name="asian_percent" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.college.asian_percent}}" pattern="\d*"/>
                     </td>
-                    {% else %}
-                    <td class="InnerInputTD" colspan="3"><input type="file" name="school_file" class="TableInnerInput"/><br /></td>
-                    {% endif %}
+                    <th>High School Top 10 % : </th>
+                    <td class="InnerInputTD">
+                        <input type="text" name="high_school_10" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.college.high_school_10}}" pattern="\d*"/>
+                    </td>
                 </tr>
                 <tr>
-                    <th>Program File (PDF)  : </th>
-                    {% if found_school.program_file %}
-                    <td class="InnerInputTD" colspan="3">
-                        <input type="file" name="program_file" class="TableInnerInput" value="{{found_school.program_file}}"/><br />
-                        <a href="{{MEDIA_URL}}{{found_school.program_file}}" download>{{found_school.program_file}}</a>
+                    <th>Full Time Faculty (%) : </th>
+                    <td class="InnerInputTD">
+                        <input type="text" name="full_time_faculty" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.college.full_time_faculty}}" pattern="\d*"/>
                     </td>
-                    {% else %}
-                    <td class="InnerInputTD" colspan="3"><input type="file" name="program_file" class="TableInnerInput"/><br /></td>
-                    {% endif %}
+                    <th>Student/Faculty Ratio : </th>
+                    <td class="InnerInputTD">
+                        <input type="text" name="student_faculty_ratio" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.college.student_faculty_ratio}}" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>E/D, E/A Deadline : </th>
+                    <td class="InnerInputTD">
+                        <input
+								type="text"
+								class="TableInnerInput"
+								placeholder="YYYY-MM-DD"
+								name="ed_ea_deadline"
+								onfocus="this.placeholder=''"
+								onblur="this.placeholder='YYYY-MM-DD'"
+                                style="width:calc(100% - 10px);"
+								pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+								value="{{found_school.college.ed_ea_deadline|date:'Y-m-d'}}"
+                        />
+                    </td>
+                    <th>E/D, E/A Notice Date : </th>
+                    <td class="InnerInputTD">
+                        <input
+								type="text"
+								class="TableInnerInput"
+								placeholder="YYYY-MM-DD"
+								name="ed_ea_noticedate"
+								onfocus="this.placeholder=''"
+								onblur="this.placeholder='YYYY-MM-DD'"
+                                style="width:calc(100% - 10px);"
+								pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+                                value="{{found_school.college.ed_ea_noticedate|date:'Y-m-d'}}"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Application Deadline : </th>
+                    <td class="InnerInputTD">
+                        <input
+								type="text"
+								class="TableInnerInput"
+								placeholder="YYYY-MM-DD"
+								name="application_deadline"
+								onfocus="this.placeholder=''"
+								onblur="this.placeholder='YYYY-MM-DD'"
+                                style="width:calc(100% - 10px);"
+								pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+								value="{{found_school.college.application_deadline|date:'Y-m-d'}}"
+                        />
+                    </td>
+                    <th>Degrees Offered : </th>
+                    <td class="InnerInputTD">
+                        <input type="text" name="degree_offered" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.college.degree_offered}}" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Most Popular Majors : </th>
+                    <td class="InnerInputTD" colspan="3"><input type="text" name="most_popular_majors" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.college.most_popular_majors}}" /></td>
                 </tr>
             </table>
         </div><!-- InfoTable -->
@@ -759,83 +336,6 @@
         </div>
         <div class="EndPart"></div>
     </form>
-
-
-    <div class="MTitle">Current Student Review</div>
-    <div class="ListSearch Aright">
-        <a href="Javascript:void(0);" class="IsolationButton" OnClick="document.getElementById('PopRegistReview').style.display='block';">+ &nbsp; Current Student Review</a>
-    </div>
-    <div class="cdiv"></div>
-    <!-- 학교리뷰목록 -->
-    <div class="ListTable">
-        <table cellpadding="0" cellspacing="0" border="0">
-            <colgroup>
-                <col>
-            </colgroup>
-            <tr>
-                <th>No</th>
-                <th>Name</th>
-                <th>Grade</th>
-                <th>School</th>
-                <th>Home City</th>
-            </tr>
-            {% for review in current_student_reviews %}
-            <tr>
-                <td>{{review.id}}</td>
-                <td><p class="CurrentStudentReviewClass" id="CurrentStudentReview{{review.id}}" style="color:blue;margin-bottom:0;cursor:pointer;">{{review.student}}</p></td>
-                <td>{{review.grade}}</td>
-                <td>{{review.school.name}}</td>
-                <td>{{review.homecity}}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div><!-- ListTable -->
-    <!-- 학교리뷰목록 끝 -->
-    <div class="EndPart"></div>
-
-    <div class="MTitle">Graduate Student Profile</div>
-    <div class="ListSearch Aright">
-        <a href="Javascript:void(0);" class="IsolationButton" OnClick="document.getElementById('PopRegistGraduateProfile').style.display='block';">+ &nbsp; Graduated Student Profile</a>
-    </div>
-    <div class="cdiv"></div>
-    <!-- 학교리뷰목록 -->
-    <div class="ListTable">
-        <table cellpadding="0" cellspacing="0" border="0">
-            <colgroup>
-                <col>
-            </colgroup>
-            <tr>
-                <th>No</th>
-                <th>Name</th>
-                <th>Class of</th>
-                <th>Initial English</th>
-                <th>GPA in China</th>
-                <th>TOEFL</th>
-                <th>GPA</th>
-                <th>SAT / ACT</th>
-                <th>Activities</th>
-                <th>College</th>
-                <th>Major</th>
-            </tr>
-            {% for profile in graduate_profiles %}
-            <tr>
-                <td>{{profile.id}}</td>
-                <td><p class="GraduateStudentReviewClass" id="GraduateStudentReview{{profile.id}}" style="color:blue;margin-bottom:0;cursor:pointer;">{{profile.student}}</p></td>
-                <td>{{profile.attended}}</td>
-                <td>{{profile.init_eng}}</td>
-                <td>{{profile.gpa_china}}</td>
-                <td>{{profile.toefl}}</td>
-                <td>{{profile.gpa}}</td>
-                <td>{{profile.sat_act}}</td>
-                <td>{{profile.activities}}</td>
-                <td>{{profile.college}}</td>
-                <td>{{profile.major}}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div><!-- ListTable -->
-    <!-- 학교리뷰목록 끝 -->
-    <div class="EndPart"></div>
 
 </div><!-- MainFrame -->
 </div><!--  ContentsFrame-->

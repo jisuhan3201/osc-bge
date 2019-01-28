@@ -882,12 +882,10 @@ class CollegeSchoolView(LoginRequiredMixin, View):
     def get(self, request, school_id=None):
 
         if school_id:
-
             try:
                 found_school = school_models.School.objects.get(pk=school_id)
             except school_models.School.DoesNotExist:
                 return HttpResponse("Wrong school id", status=400)
-
         else:
             return HttpResponse('No school id', status=400)
 
@@ -930,6 +928,57 @@ class CollegeSchoolUpdateView(LoginRequiredMixin, View):
         #  화이팅입니다! 대표님은 다 하실수 있어요!
         # SecondaryUpdateView 참고하세요
         # template/school/college_update.html 수정하실때 template/school/update.html 참고하세요
+
+        data = request.POST
+
+        if not school_id:
+            return HttpResponse(status=400)
+
+        try:
+            found_school = models.School.objects.get(pk=school_id)
+        except models.School.DoesNotExist:
+            return HttpResponse(status=400)
+
+        try:
+            college_school = models.College.objects.get(school=found_school)
+        except school_models.College.DoesNotExist:
+            return HttpResponse("Wrong college id", status=400)
+
+
+        found_school.name = data.get('name')
+        found_school.founded = data.get('founded')
+        college_school.state = data.get('state')
+        college_school.college_type = data.get('college_type')
+        college_school.ranking = int(data.get('ranking')) if data.get('ranking') else None
+        found_school.web_url = data.get('web_url')
+        college_school.setting = data.get('setting')
+        college_school.acceptance_percent = data.get('acceptance_percent')
+        college_school.gpa_requirement = data.get('gpa_requirement')
+        college_school.sat_act_requirement = data.get('sat_act_requirement')
+        college_school.tuition = int(data.get('tuition')) if data.get('tuition') else None
+        college_school.room_and_board = int(data.get('room_and_board')) if data.get('room_and_board') else None
+        college_school.sat_25 = data.get('sat_25')
+        college_school.sat_75 = data.get('sat_75')
+        found_school.number_students = int(data.get('number_students')) if data.get('number_students') else None
+        college_school.class_under_20 = int(data.get('class_under_20')) if data.get('class_under_20') else None
+        college_school.asian_percent = int(data.get('asian_percent')) if data.get('asian_percent') else None
+        college_school.high_school_10 = int(data.get('high_school_10')) if data.get('high_school_10') else None
+        college_school.full_time_faculty = int(data.get('full_time_faculty')) if data.get('full_time_faculty') else None
+        college_school.student_faculty_ratio = data.get('student_faculty_ratio')
+        college_school.ed_ea_deadline = data.get('ed_ea_deadline') if data.get('ed_ea_deadline') else None
+        college_school.ed_ea_noticedate = data.get('ed_ea_noticedate') if data.get('ed_ea_noticedate') else None
+        college_school.application_deadline = data.get('application_deadline') if data.get('application_deadline') else None
+        college_school.degree_offered = data.get('degree_offered')
+        college_school.most_popular_majors = data.get('most_popular_majors')
+
+        found_school.save()
+        college_school.save()
+
+        if request.FILES.get('image'):
+            image_form = forms.SchoolImageForm(request.POST,request.FILES)
+            if image_form.is_valid():
+                found_school.image = image_form.cleaned_data['image']
+                found_school.save()
 
         return redirect(request.path_info)
 
