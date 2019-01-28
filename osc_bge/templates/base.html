@@ -11,6 +11,9 @@
   <title>{% block title %}Boston Global Education{% endblock %}</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+  {% block script %}
+  {% endblock script %}
 </head>
 <body>
   {% include "subpages/_nav.html" %}
@@ -33,6 +36,7 @@
 <script type="text/javascript" src="{% static 'js/charts.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/nav_color.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/create_user.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/resource.js' %}"></script>
 <script>
 function MenuOpen() {
 	obj = document.getElementById('LeftF');

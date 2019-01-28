@@ -53,6 +53,22 @@ class CurrentStudentView(View):
             'current_students':current_students
         })
 
+    def post(self,request):
+
+        data = request.POST
+        try:
+            found_student = models.Student.objects.get(pk=int(data.get('student_id')))
+        except models.Student.DoesNotExist:
+            return HttpResponse('Wrong Student Id', status=404)
+        
+        comment = models.StudentComment(
+            student = found_student,
+            comment = data.get('comment')
+        )
+        comment.save()
+
+        return HttpResponseRedirect(request.path_info)
+        
 
 # Agent Student report view
 class StudentReportView(View):

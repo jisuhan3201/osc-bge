@@ -2,6 +2,10 @@
 {% load static %}
 {% block content %}
 
+{% block script %}
+    <script src="{% static 'js/resource.js' %}"></script>
+{% endblock script %}
+
 <div class="ContentsFrame">
 	<div class="MainAFrame">
 
@@ -12,18 +16,19 @@
 				<div>
 				Date : {% now "Y-m-d" %} &nbsp;&nbsp;
 				Category :
-				<select class="SearchSelect" name="category">
+				<select class="SearchSelect" id="category" name="category">
 					<option value="">Category select..</option>
-					<option value="For Agent">For Agent</option>
-					<option value="For BGE">For BGE</option>
+					<option value="Official Common Templates">Official Common Templates</option>
+                    <option value="HR & Administration Management">HR & Administration Managements</option>
+                    <option value="Promotional&Design Materials">Promotional&Design Materials</option>
+                    <option value="Program & Student Information">Program & Student Information</option>
+                    <option value="Miscellaneous">Miscellaneous</option>
 				</select>
-				<select class="SearchSelect" name="sub_category">
+				<select class="SearchSelect" id="md_category" name="middle_category">
 					<option value="">Category select..</option>
-					<option value="Agent">Agent</option>
-					<option value="Forms">Forms</option>
-					<option value="Schools">Schools</option>
-					<option value="Sales">Sales</option>
-					<option value="Others">Others</option>
+				</select>
+                <select class="SearchSelect" id="sm_category" name="small_category">
+					<option value="">Category select..</option>
 				</select>
 				&nbsp;&nbsp;
 				Title :
@@ -45,7 +50,8 @@
 					<th>Title</th>
 					<th>Date</th>
 					<th>Category</th>
-					<th>Sub Category</th>
+					<th>Middle Category</th>
+                    <th>Small Category</th>
 					<th>Branch</th>
 					<th>File</th>
 					<th>Writer</th>
@@ -56,7 +62,8 @@
 					<td>{{resource.title}}</td>
 					<td>{{resource.created_at|date:"Y-m-d"}}</td>
 					<td>{{resource.category}}</td>
-					<td>{{resource.sub_category}}</td>
+					<td>{{resource.middle_category}}</td>
+                    <td>{{resource.small_category}}</td>
 					<td>{{resource.branch.name}}</td>
 					<td><a href="{{MEDIA_URL}}{{resource.file}}" download>{{resource.file}}</a></td>
 					<td>{{resource.writer.first_name}} {{resource.writer.last_name}}</td>

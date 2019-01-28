@@ -70,7 +70,8 @@
 		</div>
 		<div class="Contents">
 			<form id="CommentFormId" method="POST" class="TextAreaForm">
-				{csrf_token}
+				{% csrf_token %}
+				<input id="CommentInputFieldId" value="" name="student_id" hidden/>
 				<textarea type="text" name="comment" class="StudentCommentTextarea"></textarea>
 			</form>
 			<div class="ListTable">
@@ -81,6 +82,7 @@
 						<col width="80">
 						<col>
 					</colgroup>
+					{{}}
 					<tr>
 						<th>No.</th>
 						<th>Agent</th>
@@ -158,7 +160,7 @@
 					<td class="InnerInputTD"></td>
 					{% endif %}
 					<td>
-						<button class="Button" href="#" OnClick="document.getElementById('PopCommentHistory').style.display='block';">View</button>
+						<button id="CommentButtonId{{student.id}}" class="CommentButtonClass" href="#" OnClick="document.getElementById('PopCommentHistory').style.display='block';">View</button>
 					</td>
 				</tr>
         {% endfor %}
