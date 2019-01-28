@@ -433,7 +433,8 @@ class BranchResourcesView(LoginRequiredMixin, View):
             branch=found_branch,
             writer=request.user,
             category=data.get('category') if data.get('category') else None,
-            sub_category=data.get('sub_category') if data.get('sub_category') else None,
+            middle_category=data.get('middle_category') if data.get('middle_category') else None,
+            small_category=data.get('small_category') if data.get('small_category') else None,
             title=data.get('title') if data.get('title') else None,
         )
         resource.save()
