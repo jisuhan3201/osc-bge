@@ -69,8 +69,10 @@
 			<div class="Title">Comments</div>
 		</div>
 		<div class="Contents">
-
-
+			<form id="CommentFormId" method="POST" class="TextAreaForm">
+				{csrf_token}
+				<textarea type="text" name="comment" class="StudentCommentTextarea"></textarea>
+			</form>
 			<div class="ListTable">
 				<table cellpadding="0" cellspacing="0" border="0">
 					<colgroup>
@@ -91,76 +93,12 @@
 						<td>12-03 2017</td>
 						<td>...</td>
 					</tr>
-					<tr>
-						<td>48</td>
-						<td>WeChat</td>
-						<td>12-03 2017</td>
-						<td>...</td>
-					</tr>
-					<tr>
-						<td>47</td>
-						<td>Telegram</td>
-						<td>12-03 2017</td>
-						<td>...</td>
-					</tr>
-					<tr>
-						<td>46</td>
-						<td>WeChat</td>
-						<td>12-03 2017</td>
-						<td>...</td>
-					</tr>
-					<tr>
-						<td>45</td>
-						<td>WeChat</td>
-						<td>12-03 2017</td>
-						<td>...</td>
-					</tr>
-					<tr>
-						<td>44</td>
-						<td>Line</td>
-						<td>12-03 2017</td>
-						<td>...</td>
-					</tr>
-					<tr>
-						<td>43</td>
-						<td>WeChat</td>
-						<td>12-03 2017</td>
-						<td>...</td>
-					</tr>
-					<tr>
-						<td>42</td>
-						<td>WeChat</td>
-						<td>12-03 2017</td>
-						<td>...</td>
-					</tr>
-					<tr>
-						<td>41</td>
-						<td>WeChat</td>
-						<td>12-03 2017</td>
-						<td>...</td>
-					</tr>
-					<tr>
-						<td>40</td>
-						<td>facebook</td>
-						<td>12-03 2017</td>
-						<td>...</td>
-					</tr>
 				</table>
 			</div><!-- InfoTable -->
-			<div class="ListCounter">
-				<a href="">◀</a>
-				<a href="">1</a>
-				<a href="">2</a>
-				<a href="">3</a>
-				<a href="">4</a>
-				<a>...</a>
-				<a href="">5</a>
-				<a href="">▶</a>
-			</div>
-
 
 			<div class="PopButtonLine">
-				<div class="Close" OnClick="document.getElementById('PopCommentHistory').style.display='none';">CLOSE</div>
+				<button type="submit" form="CommentFormId">SUBMIT</button>
+				<button class="Close" OnClick="document.getElementById('PopCommentHistory').style.display='none';">CLOSE</button>
 			</div>
 
 		</div>
@@ -196,6 +134,7 @@
 					<th>Monthly Report</th>
 					<th>Sent Date</th>
 					<th>Report to Parents Date</th>
+					<th>Comments</th>
 				</tr>
         {% for student in current_students %}
 				<tr>
@@ -218,6 +157,9 @@
 					{% else %}
 					<td class="InnerInputTD"></td>
 					{% endif %}
+					<td>
+						<button class="Button" href="#" OnClick="document.getElementById('PopCommentHistory').style.display='block';">View</button>
+					</td>
 				</tr>
         {% endfor %}
 			</table>

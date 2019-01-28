@@ -223,3 +223,9 @@ class StudentAccounting(TimeStampedModel):
     paid_date = models.DateField(null=True, blank=True)
     balance = models.IntegerField(null=True, blank=True)
     invoice = models.FileField(upload_to='invoices/', null=True, blank=True)
+
+
+class StudentComment(TimeStampedModel):
+
+    student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True, related_name='comment')
+    comment = models.TextField(null=True, blank=True)

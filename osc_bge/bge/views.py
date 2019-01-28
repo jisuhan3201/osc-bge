@@ -17,7 +17,7 @@ from osc_bge.student import models as student_models
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth import authenticate
-from django.db.models import Count
+from django.db.models import Count, Sum
 
 
 @login_required(login_url='/accounts/login/')
@@ -1347,6 +1347,15 @@ class AccountingStudentView(LoginRequiredMixin, View):
             overdue_students = all_students.filter(accounting__balance__lt=0).distinct()
             found_student = student_models.Student.objects.get(id=int(student_id))
 
+            found_accounts = student_models.StudentAccounting.objects.filter(student=found_student).order_by("created_at")
+            for account in found_accounts:
+                payment = student_models.StudentAccounting.objects.filter(
+                    student=found_student, created_at__lte=account.created_at).aggregate(Sum("payment"))
+                expense = student_models.StudentAccounting.objects.filter(
+                    student=found_student, created_at__lte=account.created_at).aggregate(Sum("expense"))
+                account.balance = payment.get('payment__sum') - expense.get('expense__sum')
+
+
         else:
             return HttpResponse('No Student id', status=400)
 
@@ -1355,38 +1364,34 @@ class AccountingStudentView(LoginRequiredMixin, View):
             'all_branches':all_branches,
             'overdue_students':overdue_students,
             'found_student':found_student,
+            'found_accounts':found_accounts
         })
 
     def post(self, request, student_id=None):
 
         data = request.POST
 
-        if student_id:
+        if student_id and not data.get('delete_invoice'):
 
             found_student = student_models.Student.objects.get(id=int(student_id))
             accounting = student_models.StudentAccounting(
                 student=found_student,
                 description=data.get('description'),
-                expense=data.get('expense'),
-                due_date=data.get('due_date'),
-                payment=int(data.get('payment')) if data.get('payment') else None,
-                paid_date=data.get('paid_date'),
-                balance=int(data.get('balance')) if data.get('balance') else None,
+                expense=data.get('expense') if data.get('expense') else 0,
+                due_date=data.get('due_date') if data.get('due_date') else None,
+                payment=int(data.get('payment')) if data.get('payment') else 0,
+                paid_date=data.get('paid_date') if data.get('paid_date') else None,
             )
             accounting.save()
-
-            if accounting.expense and accounting.payment:
-                accounting.balance = int(accounting.payment) - int(accounting.expense)
-                accounting.save()
-
+            
             accounting_form = forms.AccountingForm(request.POST, request.FILES)
             if accounting_form.is_valid():
                 accounting.invoice = accounting_form.cleaned_data['invoice']
                 accounting.save()
 
-            if data.get('delete_invoice'):
-                found_accounting = student_models.StudentAccounting.objects.get(id=int(data.get('delete_invoice')))
-                found_accounting.delete()
+        elif student_id and data.get('delete_invoice'):
+            found_accounting = student_models.StudentAccounting.objects.get(id=int(data.get('delete_invoice')))
+            found_accounting.delete()
 
         else:
             return HttpResponse('No student id', status=400)
