@@ -11,4 +11,5 @@ urlpatterns = [
     path('transcript/statistics/<int:student_id>', views.student_transcript_chart, name='student_transcript_chart'),
     path('log/get/<int:log_id>', views.get_student_log, name='get_student_log'),
     path('host/report/<int:report_id>', views.get_host_report, name='get_host_report'),
+    path('comment/log/get/<int:student_id>', views.comment_log_get, name='comment_log_get'),
 ]

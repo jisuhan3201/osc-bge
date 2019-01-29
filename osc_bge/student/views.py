@@ -56,6 +56,17 @@ class CurrentStudentView(View):
     def post(self,request):
 
         data = request.POST
+
+        if data.get('delete_comment'):
+            try:
+                found_comment = models.StudentComment.objects.get(pk=int(data.get('delete_comment')))
+            except models.StudentComment.DoesNotExist:
+                return HttpResponse('Wrong Comment Id', status=404)
+
+            found_comment.delete()
+
+            return HttpResponseRedirect(request.path_info) 
+
         try:
             found_student = models.Student.objects.get(pk=int(data.get('student_id')))
         except models.Student.DoesNotExist:
@@ -68,7 +79,30 @@ class CurrentStudentView(View):
         comment.save()
 
         return HttpResponseRedirect(request.path_info)
+
+@login_required(login_url='/accounts/login')
+def comment_log_get(request, student_id=None):
+
+    if student_id:
         
+        now = datetime.datetime.now()
+        past_1year = datetime.datetime.now() - relativedelta.relativedelta(years=1)
+
+        try:
+            found_comment = models.StudentComment.objects.filter(student__id=int(student_id), created_at__range=(past_1year, now)).order_by('-created_at')
+        except models.CommunicationLog.DoesNotExist:
+            return HttpResponse("Log ID does not exist", status=400)
+
+        for comment in found_comment:
+            comment.created_at = comment.created_at.date()
+
+        data = serializers.serialize("json", found_comment)
+
+        return HttpResponse(data, content_type="application/json")
+
+    else:
+        return HttpResponse("Log ID IS NULL", statue=400)
+
 
 # Agent Student report view
 class StudentReportView(View):

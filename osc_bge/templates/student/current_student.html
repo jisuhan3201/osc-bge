@@ -69,38 +69,28 @@
 			<div class="Title">Comments</div>
 		</div>
 		<div class="Contents">
-			<form id="CommentFormId" method="POST" class="TextAreaForm">
-				{% csrf_token %}
-				<input id="CommentInputFieldId" value="" name="student_id" hidden/>
-				<textarea type="text" name="comment" class="StudentCommentTextarea"></textarea>
-			</form>
 			<div class="ListTable">
-				<table cellpadding="0" cellspacing="0" border="0">
+				<table id="comment_table" cellpadding="0" cellspacing="0" border="0">
 					<colgroup>
-						<col width="40">
 						<col width="80">
-						<col width="80">
+						<col width="">
+						<col width="100">
 						<col>
 					</colgroup>
-					{{}}
 					<tr>
-						<th>No.</th>
-						<th>Agent</th>
 						<th>Date</th>
 						<th>Comment</th>
-					</tr>
-					<tr>
-						<td>49</td>
-						<td>WeChat</td>
-						<td>12-03 2017</td>
-						<td>...</td>
+						<th>Management</th>
 					</tr>
 				</table>
 			</div><!-- InfoTable -->
-
+			<form id="CommentFormId" method="POST" class="TextAreaForm2">
+				{% csrf_token %}
+				<input id="CommentInputFieldId" value="" name="student_id" hidden/>
+				<textarea type="text" name="comment" class="StudentCommentTextarea"></textarea>
+			</form>	
 			<div class="PopButtonLine">
 				<button type="submit" form="CommentFormId">SUBMIT</button>
-				<button class="Close" OnClick="document.getElementById('PopCommentHistory').style.display='none';">CLOSE</button>
 			</div>
 
 		</div>
@@ -160,7 +150,7 @@
 					<td class="InnerInputTD"></td>
 					{% endif %}
 					<td>
-						<button id="CommentButtonId{{student.id}}" class="CommentButtonClass" href="#" OnClick="document.getElementById('PopCommentHistory').style.display='block';">View</button>
+						<button id="CommentButtonId{{student.id}}" class="CommentButtonClass">View</button>
 					</td>
 				</tr>
         {% endfor %}
