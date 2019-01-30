@@ -82,14 +82,14 @@ class BranchStatisticsView(LoginRequiredMixin, View):
                 end_date = datetime.datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
                 end_date = end_date + relativedelta.relativedelta(months=1)
             elif request.GET.get('year') and not request.GET.get('start_month') and request.GET.get('end_month'):
-                start_date = datetime.datetime.strptime(request.GET.get('year') + "-" + "01" + "-01", "%Y-%m-%d")
+                start_date = datetime.datetime.strptime(request.GET.get('year') + "-" + "09" + "-01", "%Y-%m-%d")
                 end_date = datetime.datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
                 end_date = end_date + relativedelta.relativedelta(months=1)
             elif request.GET.get('year') and request.GET.get('start_month') and not request.GET.get('end_month'):
                 start_date = datetime.datetime.strptime(request.GET.get('year') + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
                 end_date = None
             elif request.GET.get('year') and not request.GET.get('start_month') and not request.GET.get('end_month'):
-                start_date = datetime.datetime.strptime(request.GET.get('year') + "-" + "01" + "-01", "%Y-%m-%d")
+                start_date = datetime.datetime.strptime(request.GET.get('year') + "-" + "09" + "-01", "%Y-%m-%d")
                 end_date = start_date + relativedelta.relativedelta(years=1)
             elif not request.GET.get('year') and request.GET.get('start_month') and request.GET.get('end_month'):
                 start_date = datetime.datetime.strptime(str(now.year) + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")

@@ -241,14 +241,14 @@ class BgeStatisticsView(LoginRequiredMixin, View):
                 end_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
                 end_date = end_date + relativedelta(months=1)
             elif request.GET.get('year') and not request.GET.get('start_month') and request.GET.get('end_month'):
-                start_date = datetime.strptime(request.GET.get('year') + "-" + "01" + "-01", "%Y-%m-%d")
+                start_date = datetime.strptime(request.GET.get('year') + "-" + "09" + "-01", "%Y-%m-%d")
                 end_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
                 end_date = end_date + relativedelta(months=1)
             elif request.GET.get('year') and request.GET.get('start_month') and not request.GET.get('end_month'):
                 start_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
                 end_date = None
             elif request.GET.get('year') and not request.GET.get('start_month') and not request.GET.get('end_month'):
-                start_date = datetime.strptime(request.GET.get('year') + "-" + "01" + "-01", "%Y-%m-%d")
+                start_date = datetime.strptime(request.GET.get('year') + "-" + "09" + "-01", "%Y-%m-%d")
                 end_date = start_date + relativedelta(years=1)
             elif not request.GET.get('year') and request.GET.get('start_month') and request.GET.get('end_month'):
                 start_date = datetime.strptime(str(now.year) + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
@@ -538,14 +538,14 @@ class BranchesView(LoginRequiredMixin, View):
                     end_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
                     end_date = end_date + relativedelta(months=1)
                 elif request.GET.get('year') and not request.GET.get('start_month') and request.GET.get('end_month'):
-                    start_date = datetime.strptime(request.GET.get('year') + "-" + "01" + "-01", "%Y-%m-%d")
+                    start_date = datetime.strptime(request.GET.get('year') + "-" + "09" + "-01", "%Y-%m-%d")
                     end_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
                     end_date = end_date + relativedelta(months=1)
                 elif request.GET.get('year') and request.GET.get('start_month') and not request.GET.get('end_month'):
                     start_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
                     end_date = None
                 elif request.GET.get('year') and not request.GET.get('start_month') and not request.GET.get('end_month'):
-                    start_date = datetime.strptime(request.GET.get('year') + "-" + "01" + "-01", "%Y-%m-%d")
+                    start_date = datetime.strptime(request.GET.get('year') + "-" + "09" + "-01", "%Y-%m-%d")
                     end_date = start_date + relativedelta(years=1)
                 elif not request.GET.get('year') and request.GET.get('start_month') and request.GET.get('end_month'):
                     start_date = datetime.strptime(str(now.year) + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
@@ -672,7 +672,8 @@ class BranchesStatisticView(LoginRequiredMixin,View):
             found_branch.inactive_host = branch_models.HostFamily.objects.filter(provider_branch=found_branch, status='inactive')
             found_branch.prospective_host = branch_models.HostFamily.objects.filter(provider_branch=found_branch, status='prospective')
             found_branch.current_students = student_models.Student.objects.filter(school__in=all_schools)
-            found_branch.complaints = branch_models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts)
+            found_branch.complaints = (branch_models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts).count() + 
+                student_models.StudentCommunicationLog.objects.filter(category='complaints', student__school__in=all_schools).count())
 
             if request.GET.get('form_type'):
 
@@ -734,7 +735,8 @@ class BranchesStatisticView(LoginRequiredMixin,View):
                     found_branch.inactive_host = found_branch.inactive_host.filter(created_at__gte=start_date)
                     found_branch.prospective_host = found_branch.prospective_host.filter(created_at__gte=start_date)
                     found_branch.current_students = found_branch.current_students.filter(created_at__gte=start_date)
-                    found_branch.complaints = found_branch.complaints.filter(created_at__gte=start_date)
+                    found_branch.complaints = (branch_models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts).filter(created_at__gte=start_date).count() + 
+                        student_models.StudentCommunicationLog.objects.filter(category='complaints', student__school__in=all_schools).filter(created_at__gte=start_date).count())
 
                     if end_date:
                         found_branch.school_count = found_branch.school_count.filter(created_at__lt=end_date)
@@ -742,14 +744,15 @@ class BranchesStatisticView(LoginRequiredMixin,View):
                         found_branch.inactive_host = found_branch.inactive_host.filter(created_at__lt=end_date)
                         found_branch.prospective_host = found_branch.prospective_host.filter(created_at__lt=end_date)
                         found_branch.current_students = found_branch.current_students.filter(created_at__lt=end_date)
-                        found_branch.complaints = found_branch.complaints.filter(created_at__lt=end_date)
+                        found_branch.complaints = (branch_models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts).filter(created_at__gte=start_date, created_at__lt=end_date).count() + 
+                            student_models.StudentCommunicationLog.objects.filter(category='complaints', student__school__in=all_schools).filter(created_at__gte=start_date, created_at__lt=end_date).count())
+                        
 
             found_branch.school_count = found_branch.school_count.count()
             found_branch.active_host = found_branch.active_host.count()
             found_branch.inactive_host = found_branch.inactive_host.count()
             found_branch.prospective_host = found_branch.prospective_host.count()
             found_branch.current_students = found_branch.current_students.count()
-            found_branch.complaints = found_branch.complaints.count()
 
 
             return render(request, 'branch/statistics.html', {
