@@ -35,7 +35,7 @@ $(".CommentButtonClass").click(function () {
       $.ajax({                       // initialize an AJAX request
         url: "/student/comment/log/get/" + student_id,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
         success: function (data) {   // `data` is the return of the `load_cities` view function
-        var trHtml = '';
+        var trHtml = "<colgroup><col width='80'><col width=''><col width='100'><col></colgroup><tr><th>Date</th><th>Comment</th><th>Management</th></tr>";
         var csrftoken = getCookie('csrftoken')
         $.each(data, function(i, item){
           trHtml += '<tr><td>' + item['fields']["created_at"] + '</td><td>' + item['fields']["comment"] + '</td><td>' +
@@ -43,7 +43,7 @@ $(".CommentButtonClass").click(function () {
           "<input type='hidden' name='csrfmiddlewaretoken' value='" + csrftoken + "'>" +
           "<input type='text' name='delete_comment' value='" + item['pk'] + "' hidden><button class='Button' type='submit'>DEL</button></form>" + '</td></tr>';
         })
-        $('#comment_table').append(trHtml)
+        $('#comment_table').html(trHtml)
         }
       });
 

@@ -13,6 +13,7 @@ from osc_bge.agent import models as agent_models
 from osc_bge.form import models as form_models
 import datetime
 from dateutil import relativedelta
+from django.db.models import Q
 
 
 # Create your views here.
@@ -371,36 +372,26 @@ class BranchResourcesView(LoginRequiredMixin, View):
 
     def get(self, request):
 
-        if request.user.type == 'bge_admin' or request.user.type == 'bge_team':
+        data = request.GET
 
+        category = data.get("category")
+        middle_category = data.get("middle_category")
+        small_category = data.get("small_category")
+        title = data.get("title")
+
+        if category is '' and middle_category is '' and small_category is '' and title is '':
             all_resources = models.BgeResource.objects.all().order_by('-created_at')
-            return render(request, 'branch/resources.html', {
-                'all_resources':all_resources,
-            })
-
-        elif request.user.type == 'bge_branch_admin':
-            try:
-                bge_branch_admin = user_models.BgeBranchAdminUser.objects.get(user=request.user)
-                found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
-            except:
-                found_branch=None
-
-            if not found_branch:
-                try:
-                    bge_branch_admin = user_models.BgeBranchCoordinator.objects.get(user=request.user)
-                    found_branch = bge_models.BgeBranch.objects.get(id=bge_branch_admin.branch.id)
-                except:
-                    return HttpResponse('Not Branch Admin or Branch coordi', status=400)
-
-            all_resources = models.BgeResource.objects.filter(branch=found_branch).order_by("-created_at")
-
         else:
-
-            all_resources = models.BgeResource.objects.all().order_by('-created_at')
+            all_resources = models.BgeResource.objects.filter(Q(category=category) |
+                                                              Q(middle_category=middle_category) |
+                                                              Q(small_category=small_category) |
+                                                              Q(title=title)).order_by('-created_at')
 
         return render(request, 'branch/resources.html', {
             'all_resources':all_resources,
+            'user_type':request.user.type,
         })
+
 
     def post(self, request):
 

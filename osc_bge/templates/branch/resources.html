@@ -11,7 +11,7 @@
 
 		<div class="MTitle">Data Upload</div>
 		<div class="ListSearch Aright">
-			<form method="post" enctype="multipart/form-data">
+			<form enctype="multipart/form-data">
 				{% csrf_token %}
 				<div>
 				Date : {% now "Y-m-d" %} &nbsp;&nbsp;
@@ -19,9 +19,13 @@
 				<select class="SearchSelect" id="category" name="category">
 					<option value="">Category select..</option>
 					<option value="Official Common Templates">Official Common Templates</option>
+                {%  if "bge_" in user_type %}
                     <option value="HR & Administration Management">HR & Administration Managements</option>
+                {% endif %}
                     <option value="Promotional&Design Materials">Promotional&Design Materials</option>
+                {%  if "bge_" in user_type %}
                     <option value="Program & Student Information">Program & Student Information</option>
+                {% endif %}
                     <option value="Miscellaneous">Miscellaneous</option>
 				</select>
 				<select class="SearchSelect" id="md_category" name="middle_category">
@@ -33,10 +37,12 @@
 				&nbsp;&nbsp;
 				Title :
 	            <input type="text" class="SearchInput" style="width:250px;" name="title"/>
+
+                <button type="submit" class="ListSearchButton" method="get">Search</button>
 				&nbsp;&nbsp;
 				Resource :
 	            <input type="file" class="SearchInput" name="file"/>
-	            <button type="submit" class="ListSearchButton" >Upload<button>
+	            <button type="submit" class="ListSearchButton" method="post">Upload<button>
 				</div>
 			</form>
 		</div>
@@ -55,7 +61,9 @@
 					<th>Branch</th>
 					<th>File</th>
 					<th>Writer</th>
+                {%  if "bge_admin" in user_type or "bge_team" in user_type %}
 					<th>Management</th>
+                {% endif %}
 				</tr>
 				{% for resource in all_resources %}
 				<tr>
@@ -67,6 +75,7 @@
 					<td>{{resource.branch.name}}</td>
 					<td><a href="{{MEDIA_URL}}{{resource.file}}" download>{{resource.file}}</a></td>
 					<td>{{resource.writer.first_name}} {{resource.writer.last_name}}</td>
+                {%  if "bge_admin" in user_type or "bge_team" in user_type %}
 					<td class="InnerInputTD">
 						<form method="POST">
 							{% csrf_token %}
@@ -74,6 +83,7 @@
 							<button class="Button" type="submit">DEL</button>
 						</form>
 					</td>
+                {% endif %}
 				</tr>
 				{% endfor %}
 			</table>
