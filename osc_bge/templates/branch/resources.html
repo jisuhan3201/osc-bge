@@ -9,9 +9,10 @@
 <div class="ContentsFrame">
 	<div class="MainAFrame">
 
+    {%  if "bge_admin" in user_type or "bge_team" in user_type %}
 		<div class="MTitle">Data Upload</div>
 		<div class="ListSearch Aright">
-			<form enctype="multipart/form-data">
+			<form enctype="multipart/form-data" method="post">
 				{% csrf_token %}
 				<div>
 				Date : {% now "Y-m-d" %} &nbsp;&nbsp;
@@ -36,13 +37,45 @@
 				</select>
 				&nbsp;&nbsp;
 				Title :
-	            <input type="text" class="SearchInput" style="width:250px;" name="title"/>
+	            <input type="text" class="SearchInput" style="width:250px;" id="title" name="title"/>
 
-                <button type="submit" class="ListSearchButton" method="get">Search</button>
-				&nbsp;&nbsp;
 				Resource :
 	            <input type="file" class="SearchInput" name="file"/>
-	            <button type="submit" class="ListSearchButton" method="post">Upload<button>
+	            <button type="submit" class="ListSearchButton">Upload</button>
+				</div>
+			</form>
+		</div>
+    {% endif %}
+
+        <div class="MTitle">Data Search</div>
+		<div class="ListSearch Aright">
+			<form method="get">
+				<div>
+				Date : {% now "Y-m-d" %} &nbsp;&nbsp;
+				Category :
+				<select class="SearchSelect" id="category" name="category">
+					<option value="">Category select..</option>
+					<option value="Official Common Templates">Official Common Templates</option>
+                {%  if "bge_" in user_type %}
+                    <option value="HR & Administration Management">HR & Administration Managements</option>
+                {% endif %}
+                    <option value="Promotional&Design Materials">Promotional&Design Materials</option>
+                {%  if "bge_" in user_type %}
+                    <option value="Program & Student Information">Program & Student Information</option>
+                {% endif %}
+                    <option value="Miscellaneous">Miscellaneous</option>
+				</select>
+				<select class="SearchSelect" id="md_category" name="middle_category">
+					<option value="">Category select..</option>
+				</select>
+                <select class="SearchSelect" id="sm_category" name="small_category">
+					<option value="">Category select..</option>
+				</select>
+				&nbsp;&nbsp;
+				Title :
+	            <input type="text" class="SearchInput" style="width:250px;" id="title" name="title"/>
+
+                <button type="submit" class="ListSearchButton" id="search">Search</button>
 				</div>
 			</form>
 		</div>
@@ -56,8 +89,8 @@
 					<th>Title</th>
 					<th>Date</th>
 					<th>Category</th>
-					<th>Middle Category</th>
-                    <th>Small Category</th>
+					<th>Sub Category</th>
+                    <th>Sub-sub Category</th>
 					<th>Branch</th>
 					<th>File</th>
 					<th>Writer</th>
