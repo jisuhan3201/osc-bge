@@ -168,7 +168,6 @@ class CollegeView(LoginRequiredMixin, View):
             queryset = models.College.objects.all().order_by('ranking')
 
             school_type = self.request.GET.getlist('school_type', None)
-            print("### school_type : ", school_type)
             if school_type:
                 queryset = queryset.filter(school__school_type__type__in=school_type)
 
@@ -905,6 +904,14 @@ class CollegeSchoolUpdateView(LoginRequiredMixin, View):
             except school_models.School.DoesNotExist:
                 return HttpResponse("Wrong school id", status=400)
 
+            try:
+                school_types = models.SchoolTypes.objects.filter(school=found_school)
+                school_type_list = []
+                for school_type in school_types:
+                    school_type_list.append(school_type.type)
+            except models.SchoolTypes.DoesNotExist:
+                return HttpResponse("Wrong college type id", status=400)
+
         else:
             return HttpResponse('No school id', status=400)
 
@@ -916,6 +923,7 @@ class CollegeSchoolUpdateView(LoginRequiredMixin, View):
         return render(request, 'school/college_update.html',
             {
                 'found_school':found_school,
+                'school_type_list':school_type_list,
                 "first_schools":first_schools,
                 "second_schools":second_schools,
                 "third_schools":third_schools,
@@ -979,67 +987,67 @@ class CollegeSchoolUpdateView(LoginRequiredMixin, View):
             found_types = models.SchoolTypes.objects.filter(school=found_school)
             found_types.delete()
 
-        national_universities = data.get('national_universities')
+        national_universities = data.get('nu')
         if national_universities == "Yes":
             school_types = models.SchoolTypes(
                 school=found_school,
-                type='national_universities',
+                type='nu',
             )
             school_types.save()
 
-        top_engineering_school = data.get('top_engineering_school')
+        top_engineering_school = data.get('es')
         if top_engineering_school == "Yes":
             school_types = models.SchoolTypes(
                 school=found_school,
-                type='top_engineering_school',
+                type='es',
             )
             school_types.save()
 
-        top_business_school = data.get('top_business_school')
+        top_business_school = data.get('bs')
         if top_business_school == "Yes":
             school_types = models.SchoolTypes(
                 school=found_school,
-                type='top_business_school',
+                type='bs',
             )
             school_types.save()
 
-        top_art_school = data.get('top_art_school')
+        top_art_school = data.get('as')
         if top_art_school == "Yes":
             school_types = models.SchoolTypes(
                 school=found_school,
-                type='top_art_school',
+                type='as',
             )
             school_types.save()
 
-        top_science_school = data.get('top_science_school')
+        top_science_school = data.get('ss')
         if top_science_school == "Yes":
             school_types = models.SchoolTypes(
                 school=found_school,
-                type='top_science_school',
+                type='ss',
             )
             school_types.save()
 
-        liberal_arts_colleges = data.get('liberal_arts_colleges')
+        liberal_arts_colleges = data.get('lac')
         if liberal_arts_colleges == "Yes":
             school_types = models.SchoolTypes(
                 school=found_school,
-                type='liberal_arts_colleges',
+                type='lac',
             )
             school_types.save()
 
-        local_colleges = data.get('local_colleges')
+        local_colleges = data.get('lc')
         if local_colleges == "Yes":
             school_types = models.SchoolTypes(
                 school=found_school,
-                type='local_colleges',
+                type='lc',
             )
             school_types.save()
 
-        pathway_universities = data.get('pathway_universities')
+        pathway_universities = data.get('pu')
         if pathway_universities == "Yes":
             school_types = models.SchoolTypes(
                 school=found_school,
-                type='pathway_universities',
+                type='pu',
             )
             school_types.save()
 

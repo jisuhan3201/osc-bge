@@ -203,7 +203,7 @@
                     <th>GPA Requirement : </th>
                     <td class="InnerInputTD">
           {% if found_school.college.gpa_requirement == "1" %}
-                        <label><input type="radio" name="gpa_requirement" value="1" checked/><span></span>Yes</label>
+                        <label><input type="radio" name="gpa_requirement" value="1" checked /><span></span>Yes</label>
                         <label><input type="radio" name="gpa_requirement" value="0" /><span></span>No</label>
           {% else %}
                         <label><input type="radio" name="gpa_requirement" value="1" /><span></span>Yes</label>
@@ -331,49 +331,89 @@
                 <tr>
                     <th>National Universities : </th>
                     <td class="InnerInputTD">
-                        <label><input type="radio" name="national_universities" value="Yes" /><span></span>Yes</label>
-                        <label><input type="radio" name="national_universities" value="No" /><span></span>No</label>
+          {% if "nu" in school_type_list %}
+                        <label><input type="radio" name="nu" value="Yes" checked /><span></span>Yes</label>
+                        <label><input type="radio" name="nu" value="No" /><span></span>No</label>
+          {% else %}
+                        <label><input type="radio" name="nu" value="Yes" /><span></span>Yes</label>
+                        <label><input type="radio" name="nu" value="No" checked /><span></span>No</label>
+          {% endif %}
                     </td>
-                    <th>Top Engineering school : </th>
+                    <th>Top Engineering School : </th>
                     <td class="InnerInputTD">
-                        <label><input type="radio" name="top_engineering_school" value="Yes" /><span></span>Yes</label>
-                        <label><input type="radio" name="top_engineering_school" value="No" /><span></span>No</label>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Top Business school : </th>
-                    <td class="InnerInputTD">
-                        <label><input type="radio" name="top_business_school" value="Yes" /><span></span>Yes</label>
-                        <label><input type="radio" name="top_business_school" value="No" /><span></span>No</label>
-                    </td>
-                    <th>Top Art school : </th>
-                    <td class="InnerInputTD">
-                        <label><input type="radio" name="top_art_school" value="Yes" /><span></span>Yes</label>
-                        <label><input type="radio" name="top_art_school" value="No" /><span></span>No</label>
+          {% if "es" in school_type_list %}
+                        <label><input type="radio" name="es" value="Yes" checked /><span></span>Yes</label>
+                        <label><input type="radio" name="es" value="No" /><span></span>No</label>
+          {% else %}
+                        <label><input type="radio" name="es" value="Yes" /><span></span>Yes</label>
+                        <label><input type="radio" name="es" value="No" checked /><span></span>No</label>
+          {% endif %}
                     </td>
                 </tr>
                 <tr>
-                    <th>Top Science school : </th>
+                    <th>Top Business School : </th>
                     <td class="InnerInputTD">
-                        <label><input type="radio" name="top_science_school" value="Yes" /><span></span>Yes</label>
-                        <label><input type="radio" name="top_science_school" value="No" /><span></span>No</label>
+          {% if "bs" in school_type_list %}
+                        <label><input type="radio" name="bs" value="Yes" checked /><span></span>Yes</label>
+                        <label><input type="radio" name="bs" value="No" /><span></span>No</label>
+          {% else %}
+                        <label><input type="radio" name="bs" value="Yes" /><span></span>Yes</label>
+                        <label><input type="radio" name="bs" value="No" checked /><span></span>No</label>
+          {% endif %}
+                    </td>
+                    <th>Top Art School : </th>
+                    <td class="InnerInputTD">
+          {% if "as" in school_type_list %}
+                        <label><input type="radio" name="as" value="Yes" checked /><span></span>Yes</label>
+                        <label><input type="radio" name="as" value="No" /><span></span>No</label>
+          {% else %}
+                        <label><input type="radio" name="as" value="Yes" /><span></span>Yes</label>
+                        <label><input type="radio" name="as" value="No" checked /><span></span>No</label>
+          {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Top Science School : </th>
+                    <td class="InnerInputTD">
+          {% if "ss" in school_type_list %}
+                        <label><input type="radio" name="ss" value="Yes" checked /><span></span>Yes</label>
+                        <label><input type="radio" name="ss" value="No" /><span></span>No</label>
+          {% else %}
+                        <label><input type="radio" name="ss" value="Yes" /><span></span>Yes</label>
+                        <label><input type="radio" name="ss" value="No" checked /><span></span>No</label>
+          {% endif %}
                     </td>
                     <th>Liberal Arts Colleges : </th>
                     <td class="InnerInputTD">
-                        <label><input type="radio" name="liberal_arts_colleges" value="Yes" /><span></span>Yes</label>
-                        <label><input type="radio" name="liberal_arts_colleges" value="No" /><span></span>No</label>
+          {% if "lac" in school_type_list %}
+                        <label><input type="radio" name="lac" value="Yes" checked /><span></span>Yes</label>
+                        <label><input type="radio" name="lac" value="No" /><span></span>No</label>
+          {% else %}
+                        <label><input type="radio" name="lac" value="Yes" /><span></span>Yes</label>
+                        <label><input type="radio" name="lac" value="No" checked /><span></span>No</label>
+          {% endif %}
                     </td>
                 </tr>
                 <tr>
-                    <th>Local colleges : </th>
+                    <th>Local Colleges : </th>
                     <td class="InnerInputTD">
-                        <label><input type="radio" name="local_colleges" value="Yes" /><span></span>Yes</label>
-                        <label><input type="radio" name="local_colleges" value="No" /><span></span>No</label>
+          {% if "lc" in school_type_list %}
+                        <label><input type="radio" name="lc" value="Yes" checked /><span></span>Yes</label>
+                        <label><input type="radio" name="lc" value="No" /><span></span>No</label>
+          {% else %}
+                        <label><input type="radio" name="lc" value="Yes" /><span></span>Yes</label>
+                        <label><input type="radio" name="lc" value="No" checked /><span></span>No</label>
+          {% endif %}
                     </td>
                     <th>Pathway Universities : </th>
                     <td class="InnerInputTD">
-                        <label><input type="radio" name="pathway_universities" value="Yes" /><span></span>Yes</label>
-                        <label><input type="radio" name="pathway_universities" value="No" /><span></span>No</label>
+          {% if "pu" in school_type_list %}
+                        <label><input type="radio" name="pu" value="Yes" checked /><span></span>Yes</label>
+                        <label><input type="radio" name="pu" value="No" /><span></span>No</label>
+          {% else %}
+                        <label><input type="radio" name="pu" value="Yes" /><span></span>Yes</label>
+                        <label><input type="radio" name="pu" value="No" checked /><span></span>No</label>
+          {% endif %}
                     </td>
                 </tr>
             </table>
