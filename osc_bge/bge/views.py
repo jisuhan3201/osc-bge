@@ -1357,7 +1357,10 @@ class AccountingStudentView(LoginRequiredMixin, View):
                     student=found_student, created_at__lte=account.created_at).aggregate(Sum("payment"))
                 expense = student_models.StudentAccounting.objects.filter(
                     student=found_student, created_at__lte=account.created_at).aggregate(Sum("expense"))
-                account.balance = payment.get('payment__sum') - expense.get('expense__sum')
+                try:
+                    account.balance = payment.get('payment__sum') - expense.get('expense__sum')
+                except TypeError:
+                    account.balance = 0
 
 
         else:
