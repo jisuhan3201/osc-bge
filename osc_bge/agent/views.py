@@ -1498,7 +1498,7 @@ def upload_files(request, formality_id):
     data = request.POST
 
     try:
-        found_formality = form_models.Formality.objects.get(pk=formality_id)
+        found_formality = form_models.Formality.objects.get(id=formality_id)
     except form_models.Formality.DoesNotExist:
         return HttpResponse(status=400)
 
@@ -1506,6 +1506,8 @@ def upload_files(request, formality_id):
         for file_id in data.getlist('delete_file'):
             found_file = form_models.FormalityFile.objects.get(id=int(file_id))
             found_file.delete()
+
+        return HttpResponseRedirect("/agent/process/"+str(formality_id))
 
     if request.FILES.get('file_source1') or request.FILES.get('file_source2') or request.FILES.get('file_source3') or request.FILES.get('file_source4') or request.FILES.get('file_source5'):
         file_form = form_forms.FileboxForm(request.POST,request.FILES)

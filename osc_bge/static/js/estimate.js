@@ -1,9 +1,9 @@
 $("#ModifyButtonId").click(function(){
   var default_program_fee = $("input[name=default_program_fee]").val();
   var default_program_fee_qty = $("input[name=default_program_fee_qty]").val();
-  var other_program_fee = $("input[name=other_program_fee]").val();
-  var other_program_fee_qty = $("input[name=other_program_fee_qty]").val();
-  $("input[name=sub_total_program_fee]").val(default_program_fee*default_program_fee_qty+other_program_fee*other_program_fee_qty);
+  // var other_program_fee = $("input[name=other_program_fee]").val();
+  // var other_program_fee_qty = $("input[name=other_program_fee_qty]").val();
+  $("input[name=sub_total_program_fee]").val(default_program_fee*default_program_fee_qty);
   var sub_total_program_fee = $("input[name=sub_total_program_fee]").val();
 
   var default_application_fee = $("input[name=default_application_fee]").val();

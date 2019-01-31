@@ -282,12 +282,15 @@ class BranchStudentsView(LoginRequiredMixin, View):
         all_schools = school_models.School.objects.filter(provider_branch=found_branch)
         all_students = student_models.Student.objects.filter(school__in=all_schools)
 
+        first_date = datetime.date.today().replace(day=1)
+        next_month = first_date + relativedelta.relativedelta(months=1)
+
         for student in all_students:
 
             try:
                 found_report = student_models.StudentMonthlyReport.objects.filter(student=student).latest('updated_at')
                 student.student_report = found_report
-                student.num_of_logs = student_models.StudentCommunicationLog.objects.filter(student=student).count()
+                student.num_of_logs = student_models.StudentCommunicationLog.objects.filter(student=student, created_at__range=(first_date, next_month)).count()
             except student_models.StudentMonthlyReport.DoesNotExist:
                 continue
 
