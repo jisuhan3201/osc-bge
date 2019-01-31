@@ -168,6 +168,7 @@ class CollegeView(LoginRequiredMixin, View):
             queryset = models.College.objects.all().order_by('ranking')
 
             school_type = self.request.GET.getlist('school_type', None)
+            print("### school_type : ", school_type)
             if school_type:
                 queryset = queryset.filter(school__school_type__type__in=school_type)
 
@@ -941,7 +942,7 @@ class CollegeSchoolUpdateView(LoginRequiredMixin, View):
 
         try:
             college_school = models.College.objects.get(school=found_school)
-        except school_models.College.DoesNotExist:
+        except models.College.DoesNotExist:
             return HttpResponse("Wrong college id", status=400)
 
 
@@ -973,6 +974,75 @@ class CollegeSchoolUpdateView(LoginRequiredMixin, View):
 
         found_school.save()
         college_school.save()
+
+        if models.SchoolTypes.objects.filter(school=found_school):
+            found_types = models.SchoolTypes.objects.filter(school=found_school)
+            found_types.delete()
+
+        national_universities = data.get('national_universities')
+        if national_universities == "Yes":
+            school_types = models.SchoolTypes(
+                school=found_school,
+                type='national_universities',
+            )
+            school_types.save()
+
+        top_engineering_school = data.get('top_engineering_school')
+        if top_engineering_school == "Yes":
+            school_types = models.SchoolTypes(
+                school=found_school,
+                type='top_engineering_school',
+            )
+            school_types.save()
+
+        top_business_school = data.get('top_business_school')
+        if top_business_school == "Yes":
+            school_types = models.SchoolTypes(
+                school=found_school,
+                type='top_business_school',
+            )
+            school_types.save()
+
+        top_art_school = data.get('top_art_school')
+        if top_art_school == "Yes":
+            school_types = models.SchoolTypes(
+                school=found_school,
+                type='top_art_school',
+            )
+            school_types.save()
+
+        top_science_school = data.get('top_science_school')
+        if top_science_school == "Yes":
+            school_types = models.SchoolTypes(
+                school=found_school,
+                type='top_science_school',
+            )
+            school_types.save()
+
+        liberal_arts_colleges = data.get('liberal_arts_colleges')
+        if liberal_arts_colleges == "Yes":
+            school_types = models.SchoolTypes(
+                school=found_school,
+                type='liberal_arts_colleges',
+            )
+            school_types.save()
+
+        local_colleges = data.get('local_colleges')
+        if local_colleges == "Yes":
+            school_types = models.SchoolTypes(
+                school=found_school,
+                type='local_colleges',
+            )
+            school_types.save()
+
+        pathway_universities = data.get('pathway_universities')
+        if pathway_universities == "Yes":
+            school_types = models.SchoolTypes(
+                school=found_school,
+                type='pathway_universities',
+            )
+            school_types.save()
+
 
         if request.FILES.get('image'):
             image_form = forms.SchoolImageForm(request.POST,request.FILES)
