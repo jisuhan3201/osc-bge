@@ -83,7 +83,7 @@ class StatisticsView(LoginRequiredMixin, View):
         elif agency_head:
             counselors = user_models.Counselor.objects.filter(agency__head=agency_head)
         else:
-            counselors.Counselor.objects.all()
+            counselors = user_models.Counselor.objects.all()
 
         for counselor in counselors:
 
