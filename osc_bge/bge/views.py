@@ -288,6 +288,9 @@ class BgeStatisticsView(LoginRequiredMixin, View):
             end_date = datetime.strptime(str(end_year_num) + "-" + end_month + "-01", "%Y-%b-%d")
             end_date = end_date + relativedelta(months=1)
 
+            print("### start_date : ", start_date)
+            print("### end_date : ", end_date)
+
             if start_date:
                 inquired = inquired.filter(created_at__gte=start_date)
                 applied = applied.filter(apply_at__gte=start_date)

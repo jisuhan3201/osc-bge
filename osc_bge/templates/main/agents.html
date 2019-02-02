@@ -121,9 +121,13 @@
 			<form method="GET">
 				<div>
 					<select class="SearchSelect" name="agent_head">
-						<option value="">Select Agent..</option>
+						<option value="">Select Agent</option>
 						{% for agent in all_agents %}
-						<option value="{{agent.id}}">{{agent.name}}</option>
+                            {% if request.GET.agent_head  == agent.id|stringformat:"i" %}
+                                <option value="{{agent.id}}" selected>{{agent.name}}</option>
+                            {% else %}
+                                <option value="{{agent.id}}">{{agent.name}}</option>
+                            {% endif %}
 						{% endfor %}
 					</select>
 				</div>

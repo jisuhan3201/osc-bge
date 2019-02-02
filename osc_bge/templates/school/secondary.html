@@ -10,9 +10,9 @@
 				<div class="InnerTabContents">
 					{% for secondary in all_schools %}
 						{% if secondary.school.partnership == 1 or secondary.school.partnership == 2 or secondary.school.partnership == 3 %}
-						<li><a href="/school/secondary/update/{{secondary.school.id}}"><strong style="color:orange;">{{secondary.school.name}}</strong></a></li>
+						    <li><a href="/school/secondary/update/{{secondary.school.id}}"><strong style="color:orange;">{{secondary.school.name}}</strong></a></li>
 						{% else %}
-						<li><a href="/school/secondary/update/{{secondary.school.id}}">{{secondary.school.name}}</a></li>
+						    <li><a href="/school/secondary/update/{{secondary.school.id}}">{{secondary.school.name}}</a></li>
 						{% endif %}
 					{% endfor %}
 				</div><!-- InnerTabContents -->
@@ -29,11 +29,15 @@
 				<div>
 				<form method="GET">
 				Search by School Name :
-	        <input id="school_textbox" type="text" class="SearchInput" style="width:300px;" name="search_name"/>
+                    <input id="school_textbox" type="text" class="SearchInput" style="width:300px;" name="search_name" value="{{request.GET.search_name}}" />
 					<select class="SearchSelect" id="school_name" name="search_id">
-						<option value="">Select School..</option>
+						<option value="">Select School</option>
 						{% for secondary in all_schools %}
-						<option value="{{secondary.school.id}}">{{secondary.school.name}}</option>
+                            {% if request.GET.search_id == secondary.school.id|stringformat:"i" %}
+                               <option value="{{secondary.school.id}}" selected>{{secondary.school.name}}</option>
+                            {% else %}
+                                <option value="{{secondary.school.id}}">{{secondary.school.name}}</option>
+                            {% endif %}
 						{% endfor %}
 					</select>
 					<button type="submit" class="ListSearchButton">Search</button>

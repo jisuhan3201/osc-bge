@@ -72,8 +72,10 @@ class BranchStatisticsView(LoginRequiredMixin, View):
         found_branch.inactive_host = models.HostFamily.objects.filter(provider_branch=found_branch, status='inactive')
         found_branch.prospective_host = models.HostFamily.objects.filter(provider_branch=found_branch, status='prospective')
         found_branch.current_students = student_models.Student.objects.filter(school__in=all_schools)
-        found_branch.complaints = (models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts).count() +
-            student_models.StudentCommunicationLog.objects.filter(category='complaints', student__school__in=all_schools).count())
+        #found_branch.complaints = (models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts).count() +
+        #    student_models.StudentCommunicationLog.objects.filter(category='complaints', student__school__in=all_schools).count())
+        found_branch.complaints = (
+            models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts).count())
 
         if request.GET.get('form_type'):
 

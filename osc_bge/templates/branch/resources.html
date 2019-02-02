@@ -17,8 +17,8 @@
 				<div>
 				Date : {% now "Y-m-d" %} &nbsp;&nbsp;
 				Category :
-				<select class="SearchSelect" id="category" name="category">
-					<option value="">Category select..</option>
+				<select class="SearchSelect" id="category_upload" name="category">
+					<option value="">Select Category</option>
 					<option value="Official Common Templates">Official Common Templates</option>
                 {%  if "bge_" in user_type %}
                     <option value="HR & Administration Management">HR & Administration Managements</option>
@@ -29,11 +29,11 @@
                 {% endif %}
                     <option value="Miscellaneous">Miscellaneous</option>
 				</select>
-				<select class="SearchSelect" id="md_category" name="middle_category">
-					<option value="">Category select..</option>
+				<select class="SearchSelect" id="md_category_upload" name="middle_category">
+					<option value="">Select Sub Category</option>
 				</select>
-                <select class="SearchSelect" id="sm_category" name="small_category">
-					<option value="">Category select..</option>
+                <select class="SearchSelect" id="sm_category_upload" name="small_category">
+					<option value="">Select Sub-sub Category</option>
 				</select>
 				&nbsp;&nbsp;
 				Title :
@@ -53,8 +53,8 @@
 				<div>
 				Date : {% now "Y-m-d" %} &nbsp;&nbsp;
 				Category :
-				<select class="SearchSelect" id="category" name="category">
-					<option value="">Category select..</option>
+				<select class="SearchSelect" id="category_search" name="category">
+					<option value="">Select Category</option>
 					<option value="Official Common Templates">Official Common Templates</option>
                 {%  if "bge_" in user_type %}
                     <option value="HR & Administration Management">HR & Administration Managements</option>
@@ -65,11 +65,11 @@
                 {% endif %}
                     <option value="Miscellaneous">Miscellaneous</option>
 				</select>
-				<select class="SearchSelect" id="md_category" name="middle_category">
-					<option value="">Category select..</option>
+				<select class="SearchSelect" id="md_category_search" name="middle_category">
+					<option value="">Select Sub Category</option>
 				</select>
-                <select class="SearchSelect" id="sm_category" name="small_category">
-					<option value="">Category select..</option>
+                <select class="SearchSelect" id="sm_category_search" name="small_category">
+					<option value="">Select Sub-sub Category</option>
 				</select>
 				&nbsp;&nbsp;
 				Title :

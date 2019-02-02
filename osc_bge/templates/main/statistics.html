@@ -12,51 +12,395 @@
 				<div>
 				From :
 				<select class="SearchSelect" name="start_month">
-					<option value="">Select Month..</option>
-					<option >Jan</option>
-					<option >Feb</option>
-					<option >Mar</option>
-					<option >Apr</option>
-					<option >May</option>
-					<option >Jun</option>
-					<option >Jul</option>
-					<option >Aug</option>
-					<option >Sep</option>
-					<option >Oct</option>
-					<option >Nov</option>
-					<option >Dec</option>
+					<option value="">Select Month</option>
+                {% if request.GET.start_month  == 'Jan' %}
+					<option value="Jan" selected>Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.start_month  == 'Feb' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb" selected>Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.start_month  == 'Mar' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar" selected>Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.start_month  == 'Apr' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr" selected>Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.start_month  == 'May' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May" selected>May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.start_month  == 'Jun' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun" selected>Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.start_month  == 'Jul' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul" selected>Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.start_month  == 'Aug' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug" selected>Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.start_month  == 'Sep' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep" selected>Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.start_month  == 'Oct' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct" selected>Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.start_month  == 'Nov' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov" selected>Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.start_month  == 'Dec' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec" selected>Dec</option>
+                {% else %}
+                    <option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep" selected>Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% endif %}
 				</select>
 				&nbsp;&nbsp;
 				To :
 				<select class="SearchSelect" name="end_month">
-					<option value="">Select Month..</option>
-					<option >Jan</option>
-					<option >Feb</option>
-					<option >Mar</option>
-					<option >Apr</option>
-					<option >May</option>
-					<option >Jun</option>
-					<option >Jul</option>
-					<option >Aug</option>
-					<option >Sep</option>
-					<option >Oct</option>
-					<option >Nov</option>
-					<option >Dec</option>
+					<option value="">Select Month</option>
+                {% if request.GET.end_month  == 'Jan' %}
+					<option value="Jan" selected>Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.end_month  == 'Feb' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb" selected>Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.end_month  == 'Mar' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar" selected>Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.end_month  == 'Apr' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr" selected>Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.end_month  == 'May' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May" selected>May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.end_month  == 'Jun' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun" selected>Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.end_month  == 'Jul' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul" selected>Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.end_month  == 'Aug' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug" selected>Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.end_month  == 'Sep' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep" selected>Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.end_month  == 'Oct' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct" selected>Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.end_month  == 'Nov' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov" selected>Nov</option>
+					<option value="Dec">Dec</option>
+                {% elif request.GET.end_month  == 'Dec' %}
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec" selected>Dec</option>
+                {% else %}
+                    <option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug" selected>Aug</option>
+					<option value="Sep">Sep</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
+                {% endif %}
 				</select>
 				&nbsp;&nbsp;
-				<select class="SearchSelect" name="year">
-					<option value="">Select year..</option>
+				<select class="SearchSelect" name="year" required>
+					<option value="">Select Year</option>
 					{% for year in year_list %}
-					<option value="{{year}}">{{year}} ~ {{year|add:1}} year</option>
+                        {% if forloop.counter == 1 and request.GET.year == None %}
+                            <option value="{{year}}" selected>{{year}} ~ {{year|add:1}} year</option>
+                        {% elif request.GET.year  == year|stringformat:"i" %}
+					        <option value="{{year}}" selected>{{year}} ~ {{year|add:1}} year</option>
+                        {% else %}
+                            <option value="{{year}}">{{year}} ~ {{year|add:1}} year</option>
+                        {% endif %}
 					{% endfor %}
 				</select>
 
 				<select class="SearchSelect" name="program_interested">
-					<option value=""> Select Program</option>
-					<option value="k12">Secondary</option>
+					<option value="">Select Program</option>
+                {% if request.GET.program_interested  == 'k12' %}
+					<option value="k12" selected>Secondary</option>
 					<option value="college">College</option>
 					<option value="camp">Camp</option>
 					<option value="not_specified">Not specified</option>
+                {% elif request.GET.program_interested  == 'college' %}
+                    <option value="k12">Secondary</option>
+					<option value="college" selected>College</option>
+					<option value="camp">Camp</option>
+					<option value="not_specified">Not specified</option>
+                {% elif request.GET.program_interested  == 'camp' %}
+                    <option value="k12">Secondary</option>
+					<option value="college">College</option>
+					<option value="camp" selected>Camp</option>
+					<option value="not_specified">Not specified</option>
+                {% elif request.GET.program_interested  == 'not_specified' %}
+                    <option value="k12">Secondary</option>
+					<option value="college">College</option>
+					<option value="camp">Camp</option>
+					<option value="not_specified" selected>Not specified</option>
+                {% else %}
+                    <option value="k12" selected>Secondary</option>
+					<option value="college">College</option>
+					<option value="camp">Camp</option>
+					<option value="not_specified">Not specified</option>
+                {% endif %}
 				</select>
 				</div>
 				<button type="submit" class="ListSearchButton">Search<button>
@@ -156,29 +500,61 @@
 		<div class="ListTable">
 			<form method="GET">
 				<div class="ListSearch Aright">
-					<div class="InfoTable" ><span class="AddComment">Default : {{default_start_date|date:"Y-m-d"}} ~ {{default_end_date|date:"Y-m-d"}}</span></div>
-
 					<div>
-					<select class="SearchSelect" name="new_week">
-						<option value="">Week</option>
+					<select class="SearchSelect" name="new_week" required>
+						<option value="">Select Week</option>
 						{% for week in week_list%}
-						<option value="{{week.0|date:'Y-m-d'}}">{{week.1|date:"Y-m-d"}} ~ {{week.0|date:"Y-m-d"}}</option>
+                            {% if forloop.counter == 1 and request.GET.new_week == None %}
+                                <option value="{{week.0|date:'Y-m-d'}}" selected>{{week.1|date:"Y-m-d"}} ~ {{week.0|date:"Y-m-d"}}</option>
+                            {% elif request.GET.new_week == week.0|date:'Y-m-d' %}
+                                <option value="{{week.0|date:'Y-m-d'}}" selected>{{week.1|date:"Y-m-d"}} ~ {{week.0|date:"Y-m-d"}}</option>
+                            {% else %}
+                                <option value="{{week.0|date:'Y-m-d'}}">{{week.1|date:"Y-m-d"}} ~ {{week.0|date:"Y-m-d"}}</option>
+                            {% endif %}
 						{% endfor %}
 					</select>
 
-					<select class="SearchSelect" name="new_day">
-						<option value="">Day</option>
+					<select class="SearchSelect" name="new_day" required>
+						<option value="">Select Day</option>
 						{% for day in day_list %}
-						<option>{{day|date:"Y-m-d"}}</option>
+                            {% if forloop.counter == 1 and request.GET.new_week == None %}
+						        <option value="{{day|date:'Y-m-d'}}" selected>{{day|date:"Y-m-d"}}</option>
+                            {% elif request.GET.new_day == day|date:'Y-m-d' %}
+                                <option value="{{day|date:'Y-m-d'}}" selected>{{day|date:"Y-m-d"}}</option>
+                            {% else %}
+                                <option value="{{day|date:'Y-m-d'}}">{{day|date:"Y-m-d"}}</option>
+                            {% endif %}
 						{% endfor %}
 					</select>
 
 					<select class="SearchSelect" name="new_program">
-						<option value="">Program</option>
-						<option value="k12">Secondary</option>
-						<option value="college">College</option>
-						<option value="camp">Camp</option>
-						<option value="not_specified">Not specified</option>
+						<option value="">Select Program</option>
+                    {% if request.GET.new_program  == 'k12' %}
+                        <option value="k12" selected>Secondary</option>
+                        <option value="college">College</option>
+                        <option value="camp">Camp</option>
+                        <option value="not_specified">Not specified</option>
+                    {% elif request.GET.new_program  == 'college' %}
+                        <option value="k12">Secondary</option>
+                        <option value="college" selected>College</option>
+                        <option value="camp">Camp</option>
+                        <option value="not_specified">Not specified</option>
+                    {% elif request.GET.new_program  == 'camp' %}
+                        <option value="k12">Secondary</option>
+                        <option value="college">College</option>
+                        <option value="camp" selected>Camp</option>
+                        <option value="not_specified">Not specified</option>
+                    {% elif request.GET.new_program  == 'not_specified' %}
+                        <option value="k12">Secondary</option>
+                        <option value="college">College</option>
+                        <option value="camp">Camp</option>
+                        <option value="not_specified" selected>Not specified</option>
+                    {% else %}
+                        <option value="k12" selected>Secondary</option>
+                        <option value="college">College</option>
+                        <option value="camp">Camp</option>
+                        <option value="not_specified">Not specified</option>
+                    {% endif %}
 					</select>
 					</div>
 					<button type="submit" class="ListSearchButton" >Search</button>
@@ -226,28 +602,76 @@
 		<div class="ListSearch Aright">
 			<form method="GET">
 				<div>
-				<select class="SearchSelect" name="agent_head">
-					<option value="">Agent</option>
+				<select class="SearchSelect" name="agent_head" required>
+					<option value="">Select Agent</option>
 					{% for head in all_agent_heads %}
-					<option value="{{head.id}}">{{head.name}}</option>
+                        {% if forloop.counter == 1 and request.GET.agent_head == None %}
+                            <option value="{{head.id}}" selected>{{head.name}}</option>
+                        {% elif request.GET.agent_head == head.id|stringformat:"i" %}
+                           <option value="{{head.id}}" selected>{{head.name}}</option>
+                        {% else %}
+                            <option value="{{head.id}}">{{head.name}}</option>
+                        {% endif %}
 					{% endfor %}
 				</select>
 				<select class="SearchSelect" name="customer_program">
-					<option value="">Program</option>
-					<option value="k12">Secondary</option>
+					<option value="">Select Program</option>
+                {% if request.GET.customer_program  == 'k12' %}
+					<option value="k12" selected>Secondary</option>
 					<option value="college">College</option>
-					<option value="college">Camp</option>
+					<option value="camp">Camp</option>
+                {% elif request.GET.customer_program  == 'college' %}
+                    <option value="k12">Secondary</option>
+					<option value="college" selected>College</option>
+					<option value="camp">Camp</option>
+                {% elif request.GET.customer_program  == 'camp' %}
+                    <option value="k12">Secondary</option>
+					<option value="college">College</option>
+					<option value="camp" selected>Camp</option>
+                {% else %}
+                    <option value="k12" selected>Secondary</option>
+					<option value="college">College</option>
+					<option value="camp" selected>Camp</option>
+                {% endif %}
 				</select>
 				<select class="SearchSelect" name="customer_country">
-					<option value="">Country</option>
-					<option value="korea">Korea</option>
+					<option value="">Select Country</option>
+                {% if request.GET.customer_country  == 'korea' %}
+					<option value="korea" selected>Korea</option>
 					<option value="china">China</option>
 					<option value="vietnam">Vietnam</option>
+                {% elif request.GET.customer_country  == 'china' %}
+                    <option value="korea">Korea</option>
+					<option value="china" selected>China</option>
+					<option value="vietnam">Vietnam</option>
+                {% elif request.GET.customer_country  == 'vietnam' %}
+                    <option value="korea">Korea</option>
+					<option value="china">China</option>
+					<option value="vietnam" selected>Vietnam</option>
+                {% else %}
+                    <option value="korea">Korea</option>
+					<option value="china" selected>China</option>
+					<option value="vietnam">Vietnam</option>
+                {% endif %}
 				</select>
 				<select class="SearchSelect" name="customer_search_type">
-					<option value="name">Name</option>
+                {% if request.GET.customer_search_type  == 'name' %}
+					<option value="name" selected>Name</option>
 					<option value="phone">Phone</option>
 					<option value="email">E-mail</option>
+                {% elif request.GET.customer_search_type  == 'phone' %}
+                    <option value="name">Name</option>
+					<option value="phone" selected>Phone</option>
+					<option value="email">E-mail</option>
+                {% elif request.GET.customer_search_type  == 'email' %}
+                    <option value="name">Name</option>
+					<option value="phone">Phone</option>
+					<option value="email" selected>E-mail</option>
+                {% else %}
+                    <option value="name" selected>Name</option>
+					<option value="phone">Phone</option>
+					<option value="email">E-mail</option>
+                {% endif %}
 				</select>
 	        <input type="text" class="SearchInput" style="width:150px;" name="search_input"/>
 	        <button type="submit" class="ListSearchButton">Search</button>
