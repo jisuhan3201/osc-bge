@@ -71,7 +71,7 @@ class BranchStatisticsView(LoginRequiredMixin, View):
         found_branch.active_host = models.HostFamily.objects.filter(provider_branch=found_branch, status='active')
         found_branch.inactive_host = models.HostFamily.objects.filter(provider_branch=found_branch, status='inactive')
         found_branch.prospective_host = models.HostFamily.objects.filter(provider_branch=found_branch, status='prospective')
-        found_branch.current_students = student_models.Student.objects.filter(school__in=all_schools)
+        found_branch.current_students = student_models.Student.objects.filter(school__in=all_schools).exclude(status__in=['transferred', 'graduated', 'terminated'])
         #found_branch.complaints = (models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts).count() +
         #    student_models.StudentCommunicationLog.objects.filter(category='complaints', student__school__in=all_schools).count())
         found_branch.complaints = (
@@ -222,7 +222,7 @@ def branch_chart_statistics(request):
 
             if chart_type == 'partner':
                 schools = all_schools.filter(
-                    created_at__range=(sd, ed)
+                    created_at__lt=ed
                 ).count()
                 data.append(schools)
                 chart_name = 'Partner Schools'
@@ -231,7 +231,7 @@ def branch_chart_statistics(request):
                 hosts = models.HostFamily.objects.filter(
                     provider_branch=found_branch,
                     status="active",
-                    created_at__range=(sd, ed)).count()
+                    created_at__lt=ed).count()
                 data.append(hosts)
                 chart_name = 'Active Host Families'
 
@@ -239,7 +239,7 @@ def branch_chart_statistics(request):
                 hosts = models.HostFamily.objects.filter(
                     provider_branch=found_branch,
                     status="inactive",
-                    created_at__range=(sd, ed)).count()
+                    created_at__lt=ed).count()
                 data.append(hosts)
                 chart_name = 'Inactive Host Families'
 
@@ -247,7 +247,7 @@ def branch_chart_statistics(request):
                 hosts = models.HostFamily.objects.filter(
                     provider_branch=found_branch,
                     status="prospective",
-                    created_at__range=(sd, ed)).count()
+                    created_at__lt=ed).count()
                 data.append(hosts)
                 chart_name = 'Prospective Host Families'
 
@@ -255,23 +255,23 @@ def branch_chart_statistics(request):
                 #complaints = (models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts, created_at__range=(sd,ed)).count() +
                 #    student_models.StudentCommunicationLog.objects.filter(category='complaints', student__school__in=all_schools, created_at__range=(sd,ed)).count())
                 complaints = (models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts,
-                                                                     created_at__range=(sd, ed)).count())
+                                                                     created_at__lt=ed).count())
                 data.append(complaints)
                 chart_name = 'Complaints'
 
             else:
                 current_students = student_models.Student.objects.filter(
                     school__in=all_schools,
-                    created_at__range=(sd, ed),
-                ).count()
+                    created_at__lt=ed,
+                ).exclude(status__in=['transferred', 'graduated', 'terminated']).count()
                 data.append(current_students)
                 chart_name = 'Secondary School Monthly Current Students Information'
 
         else:
             current_students = student_models.Student.objects.filter(
                 school__in=all_schools,
-                created_at__range=(sd, ed),
-            ).count()
+                created_at__lt=ed,
+            ).exclude(status__in=['transferred', 'graduated', 'terminated']).count()
             data.append(current_students)
             chart_name = 'Secondary School Monthly Current Students Information'
 
