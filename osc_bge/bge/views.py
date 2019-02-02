@@ -236,34 +236,57 @@ class BgeStatisticsView(LoginRequiredMixin, View):
                 formality__counsel__counselor__agency__head=head,
                 i20_received_date__isnull=False)
 
-            if request.GET.get('year') and request.GET.get('start_month') and request.GET.get('end_month'):
-                start_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
-                end_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
-                end_date = end_date + relativedelta(months=1)
-            elif request.GET.get('year') and not request.GET.get('start_month') and request.GET.get('end_month'):
-                start_date = datetime.strptime(request.GET.get('year') + "-" + "09" + "-01", "%Y-%m-%d")
-                end_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
-                end_date = end_date + relativedelta(months=1)
-            elif request.GET.get('year') and request.GET.get('start_month') and not request.GET.get('end_month'):
-                start_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
-                end_date = None
-            elif request.GET.get('year') and not request.GET.get('start_month') and not request.GET.get('end_month'):
-                start_date = datetime.strptime(request.GET.get('year') + "-" + "09" + "-01", "%Y-%m-%d")
-                end_date = start_date + relativedelta(years=1)
-            elif not request.GET.get('year') and request.GET.get('start_month') and request.GET.get('end_month'):
-                start_date = datetime.strptime(str(now.year) + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
-                end_date = datetime.strptime(str(now.year) + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
-                end_date = end_date + relativedelta(months=1)
-            elif not request.GET.get('year') and request.GET.get('start_month') and not request.GET.get('end_month'):
-                start_date = datetime.strptime(str(now.year) + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
-                end_date = None
-            elif not request.GET.get('year') and not request.GET.get('start_month') and request.GET.get('end_month'):
-                start_date = datetime.strptime(str(now.year) + "-" + str(now.month) + "-01", "%Y-%m-%d")
-                end_date = datetime.strptime(str(now.year) + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
-                end_date = end_date + relativedelta(months=1)
+            month_value = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+            month_name = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+            if not request.GET.get('year'):
+                start_year = str(datetime.today().year)
+                end_year = str(datetime.today().year)
             else:
-                start_date = None
-                end_date= None
+                start_year = request.GET.get('year')
+                end_year = request.GET.get('year')
+
+            if not request.GET.get('start_month') and not request.GET.get('end_month'):
+                start_month = 'Sep'
+                end_month = 'Aug'
+            elif not request.GET.get('start_month'):
+                end_month = request.GET.get('end_month')
+                start_month = end_month
+            elif not request.GET.get('end_month'):
+                start_month = request.GET.get('start_month')
+                end_month = start_month
+            else:
+                start_month = request.GET.get('start_month')
+                end_month = request.GET.get('end_month')
+
+            start_year_num = int(start_year)
+            end_year_num = int(end_year)
+            start_month_num = month_value[month_name.index(start_month)]
+            end_month_num = month_value[month_name.index(end_month)]
+
+            if 1 <= start_month_num <= 8:
+                if 9 <= end_month_num <= 12:
+                    end_month_num = start_month_num
+                else:
+                    if start_month_num > end_month_num:
+                        end_month_num = start_month_num
+
+                start_year_num += 1
+                end_year_num += 1
+
+            else:
+                if 1 <= end_month_num <= 8:
+                    end_year_num += 1
+                else:
+                    if start_month_num > end_month_num:
+                        end_month_num = start_month_num
+
+            start_month = month_name[month_value.index(start_month_num)]
+            end_month = month_name[month_value.index(end_month_num)]
+
+            start_date = datetime.strptime(str(start_year_num) + "-" + start_month + "-01", "%Y-%b-%d")
+            end_date = datetime.strptime(str(end_year_num) + "-" + end_month + "-01", "%Y-%b-%d")
+            end_date = end_date + relativedelta(months=1)
 
             if start_date:
                 inquired = inquired.filter(created_at__gte=start_date)
@@ -530,64 +553,82 @@ class BranchesView(LoginRequiredMixin, View):
             student_complaints_1 = branch_models.CommunicationLog.objects.filter(host__in=branch_hosts, category='Complaints')
             student_complaints_2 = student_models.StudentCommunicationLog.objects.filter(category='complaints', student__school__in=partner_school)
 
+            month_value = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+            month_name = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-            if request.GET.get('year') or request.GET.get('start_month') or request.GET.get('end_month'):
+            if not request.GET.get('year'):
+                start_year = str(datetime.today().year)
+                end_year = str(datetime.today().year)
+            else:
+                start_year = request.GET.get('year')
+                end_year = request.GET.get('year')
 
-                if request.GET.get('year') and request.GET.get('start_month') and request.GET.get('end_month'):
-                    start_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
-                    end_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
-                    end_date = end_date + relativedelta(months=1)
-                elif request.GET.get('year') and not request.GET.get('start_month') and request.GET.get('end_month'):
-                    start_date = datetime.strptime(request.GET.get('year') + "-" + "09" + "-01", "%Y-%m-%d")
-                    end_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
-                    end_date = end_date + relativedelta(months=1)
-                elif request.GET.get('year') and request.GET.get('start_month') and not request.GET.get('end_month'):
-                    start_date = datetime.strptime(request.GET.get('year') + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
-                    end_date = None
-                elif request.GET.get('year') and not request.GET.get('start_month') and not request.GET.get('end_month'):
-                    start_date = datetime.strptime(request.GET.get('year') + "-" + "09" + "-01", "%Y-%m-%d")
-                    end_date = start_date + relativedelta(years=1)
-                elif not request.GET.get('year') and request.GET.get('start_month') and request.GET.get('end_month'):
-                    start_date = datetime.strptime(str(now.year) + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
-                    end_date = datetime.strptime(str(now.year) + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
-                    end_date = end_date + relativedelta(months=1)
-                elif not request.GET.get('year') and request.GET.get('start_month') and not request.GET.get('end_month'):
-                    start_date = datetime.strptime(str(now.year) + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
-                    end_date = None
-                elif not request.GET.get('year') and not request.GET.get('start_month') and request.GET.get('end_month'):
-                    start_date = datetime.strptime(str(now.year) + "-" + str(now.month) + "-01", "%Y-%m-%d")
-                    end_date = datetime.strptime(str(now.year) + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
-                    end_date = end_date + relativedelta(months=1)
+            if not request.GET.get('start_month') and not request.GET.get('end_month'):
+                start_month = 'Sep'
+                end_month = 'Aug'
+            elif not request.GET.get('start_month'):
+                end_month = request.GET.get('end_month')
+                start_month = end_month
+            elif not request.GET.get('end_month'):
+                start_month = request.GET.get('start_month')
+                end_month = start_month
+            else:
+                start_month = request.GET.get('start_month')
+                end_month = request.GET.get('end_month')
+
+            start_year_num = int(start_year)
+            end_year_num = int(end_year)
+            start_month_num = month_value[month_name.index(start_month)]
+            end_month_num = month_value[month_name.index(end_month)]
+
+            if 1 <= start_month_num <= 8:
+                if 9 <= end_month_num <= 12:
+                    end_month_num = start_month_num
                 else:
-                    start_date = None
-                    end_date= None
+                    if start_month_num > end_month_num:
+                        end_month_num = start_month_num
 
-                if start_date:
-                    partner_school = partner_school.filter(created_at__gte=start_date)
-                    active_hosts = active_hosts.filter(created_at__gte=start_date)
-                    inactive_hosts = inactive_hosts.filter(created_at__gte=start_date)
-                    prospective_hosts = prospective_hosts.filter(created_at__gte=start_date)
-                    current_student = current_student.filter(created_at__gte=start_date)
-                    student_complaints_1 = student_complaints_1.filter(created_at__gte=start_date)
-                    student_complaints_2 = student_complaints_2.filter(created_at__gte=start_date)
+                start_year_num += 1
+                end_year_num += 1
 
+            else:
+                if 1 <= end_month_num <= 8:
+                    end_year_num += 1
+                else:
+                    if start_month_num > end_month_num:
+                        end_month_num = start_month_num
 
-                if end_date:
-                    partner_school = partner_school.filter(created_at__lt=end_date)
-                    active_hosts = active_hosts.filter(created_at__lt=end_date)
-                    inactive_hosts = inactive_hosts.filter(created_at__lt=end_date)
-                    prospective_hosts = prospective_hosts.filter(created_at__lt=end_date)
-                    current_student = current_student.filter(created_at__lt=end_date)
-                    student_complaints_1 = student_complaints_1.filter(created_at__lt=end_date)
-                    student_complaints_2 = student_complaints_2.filter(created_at__lt=end_date)
-                    
+            start_month = month_name[month_value.index(start_month_num)]
+            end_month = month_name[month_value.index(end_month_num)]
+
+            start_date = datetime.strptime(str(start_year_num) + "-" + start_month + "-01", "%Y-%b-%d")
+            end_date = datetime.strptime(str(end_year_num) + "-" + end_month + "-01", "%Y-%b-%d")
+            end_date = end_date + relativedelta(months=1)
+
+            if start_date:
+                partner_school = partner_school.all() #.filter(created_at__gte=start_date)
+                active_hosts = active_hosts.filter(created_at__gte=start_date)
+                inactive_hosts = inactive_hosts.filter(created_at__gte=start_date)
+                prospective_hosts = prospective_hosts.filter(created_at__gte=start_date)
+                current_student = current_student.filter(created_at__gte=start_date)
+                student_complaints_1 = student_complaints_1.filter(created_at__gte=start_date)
+                #student_complaints_2 = student_complaints_2.filter(created_at__gte=start_date)
+
+            if end_date:
+                partner_school = partner_school.all() # .filter(created_at__lt=end_date)
+                active_hosts = active_hosts.filter(created_at__lt=end_date)
+                inactive_hosts = inactive_hosts.filter(created_at__lt=end_date)
+                prospective_hosts = prospective_hosts.filter(created_at__lt=end_date)
+                current_student = current_student.filter(created_at__lt=end_date)
+                student_complaints_1 = student_complaints_1.filter(created_at__lt=end_date)
+                #student_complaints_2 = student_complaints_2.filter(created_at__lt=end_date)
 
             branch.partner_school = partner_school.count()
             branch.active_hosts = active_hosts.count()
             branch.inactive_hosts = inactive_hosts.count()
             branch.prospective_hosts = prospective_hosts.count()
             branch.current_student = current_student.count()
-            branch.student_complaints = student_complaints_1.count() + student_complaints_2.count()
+            branch.student_complaints = student_complaints_1.count() #+ student_complaints_2.count()
 
         return render(request, 'main/branches.html', {
             'all_branches':all_branches,

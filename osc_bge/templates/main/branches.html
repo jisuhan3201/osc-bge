@@ -43,7 +43,7 @@
 				<option >Dec</option>
 			</select>
 			&nbsp;&nbsp;
-			<select class="SearchSelect" name="year">
+			<select class="SearchSelect" name="year" required>
 				<option value="">Select year..</option>
 				{% for year in year_list %}
 				<option value="{{year}}">{{year}} ~ {{year|add:1}} year</option>
@@ -83,6 +83,8 @@
 		<div class="EndPart"></div>
 
 		<script>
+            var select = document.getElementById('item_name');
+
 			$.ajax({                       // initialize an AJAX request
 			  url: "/charts/branches/statistics",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
 			  success: function (data) {   // `data` is the return of the `load_cities` view function

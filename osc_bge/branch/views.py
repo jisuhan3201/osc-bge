@@ -77,34 +77,57 @@ class BranchStatisticsView(LoginRequiredMixin, View):
 
         if request.GET.get('form_type'):
 
-            if request.GET.get('year') and request.GET.get('start_month') and request.GET.get('end_month'):
-                start_date = datetime.datetime.strptime(request.GET.get('year') + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
-                end_date = datetime.datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
-                end_date = end_date + relativedelta.relativedelta(months=1)
-            elif request.GET.get('year') and not request.GET.get('start_month') and request.GET.get('end_month'):
-                start_date = datetime.datetime.strptime(request.GET.get('year') + "-" + "09" + "-01", "%Y-%m-%d")
-                end_date = datetime.datetime.strptime(request.GET.get('year') + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
-                end_date = end_date + relativedelta.relativedelta(months=1)
-            elif request.GET.get('year') and request.GET.get('start_month') and not request.GET.get('end_month'):
-                start_date = datetime.datetime.strptime(request.GET.get('year') + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
-                end_date = None
-            elif request.GET.get('year') and not request.GET.get('start_month') and not request.GET.get('end_month'):
-                start_date = datetime.datetime.strptime(request.GET.get('year') + "-" + "09" + "-01", "%Y-%m-%d")
-                end_date = start_date + relativedelta.relativedelta(years=1)
-            elif not request.GET.get('year') and request.GET.get('start_month') and request.GET.get('end_month'):
-                start_date = datetime.datetime.strptime(str(now.year) + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
-                end_date = datetime.datetime.strptime(str(now.year) + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
-                end_date = end_date + relativedelta.relativedelta(months=1)
-            elif not request.GET.get('year') and request.GET.get('start_month') and not request.GET.get('end_month'):
-                start_date = datetime.datetime.strptime(str(now.year) + "-" + request.GET.get('start_month') + "-01", "%Y-%b-%d")
-                end_date = None
-            elif not request.GET.get('year') and not request.GET.get('start_month') and request.GET.get('end_month'):
-                start_date = datetime.datetime.strptime(str(now.year) + "-" + str(now.month) + "-01", "%Y-%m-%d")
-                end_date = datetime.datetime.strptime(str(now.year) + "-" + request.GET.get('end_month') + "-01", "%Y-%b-%d")
-                end_date = end_date + relativedelta.relativedelta(months=1)
-            else:
-                end_date= None
+            month_value = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+            month_name = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
+            if not request.GET.get('year'):
+                start_year = str(datetime.today().year)
+                end_year = str(datetime.today().year)
+            else:
+                start_year = request.GET.get('year')
+                end_year = request.GET.get('year')
+
+            if not request.GET.get('start_month') and not request.GET.get('end_month'):
+                start_month = 'Sep'
+                end_month = 'Aug'
+            elif not request.GET.get('start_month'):
+                end_month = request.GET.get('end_month')
+                start_month = end_month
+            elif not request.GET.get('end_month'):
+                start_month = request.GET.get('start_month')
+                end_month = start_month
+            else:
+                start_month = request.GET.get('start_month')
+                end_month = request.GET.get('end_month')
+
+            start_year_num = int(start_year)
+            end_year_num = int(end_year)
+            start_month_num = month_value[month_name.index(start_month)]
+            end_month_num = month_value[month_name.index(end_month)]
+
+            if 1 <= start_month_num <= 8:
+                if 9 <= end_month_num <= 12:
+                    end_month_num = start_month_num
+                else:
+                    if start_month_num > end_month_num:
+                        end_month_num = start_month_num
+
+                start_year_num += 1
+                end_year_num += 1
+
+            else:
+                if 1 <= end_month_num <= 8:
+                    end_year_num += 1
+                else:
+                    if start_month_num > end_month_num:
+                        end_month_num = start_month_num
+
+            start_month = month_name[month_value.index(start_month_num)]
+            end_month = month_name[month_value.index(end_month_num)]
+
+            start_date = datetime.datetime.strptime(str(start_year_num) + "-" + start_month + "-01", "%Y-%b-%d")
+            end_date = datetime.datetime.strptime(str(end_year_num) + "-" + end_month + "-01", "%Y-%b-%d")
+            end_date = end_date + relativedelta.relativedelta(months=1)
 
             if request.GET.get('form_type') == 'applied_form':
                 applied_students = form_models.Counsel.objects.filter(
@@ -130,23 +153,30 @@ class BranchStatisticsView(LoginRequiredMixin, View):
                         acceptance_date__lt=end_date).order_by('-acceptance_date')
 
             else:
-                found_branch.school_count = found_branch.school_count.filter(created_at__gte=start_date)
+                found_branch.school_count = found_branch.school_count.all () #filter(created_at__gte=start_date)
                 found_branch.active_host = found_branch.active_host.filter(created_at__gte=start_date)
                 found_branch.inactive_host = found_branch.inactive_host.filter(created_at__gte=start_date)
                 found_branch.prospective_host = found_branch.prospective_host.filter(created_at__gte=start_date)
                 found_branch.current_students = found_branch.current_students.filter(created_at__gte=start_date)
-                found_branch.complaints = (models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts, created_at__gte=start_date).count() +
-                    student_models.StudentCommunicationLog.objects.filter(category='complaints', student__school__in=all_schools, created_at__gte=start_date).count())
+                #found_branch.complaints = (models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts, created_at__gte=start_date).count() +
+                #    student_models.StudentCommunicationLog.objects.filter(category='complaints', student__school__in=all_schools, created_at__gte=start_date).count())
+                found_branch.complaints = (
+                    models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts,
+                                                           created_at__gte=start_date).count())
 
 
                 if end_date:
-                    found_branch.school_count = found_branch.school_count.filter(created_at__lt=end_date)
+                    found_branch.school_count = found_branch.school_count.all() #filter(created_at__lt=end_date)
                     found_branch.active_host = found_branch.active_host.filter(created_at__lt=end_date)
                     found_branch.inactive_host = found_branch.inactive_host.filter(created_at__lt=end_date)
                     found_branch.prospective_host = found_branch.prospective_host.filter(created_at__lt=end_date)
-                    found_branch.current_students = found_branch.current_students.filter(created_at__lt=end_date)
-                    found_branch.complaints = (models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts, created_at__gte=start_date, created_at__lt=end_date).count() +
-                        student_models.StudentCommunicationLog.objects.filter(category='complaints', student__school__in=all_schools, created_at__gte=start_date, created_at__lt=end_date).count())
+                    found_branch.current_students = found_branch.current_students.all() #filter(created_at__lt=end_date)
+                    #found_branch.complaints = (models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts, created_at__gte=start_date, created_at__lt=end_date).count() +
+                    #    student_models.StudentCommunicationLog.objects.filter(category='complaints', student__school__in=all_schools, created_at__gte=start_date, created_at__lt=end_date).count())
+                    found_branch.complaints = (
+                        models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts,
+                                                               created_at__gte=start_date,
+                                                               created_at__lt=end_date).count())
 
         found_branch.school_count = found_branch.school_count.count()
         found_branch.active_host = found_branch.active_host.count()
@@ -220,8 +250,10 @@ def branch_chart_statistics(request):
                 chart_name = 'Prospective Host Families'
 
             elif chart_type == 'student_complaints':
-                complaints = (models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts, created_at__range=(sd,ed)).count() +
-                    student_models.StudentCommunicationLog.objects.filter(category='complaints', student__school__in=all_schools, created_at__range=(sd,ed)).count())
+                #complaints = (models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts, created_at__range=(sd,ed)).count() +
+                #    student_models.StudentCommunicationLog.objects.filter(category='complaints', student__school__in=all_schools, created_at__range=(sd,ed)).count())
+                complaints = (models.CommunicationLog.objects.filter(category='complaints', host__in=all_hosts,
+                                                                     created_at__range=(sd, ed)).count())
                 data.append(complaints)
                 chart_name = 'Complaints'
 

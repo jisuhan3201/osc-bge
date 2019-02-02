@@ -46,7 +46,7 @@
 						<option >Dec</option>
 					</select>
 					&nbsp;&nbsp;
-					<select class="SearchSelect" name="year">
+					<select class="SearchSelect" name="year" required>
 						<option value="">Select year..</option>
 						{% for year in year_list %}
 						<option value="{{year}}">{{year}} ~ {{year|add:1}} year</option>
@@ -119,7 +119,7 @@
 						<option >Dec</option>
 					</select>
 					&nbsp;&nbsp;
-					<select class="SearchSelect" name="year">
+					<select class="SearchSelect" name="year" required>
 						<option value="">Select year..</option>
 						{% for year in year_list %}
 						<option value="{{year}}">{{year}} ~ {{year|add:1}} year</option>
@@ -192,7 +192,7 @@
 					<option >Dec</option>
 				</select>
 				&nbsp;&nbsp;
-				<select class="SearchSelect" name="year">
+				<select class="SearchSelect" name="year" required>
 					<option value="">Select year..</option>
 					{% for year in year_list %}
 					<option value="{{year}}">{{year}} ~ {{year|add:1}} year</option>
