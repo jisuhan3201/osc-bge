@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load common_tags %}
 {% block content %}
 <div class="ContentsFrame">
 	{% if request.user.type == 'counselor' %}
@@ -414,43 +415,43 @@
 				<tr>
 					<th>College Type : </th>
 					<td>
-						<label><input type="checkbox" name="partition" value="public" /><span></span>Public College</label>
-						<label><input type="checkbox" name="partition" value="private"/><span></span>Private College</label>
+						<label><input type="checkbox" name="partition" value="public" {% if 'public' in request.GET|get_list:"partition" %}checked{% endif %}/><span></span>Public College</label>
+						<label><input type="checkbox" name="partition" value="private" {% if 'private' in request.GET|get_list:"partition" %}checked{% endif %}/><span></span>Private College</label>
 					</td>
 				</tr>
 				<tr>
 					<th>TOEFL Requirement : </th>
 					<td colspan="3">
-						<label><input type="checkbox" name="toefl_requirement" value="60"/><span></span>less than 60</label>
-						<label><input type="checkbox" name="toefl_requirement" value="80"/><span></span>less than 80</label>
-						<label><input type="checkbox" name="toefl_requirement" value="99"/><span></span>less than 100</label>
-						<label><input type="checkbox" name="toefl_requirement" value="100"/><span></span>over 100</label>
+						<label><input type="checkbox" name="toefl_requirement" value="60" {% if '60' in request.GET|get_list:"toefl_requirement" %}checked{% endif %}/><span></span>Less Than 60</label>
+						<label><input type="checkbox" name="toefl_requirement" value="80" {% if '80' in request.GET|get_list:"toefl_requirement" %}checked{% endif %}/><span></span>Less Than 80</label>
+						<label><input type="checkbox" name="toefl_requirement" value="99" {% if '99' in request.GET|get_list:"toefl_requirement" %}checked{% endif %}/><span></span>Less Than 100</label>
+						<label><input type="checkbox" name="toefl_requirement" value="100" {% if '100' in request.GET|get_list:"toefl_requirement" %}checked{% endif %}/><span></span>Over 100</label>
 					</td>
 				</tr>
 				<tr>
 					<th>Location : </th>
 					<td>
-						<label><input type="checkbox" name="state" value="ne"/><span></span>Northeast</label>
-						<label><input type="checkbox" name="state" value="se"/><span></span>Southeast</label>
-						<label><input type="checkbox" name="state" value="mw"/><span></span>Midwest</label>
-						<label><input type="checkbox" name="state" value="w"/><span></span>West</label>
+						<label><input type="checkbox" name="state" value="ne" {% if 'ne' in request.GET|get_list:"state" %}checked{% endif %}/><span></span>Northeast</label>
+						<label><input type="checkbox" name="state" value="se" {% if 'se' in request.GET|get_list:"state" %}checked{% endif %}/><span></span>Southeast</label>
+						<label><input type="checkbox" name="state" value="mw" {% if 'mw' in request.GET|get_list:"state" %}checked{% endif %}/><span></span>Midwest</label>
+						<label><input type="checkbox" name="state" value="w" {% if 'w' in request.GET|get_list:"state" %}checked{% endif %}/><span></span>West</label>
 					</td>
 				</tr>
 				<tr>
 					<th>National Universities  : </th>
 					<td colspan="3">
-						<label><input type="checkbox" name="school_type" value="es" /><span></span>Top Engineering school </label>
-						<label><input type="checkbox" name="school_type" value="bs" /><span></span>Top Business school </label>
-						<label><input type="checkbox" name="school_type" value="as" /><span></span>Top Art school </label>
-						<label><input type="checkbox" name="school_type" value="ss" /><span></span>Top Science school</label>
+						<label><input type="checkbox" name="school_type" value="es" {% if 'es' in request.GET|get_list:"school_type" %}checked{% endif %}/><span></span>Top Engineering School </label>
+						<label><input type="checkbox" name="school_type" value="bs" {% if 'bs' in request.GET|get_list:"school_type" %}checked{% endif %}/><span></span>Top Business School </label>
+						<label><input type="checkbox" name="school_type" value="as" {% if 'as' in request.GET|get_list:"school_type" %}checked{% endif %}/><span></span>Top Art School </label>
+						<label><input type="checkbox" name="school_type" value="ss" {% if 'ss' in request.GET|get_list:"school_type" %}checked{% endif %}/><span></span>Top Science School</label>
 					</td>
 				</tr>
 				<tr>
 					<th> </th>
 					<td colspan="3">
-						<label><input type="checkbox" name="school_type" value="lac" /><span></span>Liberal Arts Colleges </label>
-						<label><input type="checkbox" name="school_type" value="lc" /><span></span>Local colleges </label>
-						<label><input type="checkbox" name="school_type" value="pu" /><span></span>Pathway Universities</label>
+						<label><input type="checkbox" name="school_type" value="lac" {% if 'lac' in request.GET|get_list:"school_type" %}checked{% endif %}/><span></span>Liberal Arts Colleges </label>
+						<label><input type="checkbox" name="school_type" value="lc" {% if 'lc' in request.GET|get_list:"school_type" %}checked{% endif %}/><span></span>Local colleges </label>
+						<label><input type="checkbox" name="school_type" value="pu" {% if 'pu' in request.GET|get_list:"school_type" %}checked{% endif %}/><span></span>Pathway Universities</label>
 					</td>
 				</tr>
 			</table>
@@ -466,11 +467,15 @@
 					<input type="text" name="form_type" value="college_name_form" hidden>
 					<div>
 					Search by School Name :
-					 <input id="school_textbox" type="text" class="SearchInput" style="width:300px;" name="school_name"/>
+					    <input id="school_textbox" type="text" class="SearchInput" style="width:300px;" name="school_name" value="{{request.GET.school_name}}"/>
 						<select class="SearchSelect" id="school_name" name="school_id">
 							<option value="">Select School..</option>
 							{% for college in colleges %}
-								<option value="{{college.id}}">{{college.school.name}}</option>
+                                {% if request.GET.school_id  == college.id|stringformat:"i" %}
+                                    <option value="{{college.id}}" selected>{{college.school.name}}</option>
+                                {% else %}
+                                    <option value="{{college.id}}">{{college.school.name}}</option>
+                                {% endif %}
 							{% endfor %}
 						</select>
 						<button type="submit" class="ListSearchButton">Search</button>
@@ -525,75 +530,75 @@
 					<tr>
 						<th>School Type : </th>
 						<td>
-							<label><input type="checkbox" name="school_type" value="college_prep"/><span></span>College Prep</label>
-							<label><input type="checkbox" name="school_type" value="day"/><span></span>Day</label>
-							<label><input type="checkbox" name="school_type" value="boarding"/><span></span>Boarding</label>
+							<label><input type="checkbox" name="school_type" value="college_prep" {% if 'college_prep' in request.GET|get_list:"school_type" %}checked{% endif %}/><span></span>College Prep</label>
+							<label><input type="checkbox" name="school_type" value="day" {% if 'day' in request.GET|get_list:"school_type" %}checked{% endif %}/><span></span>Day</label>
+							<label><input type="checkbox" name="school_type" value="boarding" {% if 'boarding' in request.GET|get_list:"school_type" %}checked{% endif %}/><span></span>Boarding</label>
 						</td>
 						<th>School Body : </th>
 						<td>
-							<label><input type="checkbox" name="student_body" value="coed"/><span></span>Co-ed</label>
-							<label><input type="checkbox" name="student_body" value="boys"/><span></span>Boy</label>
-							<label><input type="checkbox" name="student_body" value="girls"/><span></span>Girl</label>
+							<label><input type="checkbox" name="student_body" value="coed" {% if 'coed' in request.GET|get_list:"student_body" %}checked{% endif %}/><span></span>Co-ed</label>
+							<label><input type="checkbox" name="student_body" value="boys" {% if 'boys' in request.GET|get_list:"student_body" %}checked{% endif %}/><span></span>Boy</label>
+							<label><input type="checkbox" name="student_body" value="girls" {% if 'girls' in request.GET|get_list:"student_body" %}checked{% endif %}/><span></span>Girl</label>
 						</td>
 					</tr>
 					<tr>
 						<th>Grade : </th>
 						<td>
-							<label><input type="checkbox" name="grade" value="7"/><span></span>7</label>
-							<label><input type="checkbox" name="grade" value="8"/><span></span>8</label>
-							<label><input type="checkbox" name="grade" value="9"/><span></span>9</label>
-							<label><input type="checkbox" name="grade" value="10"/><span></span>10</label>
-							<label><input type="checkbox" name="grade" value="11"/><span></span>11</label>
-							<label><input type="checkbox" name="grade" value="12"/><span></span>12</label>
+							<label><input type="checkbox" name="grade" value="7" {% if '7' in request.GET|get_list:"grade" %}checked{% endif %}/><span></span>7</label>
+							<label><input type="checkbox" name="grade" value="8" {% if '8' in request.GET|get_list:"grade" %}checked{% endif %}/><span></span>8</label>
+							<label><input type="checkbox" name="grade" value="9" {% if '9' in request.GET|get_list:"grade" %}checked{% endif %}/><span></span>9</label>
+							<label><input type="checkbox" name="grade" value="10" {% if '10' in request.GET|get_list:"grade" %}checked{% endif %}/><span></span>10</label>
+							<label><input type="checkbox" name="grade" value="11" {% if '11' in request.GET|get_list:"grade" %}checked{% endif %}/><span></span>11</label>
+							<label><input type="checkbox" name="grade" value="12" {% if '12' in request.GET|get_list:"grade" %}checked{% endif %}/><span></span>12</label>
 						</td>
 						<th>Term : </th>
 						<td>
-							<label><input type="checkbox" name="term" value="fall"/><span></span>Fall</label>
-							<label><input type="checkbox" name="term" value="spring"/><span></span>Spring</label>
+							<label><input type="checkbox" name="term" value="fall" {% if 'fall' in request.GET|get_list:"term" %}checked{% endif %}/><span></span>Fall</label>
+							<label><input type="checkbox" name="term" value="spring" {% if 'spring' in request.GET|get_list:"term" %}checked{% endif %}/><span></span>Spring</label>
 						</td>
 					</tr>
 					<tr>
 						<th>TOEFL Requirement : </th>
 						<td colspan="3">
-							<label><input type="checkbox" name="toefl_requirement" value="0"/><span></span>None</label>
-							<label><input type="checkbox" name="toefl_requirement" value="55"/><span></span>55 or Less</label>
-							<label><input type="checkbox" name="toefl_requirement" value="70"/><span></span>70 or Less</label>
-							<label><input type="checkbox" name="toefl_requirement" value="80"/><span></span>80 or Less</label>
-							<label><input type="checkbox" name="toefl_requirement" value="99"/><span></span>99 or Less</label>
-							<label><input type="checkbox" name="toefl_requirement" value="100"/><span></span>100 or Over</label>
+							<label><input type="checkbox" name="toefl_requirement" value="0" {% if '0' in request.GET|get_list:"toefl_requirement" %}checked{% endif %}/><span></span>None</label>
+							<label><input type="checkbox" name="toefl_requirement" value="55" {% if '55' in request.GET|get_list:"toefl_requirement" %}checked{% endif %}/><span></span>55 or Less</label>
+							<label><input type="checkbox" name="toefl_requirement" value="70" {% if '70' in request.GET|get_list:"toefl_requirement" %}checked{% endif %}/><span></span>70 or Less</label>
+							<label><input type="checkbox" name="toefl_requirement" value="80" {% if '80' in request.GET|get_list:"toefl_requirement" %}checked{% endif %}/><span></span>80 or Less</label>
+							<label><input type="checkbox" name="toefl_requirement" value="99" {% if '99' in request.GET|get_list:"toefl_requirement" %}checked{% endif %}/><span></span>99 or Less</label>
+							<label><input type="checkbox" name="toefl_requirement" value="100" {% if '100' in request.GET|get_list:"toefl_requirement" %}checked{% endif %}/><span></span>100 or Over</label>
 						</td>
 					</tr>
 					<tr>
 						<th>Location : </th>
 						<td>
-							<label><input type="checkbox" name="state" value="ma"/><span></span>MA</label>
-							<label><input type="checkbox" name="state" value="ct"/><span></span>CT</label>
-							<label><input type="checkbox" name="state" value="nj"/><span></span>NJ</label>
-							<label><input type="checkbox" name="state" value="pa"/><span></span>PA</label>
-							<label><input type="checkbox" name="state" value="dc"/><span></span>DC</label>
-							<label><input type="checkbox" name="state" value="ca"/><span></span>CA</label>
-							<label><input type="checkbox" name="state" value="fl"/><span></span>FL</label>
-							<label><input type="checkbox" name="state" value="tx"/><span></span>TX</label>
-							<label><input type="checkbox" name="state" value="others"/><span></span>Others</label>
+							<label><input type="checkbox" name="state" value="ma" {% if 'ma' in request.GET|get_list:"state" %}checked{% endif %}/><span></span>MA</label>
+							<label><input type="checkbox" name="state" value="ct" {% if 'ct' in request.GET|get_list:"state" %}checked{% endif %}/><span></span>CT</label>
+							<label><input type="checkbox" name="state" value="nj" {% if 'nj' in request.GET|get_list:"state" %}checked{% endif %}/><span></span>NJ</label>
+							<label><input type="checkbox" name="state" value="pa" {% if 'pa' in request.GET|get_list:"state" %}checked{% endif %}/><span></span>PA</label>
+							<label><input type="checkbox" name="state" value="dc" {% if 'dc' in request.GET|get_list:"state" %}checked{% endif %}/><span></span>DC</label>
+							<label><input type="checkbox" name="state" value="ca" {% if 'ca' in request.GET|get_list:"state" %}checked{% endif %}/><span></span>CA</label>
+							<label><input type="checkbox" name="state" value="fl" {% if 'fl' in request.GET|get_list:"state" %}checked{% endif %}/><span></span>FL</label>
+							<label><input type="checkbox" name="state" value="tx" {% if 'tx' in request.GET|get_list:"state" %}checked{% endif %}/><span></span>TX</label>
+							<label><input type="checkbox" name="state" value="others" {% if 'others' in request.GET|get_list:"state" %}checked{% endif %}/><span></span>Others</label>
 						</td>
 						<th>Transfer : </th>
 						<td>
-							<label><input type="checkbox" name="transfer"/><span></span>Transfer student</label>
+							<label><input type="checkbox" name="transfer" value="transfer" {% if 'transfer' in request.GET|get_list:"transfer" %}checked{% endif %}/><span></span>Transfer Student</label>
 						</td>
 					</tr>
 					<tr>
 						<th>School Size : </th>
 						<td>
-							<label><input type="checkbox" name="number_students" value="s"/><span></span>Small ~299</label>
-							<label><input type="checkbox" name="number_students" value="m"/><span></span>Medium 300~699</label>
-							<label><input type="checkbox" name="number_students" value="l"/><span></span>Large 700~</label>
+							<label><input type="checkbox" name="number_students" value="s" {% if 's' in request.GET|get_list:"number_students" %}checked{% endif %}/><span></span>Small ~299</label>
+							<label><input type="checkbox" name="number_students" value="m" {% if 'm' in request.GET|get_list:"number_students" %}checked{% endif %}/><span></span>Medium 300~699</label>
+							<label><input type="checkbox" name="number_students" value="l" {% if 'l' in request.GET|get_list:"number_students" %}checked{% endif %}/><span></span>Large 700~</label>
 						</td>
 						<th>Program Fee : </th>
 						<td>
-							<label><input type="checkbox" name="program_fee" value="xs"/><span></span>$35,000 or Less</label>
-							<label><input type="checkbox" name="program_fee" value="s"/><span></span>$45,000 or Less</label>
-							<label><input type="checkbox" name="program_fee" value="m"/><span></span>$60,000 or Less</label>
-							<label><input type="checkbox" name="program_fee" value="l"/><span></span>$60,000 or Over</label>
+							<label><input type="checkbox" name="program_fee" value="xs" {% if 'xs' in request.GET|get_list:"program_fee" %}checked{% endif %}/><span></span>$35,000 or Less</label>
+							<label><input type="checkbox" name="program_fee" value="s" {% if 's' in request.GET|get_list:"program_fee" %}checked{% endif %}/><span></span>$45,000 or Less</label>
+							<label><input type="checkbox" name="program_fee" value="m" {% if 'm' in request.GET|get_list:"program_fee" %}checked{% endif %}/><span></span>$60,000 or Less</label>
+							<label><input type="checkbox" name="program_fee" value="l" {% if 'l' in request.GET|get_list:"program_fee" %}checked{% endif %}/><span></span>$60,000 or Over</label>
 						</td>
 					</tr>
 				</table>
@@ -609,11 +614,15 @@
 					<input type="text" name="form_type" value="name_form" hidden>
 					<div>
 					Search by School Name :
-	         <input id="school_textbox" type="text" class="SearchInput" style="width:300px;" name="school_name"/>
+	                    <input id="school_textbox" type="text" class="SearchInput" style="width:300px;" name="school_name" value="{{request.GET.school_name}}"/>
 						<select class="SearchSelect" id="school_name" name="school_id">
-							<option value="">Select School..</option>
+							<option value="">Select School</option>
 							{% for secondary in secondaries %}
-								<option value="{{secondary.school.id}}">{{secondary.school.name}}</option>
+                                {% if request.GET.school_id  == secondary.school.id|stringformat:"i" %}
+                                    <option value="{{secondary.school.id}}" selected>{{secondary.school.name}}</option>
+                                {% else %}
+                                    <option value="{{secondary.school.id}}">{{secondary.school.name}}</option>
+                                {% endif %}
 							{% endfor %}
 						</select>
 						<button type="submit" class="ListSearchButton">Search</button>

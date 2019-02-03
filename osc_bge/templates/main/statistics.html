@@ -673,7 +673,7 @@
 					<option value="email">E-mail</option>
                 {% endif %}
 				</select>
-	        <input type="text" class="SearchInput" style="width:150px;" name="search_input"/>
+	        <input type="text" class="SearchInput" style="width:150px;" name="search_input" value="{{request.GET.search_input}}"/>
 	        <button type="submit" class="ListSearchButton">Search</button>
 				</div>
 			</form>

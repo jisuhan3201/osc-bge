@@ -398,11 +398,15 @@
 					<input type="text" name="form_type" value="name_form" hidden>
 					<div>
 					Search by School Name :
-	         <input id="school_textbox" type="text" class="SearchInput" style="width:300px;" name="school_name"/>
+	                    <input id="school_textbox" type="text" class="SearchInput" style="width:300px;" name="school_name" value="{{request.GET.school_name}}"/>
 						<select class="SearchSelect" id="school_name" name="school_id">
-							<option value="">Select School..</option>
+							<option value="">Select School</option>
 							{% for secondary in secondaries %}
-								<option value="{{secondary.id}}">{{secondary.school.name}}</option>
+                                {% if request.GET.school_id  == secondary.id|stringformat:"i" %}
+                                    <option value="{{secondary.id}}" selected>{{secondary.school.name}}</option>
+                                {% else %}
+                                    <option value="{{secondary.id}}">{{secondary.school.name}}</option>
+                                {% endif %}
 							{% endfor %}
 						</select>
 						<button type="submit" class="ListSearchButton">Search</button>
