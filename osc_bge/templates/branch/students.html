@@ -13,7 +13,7 @@
 				</colgroup>
 				<tr>
 					<th rowspan="2">Student Name</th>
-					<th colspan="3" class="row2">Monthly Report status (Student Coordi and Manager)</th>
+					<th colspan="3" class="row2">Monthly Report Status (Student Coordi and Manager)</th>
 					<th rowspan="2">Sent to Agent Date</th>
 					<th rowspan="2">Report to Parent<br />(Confirmed by Agent)</th>
 					<th rowspan="2"># of Communication Logs</th>
@@ -37,7 +37,7 @@
 						<td>{{student.student_report.manager_confirm_date|date:"Y-m-d"}}</td>
 						<td>{{student.student_report.send_to_agent_date|date:"Y-m-d"}}</td>
 						<td>{{student.student_report.report_to_parent|date:"Y-m-d"}}</td>
-						<td>{{student.num_of_logs}}</td>
+						<td>{{student.num_of_logs|default:"0"}}</td>
 						<td><a href="/student/logs/{{student.id}}" class="Button">View Logs</a></td>
 						<td class="InnerInputTD">
 							<select class="TableInnerInput" name="status">

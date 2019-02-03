@@ -504,7 +504,7 @@
 					<td class="Relationship">{{college.state|upper}}</td>
 					<td class="Relationship">{{college.school.web_url}}</td>
 					<td class="Relationship">{{college.ranking}}</td>
-					<td class="Relationship">TOEFL : {{college.toefl_requirement}} / SAT/ACT : {{college.sat_act_requirement}} / GPA : {{college.gpa_requirement}}</td>
+					<td class="Relationship">TOEFL : {{college.toefl_requirement}} / SAT/ACT : {{college.sat_act_requirement}} / GPA : {% if college.gpa_requirement == "1" %}Yes{% else %}No{% endif %}</td>
 				</tr>
 				{% endfor %}
 			</table>
