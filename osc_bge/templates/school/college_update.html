@@ -222,6 +222,17 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>TOEFL Requirement : </th>
+                    <td class="InnerInputTD">
+          {% if found_school.college.toefl_requirement %}
+                        <label><input type="text" name="toefl_requirement" placeholder="Please Enter Only Numbers.."pattern="\d*" value="{{found_school.college.toefl_requirement}}"/><span></span></label>
+          {% else %}
+                        <label><input type="text" name="toefl_requirement" placeholder="Please Enter Only Numbers.."pattern="\d*"/><span></span></label>
+          {% endif %}
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
                     <th>Tuition : </th>
                     <td class="InnerInputTD">
                         $<input type="text" name="tuition" class="TableInnerInput" style="width:calc(100% - 10px);" value="{{found_school.college.tuition}}" pattern="\d*"/>

@@ -55,7 +55,7 @@ class SecondaryView(LoginRequiredMixin, View):
                 elif toefl_requirement == '0':
                     queryset = queryset.filter(toefl_requirement__isnull=True)
                 else:
-                    queryset =queryset.filter(toefl_requirement__lte=int(toefl_requirement), toefl_requirement__isnull=False)
+                    queryset =queryset.filter(Q(toefl_requirement__lte=int(toefl_requirement)) | Q(toefl_requirement__isnull=True))
 
             state = self.request.GET.getlist('state', None)
             if state:
@@ -176,7 +176,7 @@ class CollegeView(LoginRequiredMixin, View):
                 if toefl_requirement == '100':
                     queryset = queryset.filter(toefl_requirement__gte=int(toefl_requirement), toefl_requirement__isnull=False)
                 else:
-                    queryset =queryset.filter(toefl_requirement__lte=int(toefl_requirement), toefl_requirement__isnull=False)
+                    queryset = queryset.filter(Q(toefl_requirement__lte=int(toefl_requirement)) | Q(toefl_requirement__isnull=True))
 
             state = self.request.GET.getlist('state', None)
             if state:
@@ -964,6 +964,7 @@ class CollegeSchoolUpdateView(LoginRequiredMixin, View):
         college_school.acceptance_percent = data.get('acceptance_percent')
         college_school.gpa_requirement = data.get('gpa_requirement')
         college_school.sat_act_requirement = data.get('sat_act_requirement')
+        college_school.toefl_requirement = int(data.get('toefl_requirement'))
         college_school.tuition = int(data.get('tuition')) if data.get('tuition') else None
         college_school.room_and_board = int(data.get('room_and_board')) if data.get('room_and_board') else None
         college_school.sat_25 = data.get('sat_25')
