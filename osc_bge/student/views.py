@@ -889,10 +889,15 @@ def student_transcript_chart(request, student_id=None):
             past_start_date = datetime.date(sd.year, sd.month, 1)
             past_end_date = datetime.date(ed.year, ed.month, 1)
 
+            # try:
+            #     student_report = models.StudentMonthlyReport.objects.filter(
+            #         student=found_student,
+            #         submit_date__range=(past_start_date, past_end_date)
+            #     ).latest('updated_at')
+            #     gpa = student_report.quater_gpa
             try:
                 student_report = models.StudentMonthlyReport.objects.filter(
-                    student=found_student,
-                    submit_date__range=(past_start_date, past_end_date)
+                    student=found_student
                 ).latest('updated_at')
                 gpa = student_report.quater_gpa
 
