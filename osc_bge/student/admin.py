@@ -140,3 +140,16 @@ class StudentAccountingAdmin(admin.ModelAdmin):
         "balance",
         "invoice",
     )
+
+@admin.register(models.StudentCommunicationLog)
+class StudentCommunicationLogAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "student",
+        "writer",
+        "category",
+        "priority",
+        "comment",
+        "created_at",
+        "updated_at"
+    )

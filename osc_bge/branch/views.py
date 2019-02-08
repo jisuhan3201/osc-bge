@@ -324,9 +324,11 @@ class BranchStudentsView(LoginRequiredMixin, View):
             try:
                 found_report = student_models.StudentMonthlyReport.objects.filter(student=student).latest('updated_at')
                 student.student_report = found_report
-                student.num_of_logs = student_models.StudentCommunicationLog.objects.filter(student=student, updated_at__range=(first_date, next_month)).count()
+                
             except student_models.StudentMonthlyReport.DoesNotExist:
                 continue
+
+            student.num_of_logs = student_models.StudentCommunicationLog.objects.filter(student=student, updated_at__range=(first_date, next_month)).count()
 
         last_date = datetime.date.today() + relativedelta.relativedelta(months=1, day=1) - relativedelta.relativedelta(days=1)
 
