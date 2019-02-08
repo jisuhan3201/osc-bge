@@ -37,7 +37,7 @@
 						<td>{{student.student_report.manager_confirm_date|date:"Y-m-d"}}</td>
 						<td>{{student.student_report.send_to_agent_date|date:"Y-m-d"}}</td>
 						<td>{{student.student_report.report_to_parent|date:"Y-m-d"}}</td>
-						<td>{{student.num_of_logs}}</td>
+						<td>{{student.num_of_logs|default:"0"}}</td>
 						<td><a href="/student/logs/{{student.id}}" class="Button">View Logs</a></td>
 						<td class="InnerInputTD">
 							<select class="TableInnerInput" name="status">
