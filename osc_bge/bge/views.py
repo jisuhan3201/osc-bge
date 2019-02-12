@@ -549,7 +549,7 @@ class BranchesView(LoginRequiredMixin, View):
             active_hosts = branch_hosts.filter(status='active')
             inactive_hosts = branch_hosts.filter(status='inactive')
             prospective_hosts = branch_hosts.filter(status='prospective')
-            current_student = student_models.Student.objects.filter(school__provider_branch=branch)
+            current_student = student_models.Student.objects.filter(school__provider_branch=branch).exclude(status__in=['transferred', 'graduated', 'terminated'])
             student_complaints_1 = branch_models.CommunicationLog.objects.filter(host__in=branch_hosts, category='Complaints')
             student_complaints_2 = student_models.StudentCommunicationLog.objects.filter(category='complaints', student__school__in=partner_school)
 
@@ -610,7 +610,7 @@ class BranchesView(LoginRequiredMixin, View):
                 active_hosts = active_hosts.filter(created_at__gte=start_date)
                 inactive_hosts = inactive_hosts.filter(created_at__gte=start_date)
                 prospective_hosts = prospective_hosts.filter(created_at__gte=start_date)
-                current_student = current_student.filter(created_at__gte=start_date)
+                current_student = current_student.filter(created_at__gte=start_date).exclude(status__in=['transferred', 'graduated', 'terminated'])
                 student_complaints_1 = student_complaints_1.filter(created_at__gte=start_date)
                 #student_complaints_2 = student_complaints_2.filter(created_at__gte=start_date)
 
@@ -619,7 +619,7 @@ class BranchesView(LoginRequiredMixin, View):
                 active_hosts = active_hosts.filter(created_at__lt=end_date)
                 inactive_hosts = inactive_hosts.filter(created_at__lt=end_date)
                 prospective_hosts = prospective_hosts.filter(created_at__lt=end_date)
-                current_student = current_student.filter(created_at__lt=end_date)
+                current_student = current_student.filter(created_at__lt=end_date).exclude(status__in=['transferred', 'graduated', 'terminated'])
                 student_complaints_1 = student_complaints_1.filter(created_at__lt=end_date)
                 #student_complaints_2 = student_complaints_2.filter(created_at__lt=end_date)
 
@@ -651,7 +651,7 @@ def chart_branch_statistics(request):
         active_hosts = branch_hosts.filter(status='active').count()
         inactive_hosts = branch_hosts.filter(status='inactive').count()
         prospective_hosts = branch_hosts.filter(status='prospective').count()
-        current_student = student_models.Student.objects.filter(school__provider_branch=branch).count()
+        current_student = student_models.Student.objects.filter(school__provider_branch=branch).exclude(status__in=['transferred', 'graduated', 'terminated']).count()
         student_complaints = branch_models.CommunicationLog.objects.filter(
             host__provider_branch=branch, category='Complaints').count()
 
