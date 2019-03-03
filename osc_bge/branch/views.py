@@ -651,23 +651,21 @@ class HostUpdateView(LoginRequiredMixin, View):
             found_host.provider=data.get("provider")
             found_host.save()
 
-            if data.getlist('hosting_students'):
+            #if data.getlist('hosting_students'):
+            found_host_students = models.HostStudent.objects.filter(host=found_host)
+            found_host_students.delete()
 
-                found_host_students = models.HostStudent.objects.filter(host=found_host)
-                found_host_students.delete()
+            for student in data.getlist('hosting_students'):
+                try:
+                    found_student = student_models.Student.objects.get(id=int(student))
+                except student_models.Student.DoesNotExist:
+                    return HttpResponse('Wrong Student Id', status=404)
 
-                for student in data.getlist('hosting_students'):
-                    try:
-                        found_student = student_models.Student.objects.get(id=int(student))
-                    except student_models.Student.DoesNotExist:
-                        return HttpResponse('Wrong Student Id', status=404)
-
-                    host_student = models.HostStudent(
-                        host=found_host,
-                        student=found_student,
-                    )
-                    host_student.save()
-
+                host_student = models.HostStudent(
+                    host=found_host,
+                    student=found_student,
+                )
+                host_student.save()
             #update photo, files
 
         else:
